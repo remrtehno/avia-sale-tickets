@@ -20,4 +20,9 @@ class SeatFlight extends Model
         'flight_id',
         'rating',
     ];
+
+    public function image()
+    {
+        return $this->hasOne('App\Image');
+    }
 }
