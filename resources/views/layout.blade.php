@@ -29,6 +29,11 @@
                             <a href="#">support@travelagency.com</a>
                         </div>
                         <div class="phone1">+917 3386831</div>
+                        @if (Auth::check())
+                            <div class="greetings" style="float: right; padding-left: 25px;">
+                                Привет, {{ Auth::user()->name }}
+                            </div>
+                        @endif
                         <div class="social_wrapper">
                             <ul class="social clearfix">
                                 <li>
@@ -88,7 +93,7 @@
                     <div class="top2 clearfix">
                         <header>
                             <div class="logo_wrapper">
-                                <a href="index.html" class="logo">
+                                <a href="{{ route('home') }}" class="logo">
                                     <img
                                         src="/static/images/logo.png"
                                         alt=""
@@ -119,8 +124,27 @@
                                     <li class="active">
                                         <a href="#">Главная</a>
                                     </li>
-                                    <li><a href="about.html">Регистрация</a></li>
-                                    <li><a href="about.html">Авторизация</a></li>
+                                    @guest
+                                        <li><a href="{{ route('register') }}">Регистрация</a></li>
+                                        <li><a href="{{ route('login') }}">Авторизация</a></li>
+                                    @else
+                                        <li>
+                                            
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Выйти') }}
+                                            </a>
+        
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+
+                                        
+                                        </li>
+                                        <li></li>
+                                    @endguest
+
                                 </ul>
                             </div>
                         </div>
@@ -140,7 +164,7 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="logo2_wrapper">
-                            <a href="index.html" class="logo2">
+                            <a href="{{ route('home') }}" class="logo2">
                                 <img
                                     src="/static/images/logo2.png"
                                     alt=""

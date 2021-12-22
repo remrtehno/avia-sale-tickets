@@ -750,7 +750,7 @@
                                                                             "
                                                                         >
                                                                             <a
-                                                                                href="#"
+                                                                                href="{{ route('seat-flights.show', ['seat_flight' => $item->id]) }}"
                                                                                 class="
                                                                                     btn-default
                                                                                     btn1
