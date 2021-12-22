@@ -9,6 +9,9 @@ docker-compose run --rm npm run watch
 docker-compose run --rm artisan make:factory PartnersFactory --model=PartnersModel
 docker-compose run --rm artisan migrate:refresh --seed
 
+##image
+docker-compose run --rm artisan make:model Image --migration
+
 ####
 
 docker-compose run --rm artisan make:controller SeatFlightController --resource
