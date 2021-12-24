@@ -4,3 +4,12 @@
   height: 284px;
   background-position: bottom;
 }
+
+.seat-flight-item {
+  margin-bottom: 25px;
+}
+.seat-flight-title {
+  font-size: 17px !important;
+  height: 59px;
+  overflow: hidden;
+}

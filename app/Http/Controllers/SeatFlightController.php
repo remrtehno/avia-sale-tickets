@@ -14,7 +14,9 @@ class SeatFlightController extends Controller
      */
     public function index()
     {
-        //
+        return view('seat-flights.index', [
+            'seat_flights' => SeatFlight::paginate(9)
+        ]);
     }
 
     /**
