@@ -26,6 +26,11 @@ class CreateSeatFlightsTable extends Migration
             $table->integer('price');
             $table->integer('flight_id');
             $table->integer('rating');
+            $table->text('from');
+            $table->text('to');
+            $table->timestamp('date');
+            $table->timestamp('timeDeparture');
+            $table->timestamp('timeArrival');
         });
     }
 

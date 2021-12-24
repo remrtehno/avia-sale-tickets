@@ -19,6 +19,11 @@ class SeatFlight extends Model
         'price',
         'flight_id',
         'rating',
+        'from',
+        'to',
+        'date',
+        'dateArrival',
+        'timeArrival',
     ];
 
     public function image()

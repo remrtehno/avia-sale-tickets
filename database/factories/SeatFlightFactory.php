@@ -13,6 +13,12 @@ class SeatFlightFactory extends Factory
      */
     public function definition()
     {
+        $from = collect(['Vaclav Havel (PRG)', 'Tashkent (TAS)']);
+        $to = collect(['John F. Kennedy Intl. (JFK)', 'Domodedovo (MSK)', 'Prague (PRG)']);
+
+        $randDays = random_int(0, 31);
+
+
         return [
             'img' => 'http://placehold.it/370x232',
             'title' => $this->faker->sentence(2),
@@ -23,6 +29,12 @@ class SeatFlightFactory extends Factory
             'rating' => rand(0, 5),
             'intro_title' => $this->faker->sentence(1),
             'intro' => $this->faker->sentence(10),
+            'from' => $from->random(),
+            'to' => $to->random(),
+            'date' => $this->faker->,
+            'timeDeparture' =>  date('H:i:s', rand(1, 54000)),
+            'timeArrival' => date('H:i:s', rand(1, 54000)),
+
         ];
     }
 }
