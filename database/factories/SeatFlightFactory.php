@@ -31,7 +31,7 @@ class SeatFlightFactory extends Factory
             'intro' => $this->faker->sentence(10),
             'from' => $from->random(),
             'to' => $to->random(),
-            'date' => $this->faker->,
+            'date' => date('H:i:s', rand(1, 54000)),
             'timeDeparture' =>  date('H:i:s', rand(1, 54000)),
             'timeArrival' => date('H:i:s', rand(1, 54000)),
 
