@@ -122,7 +122,10 @@
                             >
                                 <ul class="nav navbar-nav sf-menu clearfix">
                                     <li class="active">
-                                        <a href="#">Главная</a>
+                                        <a href="{{ route('home') }}">Главная</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('seat-flights.index') }}">Все рейсы</a>
                                     </li>
                                     @guest
                                         <li><a href="{{ route('register') }}">Регистрация</a></li>
