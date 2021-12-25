@@ -6,9 +6,7 @@
 </x-banner>
 
 
-<x-breadcrumbs>
-  Все рейсы
-</x-breadcrumbs>
+<x-breadcrumbs :route="'seat-flight'"></x-breadcrumbs>
 
 <div id="content">
   <div class="container">
