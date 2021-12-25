@@ -5,5 +5,10 @@
     {{ $page->title }}
   </x-breadcrumbs>
 
-  {{ $page->content }}
+  <div id="content">
+    <div class="container" style="padding: 0;">
+      {!! $page->content !!}
+    </div>
+</div>
+
 @endsection
