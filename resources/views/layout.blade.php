@@ -120,16 +120,21 @@
                                     collapse
                                 "
                             >
+                            {{--  @TODO: Replace Route::is to something better  --}}
                                 <ul class="nav navbar-nav sf-menu clearfix">
-                                    <li class="active">
+                                    <li class="{{ request()->is('home')  ? 'active' : ''}}">
                                         <a href="{{ route('home') }}">Главная</a>
                                     </li>
-                                    <li>
+                                    <li  class="{{ (request()->is('seat-flights/*') or request()->is('seat-flights'))  ? 'active' : ''}}">
                                         <a href="{{ route('seat-flights.index') }}">Все рейсы</a>
                                     </li>
                                     @guest
-                                        <li><a href="{{ route('register') }}">Регистрация</a></li>
-                                        <li><a href="{{ route('login') }}">Авторизация</a></li>
+                                        <li class="{{ request()->is('register')  ? 'active' : ''}}">
+                                            <a href="{{ route('register') }}">Регистрация</a>
+                                        </li>
+                                        <li class="{{ request()->is('login')  ? 'active' : ''}}">
+                                            <a href="{{ route('login') }}">Авторизация</a>
+                                        </li>
                                     @else
                                         <li>
                                             
