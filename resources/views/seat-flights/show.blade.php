@@ -6,7 +6,7 @@
 </x-banner>
 
 
-<x-breadcrumbs>
+<x-breadcrumbs :route="'seat-flight'">
   {{ $seat_flight->title }}
 </x-breadcrumbs>
 
