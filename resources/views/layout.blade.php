@@ -208,10 +208,10 @@
             <div class="container">
                 <div class="left_side">
                     Copyright © {{ date('Y') }}
-                    <span>|</span> <a href="#">Privacy Policy</a>
-                    <span>|</span> <a href="#">About Us</a> <span>|</span>
-                    <a href="#">FAQ</a> <span>|</span>
-                    <a href="#">Contact</a>
+                    @foreach ($footerMenu as $link)
+                        <span>|</span> 
+                        <a href="{{ route('page', ['page' => $link->slug]) }}">{{ $link->title }}</a>
+                    @endforeach
                 </div>
                 <div class="right_side">
                     

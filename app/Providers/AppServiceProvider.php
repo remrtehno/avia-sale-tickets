@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Http\ViewComposers\FooterMenuComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapThree();
         Blade::component('components.breadcrumbs', 'breadcrumbs');
+
+        //footer navigation
+        view()->composer('*', FooterMenuComposer::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SeatFlightController;
 
 /*
@@ -15,10 +16,18 @@ use App\Http\Controllers\SeatFlightController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-
-
-Auth::routes();
-
+//single pages
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index']);
+//@TODO $ - need to replace because we can see {page}%24
+Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
+
+
+//resources
 Route::resource('seat-flights', SeatFlightController::class);
+
+
+
+
+//prebuilted functions
+Auth::routes();

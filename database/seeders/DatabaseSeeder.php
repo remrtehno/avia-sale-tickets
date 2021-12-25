@@ -14,7 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        \App\Models\SeatFlight::factory(30)->create();
-        \App\Models\Partners::factory(6)->create();
+
+
+        $this->call([
+            PagesTableSeeder::class,
+            SeatFlightTableSeeder::class,
+            PartnerTableSeeder::class,
+        ]);
     }
 }
