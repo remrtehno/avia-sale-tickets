@@ -13,3 +13,7 @@
   height: 59px;
   overflow: hidden;
 }
+
+.d-flex {
+  display: flex;
+}

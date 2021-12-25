@@ -1,7 +1,7 @@
 @unless ($breadcrumbs->isEmpty())
 <div class="breadcrumbs1_wrapper">
   <div class="container">
-    <div class="breadcrumbs1">
+    <div class="breadcrumbs1 d-flex">
         @foreach ($breadcrumbs as $breadcrumb)
 
             @if (!is_null($breadcrumb->url) && !$loop->last)
