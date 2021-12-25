@@ -9,8 +9,12 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 //home
-Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('home', function (BreadcrumbTrail $trail,  $slot) {
   $trail->push('Home', route('home'));
+
+  if ($slot) {
+    $trail->push($slot);
+  }
 });
 
 // seat-flight archive
