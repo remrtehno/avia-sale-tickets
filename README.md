@@ -26,3 +26,10 @@ $columns = \Schema::getColumnListing('<table_name>');
 docker-compose run --rm artisan make:model -m Partners
 
 \App\Models\Partners::factory(10)->create();
+
+###
+
+Carbon
+$seat_flight->date->format('F d Y') -> DECEMBER 25 2021
+format('M d, Y') -> DEC 25, 2021
+https://www.php.net/manual/en/function.date

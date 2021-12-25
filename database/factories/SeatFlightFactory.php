@@ -13,8 +13,8 @@ class SeatFlightFactory extends Factory
      */
     public function definition()
     {
-        $from = collect(['Vaclav Havel (PRG)', 'Tashkent (TAS)']);
-        $to = collect(['John F. Kennedy Intl. (JFK)', 'Domodedovo (MSK)', 'Prague (PRG)']);
+        $from = collect(['Vaclav Havel (PRG)', 'Tashkent (TAS)', 'Austria (AST)', 'India (IND)', 'Kazakhstan (KZH)']);
+        $to = collect(['John F. Kennedy Intl. (JFK)', 'Domodedovo (MSK)', 'Prague (PRG)', 'Canada (CND)', 'Germany (GMN)']);
 
         $randDays = random_int(0, 31);
 

@@ -41,14 +41,14 @@
                           <div class="post-story-body clearfix">
 
 
-                              <h3>Apr 20, 2017</h3>
+                              <h3>{{ $seat_flight->date->format('M d, Y')   }}</h3>
                               <ul>
 
                                   <li>Откуда: {{ $seat_flight->from }}</li>
                                   <li>Куда: {{ $seat_flight->to }}</li>
 
                               </ul>
-                              <h5>2:25pm (PRG) -> 7:25pm (JFK)</h5>
+                              <h5> {{ $seat_flight->getInfoTimeAndAirports() }}</h5>
                               <hr>
                               <h4>Details:</h4>
                               <h5>2:25pm -> 4:00pm / 1h 35m</h5>

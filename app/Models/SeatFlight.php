@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class SeatFlight extends Model
 {
     use HasFactory;
+
+    // Carbon instance fields
+
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'timeDeparture', 'timeArrival', 'date'];
 
     protected $fillable = [
         'img',
@@ -29,5 +34,20 @@ class SeatFlight extends Model
     public function image()
     {
         return $this->hasOne('App\Image');
+    }
+
+    public function getTimeDepartureWithNameFrom()
+    {
+        return $this->timeDeparture->format('H:m') . ' ' . $this->from;
+    }
+
+    public function getTimeArrivalWithNameTo()
+    {
+        return $this->timeArrival->format('H:m') . ' ' . $this->to;
+    }
+
+    public function getInfoTimeAndAirports()
+    {
+        return $this->getTimeDepartureWithNameFrom() . ' -> ' . $this->getTimeArrivalWithNameTo();
     }
 }
