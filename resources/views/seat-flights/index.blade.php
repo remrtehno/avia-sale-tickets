@@ -137,11 +137,14 @@
                         <div class="thumb4">
                             <div class="thumbnail clearfix">
                                 <figure>
-                                    <img src="{{ $seat_flight->img }}" alt=""
+                                    <img src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
                                          class="img-responsive">
                                 </figure>
                                 <div class="caption">
                                     <div class="txt1 seat-flight-title">{{ $seat_flight->from }} - {{ $seat_flight->to }}</div>
+                                    
+                                    <div class="txt1 seat-flight-title">{{ $seat_flight->getDate() }}</div>
+                                   
                                     <div class="txt3 clearfix">
                                         <div class="left_side">
                                             <div class="price">{{ $seat_flight->price }}$</div>
@@ -149,7 +152,7 @@
                                         </div>
                                         <div class="right_side">
                                           <a href="{{ route('seat-flights.show', ['seat_flight' => $seat_flight->id]) }}"
-                                                                   class="btn-default btn1">Details</a>
+                                                                   class="btn-default btn1">Перейти</a>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +161,7 @@
                     </div>
                   @endforeach
 
-                  {{ $seat_flights ->links() }}
+                  {{ $seat_flights->links() }}
                    
                 </div>
 

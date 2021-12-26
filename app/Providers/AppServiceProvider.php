@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\ContactsComposer;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Http\ViewComposers\FooterMenuComposer;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
 
         //footer navigation
         view()->composer('*', FooterMenuComposer::class);
+        view()->composer('*', ContactsComposer::class);
     }
 }

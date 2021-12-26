@@ -26,3 +26,35 @@ $columns = \Schema::getColumnListing('<table_name>');
 docker-compose run --rm artisan make:model -m Partners
 
 \App\Models\Partners::factory(10)->create();
+
+###
+
+Carbon
+$seat_flight->date->format('F d Y') -> DECEMBER 25 2021
+format('M d, Y') -> DEC 25, 2021
+https://www.php.net/manual/en/function.date
+
+1. Change locale and modify output language:
+
+use Carbon\Carbon;
+...
+
+```
+$boringLanguage = 'ru';
+$translator = \Carbon\Carbon::getTranslator($boringLanguage);
+$transformDiff = function ($input) {
+    return strtr($input, [
+    'неделя' => 'неделю',
+    'секунда' => 'секунду',
+    'минута' => 'минуту',
+  ]);
+};
+$translator->setTranslations([
+    'day' => ':count boring day|:count boring days',
+    'after' => function ($time) use ($transformDiff) {
+        return $transformDiff($time) . '';
+}
+]);
+
+// \Carbon\Carbon::setLocale('es');
+```

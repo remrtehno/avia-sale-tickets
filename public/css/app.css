@@ -1,3 +1,7 @@
+* {
+  font-feature-settings: "lnum" 1;
+}
+
 .banner {
   background-image: url(/static/images/banner.jpg);
   width: 100%;
@@ -14,6 +18,14 @@
   overflow: hidden;
 }
 
+.phone2 {
+  font-size: 27px;
+}
+
 .d-flex {
   display: flex;
+}
+
+.arrow-separator {
+  vertical-align: 10%;
 }
