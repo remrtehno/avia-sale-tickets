@@ -36,6 +36,13 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
+    //dates
+
+    public function getDate()
+    {
+        return $this->date->format('M d, Y');
+    }
+
     public function getTimeDepartureWithNameFrom()
     {
         return $this->timeDeparture->format('H:m') . ' ' . $this->from;
