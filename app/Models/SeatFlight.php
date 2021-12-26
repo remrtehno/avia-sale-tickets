@@ -48,9 +48,23 @@ class SeatFlight extends Model
 
     public function getInfoTimeAndAirports()
     {
-
         return $this->getTimeDepartureWithNameFrom()
             . Config::get('constants.time_separator')
             . $this->getTimeArrivalWithNameTo();
+    }
+
+    public function getTimeOnly()
+    {
+        return $this->timeDeparture->format('H:m')
+            . Config::get('constants.time_separator')
+            . $this->timeArrival->format('H:m');
+    }
+
+    public function getDuration()
+    {
+        return $this->timeArrival->diffForHumans($this->timeDeparture, [
+            'parts' => 2,
+            'short' => true
+        ]);
     }
 }

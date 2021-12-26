@@ -51,7 +51,7 @@
                               <h5> {{ $seat_flight->getInfoTimeAndAirports() }}</h5>
                               <hr>
                               <h4>Details:</h4>
-                              <h5>2:25pm -> 4:00pm / 1h 35m</h5>
+                              <h5>{{ $seat_flight->getTimeOnly() }} /{{ $seat_flight->getDuration() }}</h5>
                               <ul>
                                   <li>From Vaclav Havel (PRG)</li>
                                   <li>To Schiphol (AMS)</li>
