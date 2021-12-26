@@ -26,9 +26,9 @@
                 <div class="container">
                     <div class="top1 clearfix">
                         <div class="email1">
-                            <a href="#">support@travelagency.com</a>
+                            {!! $contacts->email_header !!}
                         </div>
-                        <div class="phone1">+917 3386831</div>
+                        <div class="phone1">{!! $contacts->phone_header !!}</div>
                         @if (Auth::check())
                             <div class="greetings" style="float: right; padding-left: 25px;">
                                 Привет, {{ Auth::user()->name }}
@@ -36,30 +36,33 @@
                         @endif
                         <div class="social_wrapper">
                             <ul class="social clearfix">
+                                @if(trim($contacts->facebook))
                                 <li>
-                                    <a href="#"
+                                    <a href="{!! $contacts->facebook !!}"
                                         ><i class="fa fa-facebook"></i
                                     ></a>
                                 </li>
+                                @endif
+                                @if(trim($contacts->twitter))
                                 <li>
-                                    <a href="#"
+                                    <a href="{!! $contacts->twitter !!}"
                                         ><i class="fa fa-twitter"></i
                                     ></a>
                                 </li>
+                                @endif
+                                @if(trim($contacts->google_plus))
                                 <li>
-                                    <a href="#"><i class="fa fa-google-plus"></i
+                                    <a href="{!! $contacts->google_plus !!}"><i class="fa fa-google-plus"></i
                                     ></a>
                                 </li>
+                                @endif
+                                @if(trim($contacts->instagram))
                                 <li>
-                                    <a href="#"
+                                    <a href="{!! $contacts->instagram !!}"
                                         ><i class="fa fa-instagram"></i
                                     ></a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        ><i class="fa fa-vimeo-square"></i
-                                    ></a>
-                                </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="lang1">
@@ -195,9 +198,9 @@
                         
                     </div>
                     <div class="col-sm-3">
-                        <div class="phone2">1-917-338-6831</div>
+                        <div class="phone2">{!! $contacts->phone_footer !!}</div>
                         <div class="support1">
-                            <a href="#">support@templates-support.com</a>
+                            {!! $contacts->email_footer !!}
                         </div>
                     </div>
                 </div>

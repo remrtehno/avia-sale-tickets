@@ -2,13 +2,13 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Pages;
+use App\Models\Contacts;
 use Illuminate\View\View;
 
-class FooterMenuComposer
+class ContactsComposer
 {
   public function compose(View $view)
   {
-    $view->with('footerMenu', Pages::all());
+    $view->with('contacts', Contacts::first());
   }
 }

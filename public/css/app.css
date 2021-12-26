@@ -18,6 +18,10 @@
   overflow: hidden;
 }
 
+.phone2 {
+  font-size: 27px;
+}
+
 .d-flex {
   display: flex;
 }

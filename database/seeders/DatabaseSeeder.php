@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PagesTableSeeder::class,
             SeatFlightTableSeeder::class,
             PartnerTableSeeder::class,
+            ContactsTableSeeder::class,
         ]);
     }
 }
