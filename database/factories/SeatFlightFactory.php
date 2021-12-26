@@ -18,19 +18,35 @@ class SeatFlightFactory extends Factory
 
         $randDays = random_int(0, 31);
 
+        $html_content = "
+        <ul>
+            <li>From Vaclav Havel (PRG)</li>
+            <li>To Schiphol (AMS)</li>
+            <li>KLM 1356</li>
+            <li>BOEING 737-800 (WINGLETS) PASSENGER | Snack</li>
+            <li>Economy/Coach (L)</li>
+            <li><a href=\"#\">Preview availability</a></li>
+            <li>Total distance: 439 mi</li>
+            <li><b>1h 20m stop / in Amsterdam (AMS)</b></li>
+        </ul>
+        ";
+
 
         return [
-            'img' => 'http://placehold.it/370x232',
+            //text
             'title' => $this->faker->sentence(2),
-            'description' => $this->faker->paragraph(2, true),
-            'content' => $this->faker->paragraph(5, true),
-            'price' => rand(110, 2150),
-            'flight_id' => rand(0, 150),
-            'rating' => rand(0, 5),
+            'description' => $this->faker->paragraph(2),
+            'content' => $html_content . $this->faker->paragraph(5),
             'intro_title' => $this->faker->sentence(1),
             'intro' => $this->faker->sentence(10),
             'from' => $from->random(),
             'to' => $to->random(),
+
+            //meta data
+            'img' => 'http://placehold.it/370x232',
+            'price' => rand(110, 2150),
+            'flight_id' => rand(0, 150),
+            'rating' => rand(0, 5),
             'date' => date('H:i:s', rand(1, 54000)),
             'timeDeparture' =>  date('H:i:s', rand(1, 54000)),
             'timeArrival' => date('H:i:s', rand(1, 54000)),

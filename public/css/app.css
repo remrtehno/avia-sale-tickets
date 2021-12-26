@@ -1,3 +1,7 @@
+* {
+  font-feature-settings: "lnum" 1;
+}
+
 .banner {
   background-image: url(/static/images/banner.jpg);
   width: 100%;
@@ -16,4 +20,8 @@
 
 .d-flex {
   display: flex;
+}
+
+.arrow-separator {
+  vertical-align: 10%;
 }
