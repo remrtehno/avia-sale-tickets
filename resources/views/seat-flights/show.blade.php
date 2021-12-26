@@ -46,7 +46,7 @@
                                     {!! $seat_flight->description !!}
                                 </div>
 
-                              <h3>{{ $seat_flight->date->format('M d, Y') }}</h3>
+                              <h3>{{ $seat_flight->getDate() }}</h3>
                               <ul>
 
                                   <li>Откуда: {{ $seat_flight->from }}</li>
