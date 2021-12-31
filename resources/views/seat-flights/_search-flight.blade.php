@@ -9,13 +9,14 @@
       </div>
       <div class="tabs_content tabs1_content">
           <div id="tabs-1">
-              <form action="javascript:;" class="form1">
+              <form action="{{ $route }}" method="get" class="form1">
                   <div class="row">
                       <div class="col-sm-4 col-md-2">
                           <div class="select1_wrapper">
                               <label>Flying from:</label>
                               <div class="select1_inner">
                                   <select
+                                    name="from"
                                       class="
                                           select2
                                           select
@@ -55,6 +56,7 @@
                               <label>To:</label>
                               <div class="select1_inner">
                                   <select
+                                  name="to"
                                       class="
                                           select2
                                           select
@@ -94,6 +96,7 @@
                               <label>Departing:</label>
                               <div class="input1_inner">
                                   <input
+                                      name="departing"
                                       type="text"
                                       class="
                                           input
@@ -109,6 +112,7 @@
                               <label>Returning:</label>
                               <div class="input1_inner">
                                   <input
+                                    name="returning"
                                       type="text"
                                       class="
                                           input

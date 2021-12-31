@@ -29,8 +29,8 @@ class CreateSeatFlightsTable extends Migration
             $table->text('from');
             $table->text('to');
             $table->timestamp('date');
-            $table->timestamp('timeDeparture');
-            $table->timestamp('timeArrival');
+            $table->timestamp('departure');
+            $table->timestamp('returning');
         });
     }
 

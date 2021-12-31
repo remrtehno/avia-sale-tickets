@@ -12,7 +12,7 @@ class SeatFlight extends Model
     use HasFactory;
 
     // Carbon instance fields
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'timeDeparture', 'timeArrival', 'date'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'departure', 'returning', 'date'];
 
     protected $fillable = [
         'img',
@@ -45,31 +45,31 @@ class SeatFlight extends Model
 
     public function getTimeDepartureWithNameFrom()
     {
-        return $this->timeDeparture->format('H:m') . ' ' . $this->from;
+        return $this->departure->format('H:m') . ' ' . $this->from;
     }
 
-    public function getTimeArrivalWithNameTo()
+    public function getTimeReturningWithNameTo()
     {
-        return $this->timeArrival->format('H:m') . ' ' . $this->to;
+        return $this->returning->format('H:m') . ' ' . $this->to;
     }
 
     public function getInfoTimeAndAirports()
     {
         return $this->getTimeDepartureWithNameFrom()
             . Config::get('constants.time_separator')
-            . $this->getTimeArrivalWithNameTo();
+            . $this->getTimeReturningWithNameTo();
     }
 
     public function getTimeOnly()
     {
-        return $this->timeDeparture->format('H:m')
+        return $this->departure->format('H:m')
             . Config::get('constants.time_separator')
-            . $this->timeArrival->format('H:m');
+            . $this->returning->format('H:m');
     }
 
     public function getDuration()
     {
-        return $this->timeArrival->diffForHumans($this->timeDeparture, [
+        return $this->returning->diffForHumans($this->departure, [
             'parts' => 2,
             'short' => true
         ]);

@@ -12,7 +12,7 @@
   <div class="container">
 
       <div class="tabs_wrapper tabs1_wrapper">
-          @include('seat-flights._search-flight')
+          @include('seat-flights._search-flight', ['route' => '?'])
 
           <div class="row">
             <div class="col-sm-3">
