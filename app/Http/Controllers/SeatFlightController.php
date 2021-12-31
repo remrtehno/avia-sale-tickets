@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\SeatFlight;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class SeatFlightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SearchRequest $request)
     {
         return view('seat-flights.index', [
             'seat_flights' => SeatFlight::paginate(9)

@@ -23,7 +23,7 @@
                                       "
                                       style="width: 100%"
                                   >
-                                      <option value="1">
+                                      <option value="1" checked>
                                           City or Airport
                                       </option>
                                       <option value="2">
@@ -102,7 +102,7 @@
                                           input
                                           datepicker
                                       "
-                                      value="Mm/Dd/Yy"
+                                      placeholder="Mm/Dd/Yy"
                                   />
                               </div>
                           </div>
@@ -118,7 +118,7 @@
                                           input
                                           datepicker
                                       "
-                                      value="Mm/Dd/Yy"
+                                      placeholder="Mm/Dd/Yy"
                                   />
                               </div>
                           </div>
@@ -128,6 +128,7 @@
                               <label>Adult:</label>
                               <div class="select1_inner">
                                   <select
+                                      name="adult"
                                       class="
                                           select2
                                           select
@@ -175,6 +176,9 @@
                                       "
                                       style="width: 100%"
                                   >
+                                        <option value="0">
+                                        0
+                                        </option>
                                       <option value="1">
                                           1
                                       </option>
@@ -222,3 +226,4 @@
       </div>
   </div>
 </div>
+<x-errors></x-errors>
