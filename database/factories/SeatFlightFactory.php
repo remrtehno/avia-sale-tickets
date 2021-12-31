@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+
 
 class SeatFlightFactory extends Factory
 {
@@ -32,6 +35,12 @@ class SeatFlightFactory extends Factory
         ";
 
 
+
+
+        //create images
+        $path = '/static/mock/' . Str::random(10) . '.jpg';
+        Image::make('https://picsum.photos/370/232?random=12965')->save(public_path($path));
+
         return [
             //text
             'title' => $this->faker->sentence(2),
@@ -43,7 +52,7 @@ class SeatFlightFactory extends Factory
             'to' => $to->random(),
 
             //meta data
-            'img' => 'http://placehold.it/370x232',
+            'img' =>  $path,
             'price' => rand(110, 2150),
             'flight_id' => rand(0, 150),
             'rating' => rand(0, 5),

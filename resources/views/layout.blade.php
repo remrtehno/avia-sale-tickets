@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>Avia</title>
+        <title>{{ config('app.name', 'InAvia Online') }}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {{--  //seo  --}}
         <meta name="description" content="Your description">
         <meta name="keywords" content="Your keywords">
         <meta name="author" content="Your name">
@@ -125,7 +127,7 @@
                             >
                             {{--  @TODO: Replace Route::is to something better  --}}
                                 <ul class="nav navbar-nav sf-menu clearfix">
-                                    <li class="{{ request()->is('home')  ? 'active' : ''}}">
+                                    <li class="{{ (request()->is('home') or request()->is('/'))  ? 'active' : ''}}">
                                         <a href="{{ route('home') }}">Главная</a>
                                     </li>
                                     <li  class="{{ (request()->is('seat-flights/*') or request()->is('seat-flights'))  ? 'active' : ''}}">
