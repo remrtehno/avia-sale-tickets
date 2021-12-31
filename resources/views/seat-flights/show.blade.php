@@ -229,6 +229,7 @@
 
                         <div class="col-md-6" style="padding-right:0;padding-left:0;">
                             <span class="red">New-York</span>
+                            {{--  @TODO Do we need create separate codenames "JFK,TAS,PRG...."?   --}}
                             <br>John F.Kennedy lntl. (JFK)
                         </div>
                     </div>
