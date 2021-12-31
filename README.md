@@ -9,8 +9,20 @@ docker-compose run --rm npm run watch
 docker-compose run --rm artisan make:factory PartnersFactory --model=PartnersModel
 docker-compose run --rm artisan migrate:refresh --seed
 
+##rebuild
+Re-build the containers by running: docker-compose build --no-cache
+
 ##image
+https://hub.docker.com/r/rhamdeew/docker-php-8-fpm-alpine/dockerfile
+RUN apk add --no-cache --virtual build-essentials \
+ icu-dev icu-libs zlib-dev g++ make automake autoconf libzip-dev \
+ libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
+ docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
+ docker-php-ext-install gd
 docker-compose run --rm artisan make:model Image --migration
+
+https://smknstd.medium.com/fake-beautiful-images-in-laravel-51062967d1db
+removing images https://stackoverflow.com/questions/62429023/how-to-create-a-factory-with-images-for-testing
 
 ####
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Filesystem\Filesystem;
 
 class SeatFlightTableSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class SeatFlightTableSeeder extends Seeder
      */
     public function run()
     {
+        //clean directory
+        $file = new Filesystem;
+        $file->cleanDirectory(public_path('/static/mock/'));
         \App\Models\SeatFlight::factory(30)->create();
     }
 }
