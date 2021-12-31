@@ -2,13 +2,16 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 
 class SeatFlightFactory extends Factory
 {
+    use InteractsWithTime;
     /**
      * Define the model's default state.
      *
@@ -34,8 +37,9 @@ class SeatFlightFactory extends Factory
         </ul>
         ";
 
-
-
+        $date = now()->addDays(rand(0, 120))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
+        $timeDeparture = now()->addHours(rand(0, 5))->getTimestamp();
+        $timeArrival = now()->addHours(rand(5, 10))->addMinute(0, 59)->getTimestamp();
 
         //create images
         $path = '/static/mock/' . Str::random(10) . '.jpg';
@@ -56,9 +60,9 @@ class SeatFlightFactory extends Factory
             'price' => rand(110, 2150),
             'flight_id' => rand(0, 150),
             'rating' => rand(0, 5),
-            'date' => date('H:i:s', rand(1, 54000)),
-            'timeDeparture' =>  date('H:i:s', rand(1, 54000)),
-            'timeArrival' => date('H:i:s', rand(1, 54000)),
+            'date' => $date,
+            'timeDeparture' => $timeDeparture,
+            'timeArrival' => $timeArrival,
 
         ];
     }
