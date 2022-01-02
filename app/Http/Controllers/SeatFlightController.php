@@ -22,7 +22,7 @@ class SeatFlightController extends Controller
 
         return view('seat-flights.index', [
             'seat_flights' => SeatFlight::paginate(9),
-            "search_list_cities" => SeatFlight::select('from', 'to')->get()->toJson(),
+            "search_list_cities" => SeatFlight::select('from', 'to')->get(),
         ]);
     }
 

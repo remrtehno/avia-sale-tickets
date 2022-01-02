@@ -22,6 +22,7 @@
                                     class-name="select2 select" 
                                     options="{{ $search_list_cities }}"
                                     pluck="from"
+                                    value="{{ request('from') }}"
                                     >
                                 </select-component>  
                                 @endif
@@ -38,6 +39,7 @@
                                     class-name="select2 select" 
                                     options="{{ $search_list_cities }}"
                                     pluck="to"
+                                    value="{{ request('to') }}"
                                     >
                                 </select-component>  
                                 @endif
@@ -48,15 +50,12 @@
                           <div class="input1_wrapper">
                               <label>Departing:</label>
                               <div class="input1_inner">
-                                  <input
-                                      name="departing"
-                                      type="text"
-                                      class="
-                                          input
-                                          datepicker
-                                      "
-                                      placeholder="Mm/Dd/Yy"
-                                  />
+                                <v-date-picker 
+                                name="departing"
+                                class="input" 
+                                locale="ru"
+                                value="{{ request('departing') }}"
+                                ></v-date-picker>
                               </div>
                           </div>
                       </div>
@@ -64,15 +63,12 @@
                           <div class="input1_wrapper">
                               <label>Returning:</label>
                               <div class="input1_inner">
-                                  <input
-                                    name="returning"
-                                      type="text"
-                                      class="
-                                          input
-                                          datepicker
-                                      "
-                                      placeholder="Mm/Dd/Yy"
-                                  />
+                                <v-date-picker
+                                name="returning"
+                                class="input" 
+                                locale="ru"
+                                value="{{ request('returning') }}"
+                                ></v-date-picker>
                               </div>
                           </div>
                       </div>
@@ -81,13 +77,14 @@
                               <label>Adult:</label>
                               <div class="select1_inner">
                                   <select
-                                      name="adult"
                                       class="
                                           select2
                                           select
                                           select3
                                       "
                                       style="width: 100%"
+                                      data-value="{{ request('adult') }}"
+                                      name="adult"
                                   >
                                       <option value="1">
                                           1
@@ -128,6 +125,8 @@
                                           select3
                                       "
                                       style="width: 100%"
+                                      data-value="{{ request('child') }}"
+                                      name="child"
                                   >
                                         <option value="0">
                                         0

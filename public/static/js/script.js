@@ -333,6 +333,14 @@ $(document).ready(function () {
         // minimumResultsForSearch: Infinity,
     });
 
+    $(".select2[data-value]").each(function (_, el) {
+        var currentValue = $(el).data("value");
+        if (!!currentValue) {
+            console.log(currentValue);
+            $(el).val(currentValue).trigger("change");
+        }
+    });
+
     // datapicker
     $(".datepicker").datepicker({
         orientation: "top",

@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@mathieustan/vue-datepicker": "^0.2.11",
         "ramda": "^0.27.1",
         "vue-select": "^3.16.0"
     }

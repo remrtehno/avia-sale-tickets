@@ -1,7 +1,11 @@
 <template>
     <div>
         <select :name="name" :class="className">
-            <option v-for="option in dataOptions" :key="option">
+            <option
+                :selected="value === option"
+                v-for="option in dataOptions"
+                :key="option"
+            >
                 {{ option }}
             </option>
         </select>
@@ -12,7 +16,7 @@
 import { pipe, pluck, uniq } from "ramda";
 
 export default {
-    props: ["options", "name", "className", "pluck"],
+    props: ["options", "name", "className", "pluck", "value"],
     mounted() {
         if (this.options && this.pluck) {
             this.dataOptions = pipe(
@@ -21,7 +25,7 @@ export default {
             )(JSON.parse(this.options));
         }
     },
-
+    computed() {},
     data() {
         return {
             dataOptions: [],
