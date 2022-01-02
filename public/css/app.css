@@ -21,6 +21,26 @@
   filter: invert(0.4);
 }
 
+.select2-dropdown {
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+          animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.select2-search--dropdown {
+  padding: 0;
+}
+
+.select2 {
+  z-index: 1;
+}
+
+.select2-results__option {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .banner {
   background-image: url(/static/images/banner.jpg);
   width: 100%;

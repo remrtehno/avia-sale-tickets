@@ -161,7 +161,7 @@
                     </div>
                   @endforeach
 
-                  {{ $seat_flights->links() }}
+                  {{ $seat_flights->withQueryString()->links() }}
                    
                 </div>
 

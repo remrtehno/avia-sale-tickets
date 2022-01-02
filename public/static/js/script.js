@@ -328,10 +328,23 @@ $(document).ready(function () {
     }
 
     // Select2.
-    $(".select2").select2({
-        // containerCss: ".eeeeeee",
-        // minimumResultsForSearch: Infinity,
-    });
+    $(".select2")
+        .select2({
+            // containerCss: ".eeeeeee",
+            // minimumResultsForSearch: Infinity,
+        })
+        .on("select2:open", function (e) {
+            $(".select2-dropdown").hide();
+            setTimeout(function () {
+                jQuery(".select2-dropdown")
+                    .css({
+                        visibility: "visible",
+                        transformOrigin: "left top",
+                    })
+                    .addClass("animated zoomIn faster")
+                    .show();
+            });
+        });
 
     $(".select2[data-value]").each(function (_, el) {
         var currentValue = $(el).data("value");
