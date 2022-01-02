@@ -13,7 +13,8 @@ class HomeController extends Controller
 
         return view('home', [
             "seatFlight" => SeatFlight::orderBy('rating', 'desc')->take(6)->get(),
-            "partners" => Partners::take(7)->get()
+            "partners" => Partners::take(7)->get(),
+            "search_list_cities" => SeatFlight::select('from', 'to')->get(),
         ]);
     }
 }

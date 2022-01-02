@@ -228,7 +228,10 @@
 
         <div id="front_tabs">
             <div class="container">
-                @include('seat-flights._search-flight', ['route' => route('seat-flights.index')])
+                @include('seat-flights._search-flight', [
+                    'route' => route('seat-flights.index'), 
+                    'search_list_cities' => $search_list_cities,
+                    ])
             </div>
         </div>
 

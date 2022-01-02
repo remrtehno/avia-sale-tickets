@@ -24,11 +24,11 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'to' => 'required|string',
-            'from' => 'required|string',
-            'departing' => 'required',
-            'returning' => 'required',
-            'adult' => 'required|string',
+            'to' => 'nullable|string',
+            'from' => 'nullable|string',
+            'departing' => 'nullable|string',
+            'returning' => 'nullable|string',
+            'adult' => 'nullable|string',
             'child' => 'nullable|string',
         ];
     }

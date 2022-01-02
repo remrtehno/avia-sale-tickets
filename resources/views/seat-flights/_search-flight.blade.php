@@ -1,3 +1,4 @@
+ 
 <div class="tabs_wrapper tabs1_wrapper">
   <div class="tabs tabs1">
       <div class="tabs_tabs tabs1_tabs">
@@ -15,39 +16,15 @@
                           <div class="select1_wrapper">
                               <label>Flying from:</label>
                               <div class="select1_inner">
-                                  <select
-                                    name="from"
-                                      class="
-                                          select2
-                                          select
-                                      "
-                                      style="width: 100%"
-                                  >
-                                      <option value="1" checked>
-                                          City or Airport
-                                      </option>
-                                      <option value="2">
-                                          Alaska
-                                      </option>
-                                      <option value="3">
-                                          Bahamas
-                                      </option>
-                                      <option value="4">
-                                          Bermuda
-                                      </option>
-                                      <option value="5">
-                                          Canada
-                                      </option>
-                                      <option value="6">
-                                          Caribbean
-                                      </option>
-                                      <option value="7">
-                                          Europe
-                                      </option>
-                                      <option value="8">
-                                          Hawaii
-                                      </option>
-                                  </select>
+                                @if(isSet($search_list_cities))
+                                <select-component 
+                                    name="from"  
+                                    class-name="select2 select" 
+                                    options="{{ $search_list_cities }}"
+                                    pluck="from"
+                                    >
+                                </select-component>  
+                                @endif
                               </div>
                           </div>
                       </div>
@@ -55,39 +32,15 @@
                           <div class="select1_wrapper">
                               <label>To:</label>
                               <div class="select1_inner">
-                                  <select
-                                  name="to"
-                                      class="
-                                          select2
-                                          select
-                                      "
-                                      style="width: 100%"
-                                  >
-                                      <option value="1">
-                                          City or Airport
-                                      </option>
-                                      <option value="2">
-                                          Alaska
-                                      </option>
-                                      <option value="3">
-                                          Bahamas
-                                      </option>
-                                      <option value="4">
-                                          Bermuda
-                                      </option>
-                                      <option value="5">
-                                          Canada
-                                      </option>
-                                      <option value="6">
-                                          Caribbean
-                                      </option>
-                                      <option value="7">
-                                          Europe
-                                      </option>
-                                      <option value="8">
-                                          Hawaii
-                                      </option>
-                                  </select>
+                                @if(isSet($search_list_cities))
+                                <select-component 
+                                    name="to"  
+                                    class-name="select2 select" 
+                                    options="{{ $search_list_cities }}"
+                                    pluck="to"
+                                    >
+                                </select-component>  
+                                @endif
                               </div>
                           </div>
                       </div>

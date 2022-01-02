@@ -15,8 +15,14 @@ class SeatFlightController extends Controller
      */
     public function index(SearchRequest $request)
     {
+
+
+
+
+
         return view('seat-flights.index', [
-            'seat_flights' => SeatFlight::paginate(9)
+            'seat_flights' => SeatFlight::paginate(9),
+            "search_list_cities" => SeatFlight::select('from', 'to')->get()->toJson(),
         ]);
     }
 
