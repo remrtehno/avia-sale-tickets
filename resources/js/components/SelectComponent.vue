@@ -1,6 +1,7 @@
 <template>
     <div>
         <select :name="name" :class="className">
+            <option value="">Не выбрано</option>
             <option
                 :selected="value === option"
                 v-for="option in dataOptions"
@@ -24,8 +25,9 @@ export default {
                 uniq
             )(JSON.parse(this.options));
         }
+
+        console.log(!this.value);
     },
-    computed() {},
     data() {
         return {
             dataOptions: [],

@@ -24,6 +24,8 @@ class CreateSeatFlightsTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->integer('price');
+            $table->string('adult');
+            $table->string('child');
             $table->integer('flight_id');
             $table->integer('rating');
             $table->text('from');

@@ -51,10 +51,10 @@
                               <label>Departing:</label>
                               <div class="input1_inner">
                                 <v-date-picker 
-                                name="departing"
+                                name="departure"
                                 class="input" 
                                 locale="ru"
-                                value="{{ request('departing') }}"
+                                value="{{ request('departure') }}"
                                 ></v-date-picker>
                               </div>
                           </div>
@@ -86,30 +86,15 @@
                                       data-value="{{ request('adult') }}"
                                       name="adult"
                                   >
-                                      <option value="1">
-                                          1
-                                      </option>
-                                      <option value="2">
-                                          2
-                                      </option>
-                                      <option value="3">
-                                          3
-                                      </option>
-                                      <option value="4">
-                                          4
-                                      </option>
-                                      <option value="5">
-                                          5
-                                      </option>
-                                      <option value="6">
-                                          6
-                                      </option>
-                                      <option value="7">
-                                          7
-                                      </option>
-                                      <option value="8">
-                                          8
-                                      </option>
+                                    <option value="">-</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                   </select>
                               </div>
                           </div>
@@ -128,33 +113,15 @@
                                       data-value="{{ request('child') }}"
                                       name="child"
                                   >
-                                        <option value="0">
-                                        0
-                                        </option>
-                                      <option value="1">
-                                          1
-                                      </option>
-                                      <option value="2">
-                                          2
-                                      </option>
-                                      <option value="3">
-                                          3
-                                      </option>
-                                      <option value="4">
-                                          4
-                                      </option>
-                                      <option value="5">
-                                          5
-                                      </option>
-                                      <option value="6">
-                                          6
-                                      </option>
-                                      <option value="7">
-                                          7
-                                      </option>
-                                      <option value="8">
-                                          8
-                                      </option>
+                                    <option value="">-</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                   </select>
                               </div>
                           </div>

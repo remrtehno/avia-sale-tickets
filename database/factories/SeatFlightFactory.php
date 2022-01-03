@@ -56,6 +56,8 @@ class SeatFlightFactory extends Factory
             //meta data
             'img' =>  $path,
             'price' => rand(110, 2150),
+            'adult' => rand(0, 50),
+            'child' => rand(0, 10),
             'flight_id' => rand(0, 150),
             'rating' => rand(0, 5),
             'date' => $date,

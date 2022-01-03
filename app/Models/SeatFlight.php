@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Requests\SearchRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 
 class SeatFlight extends Model
@@ -36,8 +38,34 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
-    //dates
 
+    /**
+     * Scope a query to search seat flight between date
+     */
+    public function scopeBetweenDate(Builder $query)
+    {
+        if (request()->has('returning') && request()->has('departure')) {
+            $returning = new Carbon(request()->get('returning'));
+            $returning->addHours(23)->addMinutes(59);
+
+            $departure = new Carbon(request()->get('departure'));
+
+            return $query->whereBetween('date', [$departure, $returning]);
+        }
+    }
+
+    /**
+     * Scope a query to search different fields seat flight
+     */
+
+    public function scopeWithouDateBetween(Builder $query)
+    {
+        dd(request()->except(['departure', 'returning']));
+
+        return $query->where('date', [$departure, $returning]);
+    }
+
+    //dates
     public function getDate()
     {
         return $this->date->format('M d, Y');

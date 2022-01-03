@@ -16,6 +16,17 @@ class SearchRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+
+        $filtered_query = array_filter($this->all(), function ($value) {
+            return !empty($value) && $value !== "null" && $value !== "-";
+        });
+
+        $this->replace($filtered_query);
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +37,7 @@ class SearchRequest extends FormRequest
         return [
             'to' => 'nullable|string',
             'from' => 'nullable|string',
-            'departing' => 'nullable|string',
+            'departure' => 'nullable|string',
             'returning' => 'nullable|string',
             'adult' => 'nullable|string',
             'child' => 'nullable|string',
