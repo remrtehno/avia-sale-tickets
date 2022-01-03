@@ -19,20 +19,26 @@ import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
 
 export default {
     components: { VueDatePicker },
-    props: ["props", "locale", "name", "value"],
+    props: ["props", "locale", "name", "value", "days", "months"],
     data() {
         const today = new Date(
             Date.now() - new Date().getTimezoneOffset() * 60000
-        )
-            .toISOString()
-            .substr(0, 10);
+        );
+
+        if (this.months) {
+            today.setMonth(today.getMonth() + parseFloat(this.months) || 0);
+        }
+
+        if (this.days) {
+            today.setDate(today.getDate() + parseFloat(this.days) || 0);
+        }
+
         return {
-            date: this.value || today,
+            date: this.value || today.toISOString().substr(0, 10),
             lang: this.locale || "en",
             color: THEME.MAIN_GREEN,
         };
     },
-    mounted() {},
 };
 </script>
 

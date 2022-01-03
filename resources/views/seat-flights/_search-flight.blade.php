@@ -68,6 +68,7 @@
                                 class="input" 
                                 locale="ru"
                                 value="{{ request('returning') }}"
+                                months="1"
                                 ></v-date-picker>
                               </div>
                           </div>

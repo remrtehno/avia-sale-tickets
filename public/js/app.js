@@ -5362,16 +5362,24 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     VueDatePicker: _mathieustan_vue_datepicker__WEBPACK_IMPORTED_MODULE_0__.VueDatePicker
   },
-  props: ["props", "locale", "name", "value"],
+  props: ["props", "locale", "name", "value", "days", "months"],
   data: function data() {
-    var today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10);
+    var today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+
+    if (this.months) {
+      today.setMonth(today.getMonth() + parseFloat(this.months) || 0);
+    }
+
+    if (this.days) {
+      today.setDate(today.getDate() + parseFloat(this.days) || 0);
+    }
+
     return {
-      date: this.value || today,
+      date: this.value || today.toISOString().substr(0, 10),
       lang: this.locale || "en",
       color: _constants_theme__WEBPACK_IMPORTED_MODULE_1__.THEME.MAIN_GREEN
     };
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),

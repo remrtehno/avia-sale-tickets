@@ -237,8 +237,6 @@
 
     <script src="/static/js/jquery.parallax-1.1.3.resize.js"></script>
 
-    <script src="/static/js/SmoothScroll.js"></script>
-
     <script src="/static/js/jquery.appear.js"></script>
 
     <script src="/static/js/jquery.caroufredsel.js"></script>
