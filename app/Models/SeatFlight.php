@@ -40,6 +40,17 @@ class SeatFlight extends Model
 
 
     /**
+     * Scope a query to search closest flights
+     */
+
+    public function scopeClosestDates(Builder $query)
+    {
+        return $query->where(request()->except(['departure', 'returning', 'page']));
+    }
+
+
+
+    /**
      * Scope a query to search seat flight between date
      */
     public function scopeBetweenDate(Builder $query)
@@ -67,7 +78,7 @@ class SeatFlight extends Model
      * Scope a query to fetch fresh dates seat flight
      */
 
-    public function scopeClosestDates(Builder $query)
+    public function scopeOrderByClosest(Builder $query)
     {
         return $query->orderBy('date', 'ASC');
     }

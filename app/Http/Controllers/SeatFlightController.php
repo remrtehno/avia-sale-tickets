@@ -6,9 +6,16 @@ use App\Http\Requests\SearchRequest;
 use App\Models\SeatFlight;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\Search\ClosestDate;
 
 class SeatFlightController extends Controller
 {
+    private $closestDate;
+
+    public function __construct(ClosestDate $closestDate)
+    {
+        $this->closestDate = $closestDate;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +23,19 @@ class SeatFlightController extends Controller
      */
     public function index(SearchRequest $request)
     {
+
+        $seat_flights = SeatFlight::betweenDate()
+            ->withouDateBetween()
+            ->orderByClosest()
+            ->paginate(9);
+
+        $closestDateFound = $this->closestDate->getClosestDate($seat_flights);
+
+
         return view('seat-flights.index', [
-            'seat_flights' => SeatFlight::betweenDate()->withouDateBetween()->closestDates()->paginate(9),
-            "search_list_cities" => SeatFlight::select('from', 'to')->get(),
+            'seat_flights' => $seat_flights,
+            'search_list_cities' => SeatFlight::select('from', 'to')->get(),
+            'closestDateFound' => $closestDateFound,
         ]);
     }
 

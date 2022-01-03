@@ -161,17 +161,25 @@
                     </div>
                   @endforeach
 
-                  @if ($seat_flights->count() === 0)
-                     <div class="col-xs-12"><div class="alert alert-warning">К сожалению мы ничего не нашли, <b>попробуйте изменить параметры поиска.</b></div></div> 
+                  @if (!$seat_flights->count())
+                    <div class="col-xs-12">
+                        <div class="alert alert-warning">
+                            @if ($closestDateFound)
+                                К сожалению на указанную дату ничего не найдено, 
+                                <b>
+                                   показать результаты на другую 
+                                   <a href="{{ $closestDateFound->date }}"> ближайшую дату.</a>
+                                </b>
+                            @else
+                                К сожалению ничего не найдено, 
+                                <b>попробуйте изменить параметры поиска.</b>
+                            @endif
+                        </div>
+                    </div> 
                   @endif
 
                   {{ $seat_flights->withQueryString()->links() }}
-                   
                 </div>
-
-
-
-
             </div>
         </div>
       </div>
