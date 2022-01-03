@@ -4,18 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
 use App\Models\SeatFlight;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Services\Search\ClosestDate;
 
 class SeatFlightController extends Controller
 {
-    private $closestDate;
-
-    public function __construct(ClosestDate $closestDate)
-    {
-        $this->closestDate = $closestDate;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +21,9 @@ class SeatFlightController extends Controller
             ->orderByClosest()
             ->paginate(9);
 
-        $closestDateFound = $this->closestDate->getClosestDate($seat_flights);
-
+        $closestDateFound = $seat_flights->count()
+            ? null
+            : SeatFlight::withouDateBetween()->orderByClosest()->first();
 
         return view('seat-flights.index', [
             'seat_flights' => $seat_flights,

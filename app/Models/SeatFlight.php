@@ -38,7 +38,6 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
-
     /**
      * Scope a query to search closest flights
      */
@@ -81,6 +80,16 @@ class SeatFlight extends Model
     public function scopeOrderByClosest(Builder $query)
     {
         return $query->orderBy('date', 'ASC');
+    }
+
+    public function getUrlWithChangedDates()
+    {
+        $dateFormatted = $this->date->format('Y-m-d');
+
+        return request()->fullUrlWithQuery([
+            'departure' => $dateFormatted,
+            'returning' => $dateFormatted
+        ]);
     }
 
     //dates
