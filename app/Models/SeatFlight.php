@@ -60,9 +60,7 @@ class SeatFlight extends Model
 
     public function scopeWithouDateBetween(Builder $query)
     {
-        dd(request()->except(['departure', 'returning']));
-
-        return $query->where('date', [$departure, $returning]);
+        return $query->where(request()->except(['departure', 'returning']));
     }
 
     //dates

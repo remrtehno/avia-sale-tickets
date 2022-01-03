@@ -5317,8 +5317,6 @@ __webpack_require__.r(__webpack_exports__);
     if (this.options && this.pluck) {
       this.dataOptions = (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_2__["default"])(JSON.parse(this.options));
     }
-
-    console.log(!this.value);
   },
   data: function data() {
     return {

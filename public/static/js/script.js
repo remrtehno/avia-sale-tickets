@@ -483,4 +483,16 @@ $(document).ready(function () {
             $container.isotope("layout");
         }
     }
+
+    ///sanitize form
+
+    $(document).on("submit", "form", function (mouseEvent) {
+        $.merge($(this).find("input"), $(this).find("select")).each(
+            function () {
+                if ($(this).val() == "" || $(this).val() === "-") {
+                    $(this).prop("disabled", true);
+                }
+            }
+        );
+    });
 }); //

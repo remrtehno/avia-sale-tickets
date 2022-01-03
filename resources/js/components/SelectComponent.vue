@@ -25,8 +25,6 @@ export default {
                 uniq
             )(JSON.parse(this.options));
         }
-
-        console.log(!this.value);
     },
     data() {
         return {
