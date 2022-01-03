@@ -60,7 +60,16 @@ class SeatFlight extends Model
 
     public function scopeWithouDateBetween(Builder $query)
     {
-        return $query->where(request()->except(['departure', 'returning']));
+        return $query->where(request()->except(['departure', 'returning', 'page']));
+    }
+
+    /**
+     * Scope a query to fetch fresh dates seat flight
+     */
+
+    public function scopeClosestDates(Builder $query)
+    {
+        return $query->orderBy('date', 'ASC');
     }
 
     //dates
