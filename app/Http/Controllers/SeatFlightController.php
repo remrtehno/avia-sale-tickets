@@ -17,13 +17,14 @@ class SeatFlightController extends Controller
     {
 
         $seat_flights = SeatFlight::betweenDate()
-            ->withouDateBetween()
+            ->withExcludes()
+            ->withPassengers()
             ->orderByClosest()
             ->paginate(9);
 
         $closestDateFound = $seat_flights->count()
             ? null
-            : SeatFlight::withouDateBetween()->orderByClosest()->first();
+            : SeatFlight::withExcludes()->withPassengers()->orderByClosest()->first();
 
         return view('seat-flights.index', [
             'seat_flights' => $seat_flights,

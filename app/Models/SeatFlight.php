@@ -38,16 +38,19 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
-    /**
-     * Scope a query to search closest flights
-     */
 
-    public function scopeClosestDates(Builder $query)
+    public function scopeWithPassengers(Builder $query)
     {
-        return $query->where(request()->except(['departure', 'returning', 'page']));
+        if (request()->has('child')) {
+            $query->where('child', '>=', request()->get('child'));
+        }
+
+        if (request()->has('adult')) {
+            $query->where('adult', '>=', request()->adult);
+        }
+
+        return $query;
     }
-
-
 
     /**
      * Scope a query to search seat flight between date
@@ -67,21 +70,24 @@ class SeatFlight extends Model
     /**
      * Scope a query to search different fields seat flight
      */
-
-    public function scopeWithouDateBetween(Builder $query)
+    public function scopeWithExcludes(Builder $query)
     {
-        return $query->where(request()->except(['departure', 'returning', 'page']));
+        return $query->where(request()->except(
+            ['departure', 'returning', 'page', 'adult', 'child']
+        ));
     }
 
     /**
      * Scope a query to fetch fresh dates seat flight
      */
-
     public function scopeOrderByClosest(Builder $query)
     {
         return $query->orderBy('date', 'ASC');
     }
 
+    /**
+     * Get URL with changed date for search
+     */
     public function getUrlWithChangedDates()
     {
         $dateFormatted = $this->date->format('Y-m-d');
@@ -91,6 +97,7 @@ class SeatFlight extends Model
             'returning' => $dateFormatted
         ]);
     }
+
 
     //dates
     public function getDate()
