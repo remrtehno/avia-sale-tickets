@@ -10,7 +10,7 @@
         <meta name="description" content="Your description">
         <meta name="keywords" content="Your keywords">
         <meta name="author" content="Your name">
-    
+
         <link href="/static/css/bootstrap.css" rel="stylesheet">
         <link href="/static/css/font-awesome.css" rel="stylesheet">
         <link href="/static/css/animate.css" rel="stylesheet">
@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="/css/custom.css">
     </head>
-    <body class="front">
+    <body class="front {{ env('APP_DEBUG') ? '' : 'loaded_hiding' }}">
         <div id="app">
             <div class="header">
                 <div class="top1_wrapper">
@@ -226,7 +226,7 @@
         </footer>
     </div>
 
-    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/jquery.js"></link>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery-ui.js"></script>
     <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
