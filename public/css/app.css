@@ -57,6 +57,25 @@
   overflow: hidden;
 }
 
+.btn-default.s1.active {
+  background: url("/static/images/type1_hover.png") center center no-repeat #1cbbb4;
+  border-color: #1cbbb4;
+}
+
+.btn-default.s3.active {
+  background: url(/static//images/type3_hover.png) center center no-repeat #1cbbb4;
+  border-color: #1cbbb4;
+}
+
+.select1_wrapper.buttons {
+  float: right;
+}
+@media (max-width: 992px) {
+  .select1_wrapper.buttons {
+    display: none;
+  }
+}
+
 .phone2 {
   font-size: 27px;
 }

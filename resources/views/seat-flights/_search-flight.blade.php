@@ -23,6 +23,8 @@
                                     options="{{ $search_list_cities }}"
                                     pluck="from"
                                     value="{{ request('from') }}"
+                                    :search="true"
+                                    :show-empty="true"
                                     >
                                 </select-component>  
                                 @endif
@@ -40,6 +42,8 @@
                                     options="{{ $search_list_cities }}"
                                     pluck="to"
                                     value="{{ request('to') }}"
+                                    :search="true"
+                                    :show-empty="true"
                                     >
                                 </select-component>  
                                 @endif

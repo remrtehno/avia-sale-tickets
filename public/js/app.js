@@ -5312,10 +5312,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["options", "name", "className", "pluck", "value"],
+  props: {
+    options: {
+      "default": null,
+      type: String
+    },
+    name: {
+      "default": null,
+      type: String
+    },
+    className: {
+      "default": null,
+      type: String
+    },
+    pluck: {
+      "default": null,
+      type: String
+    },
+    value: {
+      "default": null,
+      type: String
+    },
+    search: {
+      "default": false,
+      type: Boolean
+    },
+    showEmpty: {
+      "default": false,
+      type: Boolean
+    }
+  },
   mounted: function mounted() {
-    if (this.options && this.pluck) {
-      this.dataOptions = (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_2__["default"])(JSON.parse(this.options));
+    if (this.options) {
+      this.dataOptions = (this.pluck ? (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_2__["default"]) : (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])(ramda__WEBPACK_IMPORTED_MODULE_2__["default"]))(JSON.parse(this.options));
     }
   },
   data: function data() {
@@ -31242,9 +31271,14 @@ var render = function () {
   return _c("div", [
     _c(
       "select",
-      { class: _vm.className, attrs: { name: _vm.name } },
+      {
+        class: _vm.className,
+        attrs: { name: _vm.name, "data-search": this.search },
+      },
       [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Не выбрано")]),
+        this.showEmpty
+          ? _c("option", { attrs: { value: "" } }, [_vm._v("Не выбрано")])
+          : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.dataOptions, function (option) {
           return _c(

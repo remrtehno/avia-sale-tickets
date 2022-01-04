@@ -42,11 +42,11 @@ class SeatFlight extends Model
     public function scopeWithPassengers(Builder $query)
     {
         if (request()->has('child')) {
-            $query->where('child', '>=', request()->get('child'));
+            $query->where('child', '>=', request('child'));
         }
 
         if (request()->has('adult')) {
-            $query->where('adult', '>=', request()->adult);
+            $query->where('adult', '>=', request('adult'));
         }
 
         return $query;
@@ -58,10 +58,10 @@ class SeatFlight extends Model
     public function scopeBetweenDate(Builder $query)
     {
         if (request()->has('returning') && request()->has('departure')) {
-            $returning = new Carbon(request()->get('returning'));
+            $returning = new Carbon(request('returning'));
             $returning->addHours(23)->addMinutes(59);
 
-            $departure = new Carbon(request()->get('departure'));
+            $departure = new Carbon(request('departure'));
 
             return $query->whereBetween('date', [$departure, $returning]);
         }

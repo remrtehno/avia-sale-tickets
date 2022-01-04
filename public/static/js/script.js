@@ -1,4 +1,32 @@
 $(document).ready(function () {
+    $("#list-view").click(function () {
+        $("#content .seat-flight-item").attr(
+            "class",
+            "col-sm-6 seat-flight-item"
+        );
+
+        $("#grid-view").removeClass("active");
+        $("#list-view").addClass("active");
+        localStorage.setItem("display", "list");
+    });
+
+    $("#grid-view").click(function () {
+        $("#content .seat-flight-item").attr(
+            "class",
+            "col-sm-4 seat-flight-item"
+        );
+
+        $("#list-view").removeClass("active");
+        $("#grid-view").addClass("active");
+        localStorage.setItem("display", "grid");
+    });
+    if (localStorage.getItem("display") == "list") {
+        $("#list-view").trigger("click");
+        $("#list-view").addClass("active");
+    } else {
+        $("#grid-view").trigger("click");
+        $("#grid-view").addClass("active");
+    }
     /*----------------------------------------------------*/
     /* MOBILE DETECT FUNCTION
   /*----------------------------------------------------*/
@@ -328,23 +356,27 @@ $(document).ready(function () {
     }
 
     // Select2.
-    $(".select2")
-        .select2({
+    $.merge(
+        $("select.select2[data-search='true']").select2({
             // containerCss: ".eeeeeee",
             // minimumResultsForSearch: Infinity,
+        }),
+
+        $("select.select2").not('[data-search="true"]').select2({
+            minimumResultsForSearch: Infinity,
         })
-        .on("select2:open", function (e) {
-            $(".select2-dropdown").hide();
-            setTimeout(function () {
-                jQuery(".select2-dropdown")
-                    .css({
-                        visibility: "visible",
-                        transformOrigin: "left top",
-                    })
-                    .addClass("animated zoomIn faster")
-                    .show();
-            });
+    ).on("select2:open", function (e) {
+        $(".select2-dropdown").hide();
+        setTimeout(function () {
+            jQuery(".select2-dropdown")
+                .css({
+                    visibility: "visible",
+                    transformOrigin: "left top",
+                })
+                .addClass("animated zoomIn faster")
+                .show();
         });
+    });
 
     $(".select2[data-value]").each(function (_, el) {
         var currentValue = $(el).data("value");

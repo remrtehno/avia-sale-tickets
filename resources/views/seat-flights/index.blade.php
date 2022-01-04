@@ -17,24 +17,7 @@
           <div class="row">
             <div class="col-sm-3">
 
-                <form action="javascript:;" class="form2 form2_flights">
-                    <div class="select1_wrapper clearfix">
-                        <label>Passenger:</label>
-                        <div class="select1_inner">
-                            <select class="select2 select select3" style="width: 100%">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-
+                 
                 <ul class="ul3">
                     <li><a href="#">Star Raiting</a></li>
                     <li><a href="#">Price Range</a></li>
@@ -90,44 +73,41 @@
                     </div>
                     <div class="select1_wrapper sel">
                         <div class="select1_inner">
-                            <select class="select2 select" style="width: 100%">
-                                <option value="1">Name</option>
-                                <option value="2">Name2</option>
-                                <option value="2">Name3</option>
-                            </select>
+                            <select-component 
+                                name="sortByDateOrName"  
+                                class-name="select2 select" 
+                                options="{{ json_encode(['По имени', 'По дате']) }}"
+                                value="{{ request('sortByPrice') }}"
+                                >
+                            </select-component> 
                         </div>
                     </div>
                     <div class="select1_wrapper sel">
                         <div class="select1_inner">
-                            <select class="select2 select" style="width: 100%">
-                                <option value="1">Price</option>
-                                <option value="2">Price2</option>
-                                <option value="2">Price3</option>
-                            </select>
+                            <select-component 
+                                name="sortByPrice"  
+                                class-name="select2 select" 
+                                options="{{ json_encode(['Дешевле', 'Дороже']) }}"
+                                value="{{ request('sortByPrice') }}"
+                                >
+                            </select-component> 
                         </div>
                     </div>
                     <div class="select1_wrapper sel">
                         <div class="select1_inner">
-                            <select class="select2 select" style="width: 100%">
-                                <option value="1">Raiting</option>
-                                <option value="2">Raiting2</option>
-                                <option value="2">Raiting3</option>
-                            </select>
+                            <select-component 
+                                name="sortByRating"  
+                                class-name="select2 select" 
+                                options="{{ json_encode(['Выше рейтинг', 'Ниже рейтинг']) }}"
+                                value="{{ request('sortByRating') }}"
+                                >
+                            </select-component>  
                         </div>
                     </div>
-                    <div class="select1_wrapper sel">
-                        <div class="select1_inner">
-                            <select class="select2 select" style="width: 100%">
-                                <option value="1">Popularity</option>
-                                <option value="2">Popularity2</option>
-                                <option value="2">Popularity3</option>
-                            </select>
-                        </div>
-                    </div>
+                    
                     <div class="select1_wrapper buttons">
-                        <a href="#" class="btn-default s1"></a>
-                        <a href="#" class="btn-default s2"></a>
-                        <a href="#" class="btn-default s3"></a>
+                        <a href="javascript:void(0)" class="btn-default s1" id="grid-view"></a>
+                        <a href="javascript:void(0)" class="btn-default s3" id="list-view"></a>
                     </div>
                 </form>
 
