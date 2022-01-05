@@ -72,8 +72,19 @@ class SeatFlight extends Model
      */
     public function scopeWithExcludes(Builder $query)
     {
+
+        //@TODO Replace to something is more properly.
         return $query->where(request()->except(
-            ['departure', 'returning', 'page', 'adult', 'child']
+            [
+                'departure',
+                'returning',
+                'page',
+                'adult',
+                'child',
+                'sortByDateOrName',
+                'sortByPrice',
+                'sortByRating'
+            ]
         ));
     }
 

@@ -3,8 +3,9 @@
         <select :name="name" :class="className" :data-search="this.search">
             <option v-if="this.showEmpty" value="">Не выбрано</option>
             <option
+                :value="dataValues.length > 0 ? dataValues[index] : option"
                 :selected="value === option"
-                v-for="option in dataOptions"
+                v-for="(option, index) in dataOptions"
                 :key="option"
             >
                 {{ option }}
@@ -19,6 +20,7 @@ import { pipe, pluck, uniq } from "ramda";
 export default {
     props: {
         options: { default: null, type: String },
+        values: { default: null, type: String },
         name: { default: null, type: String },
         className: { default: null, type: String },
         pluck: { default: null, type: String },
@@ -32,10 +34,15 @@ export default {
                 this.pluck ? pipe(pluck(this.pluck), uniq) : pipe(uniq)
             )(JSON.parse(this.options));
         }
+
+        if (this.values) {
+            this.dataValues = JSON.parse(this.values);
+        }
     },
     data() {
         return {
             dataOptions: [],
+            dataValues: [],
         };
     },
 };

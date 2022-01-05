@@ -5310,10 +5310,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     options: {
+      "default": null,
+      type: String
+    },
+    values: {
       "default": null,
       type: String
     },
@@ -5346,10 +5351,15 @@ __webpack_require__.r(__webpack_exports__);
     if (this.options) {
       this.dataOptions = (this.pluck ? (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_2__["default"]) : (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])(ramda__WEBPACK_IMPORTED_MODULE_2__["default"]))(JSON.parse(this.options));
     }
+
+    if (this.values) {
+      this.dataValues = JSON.parse(this.values);
+    }
   },
   data: function data() {
     return {
-      dataOptions: []
+      dataOptions: [],
+      dataValues: []
     };
   }
 });
@@ -31280,10 +31290,17 @@ var render = function () {
           ? _c("option", { attrs: { value: "" } }, [_vm._v("Не выбрано")])
           : _vm._e(),
         _vm._v(" "),
-        _vm._l(_vm.dataOptions, function (option) {
+        _vm._l(_vm.dataOptions, function (option, index) {
           return _c(
             "option",
-            { key: option, domProps: { selected: _vm.value === option } },
+            {
+              key: option,
+              domProps: {
+                value:
+                  _vm.dataValues.length > 0 ? _vm.dataValues[index] : option,
+                selected: _vm.value === option,
+              },
+            },
             [_vm._v("\n            " + _vm._s(option) + "\n        ")]
           )
         }),

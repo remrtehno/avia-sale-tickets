@@ -527,6 +527,14 @@ $(document).ready(function () {
             }
         );
     });
+
+    $(document).on(
+        "change",
+        ".autoSubmitAfterChange :input",
+        function (mouseEvent) {
+            $(this).closest("form").submit();
+        }
+    );
 }); //
 
 window.onload = function () {

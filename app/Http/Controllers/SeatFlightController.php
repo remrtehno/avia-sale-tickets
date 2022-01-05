@@ -26,10 +26,13 @@ class SeatFlightController extends Controller
             ? null
             : SeatFlight::withExcludes()->withPassengers()->orderByClosest()->first();
 
+        $collectHiddenInputs = request()->collect();
+
         return view('seat-flights.index', [
             'seat_flights' => $seat_flights,
             'search_list_cities' => SeatFlight::select('from', 'to')->get(),
             'closestDateFound' => $closestDateFound,
+            'collectHiddenInputs' => $collectHiddenInputs
         ]);
     }
 

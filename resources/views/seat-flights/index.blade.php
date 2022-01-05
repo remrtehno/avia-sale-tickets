@@ -66,8 +66,12 @@
 
             </div>
             <div class="col-sm-9">
-
-                <form action="javascript:;" class="form3 clearfix">
+                <form action="{{ request()->fullUrl() }}" method="GET" onsubmit="alert" class="form3 clearfix autoSubmitAfterChange">
+                    @if (isSet($collectHiddenInputs))
+                        @foreach ($collectHiddenInputs as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    @endif
                     <div class="select1_wrapper txt">
                         <label>Sort by:</label>
                     </div>
@@ -77,7 +81,8 @@
                                 name="sortByDateOrName"  
                                 class-name="select2 select" 
                                 options="{{ json_encode(['По имени', 'По дате']) }}"
-                                value="{{ request('sortByPrice') }}"
+                                values="{{ json_encode(['title', 'date']) }}"
+                                value="{{ request('sortByDateOrName') }}"
                                 >
                             </select-component> 
                         </div>
@@ -88,6 +93,7 @@
                                 name="sortByPrice"  
                                 class-name="select2 select" 
                                 options="{{ json_encode(['Дешевле', 'Дороже']) }}"
+                                values="{{ json_encode(['cheaper', 'more_expensive']) }}"
                                 value="{{ request('sortByPrice') }}"
                                 >
                             </select-component> 
@@ -99,6 +105,7 @@
                                 name="sortByRating"  
                                 class-name="select2 select" 
                                 options="{{ json_encode(['Выше рейтинг', 'Ниже рейтинг']) }}"
+                                values="{{ json_encode(['highest_rating', 'lover_rating']) }}"
                                 value="{{ request('sortByRating') }}"
                                 >
                             </select-component>  
@@ -117,11 +124,15 @@
                         <div class="thumb4">
                             <div class="thumbnail clearfix">
                                 <figure>
-                                    <img src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
-                                         class="img-responsive">
+                                    <img 
+                                        src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
+                                        class="img-responsive"
+                                        >
                                 </figure>
                                 <div class="caption">
-                                    <div class="txt1 seat-flight-title">{{ $seat_flight->from }} - {{ $seat_flight->to }}</div>
+                                    <div class="txt1 seat-flight-title">
+                                        {{ $seat_flight->from }} - {{ $seat_flight->to }}
+                                    </div>
                                     
                                     <div class="txt1 seat-flight-title">{{ $seat_flight->getDate() }}</div>
                                    
@@ -131,8 +142,13 @@
                                             <div class="nums">avg/person</div>
                                         </div>
                                         <div class="right_side">
-                                          <a href="{{ route('seat-flights.show', ['seat_flight' => $seat_flight->id]) }}"
-                                                                   class="btn-default btn1">Перейти</a>
+                                            <a 
+                                                href="{{ route('seat-flights.show', 
+                                                ['seat_flight' => $seat_flight->id]) }}"               
+                                                class="btn-default btn1"
+                                                >
+                                                    Перейти
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
