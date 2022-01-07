@@ -117,6 +117,11 @@
                                     <div class="txt1 seat-flight-title">{{ $seat_flight->getDate() }}</div>
                                    
                                     <div class="txt3 clearfix">
+                                        <star-rating 
+                                            read-only
+                                            :size="14" 
+                                            :rating="{{ $seat_flight->rating }}"
+                                        ></star-rating>
                                         <div class="left_side">
                                             <div class="price">{{ $seat_flight->price }}$</div>
                                             <div class="nums">avg/person</div>

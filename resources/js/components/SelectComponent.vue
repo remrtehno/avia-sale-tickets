@@ -74,8 +74,6 @@ export default {
         getSelected(index) {
             const currentValue = this.getValue(index);
 
-            console.log(this.dataSelectedValue, currentValue);
-
             return equals(this.dataSelectedValue, currentValue);
         },
     },

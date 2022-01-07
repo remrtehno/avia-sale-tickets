@@ -518,13 +518,10 @@
                                                                                     stars1
                                                                                 "
                                                                             >
-                                                                            {{ $item->rating }}
-                                                                            @for ($i = $item->rating; $i >= 1; $i--)
-                                                                                <img
-                                                                                    src="/static/images/star1.png"
-                                                                                    alt=""
-                                                                                />
-                                                                            @endfor
+                                                                                <star-rating 
+                                                                                    read-only
+                                                                                    :rating="{{ $item->rating }}"
+                                                                                ></star-rating>
                                                                             </div>
                                                                         
                                                                         </div>

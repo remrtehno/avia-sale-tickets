@@ -1,7 +1,9 @@
+import Vue from "vue";
+
 import ExampleComponent from "./components/ExampleComponent";
 import SelectComponent from "./components/SelectComponent";
 import VDatePicker from "./components/VDatePicker.vue";
-import Vue from "vue";
+import StarRating from "./components/StarRating.vue";
 
 Vue.config.productionTip = false;
 
@@ -14,6 +16,7 @@ new Vue({
         ExampleComponent,
         SelectComponent,
         VDatePicker,
+        StarRating,
     },
 
     mounted() {
