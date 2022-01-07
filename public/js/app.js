@@ -5356,6 +5356,11 @@ __webpack_require__.r(__webpack_exports__);
       this.dataValues = JSON.parse(this.values);
     }
   },
+  methods: {
+    getValue: function getValue(index) {
+      return this.dataValues.length > 0 ? this.dataValues[index] : this.dataOptions[index];
+    }
+  },
   data: function data() {
     return {
       dataOptions: [],
@@ -31296,9 +31301,8 @@ var render = function () {
             {
               key: option,
               domProps: {
-                value:
-                  _vm.dataValues.length > 0 ? _vm.dataValues[index] : option,
-                selected: _vm.value === option,
+                value: _vm.getValue(index),
+                selected: _vm.value === _vm.getValue(index),
               },
             },
             [_vm._v("\n            " + _vm._s(option) + "\n        ")]

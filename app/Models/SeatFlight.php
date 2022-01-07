@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Requests\SearchRequest;
+use App\Scopes\SearchScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Config;
 class SeatFlight extends Model
 {
     use HasFactory;
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new SearchScope);
+    }
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'departure', 'returning', 'date'];
@@ -81,9 +91,9 @@ class SeatFlight extends Model
                 'page',
                 'adult',
                 'child',
-                'sortByDateOrName',
-                'sortByPrice',
-                'sortByRating'
+                'date',
+                'price',
+                'rating'
             ]
         ));
     }

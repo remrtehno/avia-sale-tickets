@@ -3,8 +3,8 @@
         <select :name="name" :class="className" :data-search="this.search">
             <option v-if="this.showEmpty" value="">Не выбрано</option>
             <option
-                :value="dataValues.length > 0 ? dataValues[index] : option"
-                :selected="value === option"
+                :value="getValue(index)"
+                :selected="value === getValue(index)"
                 v-for="(option, index) in dataOptions"
                 :key="option"
             >
@@ -38,6 +38,13 @@ export default {
         if (this.values) {
             this.dataValues = JSON.parse(this.values);
         }
+    },
+    methods: {
+        getValue(index) {
+            return this.dataValues.length > 0
+                ? this.dataValues[index]
+                : this.dataOptions[index];
+        },
     },
     data() {
         return {

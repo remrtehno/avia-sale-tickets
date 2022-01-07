@@ -35,7 +35,7 @@ class SeatFlightFactory extends Factory
         </ul>
         ";
 
-        $date = now()->addDays(rand(0, 120))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
+        $date = now()->addDays(rand(0, 320))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
         $time_departure = now()->addHours(rand(0, 5))->getTimestamp();
         $time_returning = now()->addHours(rand(5, 10))->addMinute(0, 59)->getTimestamp();
 

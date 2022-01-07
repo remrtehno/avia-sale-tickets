@@ -25,6 +25,6 @@ class SeatFlightTableSeeder extends Seeder
             $file->makeDirectory($path);
         }
 
-        \App\Models\SeatFlight::factory(30)->create();
+        \App\Models\SeatFlight::factory(90)->create();
     }
 }

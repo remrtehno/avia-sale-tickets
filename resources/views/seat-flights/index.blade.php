@@ -67,50 +67,27 @@
             </div>
             <div class="col-sm-9">
                 <form action="{{ request()->fullUrl() }}" method="GET" onsubmit="alert" class="form3 clearfix autoSubmitAfterChange">
-                    @if (isSet($collectHiddenInputs))
-                        @foreach ($collectHiddenInputs as $key => $value)
-                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                        @endforeach
-                    @endif
+
+                    @foreach (request()->only(['departure', 'returning']) as $key => $value)
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
+                
                     <div class="select1_wrapper txt">
-                        <label>Sort by:</label>
+                        <label>Сортировка:</label>
                     </div>
-                    <div class="select1_wrapper sel">
+                    <div class="select1_wrapper sel" style="width: 200px;">
                         <div class="select1_inner">
                             <select-component 
-                                name="sortByDateOrName"  
+                                name="sort_by"  
                                 class-name="select2 select" 
-                                options="{{ json_encode(['По имени', 'По дате']) }}"
-                                values="{{ json_encode(['title', 'date']) }}"
-                                value="{{ request('sortByDateOrName') }}"
+                                options="{{ json_encode(['Самые новые', 'Самые дешевые', 'Самые дорогие', 'Самые популярные']) }}"
+                                values="{{ json_encode([['date', 'ASC'], ['price', 'ASC'], ['price', 'DESC'], ['rating', 'DESC']]) }}"
+                                value="{{ request('sort_by') }}"
                                 >
                             </select-component> 
                         </div>
                     </div>
-                    <div class="select1_wrapper sel">
-                        <div class="select1_inner">
-                            <select-component 
-                                name="sortByPrice"  
-                                class-name="select2 select" 
-                                options="{{ json_encode(['Дешевле', 'Дороже']) }}"
-                                values="{{ json_encode(['cheaper', 'more_expensive']) }}"
-                                value="{{ request('sortByPrice') }}"
-                                >
-                            </select-component> 
-                        </div>
-                    </div>
-                    <div class="select1_wrapper sel">
-                        <div class="select1_inner">
-                            <select-component 
-                                name="sortByRating"  
-                                class-name="select2 select" 
-                                options="{{ json_encode(['Выше рейтинг', 'Ниже рейтинг']) }}"
-                                values="{{ json_encode(['highest_rating', 'lover_rating']) }}"
-                                value="{{ request('sortByRating') }}"
-                                >
-                            </select-component>  
-                        </div>
-                    </div>
+                   
                     
                     <div class="select1_wrapper buttons">
                         <a href="javascript:void(0)" class="btn-default s1" id="grid-view"></a>
