@@ -1,0 +1,13 @@
+body.loaded_hiding {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body {
+    transition: all 0.36s;
+}
+
+body.loaded {
+    pointer-events: visible;
+    opacity: 1;
+}

@@ -180,6 +180,9 @@ return [
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        App\Providers\ResponseMacroServiceProvider::class,
+        App\Providers\SearchServiceProvider::class,
+
     ],
 
     /*

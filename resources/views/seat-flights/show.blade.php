@@ -29,14 +29,14 @@
 
                       <div class="clearfix"></div>
 
-                      <p class="address">
-                        {{ $seat_flight->from }}
-                        /
-                        {{ $seat_flight->to }}
-                    </p>
+                    <p class="address">{{ $seat_flight->from }} / {{ $seat_flight->to }}</p>
 
                       <div class="post-story">
-                          <hr>
+                        <hr>
+                        <figure>
+                            <img src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
+                            class="img-responsive">
+                        </figure>
 
                           <div class="post-story-body clearfix">
                                 <h5 class="seat-flight-intro-title">

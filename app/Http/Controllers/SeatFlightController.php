@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\SeatFlight;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,22 @@ class SeatFlightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SearchRequest $request)
     {
+
+        $seat_flights = SeatFlight::betweenDate()
+            ->withExcludes()
+            ->withPassengers()
+            ->paginate(9);
+
+        $closestDateFound = $seat_flights->count()
+            ? null
+            : SeatFlight::withExcludes()->withPassengers()->orderByClosest()->first();
+
         return view('seat-flights.index', [
-            'seat_flights' => SeatFlight::paginate(9)
+            'seat_flights' => $seat_flights,
+            'search_list_cities' => SeatFlight::select('from', 'to')->get(),
+            'closestDateFound' => $closestDateFound,
         ]);
     }
 

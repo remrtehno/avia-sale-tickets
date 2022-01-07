@@ -2,17 +2,29 @@
 
 namespace App\Models;
 
+use App\Scopes\SearchScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 
 class SeatFlight extends Model
 {
     use HasFactory;
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new SearchScope);
+    }
+
     // Carbon instance fields
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'timeDeparture', 'timeArrival', 'date'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'departure', 'returning', 'date'];
 
     protected $fillable = [
         'img',
@@ -36,8 +48,80 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
-    //dates
 
+    public function scopeWithPassengers(Builder $query)
+    {
+        if (request()->has('child')) {
+            $query->where('child', '>=', request('child'));
+        }
+
+        if (request()->has('adult')) {
+            $query->where('adult', '>=', request('adult'));
+        }
+
+        return $query;
+    }
+
+    /**
+     * Scope a query to search seat flight between date
+     */
+    public function scopeBetweenDate(Builder $query)
+    {
+        if (request()->has('returning') && request()->has('departure')) {
+            $returning = new Carbon(request('returning'));
+            $returning->addHours(23)->addMinutes(59);
+
+            $departure = new Carbon(request('departure'));
+
+            return $query->whereBetween('date', [$departure, $returning]);
+        }
+    }
+
+    /**
+     * Scope a query to search different fields seat flight
+     */
+    public function scopeWithExcludes(Builder $query)
+    {
+
+        //@TODO Replace to something is more properly.
+        return $query->where(request()->except(
+            [
+                'departure',
+                'returning',
+                'page',
+                'adult',
+                'child',
+                'date',
+                'price',
+                'rating',
+                'sort_by'
+            ]
+        ));
+    }
+
+    /**
+     * Scope a query to fetch fresh dates seat flight
+     */
+    public function scopeOrderByClosest(Builder $query)
+    {
+        return $query->orderBy('date', 'ASC');
+    }
+
+    /**
+     * Get URL with changed date for search
+     */
+    public function getUrlWithChangedDates()
+    {
+        $dateFormatted = $this->date->format('Y-m-d');
+
+        return request()->fullUrlWithQuery([
+            'departure' => $dateFormatted,
+            'returning' => $dateFormatted
+        ]);
+    }
+
+
+    //dates
     public function getDate()
     {
         return $this->date->format('M d, Y');
@@ -45,31 +129,31 @@ class SeatFlight extends Model
 
     public function getTimeDepartureWithNameFrom()
     {
-        return $this->timeDeparture->format('H:m') . ' ' . $this->from;
+        return $this->departure->format('H:m') . ' ' . $this->from;
     }
 
-    public function getTimeArrivalWithNameTo()
+    public function getTimeReturningWithNameTo()
     {
-        return $this->timeArrival->format('H:m') . ' ' . $this->to;
+        return $this->returning->format('H:m') . ' ' . $this->to;
     }
 
     public function getInfoTimeAndAirports()
     {
         return $this->getTimeDepartureWithNameFrom()
             . Config::get('constants.time_separator')
-            . $this->getTimeArrivalWithNameTo();
+            . $this->getTimeReturningWithNameTo();
     }
 
     public function getTimeOnly()
     {
-        return $this->timeDeparture->format('H:m')
+        return $this->departure->format('H:m')
             . Config::get('constants.time_separator')
-            . $this->timeArrival->format('H:m');
+            . $this->returning->format('H:m');
     }
 
     public function getDuration()
     {
-        return $this->timeArrival->diffForHumans($this->timeDeparture, [
+        return $this->returning->diffForHumans($this->departure, [
             'parts' => 2,
             'short' => true
         ]);
