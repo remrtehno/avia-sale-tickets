@@ -11,6 +11,9 @@
       <div class="tabs_content tabs1_content">
           <div id="tabs-1">
               <form action="{{ $route }}" method="get" class="form1">
+                @foreach (request()->only(['sort_by']) as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
                   <div class="row">
                       <div class="col-sm-4 col-md-2">
                           <div class="select1_wrapper">

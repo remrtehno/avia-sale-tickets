@@ -17,12 +17,15 @@ class SearchScope implements Scope
    */
   public function apply(Builder $builder, Model $model)
   {
-    $sortBy = ['price', 'date', 'rating'];
+    $value = 'sort_by';
 
-    foreach ($sortBy as $value) {
-      if (request()->has($value)) {
-        $builder->orderBy($value, request()->get($value));
-      }
+    if (request()->has($value)) {
+      $query = explode(',', request()->get($value));
+
+      $builder->orderBy($query[0], $query[1]);
+    } else {
+
+      $builder->orderBy('date', 'ASC');
     }
   }
 }

@@ -5292,9 +5292,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pipe.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pluck.js");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/uniq.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pipe.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/pluck.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/uniq.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/equals.js");
+/* harmony import */ var _constants_dataTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/dataTypes */ "./resources/js/constants/dataTypes.js");
+//
+//
+//
+//
 //
 //
 //
@@ -5312,36 +5318,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    //data for render options
     options: {
       "default": null,
       type: String
     },
+    //provided values for rendered options
     values: {
       "default": null,
       type: String
     },
+    //name for select
     name: {
       "default": null,
       type: String
     },
+    //custom class name for select
     className: {
       "default": null,
       type: String
     },
+    //select specified property from povided data
     pluck: {
       "default": null,
       type: String
     },
+    //calue provided for detect current option selected
     value: {
       "default": null,
       type: String
     },
-    search: {
+    //type of value provided
+    valueType: {
+      "default": _constants_dataTypes__WEBPACK_IMPORTED_MODULE_0__.DATA_TYPES.STRING,
+      type: String
+    },
+    //show search bash
+    showSearch: {
       "default": false,
       type: Boolean
     },
+    //show not selected option
     showEmpty: {
       "default": false,
       type: Boolean
@@ -5349,22 +5369,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (this.options) {
-      this.dataOptions = (this.pluck ? (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_2__["default"]) : (0,ramda__WEBPACK_IMPORTED_MODULE_0__["default"])(ramda__WEBPACK_IMPORTED_MODULE_2__["default"]))(JSON.parse(this.options));
+      this.dataOptions = (this.pluck ? (0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])((0,ramda__WEBPACK_IMPORTED_MODULE_2__["default"])(this.pluck), ramda__WEBPACK_IMPORTED_MODULE_3__["default"]) : (0,ramda__WEBPACK_IMPORTED_MODULE_1__["default"])(ramda__WEBPACK_IMPORTED_MODULE_3__["default"]))(JSON.parse(this.options));
     }
 
     if (this.values) {
       this.dataValues = JSON.parse(this.values);
     }
+
+    if (this.valueType === _constants_dataTypes__WEBPACK_IMPORTED_MODULE_0__.DATA_TYPES.JSON) {
+      try {
+        this.dataSelectedValue = JSON.parse(this.value);
+      } catch (e) {
+        console.error("Couldn't parse JSON");
+      }
+    } else if (this.valueType === _constants_dataTypes__WEBPACK_IMPORTED_MODULE_0__.DATA_TYPES.STRING) {
+      this.dataSelectedValue = this.value;
+    }
   },
   methods: {
     getValue: function getValue(index) {
       return this.dataValues.length > 0 ? this.dataValues[index] : this.dataOptions[index];
+    },
+    getSelected: function getSelected(index) {
+      var currentValue = this.getValue(index);
+      console.log(this.dataSelectedValue, currentValue);
+      return (0,ramda__WEBPACK_IMPORTED_MODULE_4__["default"])(this.dataSelectedValue, currentValue);
     }
   },
   data: function data() {
     return {
       dataOptions: [],
-      dataValues: []
+      dataValues: [],
+      dataSelectedValue: null
     };
   }
 });
@@ -5500,6 +5536,25 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/constants/dataTypes.js":
+/*!*********************************************!*\
+  !*** ./resources/js/constants/dataTypes.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DATA_TYPES": () => (/* binding */ DATA_TYPES)
+/* harmony export */ });
+var DATA_TYPES = Object.freeze({
+  STRING: "String",
+  JSON: "JSON"
+});
+
+
+/***/ }),
+
 /***/ "./resources/js/constants/theme.js":
 /*!*****************************************!*\
   !*** ./resources/js/constants/theme.js ***!
@@ -5511,9 +5566,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "THEME": () => (/* binding */ THEME)
 /* harmony export */ });
-var THEME = {
+var THEME = Object.freeze({
   MAIN_GREEN: "#00a99d"
-};
+});
 
 
 /***/ }),
@@ -31288,7 +31343,7 @@ var render = function () {
       "select",
       {
         class: _vm.className,
-        attrs: { name: _vm.name, "data-search": this.search },
+        attrs: { name: _vm.name, "data-showSearch": this.showSearch },
       },
       [
         this.showEmpty
@@ -31302,7 +31357,7 @@ var render = function () {
               key: option,
               domProps: {
                 value: _vm.getValue(index),
-                selected: _vm.value === _vm.getValue(index),
+                selected: _vm.getSelected(index),
               },
             },
             [_vm._v("\n            " + _vm._s(option) + "\n        ")]

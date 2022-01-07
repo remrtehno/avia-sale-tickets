@@ -65,13 +65,15 @@
 
 
             </div>
+
             <div class="col-sm-9">
                 <form action="{{ request()->fullUrl() }}" method="GET" onsubmit="alert" class="form3 clearfix autoSubmitAfterChange">
 
-                    @foreach (request()->only(['departure', 'returning']) as $key => $value)
+                    @foreach (request()->except(['sort_by', 'page']) as $key => $value)
                         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                     @endforeach
                 
+                    
                     <div class="select1_wrapper txt">
                         <label>Сортировка:</label>
                     </div>
@@ -82,7 +84,8 @@
                                 class-name="select2 select" 
                                 options="{{ json_encode(['Самые новые', 'Самые дешевые', 'Самые дорогие', 'Самые популярные']) }}"
                                 values="{{ json_encode([['date', 'ASC'], ['price', 'ASC'], ['price', 'DESC'], ['rating', 'DESC']]) }}"
-                                value="{{ request('sort_by') }}"
+                                value="{{ json_encode( explode(',',request('sort_by')) ) }}"
+                                value-type="JSON"
                                 >
                             </select-component> 
                         </div>

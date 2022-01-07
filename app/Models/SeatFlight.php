@@ -93,7 +93,8 @@ class SeatFlight extends Model
                 'child',
                 'date',
                 'price',
-                'rating'
+                'rating',
+                'sort_by'
             ]
         ));
     }
