@@ -1,0 +1,20 @@
+@for $i from 0 through 15 {
+    .py-#{$i} {
+        padding-top: #{$i}px !important;
+        padding-top: #{$i}px !important;
+    }
+    .px-#{$i} {
+        padding-left: #{$i}px !important;
+        padding-right: #{$i}px !important;
+    }
+
+    .my-#{$i} {
+        margin-top: #{$i}px !important;
+        margin-bottom: #{$i}px !important;
+    }
+
+    .mx-#{$i} {
+        margin-left: #{$i}px !important;
+        margin-right: #{$i}px !important;
+    }
+}

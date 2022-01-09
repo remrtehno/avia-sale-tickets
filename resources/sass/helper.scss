@@ -2,6 +2,19 @@
     display: flex;
 }
 
+[red] {
+    color: var(--red);
+    font-size: 19px;
+    line-height: 0;
+    &[big] {
+        font-size: 30px;
+    }
+}
+
+[middle] {
+    vertical-align: middle;
+}
+
 //@TODO It's probable we won't use it
 .arrow-separator {
     vertical-align: 10%;
