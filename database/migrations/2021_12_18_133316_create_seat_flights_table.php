@@ -20,6 +20,7 @@ class CreateSeatFlightsTable extends Migration
             $table->string('img');
             $table->string('title');
             $table->string('intro_title');
+            $table->string('class');
             $table->text('intro');
             $table->text('description');
             $table->text('content');

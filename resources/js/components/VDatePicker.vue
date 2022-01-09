@@ -8,6 +8,9 @@
             format="YYYY-MM-DD"
             formatOutput="YYYY"
             :name="name"
+            :minDate="minDate"
+            :maxDate="maxDate"
+            :placeholder="placeholder"
         ></vue-date-picker>
     </div>
 </template>
@@ -19,7 +22,17 @@ import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
 
 export default {
     components: { VueDatePicker },
-    props: ["props", "locale", "name", "value", "days", "months"],
+    props: [
+        "props",
+        "locale",
+        "name",
+        "value",
+        "days",
+        "months",
+        "minDate",
+        "maxDate",
+        "placeholder",
+    ],
     data() {
         const today = new Date(
             Date.now() - new Date().getTimezoneOffset() * 60000
@@ -33,8 +46,12 @@ export default {
             today.setDate(today.getDate() + parseFloat(this.days) || 0);
         }
 
+        const date = this.placeholder
+            ? undefined
+            : this.value || today.toISOString().substr(0, 10);
+
         return {
-            date: this.value || today.toISOString().substr(0, 10),
+            date,
             lang: this.locale || "en",
             color: THEME.MAIN_GREEN,
         };

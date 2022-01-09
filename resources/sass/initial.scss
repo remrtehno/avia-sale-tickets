@@ -1,3 +1,10 @@
 * {
     font-feature-settings: "lnum" 1;
 }
+
+input::placeholder {
+    opacity: 0.5;
+}
+body input.form-control {
+    color: var(--black) !important;
+}
