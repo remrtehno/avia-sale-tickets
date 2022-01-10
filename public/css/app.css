@@ -24,6 +24,10 @@ body input.form-control {
   color: var(--black) !important;
 }
 
+.nav-tabs a {
+  text-decoration: none;
+}
+
 body.loaded_hiding {
   opacity: 0;
   pointer-events: none;

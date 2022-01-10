@@ -33,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
 
         //footer navigation
         view()->composer('*', FooterMenuComposer::class);
-        view()->composer('*', ContactsComposer::class);
+        view()->composer(
+            '*',
+            $this->app->singleton(ContactsComposer::class, function () {
+                return new ContactsComposer();
+            })
+        );
     }
 }

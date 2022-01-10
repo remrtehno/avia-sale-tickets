@@ -226,7 +226,7 @@
         </footer>
     </div>
 
-    <script src="/static/js/jquery.js"></link>
+    <script src="/static/js/jquery.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery-ui.js"></script>
     <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
