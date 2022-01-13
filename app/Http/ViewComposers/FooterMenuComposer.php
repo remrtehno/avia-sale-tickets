@@ -7,8 +7,16 @@ use Illuminate\View\View;
 
 class FooterMenuComposer
 {
+
+  private $footerMenu;
+
   public function compose(View $view)
   {
-    $view->with('footerMenu', Pages::all());
+
+    if (!$this->footerMenu) {
+      $this->footerMenu = Pages::all();
+    }
+
+    $view->with('footerMenu', $this->footerMenu);
   }
 }
