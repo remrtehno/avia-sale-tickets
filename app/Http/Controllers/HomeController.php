@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partners;
 use App\Models\SeatFlight;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

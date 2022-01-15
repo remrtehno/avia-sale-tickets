@@ -1,7 +1,7 @@
-@for $i from 0 through 15 {
+@for $i from 0 through 25 {
     .py-#{$i} {
         padding-top: #{$i}px !important;
-        padding-top: #{$i}px !important;
+        padding-bottom: #{$i}px !important;
     }
     .px-#{$i} {
         padding-left: #{$i}px !important;

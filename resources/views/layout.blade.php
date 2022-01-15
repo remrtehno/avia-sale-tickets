@@ -18,7 +18,7 @@
         <link href="/static/css/smoothness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
         <link href="/static/css/style.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet" >
         <link rel="stylesheet" href="/css/custom.css">
     </head>
     <body class="front {{ env('APP_DEBUG') ? '' : 'loaded_hiding' }}">

@@ -1,37 +1,49 @@
 @php
-    $isRequired = isSet($required) && trim($required) !== '';
-    $isFileRequired = isSet($fileRequired) && trim($fileRequired) !== '';
-    $hintText = isSet($hint) && trim($hint) !== '' ? $hint : '' ;
-    $fileName = isSet($file) && trim($file) !== '';
-    $placeholderText = isSet($placeholder) && trim($placeholder) !== '' ? $placeholder : '' ;
-    $typeField = isSet($type) && trim($type) !== '' ? $type : 'text' ;
+    $isRequiredProp = isSet($required) && trim($required) !== '';
+    $hintTextProp = isSet($hint) && trim($hint) !== '' ? $hint : '';
+    $placeholderTextProp = isSet($placeholder) && trim($placeholder) !== '' ? $placeholder : '';
+    $maskProp = isSet($mask) && trim($mask) !== '' ? $mask : '';
+    $aliasProp = isSet($alias) && trim($alias) !== '' ? $alias : '';
+    $typeProp = isSet($type) && trim($type) !== '' ? $type : 'text';
+
 @endphp
 
-
-<div class="input2_wrapper my-15">
+<div class="input2_wrapper my-15 overflow-hidden">
     <label class="col-md-5" style="padding-left:0;padding-top:12px;">
-        {{ $title }}
-        @if ($isRequired) 
-            <span red>*</span> 
+        @if (isSet($title))
+            {{ $title }}
+            @if ($isRequiredProp) 
+                <span red>*</span> 
+            @endif
         @endif
     </label>
 
-    <div class="{{ $fileName ? "col-md-4" : "col-md-7" }} px-0">
+
+    <div class="col-md-7 px-0">
         <input 
-            type="{{ $typeField }}" 
-            class="form-control @error($name) is-invalid @enderror" 
-            placeholder="{{ $placeholderText }}" 
+            @if ($typeProp !== 'email')
+                type="{{ $typeProp }}" 
+            @endif
+            class="form-control @error($name) is-invalid @enderror sanitize" 
+            placeholder="{{ $placeholderTextProp }}" 
             name="{{ $name }}" 
             value="{{ old($name) }}" 
-            @if ($isRequired) 
-                required 
+            @if ($isRequiredProp) 
+                {{-- required  --}}
             @endif
             spellcheck="false"
+            @if ($maskProp)
+                data-inputmask="'mask': '{{ $maskProp }}'"
+            @endif
+
+            @if ($aliasProp)
+                data-inputmask="'alias': '{{ $aliasProp }}'"
+            @endif
         >
 
-        @if ($hintText)
+        @if ($hintTextProp)
         <small class="text-muted" style="line-height: 10px; display: block;">
-            {{ $hintText }} 
+            {{ $hintTextProp }} 
         </small> 
         @endif
             
@@ -41,23 +53,5 @@
             </span>
         @enderror
     </div>
-    @if ($fileName)
-        <div class="col-md-3">
-            <input 
-                id="{{ $fileName }}" 
-                type="file" 
-                class="form-control @error($fileName) is-invalid @enderror" 
-                name="inn-file" 
-                value="{{ old($fileName) }}" 
-                required
-            >
-
-            @error($fileName)
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    @endif
 </div>
 <div class="clearfix"></div>
