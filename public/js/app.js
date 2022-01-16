@@ -306,12 +306,18 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vue */ "./resources/js/vue.js");
 /* harmony import */ var _lib_inputmask__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/inputmask */ "./resources/js/lib/inputmask.js");
+/* harmony import */ var _scripts_register_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scripts/register-modal */ "./resources/js/scripts/register-modal.js");
+/* harmony import */ var _scripts_register_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scripts_register_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts/input-file.js */ "./resources/js/scripts/input-file.js");
+/* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import "./lib/bootstrap";
+
+
 
 
 /**
@@ -388,9 +394,89 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
     placeholder: "_",
     min: "2010",
     max: "2060"
+  },
+  bithday: {
+    alias: "dategood",
+    min: "1910",
+    max: "2021"
   }
 });
 inputmask__WEBPACK_IMPORTED_MODULE_0___default()().mask(document.querySelectorAll("input"));
+
+/***/ }),
+
+/***/ "./resources/js/scripts/input-file.js":
+/*!********************************************!*\
+  !*** ./resources/js/scripts/input-file.js ***!
+  \********************************************/
+/***/ (() => {
+
+$(function () {
+  $(document).on("click", ".plus-btn", function () {
+    console.log($(this).closest(".parent-plus-btn").find('input[type="file"]').eq(0));
+    var parentElement = $(this).closest(".parent-plus-btn");
+    parentElement.find('input[type="file"]').eq(0).clone().appendTo(parentElement);
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/scripts/register-modal.js":
+/*!************************************************!*\
+  !*** ./resources/js/scripts/register-modal.js ***!
+  \************************************************/
+/***/ (() => {
+
+$(function () {
+  var linkIndButton = ".as-ind-link";
+  var linkOrgButton = ".as-org-link";
+  var askModalAtTabLinks = ".ask-modal";
+  var asOrg = ".as-org";
+  var asInd = ".as-ind";
+  var wrapperForms = ".register-forms-wrapper";
+  var allForms = wrapperForms + " form";
+  var selfModal = "#register";
+  var hashLocation = location.hash.match(/\.as-org-link|\.as-ind-link/);
+  var action = $(allForms).attr("action");
+
+  function showRegisterForms() {
+    $(wrapperForms).css("height", "auto").addClass("loaded");
+  }
+
+  function setLocationHash(path) {
+    location.hash = path;
+    $(allForms).attr("action", action + location.hash);
+  }
+
+  function showModal() {
+    $(selfModal).modal("show").on("hidden.bs.modal", showRegisterForms);
+  } //put into hash when click on tabs
+
+
+  $.each([linkIndButton, linkOrgButton], function (_, value) {
+    $(value).click(function () {
+      setLocationHash(value);
+    });
+  });
+
+  if ($(askModalAtTabLinks).length > 0 && !hashLocation) {
+    showModal();
+    $(asOrg).click(function () {
+      $(askModalAtTabLinks).find(linkOrgButton).click();
+      setLocationHash(linkOrgButton);
+    });
+    $(asInd).click(function () {
+      $(askModalAtTabLinks).find(linkIndButton).click();
+      setLocationHash(linkIndButton);
+    });
+  }
+
+  if (hashLocation) {
+    $(hashLocation[0]).click();
+    showRegisterForms();
+    return;
+  }
+});
 
 /***/ }),
 

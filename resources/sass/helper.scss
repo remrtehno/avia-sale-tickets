@@ -19,6 +19,10 @@
     overflow: hidden;
 }
 
+.min-50vh {
+    min-height: 50vh;
+}
+
 //@TODO It's probable we won't use it
 .arrow-separator {
     vertical-align: 10%;

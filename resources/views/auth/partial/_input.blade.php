@@ -24,12 +24,12 @@
             @if ($typeProp !== 'email')
                 type="{{ $typeProp }}" 
             @endif
-            class="form-control @error($name) is-invalid @enderror sanitize" 
+            class="form-control @error($name) is-invalid @enderror" 
             placeholder="{{ $placeholderTextProp }}" 
             name="{{ $name }}" 
             value="{{ old($name) }}" 
             @if ($isRequiredProp) 
-                {{-- required  --}}
+                required 
             @endif
             spellcheck="false"
             @if ($maskProp)

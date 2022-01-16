@@ -6,6 +6,8 @@
 // import "./lib/bootstrap";
 import "./vue";
 import "./lib/inputmask";
+import "./scripts/register-modal";
+import "./scripts/input-file.js";
 
 /**
  * The following block of code may be used to automatically register your

@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('birthday')->nullable();
             $table->string('surname')->nullable();
             $table->string('surname2')->nullable();
+            $table->text('passport')->nullable();
 
             //ORG
             $table->string('dir_surname')->nullable();

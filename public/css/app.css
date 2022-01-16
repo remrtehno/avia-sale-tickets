@@ -28,16 +28,37 @@ body input.form-control {
   text-decoration: none;
 }
 
-body.loaded_hiding {
+.modal-dialog {
+  position: absolute;
+  top: 40% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.plus-btn {
+  position: absolute;
+  top: 9px;
+  right: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  border: 0;
+}
+.plus-btn:hover {
+  background: gray;
+  color: white;
+}
+
+.loaded_hiding {
   opacity: 0;
   pointer-events: none;
 }
 
-body {
+body,
+.loaded_transition {
   transition: all 0.36s;
 }
 
-body.loaded {
+.loaded {
   pointer-events: visible;
   opacity: 1;
 }
@@ -135,6 +156,10 @@ body.loaded {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.min-50vh {
+  min-height: 50vh;
 }
 
 .arrow-separator {
