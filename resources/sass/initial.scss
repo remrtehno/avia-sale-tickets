@@ -1,3 +1,35 @@
 * {
     font-feature-settings: "lnum" 1;
 }
+
+input::placeholder {
+    opacity: 0.5;
+}
+body input.form-control {
+    color: var(--black) !important;
+}
+
+.nav-tabs a {
+    text-decoration: none;
+}
+
+//modal centered
+.modal-dialog {
+    position: absolute;
+    top: 40% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.plus-btn {
+    position: absolute;
+    top: 9px;
+    right: 0;
+    font-size: 28px;
+    line-height: 1.1;
+    border: 0;
+    &:hover {
+        background: gray;
+        color: white;
+    }
+}

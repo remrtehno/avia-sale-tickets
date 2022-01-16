@@ -29,6 +29,10 @@ removing images https://stackoverflow.com/questions/62429023/how-to-create-a-fac
 docker-compose run --rm artisan make:controller SeatFlightController --resource
 
 Tinker:
+Faker instance: >>> $faker = Faker\Factory::create();
+
+# example \App\Models\SeatFlight::all()
+
 To get all tables, use this:
 $tables = \DB::select('show tables');.
 
@@ -70,3 +74,7 @@ $translator->setTranslations([
 
 // \Carbon\Carbon::setLocale('es');
 ```
+
+#Timestamp
+2022-01-16 00:37:25
+->format('Y-m-d H:m:s')

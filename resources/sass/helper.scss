@@ -2,6 +2,27 @@
     display: flex;
 }
 
+[red] {
+    color: var(--red);
+    font-size: 19px;
+    line-height: 0;
+    &[big] {
+        font-size: 30px;
+    }
+}
+
+[middle] {
+    vertical-align: middle;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.min-50vh {
+    min-height: 50vh;
+}
+
 //@TODO It's probable we won't use it
 .arrow-separator {
     vertical-align: 10%;

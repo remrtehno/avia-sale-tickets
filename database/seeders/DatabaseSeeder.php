@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call([
+            UserTableSeeder::class,
             PagesTableSeeder::class,
             SeatFlightTableSeeder::class,
             PartnerTableSeeder::class,

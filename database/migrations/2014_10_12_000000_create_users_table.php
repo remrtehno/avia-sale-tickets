@@ -14,13 +14,39 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email', 191)->unique();
+            $table->string('address');
+            $table->string('tel');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('role')->nullable()->comment('admin=admin, ind=Individual, org=Organization');
+            $table->integer('is_admin');
+            $table->integer('is_aproved');
+
+            //IND
+            $table->timestamp('birthday')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('surname2')->nullable();
+            $table->text('passport')->nullable();
+
+            //ORG
+            $table->string('dir_surname')->nullable();
+            $table->string('dir_name')->nullable();
+            $table->string('dir_surname2')->nullable();
+            $table->string('tel_director')->nullable();
+            $table->text('dir_passport')->nullable();
+            $table->string('inn')->nullable();
+            $table->string('inn_file')->nullable();
+            $table->string('license')->nullable();
+            $table->text('license_file')->nullable();
+            $table->string('agreement_contract')->nullable();
+            $table->text('agreement_contract_file')->nullable();
+            $table->string('cadastre')->nullable();
+            $table->text('cadastre_file')->nullable();
         });
     }
 

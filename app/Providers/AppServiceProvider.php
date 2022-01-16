@@ -18,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(ContactsComposer::class);
+
+        $this->app->singleton(FooterMenuComposer::class);
     }
 
     /**
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
         //footer navigation
         view()->composer('*', FooterMenuComposer::class);
+
         view()->composer('*', ContactsComposer::class);
     }
 }

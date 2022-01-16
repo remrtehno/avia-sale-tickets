@@ -18,7 +18,7 @@
         <link href="/static/css/smoothness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
         <link href="/static/css/style.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet" >
         <link rel="stylesheet" href="/css/custom.css">
     </head>
     <body class="front {{ env('APP_DEBUG') ? '' : 'loaded_hiding' }}">
@@ -226,7 +226,24 @@
         </footer>
     </div>
 
-    <script src="/static/js/jquery.js"></link>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <h4 class="modal-title text-lowercase" id="myModalLabel">Зарегистрироваться как:</h4>
+            <button type="button" class="btn btn-default as-org" data-dismiss="modal">Юридическое лицо</button>
+            <button type="button" class="btn btn-default as-ind" data-dismiss="modal">Физическое лицо</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="/static/js/jquery.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/jquery-ui.js"></script>
     <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>

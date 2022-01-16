@@ -48,7 +48,19 @@ class SeatFlight extends Model
         return $this->hasOne('App\Image');
     }
 
+    public function getTotal()
+    {
+        return $this->price;
+    }
 
+    public function getGrandTotal()
+    {
+        return $this->getTotal();
+    }
+
+    /**
+     * Scope a query to search seat flight including passengers
+     */
     public function scopeWithPassengers(Builder $query)
     {
         if (request()->has('child')) {
