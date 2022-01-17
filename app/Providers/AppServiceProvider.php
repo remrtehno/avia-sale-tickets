@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ContactsComposer::class);
 
         $this->app->singleton(FooterMenuComposer::class);
+
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Sven\ArtisanView\ServiceProvider::class);
+        }
     }
 
     /**

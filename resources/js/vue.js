@@ -1,7 +1,7 @@
 import Vue from "vue";
 
-import ExampleComponent from "./components/ExampleComponent";
-import SelectComponent from "./components/SelectComponent";
+import ExampleComponent from "./components/ExampleComponent.vue";
+import SelectComponent from "./components/SelectComponent.vue";
 import VDatePicker from "./components/VDatePicker.vue";
 import StarRating from "./components/StarRating.vue";
 

@@ -459,6 +459,12 @@ $(function () {
     });
   });
 
+  if (hashLocation) {
+    $(hashLocation[0]).click();
+    showRegisterForms();
+    return;
+  }
+
   if ($(askModalAtTabLinks).length > 0 && !hashLocation) {
     showModal();
     $(asOrg).click(function () {
@@ -469,12 +475,6 @@ $(function () {
       $(askModalAtTabLinks).find(linkIndButton).click();
       setLocationHash(linkIndButton);
     });
-  }
-
-  if (hashLocation) {
-    $(hashLocation[0]).click();
-    showRegisterForms();
-    return;
   }
 });
 
@@ -489,8 +489,8 @@ $(function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue");
-/* harmony import */ var _components_SelectComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SelectComponent */ "./resources/js/components/SelectComponent.vue");
+/* harmony import */ var _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue");
+/* harmony import */ var _components_SelectComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SelectComponent.vue */ "./resources/js/components/SelectComponent.vue");
 /* harmony import */ var _components_VDatePicker_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/VDatePicker.vue */ "./resources/js/components/VDatePicker.vue");
 /* harmony import */ var _components_StarRating_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/StarRating.vue */ "./resources/js/components/StarRating.vue");
 
@@ -503,8 +503,8 @@ window.Event = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]();
 new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
   el: "#app",
   components: {
-    ExampleComponent: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    SelectComponent: _components_SelectComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ExampleComponent: _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SelectComponent: _components_SelectComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     VDatePicker: _components_VDatePicker_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     StarRating: _components_StarRating_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },

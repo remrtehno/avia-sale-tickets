@@ -6,6 +6,8 @@ newgrp docker
 
 docker-compose up -d --build site
 docker-compose run --rm npm run watch
+
+docker-compose run --rm artisan make:model Booking -mcr
 docker-compose run --rm artisan make:factory PartnersFactory --model=PartnersModel
 docker-compose run --rm artisan migrate:refresh --seed
 
@@ -78,3 +80,7 @@ $translator->setTranslations([
 #Timestamp
 2022-01-16 00:37:25
 ->format('Y-m-d H:m:s')
+https://github.com/aschmelyun/docker-compose-laravel
+
+#installed packages
+https://github.com/svenluijten/artisan-view

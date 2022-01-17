@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
@@ -25,6 +26,7 @@ Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
 
 //resources
 Route::resource('seat-flights', SeatFlightController::class);
+Route::resource('booking', BookingController::class);
 
 
 

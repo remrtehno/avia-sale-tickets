@@ -30,6 +30,12 @@ $(function () {
         });
     });
 
+    if (hashLocation) {
+        $(hashLocation[0]).click();
+        showRegisterForms();
+        return;
+    }
+
     if ($(askModalAtTabLinks).length > 0 && !hashLocation) {
         showModal();
 
@@ -42,11 +48,5 @@ $(function () {
             $(askModalAtTabLinks).find(linkIndButton).click();
             setLocationHash(linkIndButton);
         });
-    }
-
-    if (hashLocation) {
-        $(hashLocation[0]).click();
-        showRegisterForms();
-        return;
     }
 });
