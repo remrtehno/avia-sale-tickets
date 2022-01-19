@@ -310,12 +310,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_register_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scripts_register_modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts/input-file.js */ "./resources/js/scripts/input-file.js");
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/cash-or-transfer */ "./resources/js/scripts/cash-or-transfer.js");
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import "./lib/bootstrap";
+
 
 
 
@@ -405,6 +408,22 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default()().mask(document.querySelectorAl
 
 /***/ }),
 
+/***/ "./resources/js/scripts/cash-or-transfer.js":
+/*!**************************************************!*\
+  !*** ./resources/js/scripts/cash-or-transfer.js ***!
+  \**************************************************/
+/***/ (() => {
+
+$("#cash-or-transfer").change(function () {
+  if ($(this).prop("checked")) {
+    $($(this).attr("tab-2")).tab("show");
+  } else {
+    $($(this).attr("tab-1")).tab("show");
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/scripts/input-file.js":
 /*!********************************************!*\
   !*** ./resources/js/scripts/input-file.js ***!
@@ -459,6 +478,12 @@ $(function () {
     });
   });
 
+  if (hashLocation) {
+    $(hashLocation[0]).click();
+    showRegisterForms();
+    return;
+  }
+
   if ($(askModalAtTabLinks).length > 0 && !hashLocation) {
     showModal();
     $(asOrg).click(function () {
@@ -469,12 +494,6 @@ $(function () {
       $(askModalAtTabLinks).find(linkIndButton).click();
       setLocationHash(linkIndButton);
     });
-  }
-
-  if (hashLocation) {
-    $(hashLocation[0]).click();
-    showRegisterForms();
-    return;
   }
 });
 
@@ -489,8 +508,8 @@ $(function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue");
-/* harmony import */ var _components_SelectComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SelectComponent */ "./resources/js/components/SelectComponent.vue");
+/* harmony import */ var _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue");
+/* harmony import */ var _components_SelectComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/SelectComponent.vue */ "./resources/js/components/SelectComponent.vue");
 /* harmony import */ var _components_VDatePicker_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/VDatePicker.vue */ "./resources/js/components/VDatePicker.vue");
 /* harmony import */ var _components_StarRating_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/StarRating.vue */ "./resources/js/components/StarRating.vue");
 
@@ -503,8 +522,8 @@ window.Event = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]();
 new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
   el: "#app",
   components: {
-    ExampleComponent: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    SelectComponent: _components_SelectComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ExampleComponent: _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SelectComponent: _components_SelectComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     VDatePicker: _components_VDatePicker_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     StarRating: _components_StarRating_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },

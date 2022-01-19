@@ -28,6 +28,7 @@
                                     value="{{ request('from') }}"
                                     :search="true"
                                     :show-empty="true"
+                                    :show-search="true"
                                     >
                                 </select-component>  
                                 @endif
@@ -47,6 +48,7 @@
                                     value="{{ request('to') }}"
                                     :search="true"
                                     :show-empty="true"
+                                    :show-search="true"
                                     >
                                 </select-component>  
                                 @endif

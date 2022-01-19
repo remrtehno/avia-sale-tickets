@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const ORG = 'org';
+    public const IND = 'ind';
+    public const ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,4 +45,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Returns true or false if user is Organizator.
+     *
+     * @returns Boolean
+     */
+    public function isOrg()
+    {
+        return $this->role == $this::ORG;
+    }
+
+    /**
+     * Returns true or false if user is Individual.
+     *
+     * @returns Boolean
+     */
+    public function isInd()
+    {
+        return $this->role == $this::IND;
+    }
+
+    /**
+     * Returns true or false if user is Individual.
+     *
+     * @returns Boolean
+     */
+    public function isAdmin()
+    {
+        return $this->role == $this::ADMIN;
+    }
 }

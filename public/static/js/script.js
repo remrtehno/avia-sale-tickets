@@ -357,12 +357,12 @@ $(document).ready(function () {
 
     // Select2.
     $.merge(
-        $("select.select2[data-search='true']").select2({
+        $("select.select2[data-showsearch='true']").select2({
             // containerCss: ".eeeeeee",
             // minimumResultsForSearch: Infinity,
         }),
 
-        $("select.select2").not('[data-search="true"]').select2({
+        $("select.select2").not('[data-showsearch="true"]').select2({
             minimumResultsForSearch: Infinity,
         })
     ).on("select2:open", function (e) {
