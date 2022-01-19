@@ -17,6 +17,14 @@ class User extends Authenticatable
     public const ADMIN = 'admin';
 
     /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = ['is_admin'];
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -25,6 +33,31 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "role",
+        "address",
+        "tel",
+
+        //org
+        'dir_surname',
+        'dir_name',
+        'dir_surname2',
+        'tel_director',
+        'dir_passport_file',
+        'inn',
+        'inn_file',
+        'license',
+        'license_file',
+        'agreement_contract',
+        'agreement_contract_file',
+        'cadastre',
+        'cadastre_file',
+
+        //ind
+        'birthday',
+        'surname',
+        'surname2',
+        'passport_file',
+
     ];
 
     /**

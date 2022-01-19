@@ -79,7 +79,7 @@
                                     
                                     @include('auth.partial._input_file', [
                                         "title" => 'Скан паспорта директора',
-                                        "name" => 'dir_passport',
+                                        "name" => 'dir_passport_file',
                                         "required" => true,
                                         "hint" => '(Только лицевая сторона и прописка)'
                                     ])
@@ -218,7 +218,7 @@
 
                                         @include('auth.partial._input_file', [
                                             "title" => 'Скан паспорта',
-                                            "name" => 'passport',
+                                            "name" => 'passport_file',
                                             "required" => true,
                                             "hint" => '(Только лицевая сторона и прописка)'
                                         ])
