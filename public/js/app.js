@@ -310,12 +310,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_register_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scripts_register_modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts/input-file.js */ "./resources/js/scripts/input-file.js");
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/cash-or-transfer */ "./resources/js/scripts/cash-or-transfer.js");
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import "./lib/bootstrap";
+
 
 
 
@@ -402,6 +405,22 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
   }
 });
 inputmask__WEBPACK_IMPORTED_MODULE_0___default()().mask(document.querySelectorAll("input"));
+
+/***/ }),
+
+/***/ "./resources/js/scripts/cash-or-transfer.js":
+/*!**************************************************!*\
+  !*** ./resources/js/scripts/cash-or-transfer.js ***!
+  \**************************************************/
+/***/ (() => {
+
+$("#cash-or-transfer").change(function () {
+  if ($(this).prop("checked")) {
+    $($(this).attr("tab-2")).tab("show");
+  } else {
+    $($(this).attr("tab-1")).tab("show");
+  }
+});
 
 /***/ }),
 

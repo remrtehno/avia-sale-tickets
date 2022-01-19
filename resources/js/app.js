@@ -8,6 +8,7 @@ import "./vue";
 import "./lib/inputmask";
 import "./scripts/register-modal";
 import "./scripts/input-file.js";
+import "./scripts/cash-or-transfer";
 
 /**
  * The following block of code may be used to automatically register your
