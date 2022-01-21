@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('role')->nullable()->comment('admin=admin, ind=Individual, org=Organization');
+            $table->string('role')->nullable()->comment('ind=Individual, org=Organization');
             $table->integer('is_admin');
             $table->integer('is_aproved');
 

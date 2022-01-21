@@ -15,6 +15,14 @@ class User extends Authenticatable
     public const ORG = 'org';
     public const IND = 'ind';
     public const ADMIN = 'admin';
+    public const FILES_ATTRIBUTES = [
+        'dir_passport_file',
+        'inn_file',
+        'license_file',
+        'agreement_contract_file',
+        'cadastre_file',
+        'passport_file'
+    ];
 
     /**
      * The attributes that are not mass assignable.
@@ -42,21 +50,21 @@ class User extends Authenticatable
         'dir_name',
         'dir_surname2',
         'tel_director',
-        'dir_passport_file',
+        // 'dir_passport_file',
         'inn',
-        'inn_file',
+        // 'inn_file',
         'license',
-        'license_file',
+        // 'license_file',
         'agreement_contract',
-        'agreement_contract_file',
+        // 'agreement_contract_file',
         'cadastre',
-        'cadastre_file',
+        // 'cadastre_file',
 
         //ind
         'birthday',
         'surname',
         'surname2',
-        'passport_file',
+        // 'passport_file',
 
     ];
 
@@ -107,6 +115,6 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->role == $this::ADMIN;
+        return $this->isAdmin() === 1;
     }
 }

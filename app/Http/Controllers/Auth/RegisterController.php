@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\FileUpload;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -24,20 +25,23 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    private $service;
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASHBOARD;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(FileUpload $fileUpload)
     {
+        $this->service = $fileUpload;
         $this->middleware('guest');
     }
 
@@ -64,11 +68,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd($data);
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+        $files = $this->service->storeFiles(User::FILES_ATTRIBUTES, "user-" . $data['email']);
+
+        $user = new User($data);
+        $user->password = Hash::make($data['password']);
+
+        //store paths
+        foreach ($files as $key => $file) {
+            $user[$key] = serialize($file);
+        }
+
+        $user->save();
+
+        return $user;
     }
 }

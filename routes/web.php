@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SeatFlightController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,5 @@ Route::resource('booking', BookingController::class);
 
 
 
-
-//prebuilted functions
+//prebuilt functions
 Auth::routes();

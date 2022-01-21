@@ -20,7 +20,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}">
                                     @csrf
                                     <input type="hidden" name="role" value="org">
 
@@ -178,7 +178,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('register') }}">
+                                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="role" value="ind">
 
