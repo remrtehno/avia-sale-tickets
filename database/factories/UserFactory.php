@@ -22,6 +22,7 @@ class UserFactory extends Factory
                     ->format('Y-m-d H:m:s'),
                 'surname' => $this->faker->firstName(),
                 'surname2' => $this->faker->lastName(),
+                'passport_file' => '---'
             ];
         });
     }
@@ -39,7 +40,7 @@ class UserFactory extends Factory
                 'dir_surname' => $this->faker->firstName(),
                 'dir_name' => $this->faker->lastName(),
                 'dir_surname2' => $this->faker->firstNameMale(),
-                'dir_passport' => '---',
+                'dir_passport_file' => '---',
                 'tel_director' => $this->faker->phoneNumber(),
                 'inn' => rand(11111111, 99999999),
                 'inn_file' => '---',

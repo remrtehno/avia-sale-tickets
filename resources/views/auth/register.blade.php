@@ -20,7 +20,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}">
                                     @csrf
                                     <input type="hidden" name="role" value="org">
 
@@ -79,7 +79,7 @@
                                     
                                     @include('auth.partial._input_file', [
                                         "title" => 'Скан паспорта директора',
-                                        "name" => 'dir_passport',
+                                        "name" => 'dir_passport_file',
                                         "required" => true,
                                         "hint" => '(Только лицевая сторона и прописка)'
                                     ])
@@ -178,7 +178,7 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('register') }}">
+                                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="role" value="ind">
 
@@ -218,7 +218,7 @@
 
                                         @include('auth.partial._input_file', [
                                             "title" => 'Скан паспорта',
-                                            "name" => 'passport',
+                                            "name" => 'passport_file',
                                             "required" => true,
                                             "hint" => '(Только лицевая сторона и прописка)'
                                         ])
