@@ -62,13 +62,13 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'is_aproved' => 1,
+                'is_approved' => 1,
             ];
         });
     }
 
     /**
-     * User Aproved.
+     * User approved.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
@@ -99,7 +99,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'is_admin' => 0,
-            'is_aproved' => 0,
+            'is_approved' => 0,
         ];
     }
 

@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SeatFlightController;
 use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,19 @@ Route::resource('booking', BookingController::class);
 
 //prebuilt functions
 Auth::routes();
+
+
+
+
+Route::prefix('dashboard')->group(function () {
+
+  Route::middleware(['dashboard'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+  });
+
+
+  Route::get('not-approved', function () {
+
+    return view('dashboard.not-approved');
+  });
+});

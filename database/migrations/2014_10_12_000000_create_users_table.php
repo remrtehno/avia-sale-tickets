@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('role')->nullable()->comment('ind=Individual, org=Organization');
             $table->integer('is_admin');
-            $table->integer('is_aproved');
+            $table->integer('is_approved');
 
             //IND
             $table->timestamp('birthday')->nullable();

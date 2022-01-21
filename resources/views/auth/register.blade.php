@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}">
                                     @csrf
-                                    <input type="hidden" name="role" value="org">
+                                    <input type="hidden" name="role" value="{{ \App\Models\User::ORG }}">
 
                                     @include('auth.partial._input', [
                                         "title" => __('common.name.org'),
@@ -180,7 +180,7 @@
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" name="role" value="ind">
+                                        <input type="hidden" name="role" value="{{ \App\Models\User::IND }}">
 
                                         @include('auth.partial._input', [
                                             "title" => __('common.fullname'),

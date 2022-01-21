@@ -88,3 +88,4 @@ https://github.com/svenluijten/artisan-view
 # Create a view 'index.blade.php' in a subdirectory ('pages')
 
 docker-compose run --rm artisan make:view products --resource --verb=index --verb=create --verb=edit
+docker-compose run --rm artisan make:view products --resource --extends=layout --with-yields

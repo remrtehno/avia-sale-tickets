@@ -45,6 +45,9 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'dashboard' => [
+            \App\Http\Middleware\IsApproved::class,
+        ]
     ];
 
     /**
