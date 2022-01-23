@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'dashboard' => [
-            \App\Http\Middleware\IsApproved::class,
+            // \App\Http\Middleware\IsApproved::class,
         ]
     ];
 

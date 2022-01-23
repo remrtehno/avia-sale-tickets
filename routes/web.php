@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
@@ -41,8 +42,16 @@ Auth::routes();
 
 Route::prefix('dashboard')->group(function () {
 
-  Route::middleware(['dashboard'])->group(function () {
+  Route::middleware(['dashboard', 'auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
+
+
+    Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
+
+
+      Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+      Route::put('/update', [ProfileController::class, 'update'])->name('update');
+    });
   });
 
 

@@ -4,7 +4,7 @@
     <label for="{{ $name }}" 
         class="col-form-label text-md-right" 
         style="padding-left:0;padding-top:12px;">{{ $title }} 
-        @if ($required)
+        @if ($required ?? false)
             <span red>*</span>
         @endif
     </label>
@@ -29,3 +29,4 @@
     </div>
 </div>
 <div class="clearfix"></div>  
+

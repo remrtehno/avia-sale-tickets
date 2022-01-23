@@ -18,7 +18,7 @@ class IsApproved
     public function handle(Request $request, Closure $next)
     {
 
-        if (Auth::user() &&  Auth::user()->is_approved == 1) {
+        if (Auth::user() &&  Auth::user()->is_approved === 1) {
             return $next($request);
         }
 

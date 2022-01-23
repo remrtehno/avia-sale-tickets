@@ -27,14 +27,14 @@
                                     @include('auth.partial._input', [
                                         "title" => __('common.name.org'),
                                         "name" => 'name',
-                                        "placeholder" => "OOO Ваша организация",
+                                        "placeholder" => __("org.org_placeholder"),
                                         "required" => true,
                                     ])
                                     
                                     @include('auth.partial._input', [
                                         "title" => __('common.address'),
                                         "name" => 'address',
-                                        "placeholder" => "г. Ташкент ул. Истиклол д. 11",
+                                        "placeholder" => __("common.address_placeholder"),
                                         "required" => true,
                                     ])
 
@@ -59,29 +59,29 @@
                                     @include('auth.partial._input', [
                                         "title" => __('org.fullname_director'),
                                         "name" => 'dir_surname',
-                                        "placeholder" => "Фамилия",
+                                        "placeholder" => __("common.surname"),
                                         "required" => true,
                                     ])
 
                                     
                                     @include('auth.partial._input', [
                                         "name" => 'dir_name',
-                                        "placeholder" => "Имя",
+                                        "placeholder" => __("common.name"),
                                         "required" => true,
                                     ])
 
                                     @include('auth.partial._input', [
                                         "name" => 'dir_surname2',
-                                        "placeholder" => "Отчество",
+                                        "placeholder" => __("common.surname2"),
                                         "required" => true,
                                     ])
                                                                     
                                     
                                     @include('auth.partial._input_file', [
-                                        "title" => 'Скан паспорта директора',
+                                        "title" => __("org.scan_passport_file"),
                                         "name" => 'dir_passport_file',
                                         "required" => true,
-                                        "hint" => '(Только лицевая сторона и прописка)'
+                                        "hint" => __("common.only_face_page_and_home")
                                     ])
 
 
@@ -103,7 +103,7 @@
 
 
                                     @include('auth.partial._input_file', [
-                                        "title" => 'Скан ИНН',
+                                        "title" => __("org.scan_inn"),
                                         "name" => 'inn_file',
                                         "required" => true,
                                     ])
@@ -118,7 +118,7 @@
                                     ])
 
                                     @include('auth.partial._input_file', [
-                                        "title" => 'Скан лицензии',
+                                        "title" => __('org.scan_license'),
                                         "name" => 'license_file',
                                         "required" => true,
                                     ])
@@ -133,7 +133,7 @@
                                     ])
 
                                     @include('auth.partial._input_file', [
-                                        "title" => 'Скан договора с авиакомпаниями или консолидаторами ',
+                                        "title" => __('org.scan_agreements_with_avia_and_cons'),
                                         "name" => 'agreement_contract_file',
                                         "required" => true,
                                     ])
@@ -146,7 +146,7 @@
                                     ])
 
                                     @include('auth.partial._input_file', [
-                                        "title" => 'Скан кадастра',
+                                        "title" => __('org.scan_cadastre'),
                                         "name" => 'cadastre_file',
                                         "required" => true,
                                     ])
@@ -191,13 +191,13 @@
 
                                         @include('auth.partial._input', [
                                             "name" => 'surname',
-                                            "placeholder" => "Фамилия",
+                                            "placeholder" => __('common.surname'),
                                             "required" => true,
                                         ])
 
                                         @include('auth.partial._input', [
                                             "name" => 'surname2',
-                                            "placeholder" => "Отчество",
+                                            "placeholder" => __('common.surname2'),
                                             "required" => true,
                                         ])
 
@@ -212,15 +212,15 @@
                                         @include('auth.partial._input', [
                                             "title" => __('common.address'),
                                             "name" => 'address',
-                                            "placeholder" => "г. Ташкент ул. Истиклол д. 11",
+                                            "placeholder" => __('common.address_placeholder'),
                                             "required" => true,
                                         ])
 
                                         @include('auth.partial._input_file', [
-                                            "title" => 'Скан паспорта',
+                                            "title" => __('common.scan_passport'),
                                             "name" => 'passport_file',
                                             "required" => true,
-                                            "hint" => '(Только лицевая сторона и прописка)'
+                                            "hint" => __('common.only_face_page_and_home')
                                         ])
 
                                         @include('auth.partial._input', [

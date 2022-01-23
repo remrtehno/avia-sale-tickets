@@ -5,7 +5,7 @@
     $maskProp = isSet($mask) && trim($mask) !== '' ? $mask : '';
     $aliasProp = isSet($alias) && trim($alias) !== '' ? $alias : '';
     $typeProp = isSet($type) && trim($type) !== '' ? $type : 'text';
-
+    $valueProp = isSet($value) && trim($value) !== '' ? $value : old($name);
 @endphp
 
 <div class="input2_wrapper my-15 overflow-hidden">
@@ -27,7 +27,7 @@
             class="form-control @error($name) is-invalid @enderror" 
             placeholder="{{ $placeholderTextProp }}" 
             name="{{ $name }}" 
-            value="{{ old($name) }}" 
+            value="{{ $valueProp }}" 
             @if ($isRequiredProp) 
                 required 
             @endif

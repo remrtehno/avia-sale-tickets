@@ -4,8 +4,10 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
 
+
 class FileUpload
 {
+
   public function storeFiles($files, $path = 'images', $deleteFiles = [])
   {
 
@@ -22,5 +24,11 @@ class FileUpload
     }
 
     return $paths;
+  }
+
+
+
+  public function deleteFiles($files)
+  {
   }
 }

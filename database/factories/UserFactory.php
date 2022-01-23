@@ -22,7 +22,7 @@ class UserFactory extends Factory
                     ->format('Y-m-d H:m:s'),
                 'surname' => $this->faker->firstName(),
                 'surname2' => $this->faker->lastName(),
-                'passport_file' => '---'
+                'passport_file' => null
             ];
         });
     }
@@ -40,16 +40,16 @@ class UserFactory extends Factory
                 'dir_surname' => $this->faker->firstName(),
                 'dir_name' => $this->faker->lastName(),
                 'dir_surname2' => $this->faker->firstNameMale(),
-                'dir_passport_file' => '---',
+                'dir_passport_file' => null,
                 'tel_director' => $this->faker->phoneNumber(),
                 'inn' => rand(11111111, 99999999),
-                'inn_file' => '---',
+                'inn_file' => null,
                 'license' => rand(11111111, 99999999),
-                'license_file' => '---',
+                'license_file' => null,
                 'agreement_contract' => rand(11111111, 99999999),
-                'agreement_contract_file' => '---',
+                'agreement_contract_file' => null,
                 'cadastre' => rand(11111111, 99999999),
-                'cadastre_file' => '---',
+                'cadastre_file' => null,
             ];
         });
     }

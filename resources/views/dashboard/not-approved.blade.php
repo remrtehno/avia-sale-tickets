@@ -7,6 +7,8 @@
     <h1>Dashboard</h1>
 @stop
 
+
+
 @section('content')
 <div class="container">
   <div class="paddinger"></div>

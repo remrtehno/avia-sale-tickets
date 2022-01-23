@@ -1,12 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Dashboard;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\ProfileRequest;
+use App\Models\User;
+use App\Services\FileUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class DashboardController extends Controller
+class ProfileController extends Controller
 {
+    public function __construct(FileUpload $fileUpload)
+    {
+        $this->service = $fileUpload;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        return view('dashboard.profile.edit', ['user' => Auth::user()]);
     }
 
     /**
@@ -41,10 +50,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show($id)
     {
         //
     }
@@ -52,33 +61,42 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dashboard  $dashboard
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit()
     {
-        //
+        return view('dashboard.profile.edit', ['user' => Auth::user()]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(ProfileRequest $request)
     {
-        //
+        $user = User::findOrFail($request->id);
+        $user->update($request->except('id'));
+
+        if ($request['password']) {
+            $user->password = Hash::make($request['password']);
+        }
+
+
+        $user->save();
+
+        return redirect()->route('profile.edit');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dashboard  $dashboard
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy($id)
     {
         //
     }
