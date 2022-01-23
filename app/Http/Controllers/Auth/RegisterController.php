@@ -78,7 +78,7 @@ class RegisterController extends Controller
         );
 
         foreach ($filesStored as $key => $file) {
-            $user[$key] = implode(',', $file);
+            $user[$key] = implode(User::SEPARATOR, $file);
         }
 
         $user->save();

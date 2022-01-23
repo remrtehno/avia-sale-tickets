@@ -10,6 +10,12 @@
       @csrf
       @method('PUT')
 
+      
+
+      @foreach ( $user->getImages($user->dir_passport_file) as $img )
+          <img src="{{ $img->url }}" alt="">
+      @endforeach
+
       @include('auth.partial._input', [
         "title" => __('common.name.org'),
         "name" => 'name',

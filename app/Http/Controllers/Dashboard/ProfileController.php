@@ -90,10 +90,11 @@ class ProfileController extends Controller
         );
 
         foreach ($filesStored as $key => $file) {
-            $user[$key] = implode(',', $file);
+            $user[$key] = implode(User::SEPARATOR, $file);
         }
 
         $user->save();
+
 
         return redirect()->route('profile.edit');
     }

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'cadastre_file',
         'passport_file'
     ];
+    public const SEPARATOR = ',';
 
     /**
      * The attributes that are not mass assignable.
@@ -121,5 +122,15 @@ class User extends Authenticatable
     public function getPathImages()
     {
         return $this->email;
+    }
+
+
+    public function getImages(String $imploed_array)
+    {
+        if (strpos($imploed_array, User::SEPARATOR)) {
+            return [];
+        }
+
+        return Image::find(explode(User::SEPARATOR, $imploed_array));
     }
 }
