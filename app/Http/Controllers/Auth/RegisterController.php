@@ -69,14 +69,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        $files = $this->service->storeFiles(User::FILES_ATTRIBUTES, "user-" . $data['email']);
-
         $user = new User($data);
         $user->password = Hash::make($data['password']);
 
-        //store paths
-        foreach ($files as $key => $file) {
-            $user[$key] = serialize($file);
+        $filesStored = $this->service->storeFiles(
+            User::FILE_ATTRIBUTES,
+            $user->getPathImages()
+        );
+
+        foreach ($filesStored as $key => $file) {
+            $user[$key] = implode(',', $file);
         }
 
         $user->save();

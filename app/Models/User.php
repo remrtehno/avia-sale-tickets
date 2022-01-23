@@ -14,7 +14,7 @@ class User extends Authenticatable
     public const ORG = 'org';
     public const IND = 'ind';
     public const ADMIN = 'admin';
-    public const FILES_ATTRIBUTES = [
+    public const FILE_ATTRIBUTES = [
         'dir_passport_file',
         'inn_file',
         'license_file',
@@ -115,5 +115,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin === 1;
+    }
+
+
+    public function getPathImages()
+    {
+        return $this->email;
     }
 }

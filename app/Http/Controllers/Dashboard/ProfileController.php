@@ -84,6 +84,14 @@ class ProfileController extends Controller
             $user->password = Hash::make($request['password']);
         }
 
+        $filesStored = $this->service->storeFiles(
+            User::FILE_ATTRIBUTES,
+            $user->getPathImages()
+        );
+
+        foreach ($filesStored as $key => $file) {
+            $user[$key] = implode(',', $file);
+        }
 
         $user->save();
 
