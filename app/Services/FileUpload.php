@@ -11,6 +11,11 @@ class FileUpload
 
   public function storeFiles($files, $path = 'images')
   {
+    dd($this);
+
+    $newsItem->addMedia($request->file('image'))->toMediaCollection($path);
+
+
     $mapStoredFiles = [];
 
     foreach ($files as $fileName) {

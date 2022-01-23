@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     public const ORG = 'org';
     public const IND = 'ind';
@@ -118,19 +121,41 @@ class User extends Authenticatable
         return $this->is_admin === 1;
     }
 
-
-    public function getPathImages()
+    public function storeFiles($clean = false)
     {
-        return $this->email;
+        foreach (User::FILE_ATTRIBUTES as $fileName) {
+            if (request()->file($fileName)) {
+
+                $nameCollection =  $this->getPathImages($fileName);
+
+                if ($clean) {
+                    $this->clearMedia($nameCollection);
+                }
+
+                foreach (request()->file($fileName) as $uploadedFile) {
+                    $this->addMedia($uploadedFile)
+                        ->toMediaCollection(
+                            $nameCollection
+                        );
+                }
+            }
+        }
+    }
+
+    public function clearMedia($collectionName)
+    {
+        return $this->clearMediaCollection($collectionName);
     }
 
 
-    public function getImages(String $imploed_array)
+    public function getPathImages($fileName)
     {
-        if (strpos($imploed_array, User::SEPARATOR)) {
-            return [];
-        }
+        return $this->email . '-'  . $fileName;
+    }
 
-        return Image::find(explode(User::SEPARATOR, $imploed_array));
+
+    public function getImages($fieldName)
+    {
+        return $this->getMedia($this->getPathImages($fieldName));
     }
 }

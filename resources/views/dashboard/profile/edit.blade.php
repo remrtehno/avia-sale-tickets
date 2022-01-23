@@ -12,10 +12,6 @@
 
       
 
-      @foreach ( $user->getImages($user->dir_passport_file) as $img )
-          <img src="{{ $img->url }}" alt="">
-      @endforeach
-
       @include('auth.partial._input', [
         "title" => __('common.name.org'),
         "name" => 'name',
@@ -80,6 +76,10 @@
         "hint" => __("common.only_face_page_and_home"),
       ])
 
+       
+      @include('dashboard.profile.partials.images', ['images' => $user->getImages('dir_passport_file')])
+
+
 
       @include('auth.partial._input', [
         "title" => __('org.tel_director'),
@@ -106,6 +106,9 @@
         
       ])
 
+      @include('dashboard.profile.partials.images', ['images' => $user->getImages('inn_file')])
+
+
 
       @include('auth.partial._input', [
         "title" => __('org.license'),
@@ -122,6 +125,8 @@
         
       ])
 
+      @include('dashboard.profile.partials.images', ['images' => $user->getImages('license_file')])
+
 
       @include('auth.partial._input', [
         "title" => __('org.agreement_contract'),
@@ -137,6 +142,7 @@
         "name" => 'agreement_contract_file',
         
       ])
+      @include('dashboard.profile.partials.images', ['images' => $user->getImages('agreement_contract_file')])
 
       @include('auth.partial._input', [
         "title" => __('org.cadastre'),
@@ -146,12 +152,14 @@
         "value" => $user->cadastre
       ])
 
+
       @include('auth.partial._input_file', [
         "title" => __('org.scan_cadastre'),
         "name" => 'cadastre_file',
         
       ])
 
+      @include('dashboard.profile.partials.images', ['images' => $user->getImages('cadastre_file')])
 
       @include('auth.partial._input', [
         "title" => __('common.password'),
