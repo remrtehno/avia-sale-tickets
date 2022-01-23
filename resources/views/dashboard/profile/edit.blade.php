@@ -175,7 +175,7 @@
         "type" => "password"
       ])
 
-      @include('auth.partial._submit', ['title' => __('common.register')])  
+      @include('auth.partial._submit', ['title' => __('common.save')])  
     </form>
   </div>
 @endsection

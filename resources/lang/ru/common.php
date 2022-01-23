@@ -15,10 +15,12 @@ return [
   'tel' => 'Телефон',
   'login' => 'Войти',
   'register' => 'Регистрация',
+  'save' => 'Сохранить',
   'reset_pass' => 'Сбросить пароль',
   'forgot_pass' => 'Забыли пароль?',
   'remember_me' => 'Запомнить меня',
   'reset_pass' => 'Сбросить пароль',
+  'reports' => 'Отчеты',
 
   //placeholders
   'address_placeholder' => 'г. Ташкент ул. Истиклол д. 11',

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SeatFlightController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -42,7 +43,7 @@ Auth::routes();
 
 Route::prefix('dashboard')->group(function () {
 
-  Route::middleware(['dashboard', 'auth'])->group(function () {
+  Route::middleware(['auth', 'dashboard'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
 
 
@@ -56,6 +57,9 @@ Route::prefix('dashboard')->group(function () {
 
 
   Route::get('not-approved', function () {
+    if (Auth::user()->is_approved) {
+      return redirect('/dashboard');
+    }
 
     return view('dashboard.not-approved');
   });

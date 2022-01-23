@@ -16,4 +16,7 @@ return [
     'important'                     => 'Важно',
     'warning'                       => 'Внимание',
     'information'                   => 'Информация',
+    //
+    'reports'                       => 'Отчеты',
+    'add_flights'                   => 'Добавление рейсов'
 ];
