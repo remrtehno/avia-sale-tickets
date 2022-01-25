@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\SeatFlight;
 use Illuminate\Http\Request;
 
 class FlightsController extends Controller
@@ -14,7 +15,7 @@ class FlightsController extends Controller
      */
     public function index()
     {
-        return view('dashboard.flights.index');
+        return view('dashboard.flights.index', ['flights' => SeatFlight::all()]);
     }
 
     /**
@@ -24,7 +25,7 @@ class FlightsController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.flights.create');
     }
 
     /**
@@ -80,6 +81,9 @@ class FlightsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $flight = SeatFlight::findOrFail($id);
+        $flight->delete();
+
+        return redirect()->route('dashboard.flights.index');
     }
 }

@@ -248,12 +248,63 @@ return [
             'url'         => 'admin/pages',
             'icon' => 'fas fa-fw fa-bars',
         ],
+
+
         [
-            'text' => 'add_flights',
+            'text'    => 'flights',
+            'icon'    => 'fas fa-fw fa-plane',
             'can'  => 'manage-dashboard',
-            'route'         => 'dashboard.flights.index',
-            'icon' => 'fas fa-fw fa-plane',
+            'submenu' => [
+                [
+                    'text' => 'all_flights',
+                    'can'  => 'manage-dashboard',
+                    'route' => 'dashboard.flights.index',
+                    'icon'    => '',
+                ],
+                [
+                    'text' => 'add_flights',
+                    'can'  => 'manage-dashboard',
+                    'route' => 'dashboard.flights.create',
+                    'icon'    => '',
+                ],
+            ],
         ],
+
+
+
+        // [
+        //     'text'    => 'flights',
+        //     'icon'    => 'fas fa-fw fa-plane',
+        //     'can'  => 'manage-dashboard',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'add_flights',
+        //             'can'  => 'manage-dashboard',
+        //             'route'         => 'dashboard.flights.index',
+        //             'icon' => 'fas fa-fw fa-plane',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
+
+
         // [
         //     'text'        => 'pages',
         //     'url'         => 'admin/pages',
@@ -267,50 +318,7 @@ return [
             'route' => 'dashboard.profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'can'  => 'manage-dashboard',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
+
         // ['header' => 'labels'],
         // [
         //     'text'       => 'important',
@@ -365,23 +373,24 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
-                ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'location' => '/vendor/datatables/css/dataTables.bootstrap4.min.css',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/datatables/js/jquery.dataTables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/datatables/js/dataTables.bootstrap4.min.js',
+                ],
+
             ],
         ],
         'Select2' => [
@@ -459,6 +468,22 @@ return [
                 ],
             ],
         ],
+
+        // 'Tempus dominus' => [
+        //     'active' => true,
+        //     'files' => [
+        //         [
+        //             'type' => 'css',
+        //             'asset' => false,
+        //             'location' => '/vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+        //         ],
+        //         [
+        //             'type' => 'js',
+        //             'asset' => false,
+        //             'location' => '/vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+        //         ],
+        //     ],
+        // ],
     ],
 
     /*

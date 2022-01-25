@@ -18,5 +18,7 @@ return [
     'information'                   => 'Информация',
     //
     'reports'                       => 'Отчеты',
-    'add_flights'                   => 'Добавление рейсов'
+    'add_flights'                   => 'Добавление рейсов',
+    'flights'                       => 'Рейсы',
+    'all_flights'                   => 'Все рейсы'
 ];

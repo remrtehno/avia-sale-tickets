@@ -4,38 +4,38 @@
     <h1>@lang('dashboard.profile')</h1>
 @stop
 
+@php
+$heads = [
+    'ID',
+    'Name',
+    ['label' => 'Phone', 'width' => 40],
+    ['label' => 'Actions', 'no-export' => true, 'width' => 5],
+];
+
+
+
+$config = [
+    // 'data' => [
+    //     [22, 'John Bender', '+02 (123) 123456789', '<nobr></nobr>'],
+    //     [19, 'Sophia Clemens', '+99 (987) 987654321', '<nobr></nobr>'],
+    //     [3, 'Peter Sousa', '+69 (555) 12367345243', '<nobr></nobr>'],
+    // ],
+    'order' => [[1, 'asc']],
+    // 'columns' => [null, null, null, ['orderable' => false]],
+];
+@endphp
+
 @section('content')
 
-<div class="row">
-        <x-adminlte-date-range name="date_flight" label="{{ __('dashboard.date_flight') }}" fgroup-class="col-md-6">
-        </x-adminlte-date-range>
 
-        <x-adminlte-input name="iLabel" label="{{__('dashboard.number_of_flight')}}" 
-        fgroup-class="col-md-6"/>
-
-        <div class="col-md-6">
-          <div>
-            <label for="iLabel">
-              {{__('dashboard.direction_flight')}}
-            </label>
-          </div>
-          <div class="row">
-            <x-adminlte-input name="iLabel" fgroup-class="col-md-6" placeholder="Откуда"/>
-            <x-adminlte-input name="iLabel" fgroup-class="col-md-6" placeholder="Куда"/>
-          </div>
-
-        </div>
+<x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
+  @foreach($flights as $row)
+      @include('dashboard.flights.partials.row', ['row' => $row])
+  @endforeach
+</x-adminlte-datatable>
 
 
-        <x-adminlte-input name="iLabel" label="{{__('dashboard.count_seats_flight')}}" 
-        fgroup-class="col-md-6"/>
-        <x-adminlte-input name="iLabel" label="{{__('dashboard.price_per_seat_flight')}}" 
-        fgroup-class="col-md-6"/>
-</div>
-
-
-
-
+  
 @endsection
 
 
