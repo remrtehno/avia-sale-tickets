@@ -72,14 +72,7 @@ class RegisterController extends Controller
         $user = new User($data);
         $user->password = Hash::make($data['password']);
 
-        $filesStored = $this->service->storeFiles(
-            User::FILE_ATTRIBUTES,
-            $user->getPathImages()
-        );
-
-        foreach ($filesStored as $key => $file) {
-            $user[$key] = implode(User::SEPARATOR, $file);
-        }
+        $user->storeFiles();
 
         $user->save();
 

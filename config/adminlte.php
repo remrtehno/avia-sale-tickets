@@ -251,7 +251,7 @@ return [
         [
             'text' => 'add_flights',
             'can'  => 'manage-dashboard',
-            'url'         => 'admin/pages',
+            'route'         => 'dashboard.flights.index',
             'icon' => 'fas fa-fw fa-plane',
         ],
         // [
@@ -264,7 +264,7 @@ return [
         // ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'route' => 'profile.edit',
+            'route' => 'dashboard.profile.edit',
             'icon' => 'fas fa-fw fa-user',
         ],
         // [

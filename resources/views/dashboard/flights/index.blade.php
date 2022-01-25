@@ -10,8 +10,6 @@
       @csrf
       @method('PUT')
 
-      
-
       @include('auth.partial._input', [
         "title" => __('common.name.org'),
         "name" => 'name',
@@ -182,10 +180,10 @@
 
 
 @section('js')
-  <script src="{{ mix('js/app.js') }}"></script>
+  {{--  <script src="{{ mix('js/app.js') }}"></script>  --}}
 @stop
 
 @section('css')
-  <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+  {{--  <link rel="stylesheet" href="{{ mix('css/app.css') }}" />  --}}
 @stop
 

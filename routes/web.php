@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\FlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SeatFlightController;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -35,18 +35,22 @@ Route::resource('booking', BookingController::class);
 
 
 
+
 //prebuilt functions
 Auth::routes();
 
 
 
 
-Route::prefix('dashboard')->group(function () {
+Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
   Route::middleware(['auth', 'dashboard'])->group(function () {
+    //resources
+    Route::resource('flights', FlightsController::class);
+
+
+    //single
     Route::get('/', [DashboardController::class, 'index']);
-
-
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 
