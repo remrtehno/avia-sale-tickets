@@ -28,12 +28,12 @@ removing images https://stackoverflow.com/questions/62429023/how-to-create-a-fac
 
 ####
 
-docker-compose run --rm artisan make:controller SeatFlightController --resource
+docker-compose run --rm artisan make:controller FlightsController --resource
 
 Tinker:
 Faker instance: >>> $faker = Faker\Factory::create();
 
-# example \App\Models\SeatFlight::all()
+# example \App\Models\Flights::all()
 
 To get all tables, use this:
 $tables = \DB::select('show tables');.

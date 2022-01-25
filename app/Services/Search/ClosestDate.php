@@ -2,7 +2,7 @@
 
 namespace App\Services\Search;
 
-use App\Models\SeatFlight;
+use App\Models\Flights;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClosestDate
@@ -14,7 +14,7 @@ class ClosestDate
       return null;
     }
 
-    return SeatFlight::withouDateBetween()
+    return Flights::withouDateBetween()
       ->orderByClosest()
       ->first();
   }

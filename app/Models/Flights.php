@@ -9,9 +9,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
 
-class SeatFlight extends Model
+class Flights extends Model
 {
     use HasFactory;
+
+    protected $table = 'seat_flights';
 
     /**
      * The "booted" method of the model.

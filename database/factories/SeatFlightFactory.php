@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 
-class SeatFlightFactory extends Factory
+class FlightsFactory extends Factory
 {
     use InteractsWithTime;
     /**

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Filesystem\Filesystem;
 
-class SeatFlightTableSeeder extends Seeder
+class FlightsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -25,6 +25,6 @@ class SeatFlightTableSeeder extends Seeder
             $file->makeDirectory($path);
         }
 
-        \App\Models\SeatFlight::factory(90)->create();
+        \App\Models\Flights::factory(90)->create();
     }
 }

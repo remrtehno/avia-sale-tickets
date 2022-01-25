@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partners;
-use App\Models\SeatFlight;
+use App\Models\Flights;
 
 class HomeController extends Controller
 {
@@ -11,9 +11,9 @@ class HomeController extends Controller
     {
 
         return view('home', [
-            "seatFlight" => SeatFlight::orderBy('rating', 'desc')->take(6)->get(),
+            "seatFlight" => Flights::orderBy('rating', 'desc')->take(6)->get(),
             "partners" => Partners::take(7)->get(),
-            "search_list_cities" => SeatFlight::select('from', 'to')->get(),
+            "search_list_cities" => Flights::select('from', 'to')->get(),
         ]);
     }
 }

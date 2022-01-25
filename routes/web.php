@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\FlightsController;
+use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\SeatFlightController;
+use App\Http\Controllers\FlightsController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -30,7 +30,7 @@ Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
 
 
 //resources
-Route::resource('seat-flights', SeatFlightController::class);
+Route::resource('seat-flights', FlightsController::class);
 Route::resource('booking', BookingController::class);
 
 
@@ -46,7 +46,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
   Route::middleware(['auth', 'dashboard'])->group(function () {
     //resources
-    Route::resource('flights', FlightsController::class);
+    Route::resource('flights', DashboardFlightsController::class);
 
 
     //single

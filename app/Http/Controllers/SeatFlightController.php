@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
-use App\Models\SeatFlight;
+use App\Models\Flights;
 use Illuminate\Http\Request;
 
-class SeatFlightController extends Controller
+class FlightsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +16,18 @@ class SeatFlightController extends Controller
     public function index(SearchRequest $request)
     {
 
-        $seat_flights = SeatFlight::betweenDate()
+        $seat_flights = Flights::betweenDate()
             ->withExcludes()
             ->withPassengers()
             ->paginate(9);
 
         $closestDateFound = $seat_flights->count()
             ? null
-            : SeatFlight::withExcludes()->withPassengers()->orderByClosest()->first();
+            : Flights::withExcludes()->withPassengers()->orderByClosest()->first();
 
         return view('seat-flights.index', [
             'seat_flights' => $seat_flights,
-            'search_list_cities' => SeatFlight::select('from', 'to')->get(),
+            'search_list_cities' => Flights::select('from', 'to')->get(),
             'closestDateFound' => $closestDateFound,
         ]);
     }
@@ -62,7 +62,7 @@ class SeatFlightController extends Controller
     public function show($id)
     {
         return view('seat-flights.show', [
-            'seat_flight' => SeatFlight::findOrFail($id)
+            'seat_flight' => Flights::findOrFail($id)
         ]);
     }
 
