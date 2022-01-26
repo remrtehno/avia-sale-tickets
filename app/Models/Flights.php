@@ -26,6 +26,12 @@ class Flights extends Model
         'direction_to' => 'string',
     ];
 
+    // Carbon instance fields
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
+
+    protected $fillable = ['direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_per_chair', 'total_purchased_price', 'total_sales_price',];
+
+
     /**
      * The "booted" method of the model.
      *
@@ -35,13 +41,6 @@ class Flights extends Model
     {
         static::addGlobalScope(new SearchScope);
     }
-
-    // Carbon instance fields
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
-
-    protected $fillable = array_keys(self::FIELDS);
-
-
 
     public function image()
     {

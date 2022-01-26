@@ -19,7 +19,7 @@ class CreateFlightsTable extends Migration
             $table->timestamps();
 
             foreach (Flights::FIELDS as $key => $field) {
-                $table[$key]($field);
+                $table->$field($key);
             }
         });
     }
@@ -31,6 +31,7 @@ class CreateFlightsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('chairs');
         Schema::dropIfExists('flights');
     }
 }

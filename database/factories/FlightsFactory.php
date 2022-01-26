@@ -19,7 +19,7 @@ class FlightsFactory extends Factory
      */
     public function definition()
     {
-        $flight = Str::random(3) . rand(10, 9999);
+        $flights =  collect(['HY-', 'HY-', 'KC-', 'SU-', 'EZ-']);
 
         $logos = collect(['/static/images/aviasales/FZ.svg', '/static/images/aviasales/HY.svg', '/static/images/aviasales/EK.svg', '/static/images/aviasales/KC.svg']);
 
@@ -32,7 +32,7 @@ class FlightsFactory extends Factory
         $price_per_chair = rand(200, 300);
 
         return [
-            'flight' => $flight,
+            'flight' => $flights->random() . rand(10, 9999),
             'count_chairs' =>  $count_chairs,
             'price_per_chair' =>  $price_per_chair,
             'total_purchased_price' => rand(30000, 50000),
@@ -40,8 +40,8 @@ class FlightsFactory extends Factory
             'date' => $date,
             'comment' => '',
             'logo' =>  $logos->random(),
-            'direction_from' => $direction_from,
-            'direction_to' => $direction_to,
+            'direction_from' => $direction_from->random(),
+            'direction_to' => $direction_to->random(),
         ];
     }
 }
