@@ -30,7 +30,7 @@ Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
 
 
 //resources
-Route::resource('seat-flights', FlightsController::class);
+Route::resource('flights', FlightsController::class);
 Route::resource('booking', BookingController::class);
 
 

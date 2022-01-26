@@ -12,7 +12,7 @@
   <div class="container">
 
       <div class="tabs_wrapper tabs1_wrapper">
-          @include('seat-flights._search-flight', ['route' => '?'])
+          @include('flights._search-flights', ['route' => '?'])
 
           <div class="row">
             <div class="col-sm-3">
@@ -99,37 +99,37 @@
                 </form>
 
                 <div class="row">
-                  @foreach ($seat_flights as $seat_flight )
+                  @foreach ($flights as $flight )
                      <div class="col-sm-4 seat-flight-item">
                         <div class="thumb4">
                             <div class="thumbnail clearfix">
                                 <figure>
                                     <img 
-                                        src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
+                                        src="{{ $flight->img }}" alt="{{ $flight->title }}"
                                         class="img-responsive"
                                         >
                                 </figure>
                                 <div class="caption">
                                     <div class="txt1 seat-flight-title">
-                                        {{ $seat_flight->from }} - {{ $seat_flight->to }}
+                                        {{ $flight->from }} - {{ $flight->to }}
                                     </div>
                                     
-                                    <div class="txt1 seat-flight-title">{{ $seat_flight->getDate() }}</div>
+                                    <div class="txt1 seat-flight-title">{{ $flight->getDate() }}</div>
                                    
                                     <div class="txt3 clearfix">
                                         <star-rating 
                                             read-only
                                             :size="14" 
-                                            :rating="{{ $seat_flight->rating }}"
+                                            :rating="{{ $flight->rating }}"
                                         ></star-rating>
                                         <div class="left_side">
-                                            <div class="price">{{ $seat_flight->price }}$</div>
+                                            <div class="price">{{ $flight->price }}$</div>
                                             <div class="nums">avg/person</div>
                                         </div>
                                         <div class="right_side">
                                             <a 
-                                                href="{{ route('seat-flights.show', 
-                                                ['seat_flight' => $seat_flight->id]) }}"               
+                                                href="{{ route('flights.show', 
+                                                ['flight' => $flight->id]) }}"               
                                                 class="btn-default btn1"
                                                 >
                                                     Перейти
@@ -142,7 +142,7 @@
                     </div>
                   @endforeach
 
-                  @if (!$seat_flights->count())
+                  @if (!$flights->count())
                     <div class="col-xs-12">
                         <div class="alert alert-warning">
                             @if ($closestDateFound)
@@ -159,7 +159,7 @@
                     </div> 
                   @endif
 
-                  {{ $seat_flights->withQueryString()->links() }}
+                  {{ $flights->withQueryString()->links() }}
                 </div>
             </div>
         </div>

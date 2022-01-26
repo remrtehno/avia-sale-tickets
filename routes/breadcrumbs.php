@@ -20,7 +20,7 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail,  $slot) {
 // seat-flight archive
 Breadcrumbs::for('seat-flight', function (BreadcrumbTrail $trail, $slot) {
   $trail->push('Главная', route('home'));
-  $trail->push('Все рейсы', route('seat-flights.index'));
+  $trail->push('Все рейсы', route('flights.index'));
 
   if ($slot) {
     $trail->push($slot);

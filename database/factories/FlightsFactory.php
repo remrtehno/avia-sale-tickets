@@ -24,18 +24,6 @@ class FlightsFactory extends Factory
         $classes = collect(['Business - C', 'Economy - B', 'Economy - G', 'Business - A']);
 
 
-        $html_content = "
-        <ul>
-            <li>From Vaclav Havel (PRG)</li>
-            <li>To Schiphol (AMS)</li>
-            <li>KLM 1356</li>
-            <li>BOEING 737-800 (WINGLETS) PASSENGER | Snack</li>
-            <li>Economy/Coach (L)</li>
-            <li><a href=\"#\">Preview availability</a></li>
-            <li>Total distance: 439 mi</li>
-            <li><b>1h 20m stop / in Amsterdam (AMS)</b></li>
-        </ul>
-        ";
 
         $date = now()->addDays(rand(0, 320))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
         $time_departure = now()->addHours(rand(0, 5))->getTimestamp();
@@ -47,20 +35,21 @@ class FlightsFactory extends Factory
 
         return [
             //text
-            'title' => $this->faker->sentence(2),
-            'description' => $this->faker->paragraph(2),
-            'content' => $html_content . $this->faker->paragraph(5),
-            'intro_title' => $this->faker->sentence(1),
-            'intro' => $this->faker->sentence(10),
+            'title' => Str::random(2) . random_int(1000, 9999),
             'from' => $from->random(),
             'to' => $to->random(),
             'class' => $classes->random(),
+            'chairs' => random_int(200, 500),
+            'price_per_chair' => random_int(1200, 1500),
+            ''
+
 
             //meta data
             'img' =>  $path,
             'price' => rand(110, 2150),
             'adult' => rand(0, 50),
             'child' => rand(0, 10),
+            'infant' => rand(0, 10),
             'flight_id' => rand(0, 150),
             'rating' => rand(0, 5),
             'date' => $date,

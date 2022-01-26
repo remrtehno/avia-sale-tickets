@@ -228,8 +228,8 @@
 
         <div id="front_tabs">
             <div class="container">
-                @include('seat-flights._search-flight', [
-                    'route' => route('seat-flights.index'), 
+                @include('flights._search-flights', [
+                    'route' => route('flights.index'), 
                     'search_list_cities' => $search_list_cities,
                     ])
             </div>
@@ -531,7 +531,7 @@
                                                                             "
                                                                         >
                                                                             <a
-                                                                                href="{{ route('seat-flights.show', ['seat_flight' => $item->id]) }}"
+                                                                                href="{{ route('flights.show', ['flight' => $item->id]) }}"
                                                                                 class="
                                                                                     btn-default
                                                                                     btn1

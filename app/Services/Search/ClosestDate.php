@@ -8,9 +8,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class ClosestDate
 {
 
-  public function getClosestDate(LengthAwarePaginator $seat_flights)
+  public function getClosestDate(LengthAwarePaginator $flightss)
   {
-    if ($seat_flights->count()) {
+    if ($flightss->count()) {
       return null;
     }
 

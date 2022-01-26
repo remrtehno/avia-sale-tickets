@@ -16,17 +16,17 @@ class FlightsController extends Controller
     public function index(SearchRequest $request)
     {
 
-        $seat_flights = Flights::betweenDate()
+        $flightss = Flights::betweenDate()
             ->withExcludes()
             ->withPassengers()
             ->paginate(9);
 
-        $closestDateFound = $seat_flights->count()
+        $closestDateFound = $flightss->count()
             ? null
             : Flights::withExcludes()->withPassengers()->orderByClosest()->first();
 
-        return view('seat-flights.index', [
-            'seat_flights' => $seat_flights,
+        return view('flights.index', [
+            'flights' => $flightss,
             'search_list_cities' => Flights::select('from', 'to')->get(),
             'closestDateFound' => $closestDateFound,
         ]);
@@ -61,8 +61,8 @@ class FlightsController extends Controller
      */
     public function show($id)
     {
-        return view('seat-flights.show', [
-            'seat_flight' => Flights::findOrFail($id)
+        return view('flights.show', [
+            'flights' => Flights::findOrFail($id)
         ]);
     }
 

@@ -7,7 +7,7 @@
 
 
 <x-breadcrumbs :route="'seat-flight'">
-  {{ $seat_flight->title }}
+  {{ $flights->title }}
 </x-breadcrumbs>
 
 
@@ -25,49 +25,49 @@
 
 
                   <div class="post post-full">
-                      <h3 class="hch">{{ $seat_flight->title }}</h3>
+                      <h3 class="hch">{{ $flights->title }}</h3>
 
                       <div class="clearfix"></div>
 
-                    <p class="address">{{ $seat_flight->from }} / {{ $seat_flight->to }}</p>
+                    <p class="address">{{ $flights->from }} / {{ $flights->to }}</p>
 
                       <div class="post-story">
                         <hr>
                         <figure>
-                            <img src="{{ $seat_flight->img }}" alt="{{ $seat_flight->title }}"
+                            <img src="{{ $flights->img }}" alt="{{ $flights->title }}"
                             class="img-responsive">
                         </figure>
 
                           <div class="post-story-body clearfix">
                                 <h5 class="seat-flight-intro-title">
-                                    {!! $seat_flight->intro_title !!}
+                                    {!! $flights->intro_title !!}
                                 </h5>
                                 <div class="seat-flight-description">
-                                    {!! $seat_flight->description !!}
+                                    {!! $flights->description !!}
                                 </div>
 
-                              <h3>{{ $seat_flight->getDate() }}</h3>
+                              <h3>{{ $flights->getDate() }}</h3>
                               <ul>
 
-                                  <li>Откуда: {{ $seat_flight->from }}</li>
-                                  <li>Куда: {{ $seat_flight->to }}</li>
+                                  <li>Откуда: {{ $flights->from }}</li>
+                                  <li>Куда: {{ $flights->to }}</li>
 
                               </ul>
-                              <h5> {{ $seat_flight->getInfoTimeAndAirports() }}</h5>
+                              <h5> {{ $flights->getInfoTimeAndAirports() }}</h5>
                               <hr>
                               <h5>Rating: </h5>
                               <star-rating 
                                     read-only
                                     :size="20" 
-                                    :rating="{{ $seat_flight->rating }}"
+                                    :rating="{{ $flights->rating }}"
                                 ></star-rating>
                               <h4>Details:</h4>
 
 
-                              <h5>{{ $seat_flight->getTimeOnly() }} /{{ $seat_flight->getDuration() }}</h5>
+                              <h5>{{ $flights->getTimeOnly() }} /{{ $flights->getDuration() }}</h5>
                               
                               <div class="seat-flight-content">
-                                  {!! $seat_flight->content !!}
+                                  {!! $flights->content !!}
                               </div>
                             
                           </div>
@@ -268,7 +268,7 @@
                             <label class="col-md-6" style="padding-left:0;padding-top:12px;">Тариф:</label>
 
                             <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                                <span class="red">{{ $seat_flight->class }}</span>
+                                <span class="red">{{ $flights->class }}</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -284,7 +284,7 @@
                             <label class="col-md-6" style="padding-left:0;padding-top:12px;">ОБЩЕЕ</label>
 
                             <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                                <span class="red">${{ $seat_flight->getTotal() }}</span>
+                                <span class="red">${{ $flights->getTotal() }}</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -308,7 +308,7 @@
                             <label class="col-md-6" style="padding-left:0;padding-top:18px;font-size:16px;">ОБЩИЙ ИТОГ:</label>
 
                             <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                                <span class="red" style="font-size:30px;">${{ $seat_flight->getGrandTotal() }}</span>
+                                <span class="red" style="font-size:30px;">${{ $flights->getGrandTotal() }}</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>

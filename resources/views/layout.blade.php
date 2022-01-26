@@ -130,8 +130,8 @@
                                         <li class="{{ (request()->is('home') or request()->is('/'))  ? 'active' : ''}}">
                                             <a href="{{ route('home') }}">Главная</a>
                                         </li>
-                                        <li  class="{{ (request()->is('seat-flights/*') or request()->is('seat-flights'))  ? 'active' : ''}}">
-                                            <a href="{{ route('seat-flights.index') }}">Все рейсы</a>
+                                        <li  class="{{ (request()->is('flights/*') or request()->is('flights'))  ? 'active' : ''}}">
+                                            <a href="{{ route('flights.index') }}">Все рейсы</a>
                                         </li>
                                         @guest
                                             <li class="{{ request()->is('register')  ? 'active' : ''}}">
