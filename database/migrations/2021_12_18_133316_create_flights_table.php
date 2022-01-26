@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Flights;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,23 +18,9 @@ class CreateFlightsTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('img');
-            $table->string('title');
-            $table->string('intro_title');
-            $table->string('class');
-            $table->text('intro');
-            $table->text('description');
-            $table->text('content');
-            $table->integer('price');
-            $table->string('adult');
-            $table->string('child');
-            $table->integer('flight_id');
-            $table->integer('rating');
-            $table->text('from');
-            $table->text('to');
-            $table->timestamp('date');
-            $table->timestamp('departure');
-            $table->timestamp('returning');
+            foreach (Flights::FIELDS as $key => $field) {
+                $table[$key]($field);
+            }
         });
     }
 

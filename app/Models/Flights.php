@@ -13,6 +13,19 @@ class Flights extends Model
 {
     use HasFactory;
 
+    public const FIELDS = [
+        'flight' => 'string',
+        'count_chairs' => 'integer',
+        'price_per_chair' => 'integer',
+        'total_purchased_price' => 'integer',
+        'total_sales_price' => 'integer',
+        'date' => 'timestamp',
+        'comment' => 'string',
+        'logo' => 'string',
+        'direction_from' => 'string',
+        'direction_to' => 'string',
+    ];
+
     /**
      * The "booted" method of the model.
      *
@@ -24,24 +37,11 @@ class Flights extends Model
     }
 
     // Carbon instance fields
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'departure', 'returning', 'date'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
 
-    protected $fillable = [
-        'img',
-        'title',
-        'intro_title',
-        'intro',
-        'description',
-        'content',
-        'price',
-        'flight_id',
-        'rating',
-        'from',
-        'to',
-        'date',
-        'dateArrival',
-        'timeArrival',
-    ];
+    protected $fillable = array_keys(self::FIELDS);
+
+
 
     public function image()
     {
