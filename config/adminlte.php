@@ -469,21 +469,32 @@ return [
             ],
         ],
 
-        // 'Tempus dominus' => [
-        //     'active' => true,
-        //     'files' => [
-        //         [
-        //             'type' => 'css',
-        //             'asset' => false,
-        //             'location' => '/vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
-        //         ],
-        //         [
-        //             'type' => 'js',
-        //             'asset' => false,
-        //             'location' => '/vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
-        //         ],
-        //     ],
-        // ],
+        'Tempus dominus' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+            ],
+        ],
+
+        'bs-custom-file-input' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/bs-custom-file-input/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
     ],
 
     /*

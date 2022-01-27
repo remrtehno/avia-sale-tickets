@@ -29,14 +29,19 @@ class FlightsFactory extends Factory
         $date = now()->addDays(rand(0, 320))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
 
         $count_chairs = rand(200, 300);
-        $price_per_chair = rand(200, 300);
+        $price_adult = rand(200, 300);
+        $price_child = rand(200, 300);
+        $price_infant = rand(200, 300);
+
 
         return [
             'flight' => $flights->random() . rand(10, 9999),
             'count_chairs' =>  $count_chairs,
-            'price_per_chair' =>  $price_per_chair,
+            'price_adult' =>  $price_adult,
+            'price_child' =>  $price_child,
+            'price_infant' =>  $price_infant,
             'total_purchased_price' => rand(30000, 50000),
-            'total_sales_price' => $price_per_chair * $count_chairs,
+            'total_sales_price' => $count_chairs * $count_chairs,
             'date' => $date,
             'comment' => '',
             'logo' =>  $logos->random(),

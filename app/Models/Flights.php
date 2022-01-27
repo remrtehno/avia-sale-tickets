@@ -16,7 +16,9 @@ class Flights extends Model
     public const FIELDS = [
         'flight' => 'string',
         'count_chairs' => 'integer',
-        'price_per_chair' => 'integer',
+        'price_adult' => 'integer',
+        'price_child' => 'integer',
+        'price_infant' => 'integer',
         'total_purchased_price' => 'integer',
         'total_sales_price' => 'integer',
         'date' => 'timestamp',
@@ -29,7 +31,7 @@ class Flights extends Model
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
 
-    protected $fillable = ['direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_per_chair', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
 
     /**
