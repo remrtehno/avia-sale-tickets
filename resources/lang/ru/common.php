@@ -29,6 +29,14 @@ return [
   'only_face_page_and_home' => '(Только лицевая сторона и прописка)',
 
   //scans
-  'scan_passport' => 'Скан паспорта'
+  'scan_passport' => 'Скан паспорта',
+
+
+
+  //buttons
+  'save' => 'Сохранить',
+  'update' => 'Обновить',
+  'delete' => 'Удалить',
+  'create' => 'Создать'
 
 ];
