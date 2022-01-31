@@ -31,7 +31,7 @@
                 <div class="post-story-body clearfix">
 
 
-                  <h3>{{ $flights->getDate() }}</h3>
+                  <h4>{{ $flights->getDeparute()->translatedFormat('d F Y, l') }}</h4>
                   <ul>
 
                     <li>Откуда: {{ $flights->getFrom() }}</li>
