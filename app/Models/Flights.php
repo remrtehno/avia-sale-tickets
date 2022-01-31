@@ -26,12 +26,13 @@ class Flights extends Model
         'logo' => 'string',
         'direction_from' => 'string',
         'direction_to' => 'string',
+        'rating' => 'string',
     ];
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
 
-    protected $fillable = ['direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
 
     /**
@@ -137,7 +138,11 @@ class Flights extends Model
     //dates
     public function getDate()
     {
-        return $this->date->format('M d, Y');
+        return $this->date->translatedFormat('d M Y, D');
+    }
+    public function getTime()
+    {
+        return $this->date->translatedFormat('H:i');
     }
 
     public function getTimeDepartureWithNameFrom()

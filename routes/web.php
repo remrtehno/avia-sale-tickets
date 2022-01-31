@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //single pages
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
 //@TODO $ - need to replace because we can see {page}%24
 Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
@@ -41,7 +41,7 @@ Auth::routes();
 
 
 
-
+//groups
 Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
   Route::middleware(['auth', 'dashboard'])->group(function () {

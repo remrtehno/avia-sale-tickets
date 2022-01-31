@@ -11,9 +11,9 @@ class HomeController extends Controller
     {
 
         return view('home', [
-            "seatFlight" => Flights::orderBy('rating', 'desc')->take(6)->get(),
+            "flights" => Flights::orderBy('rating', 'desc')->take(6)->get(),
             "partners" => Partners::take(7)->get(),
-            "search_list_cities" => Flights::select('from', 'to')->get(),
+            "search_list_cities" => Flights::select('direction_from', 'direction_to')->get(),
         ]);
     }
 }

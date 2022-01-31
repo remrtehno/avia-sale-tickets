@@ -48,6 +48,14 @@ body input.form-control {
   color: white;
 }
 
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--main-green);
+}
+
 .loaded_hiding {
   opacity: 0;
   pointer-events: none;
@@ -61,6 +69,11 @@ body,
 .loaded {
   pointer-events: visible;
   opacity: 1;
+}
+
+#slider_wrapper {
+  padding-bottom: 80px;
+  padding-top: 95px;
 }
 
 .input1_inner {

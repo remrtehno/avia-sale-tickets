@@ -25,6 +25,6 @@ class FlightsTableSeeder extends Seeder
             $file->makeDirectory($path);
         }
 
-        \App\Models\Flights::factory(2)->create();
+        \App\Models\Flights::factory(20)->create();
     }
 }

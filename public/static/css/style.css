@@ -512,7 +512,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .popular .popular_inner .caption{padding: 25px; border-bottom: 3px solid transparent; background: #fafafa;}
 .popular .popular_inner:hover .caption{ border-color: #1cbbb4;}
 .popular .popular_inner .txt1{font-weight: 500; padding-bottom: 5px; font-size: 12px; color: #fb000d;}
-.popular .popular_inner .txt1 span{ padding-right: 5px;font-size: 21px; color: #636363; }
+.popular .popular_inner .txt1 span{ padding-right: 5px;font-size: 14px; color: #636363; }
 .popular .popular_inner:hover .txt1 span{color: #1cbbb4;}
 .popular .popular_inner .txt2{color: #959595; padding-bottom: 20px;}
 .popular .popular_inner .txt3{}

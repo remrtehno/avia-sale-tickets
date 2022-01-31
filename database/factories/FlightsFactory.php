@@ -47,6 +47,7 @@ class FlightsFactory extends Factory
             'logo' =>  $logos->random(),
             'direction_from' => $direction_from->random(),
             'direction_to' => $direction_to->random(),
+            'rating' => rand(0, 5),
         ];
     }
 }
