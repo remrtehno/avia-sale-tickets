@@ -34,6 +34,7 @@ class CreateChairsTable extends Migration
             //     ->onUpdate('cascade')
             //     ->onDelete('cascade');
 
+            $table->string('type');
             $table->integer('price');
             $table->string('uuid');
         });

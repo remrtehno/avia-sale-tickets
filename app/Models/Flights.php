@@ -36,6 +36,23 @@ class Flights extends Model
     protected $fillable = ['date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
 
+
+    /**
+     * Get count chairs for the flight.
+     */
+    public function countChairs()
+    {
+        return $this->chairs()->where('type', Chairs::ADULT)->get()->count();
+    }
+
+    /**
+     * Get the chairs for the flight.
+     */
+    public function chairs()
+    {
+        return $this->hasMany(Chairs::class, 'flight_id');
+    }
+
     /**
      * The "booted" method of the model.
      *
@@ -67,11 +84,21 @@ class Flights extends Model
     public function scopeWithPassengers(Builder $query)
     {
         if (request()->has('child')) {
-            $query->where('child', '>=', request('child'));
+            $query->whereHas('chairs', function ($query) {
+                $query->where('type', 'child');
+            }, '>=', request('child'));
         }
 
         if (request()->has('adult')) {
-            $query->where('adult', '>=', request('adult'));
+            $query->whereHas('chairs', function ($query) {
+                $query->where('type', 'adult');
+            }, '>=', request('adult'));
+        }
+
+        if (request()->has('infant')) {
+            $query->whereHas('chairs', function ($query) {
+                $query->where('type', 'infant');
+            }, '>=', request('infant'));
         }
 
         return $query;
@@ -109,7 +136,8 @@ class Flights extends Model
                 'date',
                 'price',
                 'rating',
-                'sort_by'
+                'sort_by',
+                'infant'
             ]
         ));
     }
