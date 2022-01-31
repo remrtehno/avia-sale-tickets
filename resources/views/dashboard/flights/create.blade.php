@@ -5,7 +5,7 @@
 @stop
 
 @php
-$config = ['format' => 'YYYY-MM-DD'];
+$config = ['format' => 'YYYY-MM-DD H:i'];
 @endphp
 
 @section('content')
@@ -14,10 +14,12 @@ $config = ['format' => 'YYYY-MM-DD'];
     @method('PUT')
     <div class="row">
 
-      <x-adminlte-input-date name="idBasic" :config="$config" label="{{ __('dashboard.date_flight') }}"
-        fgroup-class="col-md-3" />
+      <x-adminlte-input-date name="idBasic" label="{{ __('dashboard.date_flight') }}" fgroup-class="col-md-3" />
+      <x-adminlte-input-date name="2" label="{{ __('dashboard.date_arrival') }}" fgroup-class="col-md-3" />
 
       <x-adminlte-input name="iLabel" label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" />
+      <x-adminlte-input name="iLabel" label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" />
+
 
       <div class="col-md-6">
         <div>
@@ -33,7 +35,7 @@ $config = ['format' => 'YYYY-MM-DD'];
       </div>
 
 
-      <x-adminlte-input name="iLabel" label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" />
+
       <x-adminlte-input-file name="ifPholder" label="{{ __('dashboard.avia_logo') }}" fgroup-class="col-md-4"
         placeholder="Choose a file...">
         <x-slot name="prependSlot">

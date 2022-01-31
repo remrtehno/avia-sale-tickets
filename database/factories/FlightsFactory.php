@@ -43,6 +43,7 @@ class FlightsFactory extends Factory
             'total_purchased_price' => rand(30000, 50000),
             'total_sales_price' => $count_chairs * $count_chairs,
             'date' => $date,
+            'date_arrival' => $date,
             'comment' => '',
             'logo' =>  $logos->random(),
             'direction_from' => $direction_from->random(),

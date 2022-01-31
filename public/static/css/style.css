@@ -907,10 +907,9 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .thumb4 {margin-bottom: 0px; margin-top: 0px;}
 .thumb4.last {margin-bottom: 0px;}
 .thumb4 .thumbnail{padding: 0; border: none; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; box-shadow: none; moz-box-shadow: none; -webkit-box-shadow: none; margin-bottom: 0; background: none; border-bottom: 3px solid transparent;}
-.thumb4 .thumbnail:hover{border-bottom-color: #1cbbb4;}
-.thumb4 .thumbnail figure{margin: 0; float: none; margin:0px 0px 0px 0px; padding: 4px; background: #fafafa;}
+
 .thumb4 .thumbnail figure img{width: 100%;}
-.thumb4 .thumbnail .caption{background: #fafafa; padding: 20px;}
+.thumb4 .thumbnail .caption{ padding: 20px;}
 .thumb4 .thumbnail .caption .txt1{font-size: 19px; font-weight: 500; color: #636363; padding-bottom: 10px;}
 .thumb4 .thumbnail .caption .txt2{}
 .thumb4 .thumbnail .caption .txt3{}

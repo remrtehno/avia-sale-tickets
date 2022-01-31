@@ -1,32 +1,5 @@
 $(document).ready(function () {
-    $("#list-view").click(function () {
-        $("#content .seat-flight-item").attr(
-            "class",
-            "col-sm-6 seat-flight-item"
-        );
 
-        $("#grid-view").removeClass("active");
-        $("#list-view").addClass("active");
-        localStorage.setItem("display", "list");
-    });
-
-    $("#grid-view").click(function () {
-        $("#content .seat-flight-item").attr(
-            "class",
-            "col-sm-4 seat-flight-item"
-        );
-
-        $("#list-view").removeClass("active");
-        $("#grid-view").addClass("active");
-        localStorage.setItem("display", "grid");
-    });
-    if (localStorage.getItem("display") == "list") {
-        $("#list-view").trigger("click");
-        $("#list-view").addClass("active");
-    } else {
-        $("#grid-view").trigger("click");
-        $("#grid-view").addClass("active");
-    }
     /*----------------------------------------------------*/
     /* MOBILE DETECT FUNCTION
   /*----------------------------------------------------*/

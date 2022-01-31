@@ -22,6 +22,7 @@ class Flights extends Model
         'total_purchased_price' => 'integer',
         'total_sales_price' => 'integer',
         'date' => 'timestamp',
+        'date_arrival' => 'timestamp',
         'comment' => 'string',
         'logo' => 'string',
         'direction_from' => 'string',
@@ -30,9 +31,9 @@ class Flights extends Model
     ];
 
     // Carbon instance fields
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
 
     /**
@@ -52,7 +53,7 @@ class Flights extends Model
 
     public function getTotal()
     {
-        return $this->price;
+        return $this->price_adult;
     }
 
     public function getGrandTotal()
@@ -135,24 +136,52 @@ class Flights extends Model
     }
 
 
+    public function getSeats()
+    {
+        return $this->count_chairs;
+    }
+
+    public function getFrom()
+    {
+        return $this->direction_from;
+    }
+
+    public function getTo()
+    {
+        return $this->direction_to;
+    }
+
     //dates
+    public function getDeparute()
+    {
+        return $this->date;
+    }
+    public function getArrival()
+    {
+        return $this->date_arrival;
+    }
     public function getDate()
     {
-        return $this->date->translatedFormat('d M Y, D');
+        return $this->getDeparute()->translatedFormat('d M Y, D');
     }
     public function getTime()
     {
-        return $this->date->translatedFormat('H:i');
+        return $this->getDeparute()->translatedFormat('H:i');
+    }
+
+    public function getTimeArrival()
+    {
+        return $this->getArrival()->translatedFormat('H:i');
     }
 
     public function getTimeDepartureWithNameFrom()
     {
-        return $this->departure->format('H:m') . ' ' . $this->from;
+        return $this->getDeparute()->format('H:m') . ' ' . $this->direction_from;
     }
 
     public function getTimeReturningWithNameTo()
     {
-        return $this->returning->format('H:m') . ' ' . $this->to;
+        return $this->getArrival()->format('H:m') . ' ' . $this->direction_to;
     }
 
     public function getInfoTimeAndAirports()
@@ -164,14 +193,14 @@ class Flights extends Model
 
     public function getTimeOnly()
     {
-        return $this->departure->format('H:m')
+        return $this->getDeparute()->format('H:m')
             . Config::get('constants.time_separator')
-            . $this->returning->format('H:m');
+            . $this->getArrival()->format('H:m');
     }
 
     public function getDuration()
     {
-        return $this->returning->diffForHumans($this->departure, [
+        return $this->getArrival()->diffForHumans($this->getDeparute(), [
             'parts' => 2,
             'short' => true
         ]);

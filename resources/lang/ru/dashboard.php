@@ -5,6 +5,7 @@ return [
   'profile' => 'Профиль',
   'new_flight' => 'Новый рейс',
   'date_flight' => 'Дата рейса',
+  'date_arrival' => 'Дата прибытия',
   'number_of_flight' => 'Номер рейса',
   'direction_flight' => 'Направление',
   'count_seats_flight' => 'Кол-во кресел',

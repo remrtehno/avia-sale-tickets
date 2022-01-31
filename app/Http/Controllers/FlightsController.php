@@ -27,7 +27,7 @@ class FlightsController extends Controller
 
         return view('flights.index', [
             'flights' => $flightss,
-            'search_list_cities' => Flights::select('from', 'to')->get(),
+            'search_list_cities' => Flights::select('direction_from', 'direction_to')->get(),
             'closestDateFound' => $closestDateFound,
         ]);
     }

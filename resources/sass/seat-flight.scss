@@ -20,9 +20,18 @@
     border-color: #1cbbb4;
 }
 
-.select1_wrapper.buttons {
-    float: right;
-    @media (max-width: 992px) {
-        display: none;
+.price-block {
+    min-height: 123px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+
+    .btn-default {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
