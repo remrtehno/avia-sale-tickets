@@ -39,7 +39,6 @@ class FlightsController extends Controller
     public function store(StoreFlightRequest $request)
     {
 
-
         $newFlight = Flights::make($request->all());
 
         $newFlight->rating = '0';
@@ -72,7 +71,11 @@ class FlightsController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.flights.edit', ['flight' => Flights::findOrFail($id)]);
+        $flight = Flights::findOrFail($id);
+        $this->authorize($flight);
+
+
+        return view('dashboard.flights.edit', ['flight' => $flight]);
     }
 
     /**
@@ -87,6 +90,7 @@ class FlightsController extends Controller
 
 
         $flight = Flights::findOrFail($id);
+        $this->authorize($flight);
 
         $validatedData = $request->all();
 
