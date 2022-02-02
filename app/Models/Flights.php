@@ -58,7 +58,7 @@ class Flights extends Model implements HasMedia
      */
     public function chairs()
     {
-        return $this->hasMany(Chairs::class, 'flight_id');
+        return $this->morphMany(Chairs::class, 'chairsable');
     }
 
     /**

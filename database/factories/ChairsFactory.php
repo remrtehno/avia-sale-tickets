@@ -23,6 +23,8 @@ class ChairsFactory extends Factory
 
         return [
             'flight_id' => $flightOne->id,
+            'chairsable_id' => $flightOne->id,
+            'chairsable_type' => 'App\Models\Flights',
             'price' => rand(150, 700),
             'type' => $types->random(),
             'uuid' =>

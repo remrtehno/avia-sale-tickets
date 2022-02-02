@@ -22,6 +22,10 @@ class CreateChairsTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->integer('chairsable_id');
+
+            $table->string("chairsable_type");
             // order
             // $table->foreignId('order_id')
             //     ->constrained()

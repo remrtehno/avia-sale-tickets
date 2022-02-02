@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlightRequest;
+use App\Models\Chairs;
 use App\Models\Flights;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,16 +39,23 @@ class FlightsController extends Controller
      */
     public function store(StoreFlightRequest $request)
     {
-
         $newFlight = Flights::make($request->all());
 
         $newFlight->rating = '0';
-
         $newFlight->user_id = Auth::user()->id;
 
         $newFlight->storeFiles();
 
         $newFlight->save();
+
+
+        for ($i = 0; $i < $request->count_chairs; $i++) {
+            $newFlight->chairs()->create([
+                'flight_id' => $newFlight->id,
+                'price' => $newFlight->price_adult,
+                'type' => Chairs::ADULT
+            ]);
+        }
 
         return redirect()->route('dashboard.flights.index');
     }

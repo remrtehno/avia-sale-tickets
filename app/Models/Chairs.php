@@ -21,4 +21,15 @@ class Chairs extends Model
         'price' => 'string',
         'uuid' => 'string',
     ];
+
+    protected $fillable = ['flight_id', 'price', 'type'];
+
+
+    /**
+     * Get the parent commentable model (post or video).
+     */
+    public function chairsable()
+    {
+        return $this->morphTo();
+    }
 }

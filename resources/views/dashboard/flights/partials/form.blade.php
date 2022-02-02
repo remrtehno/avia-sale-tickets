@@ -15,8 +15,14 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
   <x-adminlte-input value=" {{ $flight->flight ?? null }}" name="flight"
     label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support />
 
-  <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="count_chairs"
-    label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support />
+  @if ($flight->count_chairs ?? null)
+    <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="" disabled
+      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support />
+  @else
+    <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="count_chairs"
+      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support />
+  @endif
+
 
 
   <div class="col-md-6">
@@ -54,8 +60,14 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
 
   <div class="col-md-12"></div>
 
-  <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" name="total_purchased_price"
-    label="Приобретеная цена" fgroup-class="col-md-3" enable-old-support />
+  @if ($flight->total_purchased_price ?? null)
+    <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" label="Приобретеная цена"
+      fgroup-class="col-md-3" disabled name="" />
+  @else
+    <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" name="total_purchased_price"
+      label="Приобретеная цена" fgroup-class="col-md-3" enable-old-support />
+  @endif
+
   <x-adminlte-input value="{{ $flight->total_sales_price ?? null }}" name="total_sales_price"
     label="Продаваемая цена" fgroup-class="col-md-3" enable-old-support />
 
