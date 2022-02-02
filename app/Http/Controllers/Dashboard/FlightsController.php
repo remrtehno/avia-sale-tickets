@@ -108,7 +108,7 @@ class FlightsController extends Controller
 
         $flight->save();
 
-        return redirect()->route('dashboard.flights.edit', ['flight' => $flight->id]);
+        return redirect()->route('dashboard.flights.edit', ['flight' => $flight->id])->withStatus('Обновленно');
     }
 
     /**

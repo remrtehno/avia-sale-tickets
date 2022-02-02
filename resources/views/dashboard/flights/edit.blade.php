@@ -6,7 +6,9 @@
     @method('PUT')
     @csrf
     @include('dashboard.flights.partials.form')
+
     <div class="col-md-6">
+      @include('dashboard.partials.messages')
       <x-adminlte-button type="submit" label="{{ __('common.edit') }}" theme="primary" />
     </div>
   </form>
