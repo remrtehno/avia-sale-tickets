@@ -17,7 +17,7 @@ class FlightsController extends Controller
      */
     public function index()
     {
-        return view('dashboard.flights.index', ['flights' => Flights::all()]);
+        return view('dashboard.flights.index', ['flights' => Flights::where('user_id', Auth::user()->id)->get()]);
     }
 
     /**

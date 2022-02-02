@@ -36,7 +36,7 @@ class FlightsTableSeeder extends Seeder
         ]);
 
 
-        \App\Models\Flights::factory(20)->make()->each(function ($flight) use ($users, $logos) {
+        \App\Models\Flights::factory(50)->make()->each(function ($flight) use ($users, $logos) {
             $flight->user_id = $users->random()->id;
             //save
             $flight->save();

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -86,7 +87,7 @@ class Flights extends Model implements HasMedia
     }
 
     /**
-     * Scope a query to search seat flight including passengers
+     * Scope a query to search flight including passengers
      */
     public function scopeWithPassengers(Builder $query)
     {
