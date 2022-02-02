@@ -38,7 +38,9 @@ class FlightsController extends Controller
      */
     public function store(StoreFlightRequest $request)
     {
-        $newFlight = Flights::create($request->all());
+
+
+        $newFlight = Flights::make($request->all());
 
         $newFlight->rating = '0';
 

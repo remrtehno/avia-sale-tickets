@@ -4,12 +4,13 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
 
 <div class="row">
   <x-adminlte-input-date :config="$config" name="date" label="{{ __('dashboard.date_flight') }}"
-    fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date->format('d-m-Y H:i') : 1 }}"
-    enable-old-support />
+    fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date->format('d-m-Y H:i') : old('date') }}"
+    placeholder="01-12-2022 00:59" />
 
   <x-adminlte-input-date :config="$config" name="date_arrival" label="{{ __('dashboard.date_arrival') }}"
-    fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date_arrival->format('d-m-Y H:i') : 1 }}"
-    enable-old-support />
+    fgroup-class="col-md-3"
+    value="{{ isset($flight) ? $flight->date_arrival->format('d-m-Y H:i') : old('date_arrival') }}"
+    placeholder="01-12-2022 00:59" />
 
   <x-adminlte-input value=" {{ $flight->flight ?? null }}" name="flight"
     label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support />
