@@ -15,10 +15,13 @@ $config = [
     // ],
     'order' => [[0, 'desc']],
     // 'columns' => [null, null, null, ['orderable' => false]],
+    'language' => ['url' => '/lang/datatable/ru.json'],
 ];
 @endphp
 
 @section('content')
+
+
 
 
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">

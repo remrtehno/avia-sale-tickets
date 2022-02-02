@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlightRequest;
 use App\Models\Flights;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
 {
@@ -40,6 +41,8 @@ class FlightsController extends Controller
         $newFlight = Flights::create($request->all());
 
         $newFlight->rating = '0';
+
+        $newFlight->user_id = Auth::user()->id;
 
         $newFlight->storeFiles();
 

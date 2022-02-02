@@ -37,7 +37,12 @@ class Flights extends Model implements HasMedia
 
     protected $fillable = ['date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
-
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = ['user_id'];
 
     /**
      * Get count chairs for the flight.

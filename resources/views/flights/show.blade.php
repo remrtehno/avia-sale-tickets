@@ -39,7 +39,8 @@
 
                   </ul>
                   <hr>
-                  <h5> Авиалинии: <img src="{{ $flights->logo }}" style="max-width: 93px" class="mx-15" alt="">
+                  <h5> Авиалинии: <img src="{{ $flights->getImage() }}" style="max-width: 93px" class="mx-15"
+                      alt="">
                   </h5>
                   <h5>Рейс: {{ $flights->flight }}</h5>
 

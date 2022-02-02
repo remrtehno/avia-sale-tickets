@@ -25,8 +25,9 @@ class FlightsTableSeeder extends Seeder
             $file->makeDirectory($path);
         }
 
-        $flights = \App\Models\Flights::factory(20)->create();
 
+
+        $users = \App\Models\User::all();
         $logos = collect([
             'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/EK.svg',
             'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/FZ.svg',
@@ -34,13 +35,20 @@ class FlightsTableSeeder extends Seeder
             'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/KC.svg'
         ]);
 
-        foreach ($flights as  $flight) {
+
+        \App\Models\Flights::factory(20)->make()->each(function ($flight) use ($users, $logos) {
+            $flight->user_id = $users->random()->id;
+            //save
+            $flight->save();
+
+
+            //logos
             $nameCollection = $flight->getPathImages('logo');
 
             $flight->clearMedia($nameCollection);
 
             $flight->addMediaFromUrl($logos->random())
                 ->toMediaCollection($nameCollection);
-        }
+        });
     }
 }
