@@ -25,6 +25,22 @@ class FlightsTableSeeder extends Seeder
             $file->makeDirectory($path);
         }
 
-        \App\Models\Flights::factory(20)->create();
+        $flights = \App\Models\Flights::factory(20)->create();
+
+        $logos = collect([
+            'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/EK.svg',
+            'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/FZ.svg',
+            'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/EK.svg',
+            'https://raw.githubusercontent.com/remrtehno/avia-sale-tickets/1d4aaf98150b5ab99951462849b879d427a22e8e/public/static/images/aviasales/KC.svg'
+        ]);
+
+        foreach ($flights as  $flight) {
+            $nameCollection = $flight->getPathImages('logo');
+
+            $flight->clearMedia($nameCollection);
+
+            $flight->addMediaFromUrl($logos->random())
+                ->toMediaCollection($nameCollection);
+        }
     }
 }
