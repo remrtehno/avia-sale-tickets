@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFlightRequest;
 use App\Models\Flights;
 use Illuminate\Http\Request;
 
@@ -34,9 +35,17 @@ class FlightsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFlightRequest $request)
     {
-        //
+        $newFlight = Flights::create($request->all());
+
+        $newFlight->rating = '0';
+
+        $newFlight->storeFiles();
+
+        $newFlight->save();
+
+        return redirect()->route('dashboard.flights.index');
     }
 
     /**
@@ -47,7 +56,7 @@ class FlightsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('flights.show', ['flight' => $id]);
     }
 
     /**
@@ -58,7 +67,7 @@ class FlightsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dashboard.flights.edit', ['flight' => Flights::findOrFail($id)]);
     }
 
     /**
@@ -68,9 +77,21 @@ class FlightsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreFlightRequest $request, $id)
     {
-        //
+
+
+        $flight = Flights::findOrFail($id);
+
+        $validatedData = $request->all();
+
+        $flight->fill($validatedData);
+
+        $flight->storeFiles(true);
+
+        $flight->save();
+
+        return redirect()->route('dashboard.flights.edit', ['flight' => $flight->id]);
     }
 
     /**

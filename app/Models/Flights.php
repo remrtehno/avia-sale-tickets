@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Flights extends Model
+class Flights extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     public const FIELDS = [
         'flight' => 'string',
@@ -232,5 +234,43 @@ class Flights extends Model
             'parts' => 2,
             'short' => true
         ]);
+    }
+
+
+    //store files
+    public function storeFiles($clean = false)
+    {
+        $fileName = 'logo';
+
+        if (request()->file($fileName)) {
+
+            $nameCollection =  $this->getPathImages($fileName);
+
+            if ($clean) {
+                $this->clearMedia($nameCollection);
+            }
+
+            $this->addMedia(request()->file($fileName))
+                ->toMediaCollection(
+                    $nameCollection
+                );
+        }
+    }
+
+    public function clearMedia($collectionName)
+    {
+        return $this->clearMediaCollection($collectionName);
+    }
+
+
+    public function getPathImages($fileName)
+    {
+        return $this->id . '-'  . $fileName;
+    }
+
+
+    public function getImages($fieldName = 'logo')
+    {
+        return $this->getMedia($this->getPathImages($fieldName));
     }
 }

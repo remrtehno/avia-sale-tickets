@@ -1,0 +1,85 @@
+@php
+$config = ['format' => 'DD-MM-YYYY HH:mm'];
+@endphp
+
+<div class="row">
+  <x-adminlte-input-date :config="$config" name="date" label="{{ __('dashboard.date_flight') }}"
+    fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date->format('d-m-Y H:i') : 1 }}"
+    enable-old-support />
+
+  <x-adminlte-input-date :config="$config" name="date_arrival" label="{{ __('dashboard.date_arrival') }}"
+    fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date_arrival->format('d-m-Y H:i') : 1 }}"
+    enable-old-support />
+
+  <x-adminlte-input value=" {{ $flight->flight ?? null }}" name="flight"
+    label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support />
+
+  <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="count_chairs"
+    label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support />
+
+
+  <div class="col-md-6">
+    <div>
+      <label for="iLabel">
+        {{ __('dashboard.direction_flight') }}
+      </label>
+    </div>
+    <div class="row">
+      <x-adminlte-input value="{{ $flight->direction_from ?? null }}" name="direction_from"
+        fgroup-class="col-md-6" placeholder="Откуда" enable-old-support />
+      <x-adminlte-input value="{{ $flight->direction_to ?? null }}" name="direction_to" fgroup-class="col-md-6"
+        placeholder="Куда" enable-old-support />
+    </div>
+
+  </div>
+
+
+
+  <x-adminlte-input-file name="logo" label="{{ __('dashboard.avia_logo') }}" fgroup-class="col-md-4"
+    placeholder="Choose a file...">
+    <x-slot name="prependSlot">
+      <div class="input-group-text bg-lightblue">
+        <i class="fas fa-upload"></i>
+      </div>
+    </x-slot>
+  </x-adminlte-input-file>
+  @if (isset($flight) && count($flight->getImages()))
+    <div class="col-md-2">
+      <img class="img-fluid mt-4" src="{{ $flight->getImages()[0]->getFullUrl() ?? null }}" alt="">
+    </div>
+  @endif
+
+
+
+  <div class="col-md-12"></div>
+
+  <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" name="total_purchased_price"
+    label="Приобретеная цена" fgroup-class="col-md-3" enable-old-support />
+  <x-adminlte-input value="{{ $flight->total_sales_price ?? null }}" name="total_sales_price"
+    label="Продаваемая цена" fgroup-class="col-md-3" enable-old-support />
+
+  <div class="col-md-12">
+    <label>{{ __('dashboard.price_ticket') }}</label>
+  </div>
+
+  <div class="col-md-5">
+    <div class="row">
+
+      <x-adminlte-input value="{{ $flight->price_adult ?? null }}" name="price_adult"
+        label="{{ __('dashboard.adult') }}" fgroup-class="col-md-4" enable-old-support />
+      <x-adminlte-input value="{{ $flight->price_child ?? null }}" name="price_child"
+        label="{{ __('dashboard.child') }}" fgroup-class="col-md-4" enable-old-support />
+      <x-adminlte-input value="{{ $flight->price_infant ?? null }}" name="price_infant"
+        label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support />
+    </div>
+  </div>
+
+  <div class="col-md-12"></div>
+
+  <x-adminlte-textarea name="comment" label="Комментарий" fgroup-class="col-md-4" enable-old-support>
+    {{ $flight->comment ?? null }}
+  </x-adminlte-textarea>
+
+  <div class="col-md-12"></div>
+
+</div>
