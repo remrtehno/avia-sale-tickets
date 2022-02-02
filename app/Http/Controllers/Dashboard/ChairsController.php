@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\StoreChairsRequest;
-use App\Http\Requests\UpdateChairsRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Chairs;
+use Illuminate\Http\Request;
 
 class ChairsController extends Controller
 {
@@ -34,7 +34,7 @@ class ChairsController extends Controller
      * @param  \App\Http\Requests\StoreChairsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreChairsRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,45 +42,55 @@ class ChairsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Chairs  $chairs
+     * @param  @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Chairs $chairs)
+    public function show($id)
     {
-        //
+        $chairs = Chairs::findOrFail($id);
+        $this->authorize($chairs);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Chairs  $chairs
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chairs $chairs)
+    public function edit($id)
     {
-        //
+        $chairs = Chairs::findOrFail($id);
+        $this->authorize($chairs);
+
+        return view('dashboard.chairs.edit', ['chairs' => $chairs]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateChairsRequest  $request
-     * @param  \App\Models\Chairs  $chairs
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateChairsRequest $request, Chairs $chairs)
+    public function update(Request $request, $id)
     {
-        //
+        $chairs = Chairs::findOrFail($id);
+        $this->authorize($chairs);
+        $chairs->update($request->all());
+
+        return redirect()->route('dashboard.flights.edit', ['flight' =>  $chairs->chairsable->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Chairs  $chairs
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chairs $chairs)
+    public function destroy($id)
     {
-        //
+        $flight = Chairs::findOrFail($id);
+        $flight->delete();
+
+        return redirect()->back();
     }
 }

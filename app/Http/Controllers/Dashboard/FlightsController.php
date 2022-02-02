@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlightRequest;
 use App\Models\Chairs;
 use App\Models\Flights;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
@@ -44,13 +43,15 @@ class FlightsController extends Controller
         $newFlight->rating = '0';
         $newFlight->user_id = Auth::user()->id;
 
-        $newFlight->storeFiles();
-
         $newFlight->save();
 
+        $newFlight->storeFiles();
 
         for ($i = 0; $i < $request->count_chairs; $i++) {
             $newFlight->chairs()->create([
+                'uuid' => $newFlight->date->format('Y-m-d') .
+                    '-' . $newFlight->flight .
+                    '-' . $i,
                 'flight_id' => $newFlight->id,
                 'price' => $newFlight->price_adult,
                 'type' => Chairs::ADULT
@@ -96,7 +97,6 @@ class FlightsController extends Controller
     public function update(StoreFlightRequest $request, $id)
     {
 
-
         $flight = Flights::findOrFail($id);
         $this->authorize($flight);
 
@@ -104,9 +104,9 @@ class FlightsController extends Controller
 
         $flight->fill($validatedData);
 
-        $flight->storeFiles(true);
-
         $flight->save();
+
+        $flight->storeFiles(true);
 
         return redirect()->route('dashboard.flights.edit', ['flight' => $flight->id])->withStatus('Обновленно');
     }

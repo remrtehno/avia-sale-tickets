@@ -22,7 +22,7 @@ class Chairs extends Model
         'uuid' => 'string',
     ];
 
-    protected $fillable = ['flight_id', 'price', 'type'];
+    protected $fillable = ['flight_id', 'price', 'type', 'uuid'];
 
 
     /**

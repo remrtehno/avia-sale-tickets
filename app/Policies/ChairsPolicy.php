@@ -30,7 +30,7 @@ class ChairsPolicy
      */
     public function view(User $user, Chairs $chairs)
     {
-        //
+        return false;
     }
 
     /**
@@ -53,7 +53,7 @@ class ChairsPolicy
      */
     public function update(User $user, Chairs $chairs)
     {
-        //
+        return $user->id == $chairs->chairsable->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class ChairsPolicy
      */
     public function delete(User $user, Chairs $chairs)
     {
-        //
+        return $user->id == $chairs->chairsable->user_id;
     }
 
     /**
@@ -90,5 +90,31 @@ class ChairsPolicy
     public function forceDelete(User $user, Chairs $chairs)
     {
         //
+    }
+
+    /**
+     * Determine whether the user can permanently edit the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Chairs  $chairs
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function edit(User $user, Chairs $chairs)
+    {
+        return $user->id === $chairs->user_id;
+    }
+
+    /**
+     * Perform pre-authorization checks.
+     *
+     * @param  \App\Models\User  $user
+     * @param  string  $ability
+     * @return void|bool
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
     }
 }

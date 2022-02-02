@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -47,6 +48,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
   Route::middleware(['auth', 'dashboard'])->group(function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
+    Route::resource('chairs', ChairsController::class);
 
 
     //single

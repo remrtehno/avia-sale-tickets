@@ -12,4 +12,7 @@
       <x-adminlte-button type="submit" label="{{ __('common.edit') }}" theme="primary" />
     </div>
   </form>
+
+
+  @include('dashboard.flights.partials.chairs', ['chairs' => $flight->chairs])
 @endsection

@@ -3,20 +3,20 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
 @endphp
 
 <div class="row">
-  <x-adminlte-input-date :config="$config" name="date" label="{{ __('dashboard.date_flight') }}"
+  <x-adminlte-input-date autocomplete="off" :config="$config" name="date" label="{{ __('dashboard.date_flight') }}"
     fgroup-class="col-md-3" value="{{ isset($flight) ? $flight->date->format('d-m-Y H:i') : old('date') }}"
     placeholder="01-12-2022 00:59" />
 
-  <x-adminlte-input-date :config="$config" name="date_arrival" label="{{ __('dashboard.date_arrival') }}"
-    fgroup-class="col-md-3"
+  <x-adminlte-input-date autocomplete="off" :config="$config" name="date_arrival"
+    label="{{ __('dashboard.date_arrival') }}" fgroup-class="col-md-3"
     value="{{ isset($flight) ? $flight->date_arrival->format('d-m-Y H:i') : old('date_arrival') }}"
     placeholder="01-12-2022 00:59" />
 
-  <x-adminlte-input value=" {{ $flight->flight ?? null }}" name="flight"
+  <x-adminlte-input value="{{ $flight->flight ?? null }}" name="flight"
     label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support />
 
   @if ($flight->count_chairs ?? null)
-    <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="" disabled
+    <x-adminlte-input value="{{ $flight->chairs->count() ?? null }}" name="" disabled
       label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" />
     <input type="hidden" name="count_chairs" value="{{ $flight->count_chairs ?? null }}">
   @else

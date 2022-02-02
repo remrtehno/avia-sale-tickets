@@ -93,6 +93,18 @@ class FlightsPolicy
     }
 
     /**
+     * Determine whether the user can permanently edit the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Flights  $flights
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function edit(User $user, Flights $flights)
+    {
+        return $user->id == $flights->user_id;
+    }
+
+    /**
      * Perform pre-authorization checks.
      *
      * @param  \App\Models\User  $user

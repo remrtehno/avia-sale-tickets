@@ -253,8 +253,7 @@ class Flights extends Model implements HasMedia
         $fileName = 'logo';
 
         if (request()->file($fileName)) {
-
-            $nameCollection =  $this->getPathImages($fileName);
+            $nameCollection = $this->getPathImages($fileName);
 
             if ($clean) {
                 $this->clearMedia($nameCollection);
