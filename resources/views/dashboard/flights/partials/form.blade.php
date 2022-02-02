@@ -43,9 +43,9 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
       </div>
     </x-slot>
   </x-adminlte-input-file>
-  @if (isset($flight) && count($flight->getImages()))
+  @if (isset($flight) && $flight->getImage())
     <div class="col-md-2">
-      <img class="img-fluid mt-4" src="{{ $flight->getImages()[0]->getFullUrl() ?? null }}" alt="">
+      <img class="img-fluid mt-4" src="{{ $flight->getImage() }}" alt="">
     </div>
   @endif
 

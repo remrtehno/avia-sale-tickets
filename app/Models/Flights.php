@@ -194,6 +194,10 @@ class Flights extends Model implements HasMedia
     {
         return $this->getDeparute()->translatedFormat('d M Y, D');
     }
+    public function getFullDate()
+    {
+        return $this->getDeparute()->translatedFormat('d F Y, l');
+    }
     public function getTime()
     {
         return $this->getDeparute()->translatedFormat('H:i');
@@ -272,5 +276,12 @@ class Flights extends Model implements HasMedia
     public function getImages($fieldName = 'logo')
     {
         return $this->getMedia($this->getPathImages($fieldName));
+    }
+
+    public function getImage()
+    {
+        $images = $this->getImages();
+
+        return count($images) ? $images[0]->getFullUrl() : null;
     }
 }
