@@ -64,6 +64,7 @@
                   <h5>Rating: </h5>
                   <star-rating read-only :size="20" :rating="{{ $flights->rating }}"></star-rating>
 
+                  @include('flights._passenger-form')
                 </div>
 
               </div>

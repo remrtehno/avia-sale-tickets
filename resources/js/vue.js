@@ -4,6 +4,7 @@ import ExampleComponent from "./components/ExampleComponent.vue";
 import SelectComponent from "./components/SelectComponent.vue";
 import VDatePicker from "./components/VDatePicker.vue";
 import StarRating from "./components/StarRating.vue";
+import InputSpinner from "./components/InputSpinner.vue";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,7 @@ new Vue({
         SelectComponent,
         VDatePicker,
         StarRating,
+        InputSpinner,
     },
 
     mounted() {

@@ -27,6 +27,7 @@
         "@mathieustan/vue-datepicker": "^0.2.11",
         "inputmask": "^5.0.7",
         "ramda": "^0.27.1",
+        "vue-number-input-spinner": "^2.2.0",
         "vue-select": "^3.16.0",
         "vue-star-rating": "^1.7.0"
     }
