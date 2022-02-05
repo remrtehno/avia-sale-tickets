@@ -282,8 +282,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {}
+  props: ["number", "title", "hideDelete"],
+  methods: {
+    triggerEvent: function triggerEvent() {
+      $emit("onClick");
+    }
+  }
 });
 
 /***/ }),
@@ -300,6 +314,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _BookingForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookingForm.vue */ "./resources/js/components/BookingForms/BookingForm.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -343,6 +379,11 @@ __webpack_require__.r(__webpack_exports__);
 
       return (_this$$store$getters$3 = this.$store.getters.bookingForms) === null || _this$$store$getters$3 === void 0 ? void 0 : _this$$store$getters$3.infants;
     }
+  },
+  methods: {
+    setPassengers: function setPassengers(nameField) {
+      this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
+    }
   }
 });
 
@@ -384,6 +425,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue_number_input_spinner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-number-input-spinner */ "./node_modules/vue-number-input-spinner/dist/vue-number-input-spinner.min.js");
 /* harmony import */ var vue_number_input_spinner__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_number_input_spinner__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -442,6 +493,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     NumberInputSpinner: (vue_number_input_spinner__WEBPACK_IMPORTED_MODULE_0___default())
@@ -458,6 +510,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      componentKey: 0,
       adults: 1,
       children: 0,
       infants: 0,
@@ -476,9 +529,13 @@ __webpack_require__.r(__webpack_exports__);
       if (name === "children") {
         this.max.adults = this.computedMaxPassengers - this.children;
       }
+    },
+    //@TODO Best force rerender
+    forceRerender: function forceRerender() {
+      this.componentKey += 1;
     }
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(["bookingForms"])), {}, {
     totalPassengers: function totalPassengers() {
       this.$store.commit("bookingFormCreator", {
         adults: this.adults,
@@ -494,12 +551,21 @@ __webpack_require__.r(__webpack_exports__);
 
       return this.maxPassengers;
     }
-  },
+  }),
   mounted: function mounted() {
     this.max = {
       adults: this.computedMaxPassengers,
       children: this.computedMaxPassengers - 1
     };
+  },
+  watch: {
+    bookingForms: function bookingForms() {
+      this.adults = this.bookingForms.adults;
+      this.children = this.bookingForms.children;
+      this.infants = this.bookingForms.infants; //@TODO Best force rerender
+
+      this.forceRerender();
+    }
   }
 });
 
@@ -1027,6 +1093,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else { var o; }}(this,function(exports){"use strict";function i(e){if(Array.isArray(e)){for(var t=0,o=Array(e.length);t<e.length;t++)o[t]=e[t];return o}return Array.from(e)}Object.defineProperty(exports,"__esModule",{value:!0});var l=!1;if("undefined"!=typeof window){var e={get passive(){l=!0}};window.addEventListener("testPassive",null,e),window.removeEventListener("testPassive",null,e)}function d(t){return u.some(function(e){return!(!e.options.allowTouchMove||!e.options.allowTouchMove(t))})}function c(e){var t=e||window.event;return!!d(t.target)||(1<t.touches.length||(t.preventDefault&&t.preventDefault(),!1))}function o(){setTimeout(function(){void 0!==m&&(document.body.style.paddingRight=m,m=void 0),void 0!==f&&(document.body.style.overflow=f,f=void 0)})}var a="undefined"!=typeof window&&window.navigator&&window.navigator.platform&&(/iP(ad|hone|od)/.test(window.navigator.platform)||"MacIntel"===window.navigator.platform&&1<window.navigator.maxTouchPoints),u=[],s=!1,v=-1,f=void 0,m=void 0;exports.disableBodyScroll=function(r,e){if(a){if(!r)return void console.error("disableBodyScroll unsuccessful - targetElement must be provided when calling disableBodyScroll on IOS devices.");if(r&&!u.some(function(e){return e.targetElement===r})){var t={targetElement:r,options:e||{}};u=[].concat(i(u),[t]),r.ontouchstart=function(e){1===e.targetTouches.length&&(v=e.targetTouches[0].clientY)},r.ontouchmove=function(e){var t,o,n,i;1===e.targetTouches.length&&(o=r,i=(t=e).targetTouches[0].clientY-v,d(t.target)||(o&&0===o.scrollTop&&0<i||(n=o)&&n.scrollHeight-n.scrollTop<=n.clientHeight&&i<0?c(t):t.stopPropagation()))},s||(document.addEventListener("touchmove",c,l?{passive:!1}:void 0),s=!0)}}else{n=e,setTimeout(function(){if(void 0===m){var e=!!n&&!0===n.reserveScrollBarGap,t=window.innerWidth-document.documentElement.clientWidth;e&&0<t&&(m=document.body.style.paddingRight,document.body.style.paddingRight=t+"px")}void 0===f&&(f=document.body.style.overflow,document.body.style.overflow="hidden")});var o={targetElement:r,options:e||{}};u=[].concat(i(u),[o])}var n},exports.clearAllBodyScrollLocks=function(){a?(u.forEach(function(e){e.targetElement.ontouchstart=null,e.targetElement.ontouchmove=null}),s&&(document.removeEventListener("touchmove",c,l?{passive:!1}:void 0),s=!1),u=[],v=-1):(o(),u=[])},exports.enableBodyScroll=function(t){if(a){if(!t)return void console.error("enableBodyScroll unsuccessful - targetElement must be provided when calling enableBodyScroll on IOS devices.");t.ontouchstart=null,t.ontouchmove=null,u=u.filter(function(e){return e.targetElement!==t}),s&&0===u.length&&(document.removeEventListener("touchmove",c,l?{passive:!1}:void 0),s=!1)}else(u=u.filter(function(e){return e.targetElement!==t})).length||o()}});
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".booking-form-delete {\n  background: none;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -6846,6 +6936,36 @@ var uniqBy =
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookingForm_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BookingForm.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookingForm_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookingForm_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InputSpinner.vue?vue&type=style&index=0&lang=scss&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/InputSpinner.vue?vue&type=style&index=0&lang=scss& ***!
@@ -7228,15 +7348,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _BookingForm_vue_vue_type_template_id_2343ee62___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookingForm.vue?vue&type=template&id=2343ee62& */ "./resources/js/components/BookingForms/BookingForm.vue?vue&type=template&id=2343ee62&");
 /* harmony import */ var _BookingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookingForm.vue?vue&type=script&lang=js& */ "./resources/js/components/BookingForms/BookingForm.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _BookingForm_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BookingForm.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _BookingForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _BookingForm_vue_vue_type_template_id_2343ee62___WEBPACK_IMPORTED_MODULE_0__.render,
   _BookingForm_vue_vue_type_template_id_2343ee62___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -7604,6 +7726,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_BookingForm_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BookingForm.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/BookingForms/BookingForm.vue?vue&type=style&index=0&lang=scss&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/InputSpinner.vue?vue&type=style&index=0&lang=scss&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/InputSpinner.vue?vue&type=style&index=0&lang=scss& ***!
@@ -7765,468 +7900,486 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "wrapper-booking-forms" }, [
+    _vm._v("\n    " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n    "),
+    _c(
+      "button",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.hideDelete,
+            expression: "!hideDelete",
+          },
+        ],
+        staticClass: "btn btn-default btn-cf-submit3 booking-form-delete",
+        attrs: { type: "button" },
+        on: {
+          click: function ($event) {
+            return _vm.$emit("onClick")
+          },
+        },
+      },
+      [_c("i", { staticClass: "fa fa-minus-square" })]
+    ),
+    _vm._v(" "),
+    _vm._m(0),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wrapper-booking-forms" }, [
-      _c("div", [
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [_vm._v("Имя "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Michael",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Фамилия "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Dragan",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [_vm._v("Отчество\n            ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Berkovich",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Email "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  "data-inputmask": "'alias': 'email'",
-                  placeholder: "your@email.com",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Дата рождения "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "birthday",
-                  "data-inputmask": "'alias': 'dategood'",
-                  type: "text",
-                  placeholder: "____-__-__",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [_vm._v("Пол "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-top": "11px", "padding-left": "0" },
-            },
-            [
-              _c("label", { staticClass: "radio-inline my-0" }, [
-                _c("input", {
-                  attrs: { type: "radio", name: "gender", value: "m" },
-                }),
-                _vm._v(" Мужской\n                "),
-              ]),
-              _vm._v(" "),
-              _c("label", { staticClass: "radio-inline py-8 mx-15" }, [
-                _c("input", {
-                  attrs: { type: "radio", name: "gender", value: "f" },
-                }),
-                _vm._v(" Женский\n                "),
-              ]),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Cрок паспорта "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  "data-inputmask": "'alias': 'dategood'",
-                  type: "text",
-                  placeholder: "____-__-__",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Серия паспорта "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "AA_______",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "label",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _vm._v("Гражданство "),
-              _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  name: "citizenship",
-                  placeholder: "пример: Узбекистан",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _c("label", { staticClass: "my-0" }, [
-                _vm._v("Телефон пассажира"),
-              ]),
-              _vm._v(" "),
-              _c(
-                "small",
-                {
-                  staticClass: "text-muted",
-                  staticStyle: { "line-height": "10px", display: "block" },
-                },
-                [
-                  _vm._v("Не свой, а именно пассажира "),
-                  _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-                ]
-              ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  "data-inputmask": "'mask': '+\\\\9\\\\98(99) 999-99-99'",
-                  type: "tel",
-                  placeholder: "+998(__) ___-__-__",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _c("label", { staticClass: "my-0" }, [_vm._v("Виза")]),
-              _vm._v(" "),
-              _c(
-                "small",
-                {
-                  staticClass: "text-muted",
-                  staticStyle: { "line-height": "10px", display: "block" },
-                },
-                [_vm._v("(если требуется)")]
-              ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  name: "citizenship",
-                  placeholder: "пример: Узбекистан",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input2_wrapper" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-md-5",
-              staticStyle: { "padding-left": "0", "padding-top": "12px" },
-            },
-            [
-              _c("label", { staticClass: "my-0" }, [_vm._v("Адрес")]),
-              _vm._v(" "),
-              _c(
-                "small",
-                {
-                  staticClass: "text-muted",
-                  staticStyle: { "line-height": "10px", display: "block" },
-                },
-                [_vm._v("(если требуется)")]
-              ),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-md-7",
-              staticStyle: { "padding-right": "0", "padding-left": "0" },
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  name: "address",
-                  placeholder: "г. Ташкент ул. Истиклол д. 11",
-                  spellcheck: "false",
-                },
-              }),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "clearfix" }),
-        _vm._v(" "),
-        _c("br"),
+    return _c("div", [
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [_vm._v("Имя "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+        ),
         _vm._v(" "),
         _c(
-          "small",
+          "div",
           {
-            staticClass: "text-muted",
-            staticStyle: { "line-height": "10px", display: "block" },
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
           },
           [
-            _vm._v("Поля обозначеные "),
-            _c("span", { attrs: { middle: "", red: "" } }, [_vm._v("*")]),
-            _vm._v(" - обязательны к\n            заполнению."),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                placeholder: "Michael",
+                spellcheck: "false",
+              },
+            }),
           ]
         ),
       ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _vm._v("Фамилия "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                placeholder: "Dragan",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [_vm._v("Отчество\n            ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                placeholder: "Berkovich",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [_vm._v("Email "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                "data-inputmask": "'alias': 'email'",
+                placeholder: "your@email.com",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _vm._v("Дата рождения "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                name: "birthday",
+                "data-inputmask": "'alias': 'dategood'",
+                type: "text",
+                placeholder: "____-__-__",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [_vm._v("Пол "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-top": "11px", "padding-left": "0" },
+          },
+          [
+            _c("label", { staticClass: "radio-inline my-0" }, [
+              _c("input", {
+                attrs: { type: "radio", name: "gender", value: "m" },
+              }),
+              _vm._v(" Мужской\n                "),
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "radio-inline py-8 mx-15" }, [
+              _c("input", {
+                attrs: { type: "radio", name: "gender", value: "f" },
+              }),
+              _vm._v(" Женский\n                "),
+            ]),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _vm._v("Cрок паспорта "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                "data-inputmask": "'alias': 'dategood'",
+                type: "text",
+                placeholder: "____-__-__",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _vm._v("Серия паспорта "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                placeholder: "AA_______",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _vm._v("Гражданство "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "citizenship",
+                placeholder: "пример: Узбекистан",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _c("label", { staticClass: "my-0" }, [_vm._v("Телефон пассажира")]),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "text-muted",
+                staticStyle: { "line-height": "10px", display: "block" },
+              },
+              [
+                _vm._v("Не свой, а именно пассажира "),
+                _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                "data-inputmask": "'mask': '+\\\\9\\\\98(99) 999-99-99'",
+                type: "tel",
+                placeholder: "+998(__) ___-__-__",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _c("label", { staticClass: "my-0" }, [_vm._v("Виза")]),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "text-muted",
+                staticStyle: { "line-height": "10px", display: "block" },
+              },
+              [_vm._v("(если требуется)")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "citizenship",
+                placeholder: "пример: Узбекистан",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _c("label", { staticClass: "my-0" }, [_vm._v("Адрес")]),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "text-muted",
+                staticStyle: { "line-height": "10px", display: "block" },
+              },
+              [_vm._v("(если требуется)")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "address",
+                placeholder: "г. Ташкент ул. Истиклол д. 11",
+                spellcheck: "false",
+              },
+            }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "small",
+        {
+          staticClass: "text-muted",
+          staticStyle: { "line-height": "10px", display: "block" },
+        },
+        [
+          _vm._v("Поля обозначеные "),
+          _c("span", { attrs: { middle: "", red: "" } }, [_vm._v("*")]),
+          _vm._v(" - обязательны к\n            заполнению."),
+        ]
+      ),
     ])
   },
 ]
@@ -8266,9 +8419,16 @@ var render = function () {
         ],
       },
       [
-        _vm._v("\n        " + _vm._s(_vm.adults) + " Взрослый\n        "),
         _vm._l(_vm.adults, function (n) {
-          return _c("booking-form", { key: n })
+          return _c("booking-form", {
+            key: n,
+            attrs: { number: n, title: "Взрослый", hideDelete: n === 1 },
+            on: {
+              onClick: function ($event) {
+                return _vm.setPassengers("adults")
+              },
+            },
+          })
         }),
         _vm._v(" "),
         _c("hr"),
@@ -8289,9 +8449,16 @@ var render = function () {
         ],
       },
       [
-        _vm._v("\n        " + _vm._s(_vm.children) + " Детский\n        "),
         _vm._l(_vm.children, function (n) {
-          return _c("booking-form", { key: n })
+          return _c("booking-form", {
+            key: n,
+            attrs: { number: n, title: "Детский" },
+            on: {
+              onClick: function ($event) {
+                return _vm.setPassengers("children")
+              },
+            },
+          })
         }),
         _vm._v(" "),
         _c("hr"),
@@ -8312,9 +8479,16 @@ var render = function () {
         ],
       },
       [
-        _vm._v("\n        " + _vm._s(_vm.infants) + " Младенческий\n        "),
         _vm._l(_vm.infants, function (n) {
-          return _c("booking-form", { key: n })
+          return _c("booking-form", {
+            key: n,
+            attrs: { number: n, title: "Младенческий" },
+            on: {
+              onClick: function ($event) {
+                return _vm.setPassengers("infants")
+              },
+            },
+          })
         }),
         _vm._v(" "),
         _c("hr"),
@@ -8407,6 +8581,7 @@ var render = function () {
               { staticClass: "twidget-cell twidget-age-select" },
               [
                 _c("number-input-spinner", {
+                  key: _vm.componentKey,
                   attrs: { min: 1, max: _vm.max.adults },
                   on: {
                     input: function ($event) {
@@ -8438,6 +8613,7 @@ var render = function () {
               { staticClass: "twidget-cell twidget-age-select" },
               [
                 _c("number-input-spinner", {
+                  key: _vm.componentKey,
                   attrs: { min: 0, max: _vm.max.children },
                   on: {
                     input: function ($event) {
@@ -8469,6 +8645,7 @@ var render = function () {
               { staticClass: "twidget-cell twidget-age-select" },
               [
                 _c("number-input-spinner", {
+                  key: _vm.componentKey,
                   attrs: { min: 0, max: _vm.adults },
                   model: {
                     value: _vm.infants,

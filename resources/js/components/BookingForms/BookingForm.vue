@@ -1,5 +1,14 @@
 <template>
     <div class="wrapper-booking-forms">
+        {{ number }} {{ title }}
+        <button
+            v-show="!hideDelete"
+            type="button"
+            class="btn btn-default btn-cf-submit3 booking-form-delete"
+            @click="$emit('onClick')"
+        >
+            <i class="fa fa-minus-square"></i>
+        </button>
         <div>
             <div class="input2_wrapper">
                 <label
@@ -244,6 +253,17 @@
 
 <script>
 export default {
-    mounted() {},
+    props: ["number", "title", "hideDelete"],
+    methods: {
+        triggerEvent() {
+            $emit("onClick");
+        },
+    },
 };
 </script>
+
+<style lang="scss">
+.booking-form-delete {
+    background: none;
+}
+</style>

@@ -21,6 +21,7 @@
                                 :min="1"
                                 :max="max.adults"
                                 @input="input($event, 'adults')"
+                                :key="componentKey"
                             />
                         </div>
                     </li>
@@ -34,6 +35,7 @@
                                 :min="0"
                                 :max="max.children"
                                 @input="input($event, 'children')"
+                                :key="componentKey"
                             />
                         </div>
                     </li>
@@ -46,6 +48,7 @@
                                 v-model="infants"
                                 :min="0"
                                 :max="adults"
+                                :key="componentKey"
                             />
                         </div>
                     </li>
@@ -57,6 +60,7 @@
 
 <script>
 import NumberInputSpinner from "vue-number-input-spinner";
+import { mapGetters } from "vuex";
 
 export default {
     components: { NumberInputSpinner },
@@ -72,6 +76,7 @@ export default {
     },
     data() {
         return {
+            componentKey: 0,
             adults: 1,
             children: 0,
             infants: 0,
@@ -91,8 +96,13 @@ export default {
                 this.max.adults = this.computedMaxPassengers - this.children;
             }
         },
+        //@TODO Best force rerender
+        forceRerender() {
+            this.componentKey += 1;
+        },
     },
     computed: {
+        ...mapGetters(["bookingForms"]),
         totalPassengers() {
             this.$store.commit("bookingFormCreator", {
                 adults: this.adults,
@@ -114,6 +124,15 @@ export default {
             adults: this.computedMaxPassengers,
             children: this.computedMaxPassengers - 1,
         };
+    },
+    watch: {
+        bookingForms() {
+            this.adults = this.bookingForms.adults;
+            this.children = this.bookingForms.children;
+            this.infants = this.bookingForms.infants;
+            //@TODO Best force rerender
+            this.forceRerender();
+        },
     },
 };
 </script>
