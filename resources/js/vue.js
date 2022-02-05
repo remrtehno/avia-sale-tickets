@@ -1,14 +1,34 @@
 import Vue from "vue";
+import Vuex from "vuex";
 
 import ExampleComponent from "./components/ExampleComponent.vue";
 import SelectComponent from "./components/SelectComponent.vue";
 import VDatePicker from "./components/VDatePicker.vue";
 import StarRating from "./components/StarRating.vue";
 import InputSpinner from "./components/InputSpinner.vue";
+import BookingForms from "./components/BookingForms/BookingForms.vue";
 
 Vue.config.productionTip = false;
 
 window.Event = new Vue();
+
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+    state: {
+        bookingForms: {},
+    },
+    mutations: {
+        bookingFormCreator(state, bookingFormsData) {
+            state.bookingForms = bookingFormsData;
+        },
+    },
+    getters: {
+        bookingForms(state) {
+            return state.bookingForms;
+        },
+    },
+});
 
 new Vue({
     el: "#app",
@@ -19,7 +39,9 @@ new Vue({
         VDatePicker,
         StarRating,
         InputSpinner,
+        BookingForms,
     },
+    store,
 
     mounted() {
         $("[data-confirm]").on("click", () => {

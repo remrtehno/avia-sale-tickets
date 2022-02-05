@@ -1,1 +1,2 @@
-<input-spinner></input-spinner>
+<input-spinner :max-passengers="{{ $flights->chairs->count() }}">
+</input-spinner>

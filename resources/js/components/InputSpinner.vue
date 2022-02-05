@@ -7,8 +7,8 @@
                 :value="totalPassengers"
             />
             <input type="hidden" name="adults" :value="adults" />
-            <input type="hidden" name="adults" :value="children" />
-            <input type="hidden" name="adults" :value="infants" />
+            <input type="hidden" name="children" :value="children" />
+            <input type="hidden" name="infants" :value="infants" />
             <div class="twidget-passenger-form-wrapper">
                 <ul class="twidget-age-group">
                     <li>
@@ -18,8 +18,9 @@
                         <div class="twidget-cell twidget-age-select">
                             <number-input-spinner
                                 v-model="adults"
-                                :min="0"
-                                :max="10"
+                                :min="1"
+                                :max="max.adults"
+                                @input="input($event, 'adults')"
                             />
                         </div>
                     </li>
@@ -31,7 +32,8 @@
                             <number-input-spinner
                                 v-model="children"
                                 :min="0"
-                                :max="10"
+                                :max="max.children"
+                                @input="input($event, 'children')"
                             />
                         </div>
                     </li>
@@ -43,7 +45,7 @@
                             <number-input-spinner
                                 v-model="infants"
                                 :min="0"
-                                :max="10"
+                                :max="adults"
                             />
                         </div>
                     </li>
@@ -58,17 +60,60 @@ import NumberInputSpinner from "vue-number-input-spinner";
 
 export default {
     components: { NumberInputSpinner },
+    props: {
+        maxPassengers: {
+            type: Number,
+            default: 10,
+        },
+        maxLimit: {
+            type: Number,
+            default: 10,
+        },
+    },
     data() {
         return {
-            adults: 0,
+            adults: 1,
             children: 0,
             infants: 0,
+            max: {
+                adults: this.maxPassengers,
+                children: this.maxPassengers - 1,
+            },
         };
+    },
+    methods: {
+        input(event, name) {
+            if (name === "adults") {
+                this.max.children = this.computedMaxPassengers - this.adults;
+            }
+
+            if (name === "children") {
+                this.max.adults = this.computedMaxPassengers - this.children;
+            }
+        },
     },
     computed: {
         totalPassengers() {
+            this.$store.commit("bookingFormCreator", {
+                adults: this.adults,
+                children: this.children,
+                infants: this.infants,
+            });
+
             return this.adults + this.children + this.infants;
         },
+        computedMaxPassengers() {
+            if (this.maxPassengers > this.maxLimit) {
+                return this.maxLimit;
+            }
+            return this.maxPassengers;
+        },
+    },
+    mounted() {
+        this.max = {
+            adults: this.computedMaxPassengers,
+            children: this.computedMaxPassengers - 1,
+        };
     },
 };
 </script>
