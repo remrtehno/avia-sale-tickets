@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper-booking-forms">
-        {{ number }} {{ title }}
+        <h5>{{ title }} {{ number }}</h5>
         <button
             v-show="!hideDelete"
             type="button"
-            class="btn btn-default btn-cf-submit3 booking-form-delete"
+            class="btn btn-default btn-cf-submit3 booking-form-btn-delete"
             @click="$emit('onClick')"
         >
-            <i class="fa fa-minus-square"></i>
+            <i class="fa fa-close"></i>
         </button>
         <div>
             <div class="input2_wrapper">
@@ -23,6 +23,7 @@
                         class="form-control"
                         placeholder="Michael"
                         spellcheck="false"
+                        :name="getType('name')"
                     />
                 </div>
             </div>
@@ -40,6 +41,7 @@
                         class="form-control"
                         placeholder="Dragan"
                         spellcheck="false"
+                        :name="getType('surname')"
                     />
                 </div>
             </div>
@@ -57,6 +59,7 @@
                         class="form-control"
                         placeholder="Berkovich"
                         spellcheck="false"
+                        :name="getType('surname2')"
                     />
                 </div>
             </div>
@@ -74,6 +77,7 @@
                         class="form-control"
                         placeholder="your@email.com"
                         spellcheck="false"
+                        :name="getType('email')"
                     />
                 </div>
             </div>
@@ -85,13 +89,16 @@
                 >
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
+                    <div v-if="type == 'child'">child</div>
+                    <div v-else-if="type == 'infant'">infant</div>
+
                     <input
-                        name="birthday"
-                        data-inputmask="'alias': 'dategood'"
+                        data-inputmask="'alias': 'birthday'"
                         type="text"
                         class="form-control"
                         placeholder="____-__-__"
                         spellcheck="false"
+                        :name="getType('birthday')"
                     />
                 </div>
             </div>
@@ -108,10 +115,20 @@
                     style="padding-top: 11px; padding-left: 0"
                 >
                     <label class="radio-inline my-0">
-                        <input type="radio" name="gender" value="m" /> Мужской
+                        <input
+                            type="radio"
+                            :name="getType('gender')"
+                            value="m"
+                        />
+                        Мужской
                     </label>
                     <label class="radio-inline py-8 mx-15">
-                        <input type="radio" name="gender" value="f" /> Женский
+                        <input
+                            type="radio"
+                            :name="getType('gender')"
+                            value="f"
+                        />
+                        Женский
                     </label>
                 </div>
             </div>
@@ -130,6 +147,7 @@
                         class="form-control"
                         placeholder="____-__-__"
                         spellcheck="false"
+                        :name="getType('passport_date')"
                     />
                 </div>
             </div>
@@ -147,6 +165,7 @@
                         class="form-control"
                         placeholder="AA_______"
                         spellcheck="false"
+                        :name="getType('passport_number')"
                     />
                 </div>
             </div>
@@ -155,16 +174,16 @@
                 <label
                     class="col-md-5"
                     style="padding-left: 0; padding-top: 12px"
-                    >Гражданство <span red>*</span></label
-                >
+                    >Гражданство <span red>*</span>
+                </label>
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
                         type="text"
-                        name="citizenship"
                         class="form-control"
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
+                        :name="getType('citizenship')"
                     />
                 </div>
             </div>
@@ -178,8 +197,8 @@
                     <small
                         class="text-muted"
                         style="line-height: 10px; display: block"
-                        >Не свой, а именно пассажира <span red>*</span></small
-                    >
+                        >Не свой, а именно пассажира <span red>*</span>
+                    </small>
                 </div>
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
@@ -189,6 +208,7 @@
                         class="form-control"
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
+                        :name="getType('tel')"
                     />
                 </div>
             </div>
@@ -209,10 +229,10 @@
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
                         type="text"
-                        name="citizenship"
                         class="form-control"
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
+                        :name="getType('visa')"
                     />
                 </div>
             </div>
@@ -234,9 +254,9 @@
                     <input
                         type="text"
                         class="form-control"
-                        name="address"
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
+                        :name="getType('address')"
                     />
                 </div>
             </div>
@@ -253,17 +273,45 @@
 
 <script>
 export default {
-    props: ["number", "title", "hideDelete"],
+    props: ["number", "title", "hideDelete", "type"],
     methods: {
         triggerEvent() {
             $emit("onClick");
+        },
+    },
+    methods: {
+        getType(nameField) {
+            return `[${this.type}][${nameField}][]`;
         },
     },
 };
 </script>
 
 <style lang="scss">
+.wrapper-booking-forms {
+    position: relative;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 25px;
+}
 .booking-form-delete {
     background: none;
+}
+.btn-default.btn-cf-submit3.booking-form-btn-delete {
+    border-radius: 100px !important;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    box-shadow: none;
+    background: none;
+    color: #a8a6a6;
+    border: 1px solid #c5c4c4;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    &:hover {
+        color: red;
+    }
 }
 </style>

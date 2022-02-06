@@ -38,6 +38,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -291,14 +293,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["number", "title", "hideDelete"],
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+  props: ["number", "title", "hideDelete", "type"],
   methods: {
     triggerEvent: function triggerEvent() {
       $emit("onClick");
     }
   }
-});
+}, "methods", {
+  getType: function getType(nameField) {
+    return "[".concat(this.type, "][").concat(nameField, "][]");
+  }
+}));
 
 /***/ }),
 
@@ -919,7 +945,7 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
     min: "2010",
     max: "2060"
   },
-  bithday: {
+  birthday: {
     alias: "dategood",
     min: "1910",
     max: "2021"
@@ -1114,7 +1140,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".booking-form-delete {\n  background: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7901,7 +7927,8 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "wrapper-booking-forms" }, [
-    _vm._v("\n    " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n    "),
+    _c("h5", [_vm._v(_vm._s(_vm.title) + " " + _vm._s(_vm.number))]),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -7913,7 +7940,7 @@ var render = function () {
             expression: "!hideDelete",
           },
         ],
-        staticClass: "btn btn-default btn-cf-submit3 booking-form-delete",
+        staticClass: "btn btn-default btn-cf-submit3 booking-form-btn-delete",
         attrs: { type: "button" },
         on: {
           click: function ($event) {
@@ -7921,27 +7948,12 @@ var render = function () {
           },
         },
       },
-      [_c("i", { staticClass: "fa fa-minus-square" })]
+      [_c("i", { staticClass: "fa fa-close" })]
     ),
     _vm._v(" "),
-    _vm._m(0),
-  ])
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
+    _c("div", [
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [_vm._v("Имя "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
-        ),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "div",
@@ -7956,6 +7968,7 @@ var staticRenderFns = [
                 type: "text",
                 placeholder: "Michael",
                 spellcheck: "false",
+                name: _vm.getType("name"),
               },
             }),
           ]
@@ -7965,17 +7978,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _vm._v("Фамилия "),
-            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-          ]
-        ),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "div",
@@ -7990,6 +7993,7 @@ var staticRenderFns = [
                 type: "text",
                 placeholder: "Dragan",
                 spellcheck: "false",
+                name: _vm.getType("surname"),
               },
             }),
           ]
@@ -8021,6 +8025,7 @@ var staticRenderFns = [
                 type: "text",
                 placeholder: "Berkovich",
                 spellcheck: "false",
+                name: _vm.getType("surname2"),
               },
             }),
           ]
@@ -8030,14 +8035,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [_vm._v("Email "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
-        ),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "div",
@@ -8052,6 +8050,7 @@ var staticRenderFns = [
                 "data-inputmask": "'alias': 'email'",
                 placeholder: "your@email.com",
                 spellcheck: "false",
+                name: _vm.getType("email"),
               },
             }),
           ]
@@ -8059,17 +8058,7 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _vm._v("Дата рождения "),
-            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-          ]
-        ),
+        _vm._m(3),
         _vm._v(" "),
         _c(
           "div",
@@ -8078,14 +8067,20 @@ var staticRenderFns = [
             staticStyle: { "padding-right": "0", "padding-left": "0" },
           },
           [
+            _vm.type == "child"
+              ? _c("div", [_vm._v("child")])
+              : _vm.type == "infant"
+              ? _c("div", [_vm._v("infant")])
+              : _vm._e(),
+            _vm._v(" "),
             _c("input", {
               staticClass: "form-control",
               attrs: {
-                name: "birthday",
-                "data-inputmask": "'alias': 'dategood'",
+                "data-inputmask": "'alias': 'birthday'",
                 type: "text",
                 placeholder: "____-__-__",
                 spellcheck: "false",
+                name: _vm.getType("birthday"),
               },
             }),
           ]
@@ -8095,14 +8090,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [_vm._v("Пол "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
-        ),
+        _vm._m(4),
         _vm._v(" "),
         _c(
           "div",
@@ -8113,16 +8101,24 @@ var staticRenderFns = [
           [
             _c("label", { staticClass: "radio-inline my-0" }, [
               _c("input", {
-                attrs: { type: "radio", name: "gender", value: "m" },
+                attrs: {
+                  type: "radio",
+                  name: _vm.getType("gender"),
+                  value: "m",
+                },
               }),
-              _vm._v(" Мужской\n                "),
+              _vm._v("\n                    Мужской\n                "),
             ]),
             _vm._v(" "),
             _c("label", { staticClass: "radio-inline py-8 mx-15" }, [
               _c("input", {
-                attrs: { type: "radio", name: "gender", value: "f" },
+                attrs: {
+                  type: "radio",
+                  name: _vm.getType("gender"),
+                  value: "f",
+                },
               }),
-              _vm._v(" Женский\n                "),
+              _vm._v("\n                    Женский\n                "),
             ]),
           ]
         ),
@@ -8131,17 +8127,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _vm._v("Cрок паспорта "),
-            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-          ]
-        ),
+        _vm._m(5),
         _vm._v(" "),
         _c(
           "div",
@@ -8157,6 +8143,7 @@ var staticRenderFns = [
                 type: "text",
                 placeholder: "____-__-__",
                 spellcheck: "false",
+                name: _vm.getType("passport_date"),
               },
             }),
           ]
@@ -8166,17 +8153,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _vm._v("Серия паспорта "),
-            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-          ]
-        ),
+        _vm._m(6),
         _vm._v(" "),
         _c(
           "div",
@@ -8191,6 +8168,7 @@ var staticRenderFns = [
                 type: "text",
                 placeholder: "AA_______",
                 spellcheck: "false",
+                name: _vm.getType("passport_number"),
               },
             }),
           ]
@@ -8200,17 +8178,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _vm._v("Гражданство "),
-            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-          ]
-        ),
+        _vm._m(7),
         _vm._v(" "),
         _c(
           "div",
@@ -8223,9 +8191,9 @@ var staticRenderFns = [
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                name: "citizenship",
                 placeholder: "пример: Узбекистан",
                 spellcheck: "false",
+                name: _vm.getType("citizenship"),
               },
             }),
           ]
@@ -8235,28 +8203,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "div",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _c("label", { staticClass: "my-0" }, [_vm._v("Телефон пассажира")]),
-            _vm._v(" "),
-            _c(
-              "small",
-              {
-                staticClass: "text-muted",
-                staticStyle: { "line-height": "10px", display: "block" },
-              },
-              [
-                _vm._v("Не свой, а именно пассажира "),
-                _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
-              ]
-            ),
-          ]
-        ),
+        _vm._m(8),
         _vm._v(" "),
         _c(
           "div",
@@ -8272,6 +8219,7 @@ var staticRenderFns = [
                 type: "tel",
                 placeholder: "+998(__) ___-__-__",
                 spellcheck: "false",
+                name: _vm.getType("tel"),
               },
             }),
           ]
@@ -8281,25 +8229,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "div",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _c("label", { staticClass: "my-0" }, [_vm._v("Виза")]),
-            _vm._v(" "),
-            _c(
-              "small",
-              {
-                staticClass: "text-muted",
-                staticStyle: { "line-height": "10px", display: "block" },
-              },
-              [_vm._v("(если требуется)")]
-            ),
-          ]
-        ),
+        _vm._m(9),
         _vm._v(" "),
         _c(
           "div",
@@ -8312,9 +8242,9 @@ var staticRenderFns = [
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                name: "citizenship",
                 placeholder: "пример: Узбекистан",
                 spellcheck: "false",
+                name: _vm.getType("visa"),
               },
             }),
           ]
@@ -8324,25 +8254,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
       _c("div", { staticClass: "input2_wrapper" }, [
-        _c(
-          "div",
-          {
-            staticClass: "col-md-5",
-            staticStyle: { "padding-left": "0", "padding-top": "12px" },
-          },
-          [
-            _c("label", { staticClass: "my-0" }, [_vm._v("Адрес")]),
-            _vm._v(" "),
-            _c(
-              "small",
-              {
-                staticClass: "text-muted",
-                staticStyle: { "line-height": "10px", display: "block" },
-              },
-              [_vm._v("(если требуется)")]
-            ),
-          ]
-        ),
+        _vm._m(10),
         _vm._v(" "),
         _c(
           "div",
@@ -8355,9 +8267,9 @@ var staticRenderFns = [
               staticClass: "form-control",
               attrs: {
                 type: "text",
-                name: "address",
                 placeholder: "г. Ташкент ул. Истиклол д. 11",
                 spellcheck: "false",
+                name: _vm.getType("address"),
               },
             }),
           ]
@@ -8368,19 +8280,218 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c(
-        "small",
-        {
-          staticClass: "text-muted",
-          staticStyle: { "line-height": "10px", display: "block" },
-        },
-        [
-          _vm._v("Поля обозначеные "),
-          _c("span", { attrs: { middle: "", red: "" } }, [_vm._v("*")]),
-          _vm._v(" - обязательны к\n            заполнению."),
-        ]
-      ),
-    ])
+      _vm._m(11),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [_vm._v("Имя "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [_vm._v("Фамилия "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [_vm._v("Email "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _vm._v("Дата рождения "),
+        _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [_vm._v("Пол "), _c("span", { attrs: { red: "" } }, [_vm._v("*")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _vm._v("Cрок паспорта "),
+        _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _vm._v("Серия паспорта "),
+        _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _vm._v("Гражданство "),
+        _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _c("label", { staticClass: "my-0" }, [_vm._v("Телефон пассажира")]),
+        _vm._v(" "),
+        _c(
+          "small",
+          {
+            staticClass: "text-muted",
+            staticStyle: { "line-height": "10px", display: "block" },
+          },
+          [
+            _vm._v("Не свой, а именно пассажира "),
+            _c("span", { attrs: { red: "" } }, [_vm._v("*")]),
+          ]
+        ),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _c("label", { staticClass: "my-0" }, [_vm._v("Виза")]),
+        _vm._v(" "),
+        _c(
+          "small",
+          {
+            staticClass: "text-muted",
+            staticStyle: { "line-height": "10px", display: "block" },
+          },
+          [_vm._v("(если требуется)")]
+        ),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "col-md-5",
+        staticStyle: { "padding-left": "0", "padding-top": "12px" },
+      },
+      [
+        _c("label", { staticClass: "my-0" }, [_vm._v("Адрес")]),
+        _vm._v(" "),
+        _c(
+          "small",
+          {
+            staticClass: "text-muted",
+            staticStyle: { "line-height": "10px", display: "block" },
+          },
+          [_vm._v("(если требуется)")]
+        ),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "small",
+      {
+        staticClass: "text-muted",
+        staticStyle: { "line-height": "10px", display: "block" },
+      },
+      [
+        _vm._v("Поля обозначеные "),
+        _c("span", { attrs: { middle: "", red: "" } }, [_vm._v("*")]),
+        _vm._v(" - обязательны к\n            заполнению."),
+      ]
+    )
   },
 ]
 render._withStripped = true
@@ -8405,7 +8516,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("form", { attrs: { action: "" } }, [
     _c(
       "div",
       {
@@ -8418,22 +8529,23 @@ var render = function () {
           },
         ],
       },
-      [
-        _vm._l(_vm.adults, function (n) {
-          return _c("booking-form", {
-            key: n,
-            attrs: { number: n, title: "Взрослый", hideDelete: n === 1 },
-            on: {
-              onClick: function ($event) {
-                return _vm.setPassengers("adults")
-              },
+      _vm._l(_vm.adults, function (n) {
+        return _c("booking-form", {
+          key: n,
+          attrs: {
+            type: "adults",
+            number: n,
+            title: "Взрослый",
+            hideDelete: n === 1,
+          },
+          on: {
+            onClick: function ($event) {
+              return _vm.setPassengers("adults")
             },
-          })
-        }),
-        _vm._v(" "),
-        _c("hr"),
-      ],
-      2
+          },
+        })
+      }),
+      1
     ),
     _vm._v(" "),
     _c(
@@ -8448,22 +8560,18 @@ var render = function () {
           },
         ],
       },
-      [
-        _vm._l(_vm.children, function (n) {
-          return _c("booking-form", {
-            key: n,
-            attrs: { number: n, title: "Детский" },
-            on: {
-              onClick: function ($event) {
-                return _vm.setPassengers("children")
-              },
+      _vm._l(_vm.children, function (n) {
+        return _c("booking-form", {
+          key: n,
+          attrs: { type: "child", number: n, title: "Детский" },
+          on: {
+            onClick: function ($event) {
+              return _vm.setPassengers("children")
             },
-          })
-        }),
-        _vm._v(" "),
-        _c("hr"),
-      ],
-      2
+          },
+        })
+      }),
+      1
     ),
     _vm._v(" "),
     _c(
@@ -8478,22 +8586,18 @@ var render = function () {
           },
         ],
       },
-      [
-        _vm._l(_vm.infants, function (n) {
-          return _c("booking-form", {
-            key: n,
-            attrs: { number: n, title: "Младенческий" },
-            on: {
-              onClick: function ($event) {
-                return _vm.setPassengers("infants")
-              },
+      _vm._l(_vm.infants, function (n) {
+        return _c("booking-form", {
+          key: n,
+          attrs: { type: "infant", number: n, title: "Младенческий" },
+          on: {
+            onClick: function ($event) {
+              return _vm.setPassengers("infants")
             },
-          })
-        }),
-        _vm._v(" "),
-        _c("hr"),
-      ],
-      2
+          },
+        })
+      }),
+      1
     ),
   ])
 }

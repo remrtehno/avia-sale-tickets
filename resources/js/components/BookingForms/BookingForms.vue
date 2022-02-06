@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <form action="">
         <div v-show="adults">
             <booking-form
+                type="adults"
                 v-for="n in adults"
                 :key="n"
                 :number="n"
@@ -9,31 +10,30 @@
                 :hideDelete="n === 1"
                 @onClick="setPassengers('adults')"
             ></booking-form>
-            <hr />
         </div>
 
         <div v-show="children">
             <booking-form
+                type="child"
                 v-for="n in children"
                 :key="n"
                 :number="n"
                 title="Детский"
                 @onClick="setPassengers('children')"
             ></booking-form>
-            <hr />
         </div>
 
         <div v-show="infants">
             <booking-form
+                type="infant"
                 v-for="n in infants"
                 :key="n"
                 :number="n"
                 title="Младенческий"
                 @onClick="setPassengers('infants')"
             ></booking-form>
-            <hr />
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
