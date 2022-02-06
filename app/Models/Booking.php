@@ -9,8 +9,15 @@ class Booking extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['uuid'];
+
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket');
     }
 }

@@ -313,6 +313,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   props: ["number", "title", "hideDelete", "type"],
   methods: {
@@ -322,7 +334,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }
 }, "methods", {
   getType: function getType(nameField) {
-    return "[".concat(this.type, "][").concat(nameField, "][]");
+    return "".concat(this.type, "[").concat(this.number, "][").concat(nameField, "]");
   }
 }));
 
@@ -537,9 +549,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       componentKey: 0,
-      adults: 1,
-      children: 0,
-      infants: 0,
+      adults: 2,
+      children: 3,
+      infants: 2,
       max: {
         adults: this.maxPassengers,
         children: this.maxPassengers - 1
@@ -945,7 +957,7 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
     min: "2010",
     max: "2060"
   },
-  birthday: {
+  bithday: {
     alias: "dategood",
     min: "1910",
     max: "2021"
@@ -7970,6 +7982,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("name"),
               },
+              domProps: { value: _vm.type + _vm.number },
             }),
           ]
         ),
@@ -7995,6 +8008,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("surname"),
               },
+              domProps: { value: _vm.type + "surname" },
             }),
           ]
         ),
@@ -8027,6 +8041,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("surname2"),
               },
+              domProps: { value: _vm.type + "surname2" },
             }),
           ]
         ),
@@ -8052,6 +8067,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("email"),
               },
+              domProps: { value: _vm.type + "email" },
             }),
           ]
         ),
@@ -8082,6 +8098,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("birthday"),
               },
+              domProps: { value: _vm.type + "birthday" },
             }),
           ]
         ),
@@ -8116,6 +8133,7 @@ var render = function () {
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "f",
+                  checked: "",
                 },
               }),
               _vm._v("\n                    Женский\n                "),
@@ -8145,6 +8163,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("passport_date"),
               },
+              domProps: { value: _vm.type + "passport_date" },
             }),
           ]
         ),
@@ -8170,6 +8189,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("passport_number"),
               },
+              domProps: { value: _vm.type + "passport_number" },
             }),
           ]
         ),
@@ -8195,6 +8215,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("citizenship"),
               },
+              domProps: { value: _vm.type + "citizenship" },
             }),
           ]
         ),
@@ -8221,6 +8242,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("tel"),
               },
+              domProps: { value: _vm.type + "tel" },
             }),
           ]
         ),
@@ -8246,6 +8268,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("visa"),
               },
+              domProps: { value: _vm.type + "visa" },
             }),
           ]
         ),
@@ -8271,6 +8294,7 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("address"),
               },
+              domProps: { value: _vm.type + "address" },
             }),
           ]
         ),
@@ -8516,7 +8540,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("form", { attrs: { action: "" } }, [
+  return _c("div", [
     _c(
       "div",
       {
@@ -8563,7 +8587,7 @@ var render = function () {
       _vm._l(_vm.children, function (n) {
         return _c("booking-form", {
           key: n,
-          attrs: { type: "child", number: n, title: "Детский" },
+          attrs: { type: "children", number: n, title: "Детский" },
           on: {
             onClick: function ($event) {
               return _vm.setPassengers("children")
@@ -8589,7 +8613,7 @@ var render = function () {
       _vm._l(_vm.infants, function (n) {
         return _c("booking-form", {
           key: n,
-          attrs: { type: "infant", number: n, title: "Младенческий" },
+          attrs: { type: "infants", number: n, title: "Младенческий" },
           on: {
             onClick: function ($event) {
               return _vm.setPassengers("infants")

@@ -14,7 +14,7 @@ class CreateChairsTable extends Migration
     public function up()
     {
         Schema::create('chairs', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->timestamps();
 
             //flight

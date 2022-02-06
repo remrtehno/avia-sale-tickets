@@ -1,5 +1,5 @@
 <template>
-    <form action="">
+    <div>
         <div v-show="adults">
             <booking-form
                 type="adults"
@@ -14,7 +14,7 @@
 
         <div v-show="children">
             <booking-form
-                type="child"
+                type="children"
                 v-for="n in children"
                 :key="n"
                 :number="n"
@@ -25,7 +25,7 @@
 
         <div v-show="infants">
             <booking-form
-                type="infant"
+                type="infants"
                 v-for="n in infants"
                 :key="n"
                 :number="n"
@@ -33,7 +33,7 @@
                 @onClick="setPassengers('infants')"
             ></booking-form>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>

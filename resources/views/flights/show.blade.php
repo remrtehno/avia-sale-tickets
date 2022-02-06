@@ -79,6 +79,7 @@
     </div>
     <form action="{{ route('booking.store') }}" method="post">
       @csrf
+      <input type="hidden" name="flight_id" value="{{ $flights->id }}">
 
       <div class="container">
         <div class="row">

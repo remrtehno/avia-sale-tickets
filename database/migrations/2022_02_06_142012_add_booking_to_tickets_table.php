@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookingsTable extends Migration
+class AddBookingToTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-
-            $table->string('user_id')->nullable();
-            $table->string('uuid');
-            $table->string('order_id')->nullable();
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->unsignedInteger('booking_id')->index();
+            $table->foreign('booking_id')->references('id')->on('bookings');
         });
     }
 
@@ -30,7 +26,8 @@ class CreateBookingsTable extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('bookings');
+        Schema::table('tickets', function (Blueprint $table) {
+            //
+        });
     }
 }

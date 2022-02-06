@@ -37,6 +37,7 @@ Route::resource('booking', BookingController::class);
 
 
 
+
 //prebuilt functions
 Auth::routes();
 

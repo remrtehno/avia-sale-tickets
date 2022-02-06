@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use App\Services\TicketService;
 
 class TicketController extends Controller
 {
+
+    private $service;
+
+    public function __construct(TicketService $ticketService)
+    {
+        $this->service = $ticketService;
+    }
     /**
      * Display a listing of the resource.
      *

@@ -24,6 +24,7 @@
                         placeholder="Michael"
                         spellcheck="false"
                         :name="getType('name')"
+                        :value="type + number"
                     />
                 </div>
             </div>
@@ -42,6 +43,7 @@
                         placeholder="Dragan"
                         spellcheck="false"
                         :name="getType('surname')"
+                        :value="type + 'surname'"
                     />
                 </div>
             </div>
@@ -60,6 +62,7 @@
                         placeholder="Berkovich"
                         spellcheck="false"
                         :name="getType('surname2')"
+                        :value="type + 'surname2'"
                     />
                 </div>
             </div>
@@ -78,6 +81,7 @@
                         placeholder="your@email.com"
                         spellcheck="false"
                         :name="getType('email')"
+                        :value="type + 'email'"
                     />
                 </div>
             </div>
@@ -99,6 +103,7 @@
                         placeholder="____-__-__"
                         spellcheck="false"
                         :name="getType('birthday')"
+                        :value="type + 'birthday'"
                     />
                 </div>
             </div>
@@ -127,6 +132,7 @@
                             type="radio"
                             :name="getType('gender')"
                             value="f"
+                            checked
                         />
                         Женский
                     </label>
@@ -148,6 +154,7 @@
                         placeholder="____-__-__"
                         spellcheck="false"
                         :name="getType('passport_date')"
+                        :value="type + 'passport_date'"
                     />
                 </div>
             </div>
@@ -166,6 +173,7 @@
                         placeholder="AA_______"
                         spellcheck="false"
                         :name="getType('passport_number')"
+                        :value="type + 'passport_number'"
                     />
                 </div>
             </div>
@@ -184,6 +192,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('citizenship')"
+                        :value="type + 'citizenship'"
                     />
                 </div>
             </div>
@@ -209,6 +218,7 @@
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
                         :name="getType('tel')"
+                        :value="type + 'tel'"
                     />
                 </div>
             </div>
@@ -233,6 +243,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('visa')"
+                        :value="type + 'visa'"
                     />
                 </div>
             </div>
@@ -257,6 +268,7 @@
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
                         :name="getType('address')"
+                        :value="type + 'address'"
                     />
                 </div>
             </div>
@@ -281,7 +293,7 @@ export default {
     },
     methods: {
         getType(nameField) {
-            return `[${this.type}][${nameField}][]`;
+            return `${this.type}[${this.number}][${nameField}]`;
         },
     },
 };

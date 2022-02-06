@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Services\BookingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
 class BookingController extends Controller
 {
+    private $service;
+
+    public function __construct(BookingService $bookingService)
+    {
+        $this->service = $bookingService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,13 +44,17 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $bookind_uuid = (string) Str::uuid();
 
-        Booking::insert([
-            'uuid' => $bookind_uuid,
+
+        $booking_uuid = (string) Str::uuid();
+
+        $booking = Booking::create([
+            'uuid' => $booking_uuid,
         ]);
 
-        return redirect()->route('booking.show', ['booking' => $bookind_uuid]);
+        $this->service->storeTickets($booking);
+
+        return redirect()->route('booking.show', ['booking' => $booking]);
     }
 
     /**
