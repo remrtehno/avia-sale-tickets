@@ -10,6 +10,14 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    public const BOOKED = 'booked';
+    public const PAID = 'paid';
+    public const AVAILABLE = 'available';
+
+    public const ADULTS = 'adults';
+    public const CHILDREN = 'children';
+    public const INFANTS = 'infants';
+
     protected $fillable = [
         'name',
         'surname',
@@ -22,7 +30,8 @@ class Ticket extends Model
         'citizenship',
         'tel',
         'visa',
-        'address'
+        'address',
+        'type'
     ];
 
 

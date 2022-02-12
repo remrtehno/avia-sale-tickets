@@ -325,6 +325,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   props: ["number", "title", "hideDelete", "type"],
   methods: {
@@ -7939,6 +7940,11 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "wrapper-booking-forms" }, [
+    _c("input", {
+      attrs: { type: "hidden", name: _vm.getType("type") },
+      domProps: { value: _vm.type },
+    }),
+    _vm._v(" "),
     _c("h5", [_vm._v(_vm._s(_vm.title) + " " + _vm._s(_vm.number))]),
     _vm._v(" "),
     _c(

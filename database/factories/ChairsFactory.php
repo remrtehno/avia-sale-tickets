@@ -19,14 +19,11 @@ class ChairsFactory extends Factory
         $flights = Flights::all();
         $flightOne = $this->faker->randomElement($flights);
 
-        $types = collect([Chairs::ADULT, Chairs::CHILD, Chairs::INFANT]);
-
         return [
             'flight_id' => $flightOne->id,
             'chairsable_id' => $flightOne->id,
             'chairsable_type' => 'App\Models\Flights',
             'price' => rand(150, 700),
-            'type' => $types->random(),
             'uuid' =>
             $flightOne->date->format('Y-m-d') .
                 '-' . $flightOne->flight .

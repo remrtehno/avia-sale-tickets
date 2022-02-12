@@ -21,6 +21,8 @@ class CreateFlightsTable extends Migration
             foreach (Flights::FIELDS as $key => $field) {
                 $table->$field($key);
             }
+
+            $table->string('booking_id')->nullable();
         });
     }
 

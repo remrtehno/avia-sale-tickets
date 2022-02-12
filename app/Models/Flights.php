@@ -36,7 +36,7 @@ class Flights extends Model implements HasMedia
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
 
     /**
      * The attributes that are not mass assignable.
@@ -50,31 +50,12 @@ class Flights extends Model implements HasMedia
      */
     public function countChairs()
     {
-        return $this->chairs()->where('type', Chairs::ADULT)->get()->count();
+        return $this->chairs()
+            // ->where('type', Chairs::ADULT)
+            ->where('booking_id', null)
+            ->get()->count();
     }
 
-    /**
-     * Get the chairs for the flight.
-     */
-    public function chairs()
-    {
-        return $this->morphMany(Chairs::class, 'chairsable');
-    }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::addGlobalScope(new SearchScope);
-    }
-
-    public function image()
-    {
-        return $this->hasOne('App\Image');
-    }
 
     public function getTotal()
     {
@@ -174,7 +155,7 @@ class Flights extends Model implements HasMedia
 
     public function getSeats()
     {
-        return $this->count_chairs;
+        return $this->countChairs();
     }
 
     public function getFrom()
@@ -288,5 +269,36 @@ class Flights extends Model implements HasMedia
         $images = $this->getImages();
 
         return count($images) ? $images[0]->getFullUrl() : null;
+    }
+
+
+    /**
+     * RELATIONSHIPS
+     */
+    public function chairs()
+    {
+        return $this->morphMany(Chairs::class, 'chairsable');
+    }
+
+    public function image()
+    {
+        return $this->hasOne('App\Image');
+    }
+
+    public function booking()
+    {
+        return $this->hasOne('App\Models\Booking');
+    }
+
+
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new SearchScope);
     }
 }

@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper-booking-forms">
+        <input type="hidden" :value="type" :name="getType('type')" />
         <h5>{{ title }} {{ number }}</h5>
         <button
             v-show="!hideDelete"

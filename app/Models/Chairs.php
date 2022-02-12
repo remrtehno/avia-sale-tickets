@@ -13,6 +13,10 @@ class Chairs extends Model
     public const CHILD = 'child';
     public const INFANT = 'infant';
 
+    public const BOOKED = 'booked';
+    public const PAID = 'paid';
+    public const AVAILABLE = 'available';
+
     public const FIELDS = [
         'flight_id' => 'string',
         'order_id' => 'integer',
@@ -20,9 +24,11 @@ class Chairs extends Model
         'type' => 'string',
         'price' => 'string',
         'uuid' => 'string',
+        'status' => 'string'
     ];
 
-    protected $fillable = ['flight_id', 'price', 'type', 'uuid'];
+    protected $fillable = ['flight_id', 'price', 'uuid', 'status'];
+
 
 
     /**
@@ -36,5 +42,10 @@ class Chairs extends Model
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);
+    }
+
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
     }
 }

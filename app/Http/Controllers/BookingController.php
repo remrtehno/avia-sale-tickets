@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Flights;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -44,15 +45,20 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        if (!$this->service->isAvailable()) {
+            return redirect()->back()->withErrors(['no_seats' => 'Не достаточно мест']);
+        };
 
-
-        $booking_uuid = (string) Str::uuid();
+        $flight = Flights::find($request->flight_id);
 
         $booking = Booking::create([
-            'uuid' => $booking_uuid,
+            'uuid' => (string) Str::uuid(),
+            'flight_id' => $request->flight_id
         ]);
 
         $this->service->storeTickets($booking);
+
+        $this->service->assignChairs($booking, $flight);
 
         return redirect()->route('booking.show', ['booking' => $booking]);
     }

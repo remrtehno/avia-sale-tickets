@@ -63,7 +63,11 @@
 
                   <h5>Rating: </h5>
                   <star-rating read-only :size="20" :rating="{{ $flights->rating }}"></star-rating>
-
+                  @if ($flights->getSeats() < 10)
+                    <div class="alert alert-warning my-15" style="display: inline-block">
+                      Осталось мест: {{ $flights->getSeats() }}
+                    </div>
+                  @endif
                   @include('flights._passenger-form', ['flights' => $flights])
                 </div>
 
@@ -80,6 +84,7 @@
     <form action="{{ route('booking.store') }}" method="post">
       @csrf
       <input type="hidden" name="flight_id" value="{{ $flights->id }}">
+      <input type="hidden" name="seats_left" value="{{ $flights->getSeats() }}">
 
       <div class="container">
         <div class="row">

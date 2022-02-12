@@ -17,6 +17,11 @@
             {{ $tk->name }}
           @endforeach
 
+          @foreach ($booking->chairs as $tk)
+            id: {{ $tk->id }} ---
+            bk: {{ $tk->booking_id }} <br>
+          @endforeach
+
 
           @if (Auth::check())
             @include('booking.partials._confirm-form')

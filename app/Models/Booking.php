@@ -9,7 +9,11 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid'];
+    public const BOOKED = 'booked';
+    public const PAID = 'paid';
+    public const AVAILABLE = 'available';
+
+    protected $fillable = ['uuid', 'flight_id'];
 
     public function getRouteKeyName()
     {
@@ -19,5 +23,14 @@ class Booking extends Model
     public function tickets()
     {
         return $this->hasMany('App\Models\Ticket');
+    }
+
+    public function chairs()
+    {
+        return $this->hasMany('App\Models\Chairs');
+    }
+    public function flight()
+    {
+        return $this->belongsTo('App\Models\Flights');
     }
 }
