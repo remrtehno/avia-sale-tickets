@@ -26,7 +26,7 @@ class FlightsFactory extends Factory
         $direction_from = collect(['Vaclav Havel (PRG)', 'Tashkent (TAS)', 'Austria (AST)', 'India (IND)', 'Kazakhstan (KZH)']);
         $direction_to = collect(['John F. Kennedy Intl. (JFK)', 'Domodedovo (MSK)', 'Prague (PRG)', 'Canada (CND)', 'Germany (GMN)']);
 
-        $date = now()->addDays(rand(0, 320))->addHours(rand(0, 15))->addMinute(0, 59)->getTimestamp();
+        $date = now()->addDays(rand(0, 320))->addHours(rand(0, 15))->addMinute(0, 59);
 
         $count_chairs = rand(200, 300);
         $price_adult = rand(200, 300);
@@ -42,8 +42,8 @@ class FlightsFactory extends Factory
             'price_infant' =>  $price_infant,
             'total_purchased_price' => rand(30000, 50000),
             'total_sales_price' => $count_chairs * $count_chairs,
-            'date' => $date,
-            'date_arrival' => $date,
+            'date' => $date->getTimestamp(),
+            'date_arrival' => $date->addHours(rand(0, 15))->getTimestamp(),
             'comment' => '',
             'logo' =>  $logos->random(),
             'direction_from' => $direction_from->random(),

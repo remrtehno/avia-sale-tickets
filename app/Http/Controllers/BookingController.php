@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookingRequest;
 use App\Models\Booking;
 use App\Models\Flights;
 use App\Services\BookingService;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
 
 
 class BookingController extends Controller
@@ -43,22 +46,20 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBookingRequest $request)
     {
+        $flight = Flights::find($request->flight_id);
+
+        if (!$this->service->isDatesValid($flight)) {
+            return redirect()->back()->withErrors(['date_error' => 'Не правильная дата рождения для Младена']);
+        };
+
         if (!$this->service->isAvailable()) {
             return redirect()->back()->withErrors(['no_seats' => 'Не достаточно мест']);
         };
 
-        $flight = Flights::find($request->flight_id);
 
-        $booking = Booking::create([
-            'uuid' => (string) Str::uuid(),
-            'flight_id' => $request->flight_id
-        ]);
-
-        $this->service->storeTickets($booking);
-
-        $this->service->assignChairs($booking, $flight);
+        $booking = $this->service->store($flight);
 
         return redirect()->route('booking.show', ['booking' => $booking]);
     }

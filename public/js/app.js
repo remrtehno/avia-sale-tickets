@@ -958,7 +958,7 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
     min: "2010",
     max: "2060"
   },
-  bithday: {
+  birthday: {
     alias: "dategood",
     min: "1910",
     max: "2021"

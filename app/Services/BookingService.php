@@ -3,14 +3,48 @@
 namespace App\Services;
 
 use App\Models\Booking;
-use App\Models\Chairs;
 use App\Models\Flights;
-use App\Models\Ticket;
-use Illuminate\Database\Eloquent\Collection;
-use phpDocumentor\Reflection\PseudoTypes\True_;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 class BookingService
 {
+
+  public function store(Flights $flight)
+  {
+    $booking = Booking::create([
+      'uuid' => (string) Str::uuid(),
+      'flight_id' => request()->flight_id
+    ]);
+
+    $this->storeTickets($booking);
+    $this->assignChairs($booking, $flight);
+
+    return $booking;
+  }
+
+  public function isDatesValid(Flights $flight)
+  {
+
+    $departure = $flight->getDeparute();
+    $departure->hour = 0;
+    $departure->minute = 0;
+    $departure->second = 0;
+    $departure->subYears(2);
+
+    $infants = request()->get('infants', []);
+
+    foreach ($infants as $infant) {
+      $infant = new Carbon($infant['birthday']);
+      if (!$infant->greaterThan($departure)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   public function isAvailable()
   {
     $totalPassengers =

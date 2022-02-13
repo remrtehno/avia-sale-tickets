@@ -27,7 +27,9 @@
   @if ($errors->any())
     <div class="error"
       style="padding: 9px;margin: 0;font-size: 12px;color: red;position: fixed;z-index: 99;left: 0;right: 0;   ">
-      <x-errors></x-errors>
+      @error('no_seats')
+        Нет мест
+      @enderror
       <script>
         setTimeout(() => {
           var errorMessage = document.querySelector('.error')
@@ -137,7 +139,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                      document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 

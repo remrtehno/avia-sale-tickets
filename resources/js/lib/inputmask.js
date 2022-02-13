@@ -9,7 +9,7 @@ Inputmask.extendAliases({
         min: "2010",
         max: "2060",
     },
-    bithday: {
+    birthday: {
         alias: "dategood",
         min: "1910",
         max: "2021",

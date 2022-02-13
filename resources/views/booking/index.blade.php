@@ -12,23 +12,11 @@
             После оплаты, вам придет уведомление на почту, с деталями заказа.
           </p>
 
-          {{ $booking->id }}
-          @foreach ($booking->tickets as $tk)
-            {{ $tk->name }}
-          @endforeach
-
-          @foreach ($booking->chairs as $tk)
-            id: {{ $tk->id }} ---
-            bk: {{ $tk->booking_id }} <br>
-          @endforeach
-
-
           @if (Auth::check())
             @include('booking.partials._confirm-form')
           @else
             @include('booking.partials._confirm-form-user')
           @endif
-
 
           <p></p>
           <button type="submit" class="btn btn-default btn-cf-submit3 w-100">
