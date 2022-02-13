@@ -98,9 +98,13 @@
             <div class="clearfix"></div>
             <div class="col-md-5 booking-row">
               <h3 class="line">ИНФОРМАЦИЯ О ПАССАЖИРАХ</h3>
-
+              @error('*')
+                {{-- TODO Replace to separate errors messages --}}
+                <div class="alert alert-danger">
+                  Проверьте все поля.
+                </div>
+              @enderror
               @include('flights._booking-form')
-
             </div>
 
 

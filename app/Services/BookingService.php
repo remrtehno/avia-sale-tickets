@@ -24,15 +24,9 @@ class BookingService
     return $booking;
   }
 
-  public function isDatesValid(Flights $flight)
+  public function isDateValidInfants(Carbon $departure)
   {
-
-    $departure = $flight->getDeparute();
-    $departure->hour = 0;
-    $departure->minute = 0;
-    $departure->second = 0;
     $departure->subYears(2);
-
     $infants = request()->get('infants', []);
 
     foreach ($infants as $infant) {
@@ -43,6 +37,34 @@ class BookingService
     }
 
     return true;
+  }
+
+  public function isDateValidChidren(Carbon $departure)
+  {
+    $children = request()->get('children', []);
+
+    return true;
+
+    dd($departure);
+
+    foreach ($children as $child) {
+      $child = new Carbon($child['birthday']);
+      if (!$child->greaterThan($departure)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public function isDatesValid(Flights $flight)
+  {
+    $departure = $flight->getDeparute();
+    $departure->hour = 0;
+    $departure->minute = 0;
+    $departure->second = 0;
+
+    return $this->isDateValidInfants($departure) && $this->isDateValidChidren($departure);
   }
 
   public function isAvailable()

@@ -1,5 +1,7 @@
 import Inputmask from "inputmask";
 
+const date = new Date();
+
 Inputmask.extendAliases({
     dategood: {
         alias: "datetime",
@@ -12,7 +14,11 @@ Inputmask.extendAliases({
     birthday: {
         alias: "dategood",
         min: "1910",
-        max: "2021",
+        max: `${date.getFullYear()}-${
+            date.getMonth() < 10
+                ? "0" + (date.getMonth() + 1)
+                : date.getMonth() + 1
+        }-${date.getDate()}`,
     },
 });
 

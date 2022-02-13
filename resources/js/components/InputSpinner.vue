@@ -77,9 +77,9 @@ export default {
     data() {
         return {
             componentKey: 0,
-            adults: 2,
-            children: 3,
-            infants: 2,
+            adults: 1,
+            children: 0,
+            infants: 1,
             max: {
                 adults: this.maxPassengers,
                 children: this.maxPassengers - 1,

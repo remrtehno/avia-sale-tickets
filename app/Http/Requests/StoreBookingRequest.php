@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBookingRequest extends FormRequest
 {
@@ -24,7 +25,9 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'infants.*.birthday' => 'required'
+            'infants.*.birthday' => 'required',
+            'adults.*.birthday' => 'required',
+            'children.*.birthday' => 'required'
         ];
     }
 }

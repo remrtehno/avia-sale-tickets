@@ -550,9 +550,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       componentKey: 0,
-      adults: 2,
-      children: 3,
-      infants: 2,
+      adults: 1,
+      children: 0,
+      infants: 1,
       max: {
         adults: this.maxPassengers,
         children: this.maxPassengers - 1
@@ -949,6 +949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inputmask */ "./node_modules/inputmask/dist/inputmask.js");
 /* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inputmask__WEBPACK_IMPORTED_MODULE_0__);
 
+var date = new Date();
 inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
   dategood: {
     alias: "datetime",
@@ -961,7 +962,7 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
   birthday: {
     alias: "dategood",
     min: "1910",
-    max: "2021"
+    max: "".concat(date.getFullYear(), "-").concat(date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1, "-").concat(date.getDate())
   }
 });
 inputmask__WEBPACK_IMPORTED_MODULE_0___default()().mask(document.querySelectorAll("input"));
