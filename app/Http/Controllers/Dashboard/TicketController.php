@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use App\Models\Flights;
 use App\Models\Ticket;
 use App\Services\TicketService;
 
 class TicketController extends Controller
 {
-
     private $service;
+
 
     public function __construct(TicketService $ticketService)
     {
@@ -23,7 +25,10 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.tickets.index', [
+            'tickets' => Ticket::all(),
+            'flights' => Flights::all()
+        ]);
     }
 
     /**
@@ -44,7 +49,6 @@ class TicketController extends Controller
      */
     public function store(StoreTicketRequest $request)
     {
-        //
     }
 
     /**

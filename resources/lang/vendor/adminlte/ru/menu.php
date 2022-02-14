@@ -20,5 +20,6 @@ return [
     'reports'                       => 'Отчеты',
     'add_flights'                   => 'Добавление рейсов',
     'flights'                       => 'Рейсы',
-    'all_flights'                   => 'Все рейсы'
+    'all_flights'                   => 'Все рейсы',
+    'tickets'                       => 'Билеты'
 ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\TicketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
@@ -50,6 +51,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
     Route::resource('chairs', ChairsController::class);
+    Route::resource('tickets', TicketController::class);
 
 
     //single

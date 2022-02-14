@@ -270,6 +270,13 @@ return [
             ],
         ],
 
+        [
+            'text' => 'tickets',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.tickets.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [
