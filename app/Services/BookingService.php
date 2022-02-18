@@ -15,11 +15,14 @@ class BookingService
   {
     $booking = Booking::create([
       'uuid' => (string) Str::uuid(),
-      'flight_id' => request()->flight_id
+      'flights_id' => request('flight_id')
     ]);
 
-    $this->storeTickets($booking);
+    $this->storeTickets($booking, $flight);
     $this->assignChairs($booking, $flight);
+
+    $flight->booking_id = $booking->id;
+    $flight->save();
 
     return $booking;
   }
@@ -76,7 +79,7 @@ class BookingService
     return $totalPassengers <= request()->seats_left;
   }
 
-  public function storeTickets(Booking $booking)
+  public function storeTickets(Booking $booking, Flights $flight)
   {
     $adults = request()->get('adults', []);
     $children = request()->get('children', []);

@@ -46,7 +46,7 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBookingRequest $request)
+    public function store(Request $request)
     {
         $flight = Flights::find($request->flight_id);
 

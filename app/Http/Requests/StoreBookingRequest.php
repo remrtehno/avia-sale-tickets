@@ -25,9 +25,9 @@ class StoreBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'infants.*.birthday' => 'required',
-            'adults.*.birthday' => 'required',
-            'children.*.birthday' => 'required'
+            'infants.*.birthday' => 'sometimes|required|date_format:' . config('app.date_format'),
+            'adults.*.birthday' => 'sometimes|required|date_format:' . config('app.date_format'),
+            'children.*.birthday' => 'sometimes|required|date_format:' . config('app.date_format')
         ];
     }
 }

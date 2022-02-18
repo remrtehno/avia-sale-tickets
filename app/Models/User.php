@@ -158,4 +158,11 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->getMedia($this->getPathImages($fieldName));
     }
+
+
+    //RELATIONSHIPS
+    public function flights()
+    {
+        return $this->hasMany(Flights::class);
+    }
 }

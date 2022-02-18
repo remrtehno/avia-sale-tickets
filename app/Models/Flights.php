@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use PhpParser\ErrorHandler\Collecting;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use stdClass;
 
 class Flights extends Model implements HasMedia
 {
@@ -227,6 +230,19 @@ class Flights extends Model implements HasMedia
         ]);
     }
 
+    public function getTickets()
+    {
+        $tickets = new Collection();
+
+        $this->booking && $this->booking->each(function (Booking $book) use ($tickets) {
+            $book->tickets->each(function (Ticket $ticket) use ($tickets) {
+                $tickets->push($ticket);
+            });
+        });
+
+        return $tickets;
+    }
+
 
     //store files
     public function storeFiles($clean = false)
@@ -287,9 +303,15 @@ class Flights extends Model implements HasMedia
 
     public function booking()
     {
-        return $this->hasOne('App\Models\Booking');
+        return $this->hasMany('App\Models\Booking', 'flights_id');
     }
 
+
+    //RELATIONSHIPS
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
     /**

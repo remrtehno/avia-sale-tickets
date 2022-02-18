@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->string('uuid');
             $table->string('status')->nullable();
             $table->string('order_id')->nullable();
-            $table->string('flight_id')->nullable();
+            $table->string('flights_id')->nullable();
         });
     }
 

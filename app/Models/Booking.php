@@ -13,7 +13,7 @@ class Booking extends Model
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
 
-    protected $fillable = ['uuid', 'flight_id'];
+    protected $fillable = ['uuid', 'flights_id'];
 
     public function getRouteKeyName()
     {
@@ -31,6 +31,6 @@ class Booking extends Model
     }
     public function flight()
     {
-        return $this->belongsTo('App\Models\Flights');
+        return $this->belongsTo('App\Models\Flights', 'flights_id');
     }
 }

@@ -31,7 +31,8 @@ class Ticket extends Model
         'tel',
         'visa',
         'address',
-        'type'
+        'type',
+        'price'
     ];
 
 

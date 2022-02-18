@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Flights;
 use App\Models\Ticket;
 use App\Services\TicketService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -23,13 +25,20 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $flight = Flights::find($request->flight_id);
+
+        if ($flight && Auth::user()->id !== $flight->user_id) {
+            return abort('401');
+        }
+
         return view('dashboard.tickets.index', [
-            'tickets' => Ticket::all(),
-            'flights' => Flights::all()
+            'tickets' => $flight ? $flight->getTickets() : [],
+            'flights' => Auth::user()->flights
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

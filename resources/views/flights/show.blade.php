@@ -2,7 +2,6 @@
 
 
 @section('content')
-
   <x-breadcrumbs :route="'seat-flight'">
     {{ $flights->title }}
   </x-breadcrumbs>
@@ -102,6 +101,11 @@
                 {{-- TODO Replace to separate errors messages --}}
                 <div class="alert alert-danger">
                   Проверьте все поля.
+                </div>
+              @enderror
+              @error('date_error')
+                <div class="alert alert-danger">
+                  Проверьте даты для категорий билетов: младенец, детский.
                 </div>
               @enderror
               @include('flights._booking-form')
@@ -217,7 +221,4 @@
       </div>
     </form>
   </div>
-
-
-
 @endsection
