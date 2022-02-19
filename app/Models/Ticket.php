@@ -35,6 +35,18 @@ class Ticket extends Model
         'price'
     ];
 
+    public $genderMap = [
+        'f' => 'Жен.',
+        'm' => 'Муж.'
+    ];
+
+    public function getGender($gender = false)
+    {
+        if ($gender) {
+            return $this->genderMap[$gender];
+        }
+        return $this->genderMap[$this->gender];
+    }
 
     public function booking()
     {

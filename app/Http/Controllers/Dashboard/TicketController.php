@@ -79,7 +79,11 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        //
+        $this->authorize($ticket);
+
+        return view('dashboard.tickets.edit', [
+            'ticket' => $ticket,
+        ]);
     }
 
     /**
@@ -91,7 +95,10 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-        //
+        $this->authorize($ticket);
+        $ticket->update($request->all());
+
+        return redirect()->route('dashboard.tickets.index', ['flight_id' => $request->flight_id]);
     }
 
     /**

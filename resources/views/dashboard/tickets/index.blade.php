@@ -5,7 +5,7 @@
 @stop
 
 @php
-$heads = ['ID', 'Авиакомпания', 'Рейс', 'Статус', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'Цена', 'Дата создания', 'Типа билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[0, 'desc']],
@@ -22,7 +22,7 @@ $configSelect2 = [
 @section('content')
 
   <h4>Выберите рейс</h4>
-  <form action="">
+  <form action="{{ route('dashboard.tickets.index') }}" id="flightSelect">
     <x-adminlte-select2 name="flight_id" :config="$configSelect2" lang="ru" onchange="this.closest('form').submit();">
       @foreach ($flights as $row)
         @php
@@ -42,14 +42,33 @@ $configSelect2 = [
     @foreach ($tickets as $row)
       <tr>
         <td>{{ $row->id }}</td>
+        <td>{{ $row->price }}</td>
+        <td>{{ $row->created_at }}</td>
         <td>{{ $row->type }}</td>
-        <td>{{ $row->booking->flight }}</td>
-        <td>{{ $row->id }}</td>
-        <td>q</td>
+        <td>{{ $row->status }}</td>
+        <td>
+          <x-adminlte-modal id="modalMin-{{ $row->id }}">
+            @include('dashboard.tickets.partials.render-fields', [
+            'row' => $row
+            ])
+          </x-adminlte-modal>
+          <x-adminlte-button label="Просмотреть" data-toggle="modal" data-target="#modalMin-{{ $row->id }}" />
+        </td>
+
+        <td>
+          @include('dashboard.tickets.partials.action-buttons', [
+          'id' => $row->id
+          ])
+        </td>
       </tr>
     @endforeach
   </x-adminlte-datatable>
 
-
-
 @endsection
+
+
+@section('js')
+  <script>
+    window.location.search || flightSelect.submit()
+  </script>
+@stop

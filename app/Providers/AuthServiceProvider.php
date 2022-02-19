@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Dashboard\ChairsController;
+use App\Http\Controllers\Dashboard\TicketController;
 use App\Models\Flights;
 use App\Models\User;
 use App\Policies\ChairsPolicy;
 use App\Policies\FlightsPolicy;
+use App\Policies\TicketPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Flights::class => FlightsPolicy::class,
-        ChairsController::class => ChairsPolicy::class
+        ChairsController::class => ChairsPolicy::class,
+        TicketController::class => TicketPolicy::class
     ];
 
     /**
