@@ -35,8 +35,11 @@ $configSelect2 = [
         </option>
       @endforeach
     </x-adminlte-select2>
-
   </form>
+
+  <a class="btn btn-danger my-3"
+    href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
+
 
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
     @foreach ($tickets as $row)
@@ -63,7 +66,6 @@ $configSelect2 = [
       </tr>
     @endforeach
   </x-adminlte-datatable>
-
 @endsection
 
 

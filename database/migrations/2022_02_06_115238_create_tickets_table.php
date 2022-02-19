@@ -32,6 +32,7 @@ class CreateTicketsTable extends Migration
             $table->string('address')->nullable();
 
             $table->string('price')->nullable();
+            $table->string('status')->nullable();
         });
     }
 

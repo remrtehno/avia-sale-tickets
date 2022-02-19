@@ -32,7 +32,8 @@ class Ticket extends Model
         'visa',
         'address',
         'type',
-        'price'
+        'price',
+        'status'
     ];
 
     public $genderMap = [

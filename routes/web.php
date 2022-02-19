@@ -54,8 +54,10 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('tickets', TicketController::class);
 
 
+
     //single
     Route::get('/', [DashboardController::class, 'index']);
+    Route::get('export', [TicketController::class, 'export'])->name('tickets.csv');
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 

@@ -10,6 +10,7 @@ use App\Models\Ticket;
 use App\Services\TicketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class TicketController extends Controller
 {
@@ -110,5 +111,19 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+
+    public function export(Request $request)
+    {
+        $flight = Flights::find($request->flight_id);
+
+        if ($flight && Auth::user()->id !== $flight->user_id) {
+            return abort('401');
+        }
+
+        $table = $flight ? $flight->getTickets() : [];
+
+        return $this->service->exportCSV($table);
     }
 }

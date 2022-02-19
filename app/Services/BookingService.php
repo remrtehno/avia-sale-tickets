@@ -88,15 +88,25 @@ class BookingService
     $tickets = $booking->tickets();
 
     foreach ($adults as $adult) {
-      $tickets->create($adult);
+
+      $tickets->create(array_merge($adult, [
+        'status' => Booking::BOOKED,
+        'price' => $flight->price_adult
+      ]));
     }
 
     foreach ($children as $child) {
-      $tickets->create($child);
+      $tickets->create(array_merge($child, [
+        'status' => Booking::BOOKED,
+        'price' => $flight->price_child
+      ]));
     }
 
     foreach ($infants as $infant) {
-      $tickets->create($infant);
+      $tickets->create(array_merge($infant, [
+        'status' => Booking::BOOKED,
+        'price' => $flight->price_infant
+      ]));
     }
   }
 
