@@ -38,8 +38,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -326,18 +324,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
-  props: ["number", "title", "hideDelete", "type"],
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["number", "title", "hideDelete", "type", "email", "disabledEmail"],
   methods: {
     triggerEvent: function triggerEvent() {
       $emit("onClick");
+    },
+    getType: function getType(nameField) {
+      return "".concat(this.type, "[").concat(this.number, "][").concat(nameField, "]");
+    },
+    inputEmail: function inputEmail(evt) {
+      this.$emit("input", evt.target.value);
     }
   }
-}, "methods", {
-  getType: function getType(nameField) {
-    return "".concat(this.type, "[").concat(this.number, "][").concat(nameField, "]");
-  }
-}));
+});
 
 /***/ }),
 
@@ -397,8 +400,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      email: ""
+    };
+  },
   components: {
     BookingForm: _BookingForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -8073,8 +8088,10 @@ var render = function () {
                 placeholder: "your@email.com",
                 spellcheck: "false",
                 name: _vm.getType("email"),
+                disabled: _vm.disabledEmail,
               },
-              domProps: { value: _vm.type + "email" },
+              domProps: { value: _vm.email },
+              on: { input: _vm.inputEmail, blur: _vm.inputEmail },
             }),
           ]
         ),
@@ -8564,6 +8581,7 @@ var render = function () {
         return _c("booking-form", {
           key: n,
           attrs: {
+            "disabled-email": n !== 1,
             type: "adults",
             number: n,
             title: "Взрослый",
@@ -8573,6 +8591,13 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("adults")
             },
+          },
+          model: {
+            value: _vm.email,
+            callback: function ($$v) {
+              _vm.email = $$v
+            },
+            expression: "email",
           },
         })
       }),
@@ -8594,11 +8619,23 @@ var render = function () {
       _vm._l(_vm.children, function (n) {
         return _c("booking-form", {
           key: n,
-          attrs: { type: "children", number: n, title: "Детский" },
+          attrs: {
+            "disabled-email": true,
+            type: "children",
+            number: n,
+            title: "Детский",
+          },
           on: {
             onClick: function ($event) {
               return _vm.setPassengers("children")
             },
+          },
+          model: {
+            value: _vm.email,
+            callback: function ($$v) {
+              _vm.email = $$v
+            },
+            expression: "email",
           },
         })
       }),
@@ -8620,11 +8657,24 @@ var render = function () {
       _vm._l(_vm.infants, function (n) {
         return _c("booking-form", {
           key: n,
-          attrs: { type: "infants", number: n, title: "Младенческий" },
+          attrs: {
+            "disabled-email": true,
+            email: _vm.email,
+            type: "infants",
+            number: n,
+            title: "Младенческий",
+          },
           on: {
             onClick: function ($event) {
               return _vm.setPassengers("infants")
             },
+          },
+          model: {
+            value: _vm.email,
+            callback: function ($$v) {
+              _vm.email = $$v
+            },
+            expression: "email",
           },
         })
       }),

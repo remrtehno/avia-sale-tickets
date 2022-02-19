@@ -2,6 +2,8 @@
     <div>
         <div v-show="adults">
             <booking-form
+                :disabled-email="n !== 1"
+                v-model="email"
                 type="adults"
                 v-for="n in adults"
                 :key="n"
@@ -14,6 +16,8 @@
 
         <div v-show="children">
             <booking-form
+                :disabled-email="true"
+                v-model="email"
                 type="children"
                 v-for="n in children"
                 :key="n"
@@ -25,6 +29,9 @@
 
         <div v-show="infants">
             <booking-form
+                :disabled-email="true"
+                v-model="email"
+                :email="email"
                 type="infants"
                 v-for="n in infants"
                 :key="n"
@@ -40,6 +47,11 @@
 import BookingForm from "./BookingForm.vue";
 
 export default {
+    data() {
+        return {
+            email: "",
+        };
+    },
     components: {
         BookingForm,
     },

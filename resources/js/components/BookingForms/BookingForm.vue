@@ -77,12 +77,15 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        v-on:input="inputEmail"
+                        v-on:blur="inputEmail"
                         data-inputmask="'alias': 'email'"
                         class="form-control"
                         placeholder="your@email.com"
                         spellcheck="false"
                         :name="getType('email')"
-                        :value="type + 'email'"
+                        :value="email"
+                        :disabled="disabledEmail"
                     />
                 </div>
             </div>
@@ -286,15 +289,16 @@
 
 <script>
 export default {
-    props: ["number", "title", "hideDelete", "type"],
+    props: ["number", "title", "hideDelete", "type", "email", "disabledEmail"],
     methods: {
         triggerEvent() {
             $emit("onClick");
         },
-    },
-    methods: {
         getType(nameField) {
             return `${this.type}[${this.number}][${nameField}]`;
+        },
+        inputEmail(evt) {
+            this.$emit("input", evt.target.value);
         },
     },
 };
