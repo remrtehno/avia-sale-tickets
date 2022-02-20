@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Flights;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
 
 
@@ -27,14 +28,19 @@ class BookingService
     return $booking;
   }
 
-  public function isDateValidInfants(Carbon $departure)
+  public function isDateValidInfants(CarbonImmutable $departureValue)
   {
-    $departure->subYears(2);
+    if (!request()->has('infants')) {
+      return true;
+    }
+
+    $departureInfant = $departureValue->subYears(2);
+
     $infants = request()->get('infants', []);
 
     foreach ($infants as $infant) {
-      $infant = new Carbon($infant['birthday']);
-      if (!$infant->greaterThan($departure)) {
+      $infantBirthday = new Carbon($infant['birthday']);
+      if (!$infantBirthday->greaterThan($departureInfant)) {
         return false;
       }
     }
@@ -42,17 +48,43 @@ class BookingService
     return true;
   }
 
-  public function isDateValidChidren(Carbon $departure)
+  public function isDateValidChidren(CarbonImmutable $departureValue)
   {
+    if (!request()->has('children')) {
+      return true;
+    }
+
+    $departureInfant = $departureValue->subYears(2);
+    $departureChildren = $departureValue->subYears(12);
     $children = request()->get('children', []);
 
-    return true;
-
-    dd($departure);
-
     foreach ($children as $child) {
-      $child = new Carbon($child['birthday']);
-      if (!$child->greaterThan($departure)) {
+      $childBirthday = new Carbon($child['birthday']);
+
+      $lessThanOrEqualToInfant = $childBirthday->lessThanOrEqualTo($departureInfant);
+      $greaterThanChild = $childBirthday->greaterThan($departureChildren);
+
+      if (!($lessThanOrEqualToInfant && $greaterThanChild)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public function isDateValidAdults(CarbonImmutable $departureValue)
+  {
+    if (!request()->has('adults')) {
+      return true;
+    }
+
+    $departureAdult = $departureValue->subYears(18);
+
+    $adults = request()->get('adults', []);
+
+    foreach ($adults as $adult) {
+      $adultBirthday = new Carbon($adult['birthday']);
+      if (!$adultBirthday->lessThan($departureAdult)) {
         return false;
       }
     }
@@ -62,12 +94,17 @@ class BookingService
 
   public function isDatesValid(Flights $flight)
   {
-    $departure = $flight->getDeparute();
-    $departure->hour = 0;
-    $departure->minute = 0;
-    $departure->second = 0;
+    $departureValue = $flight->getDeparute();
+    $departureValue->hour = 0;
+    $departureValue->minute = 0;
+    $departureValue->second = 0;
 
-    return $this->isDateValidInfants($departure) && $this->isDateValidChidren($departure);
+    $departure = new CarbonImmutable($departureValue);
+
+    return
+      $this->isDateValidInfants($departure)
+      && $this->isDateValidChidren($departure)
+      && $this->isDateValidAdults($departure);
   }
 
   public function isAvailable()
