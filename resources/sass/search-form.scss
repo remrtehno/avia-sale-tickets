@@ -29,3 +29,70 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+
+#searchForm {
+    * {
+        box-sizing: border-box;
+    }
+    .twidget-origin,
+    li,
+    ul {
+        list-style: none;
+    }
+
+    input {
+        &:focus,
+        &:active,
+        &:hover {
+            border: 0;
+            outline: none;
+        }
+    }
+
+    #twidget-tab1 .twidget-form-list .twidget-origin-iata,
+    #twidget-tab1 .twidget-form-list .twidget-destination-iata {
+        margin-top: -50px;
+    }
+
+    .twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-cal {
+        background-image: url(../../public/static/avia-ru/images/calendar.png);
+    }
+    .twidget-form-list
+        li.input-daterange
+        .twidget-input-box
+        .twidget-icon-delete {
+        background-image: url(../../public/static/avia-ru/images/icon-delete.png);
+    }
+    .twidget-form-list li .twidget-input-box label,
+    .twidget-passengers label,
+    .twidget-hotel-guest label {
+        margin: 0;
+    }
+    .twidget-date-text {
+        top: 31px;
+    }
+    .twidget-age-select .twidget-dec {
+        background-image: url(/images/minus.png) !important;
+    }
+    .twidget-num input {
+        padding: 0;
+    }
+
+    .twidget-form-list li .twidget-passengers-detail:after,
+    .twidget-form-list li .twidget-guest-detail:after {
+        background-image: url(../../public/static/avia-ru/images/arrow-down.png);
+    }
+    .twidget-pseudo-input {
+        top: 31px;
+    }
+    .twidget-pass-check,
+    .twidget-pas-class {
+        display: none;
+    }
+    .twidget-header {
+        text-align: center;
+        .twidget-title {
+            float: none;
+        }
+    }
+}
