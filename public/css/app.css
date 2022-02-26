@@ -111,6 +111,60 @@ body,
   padding-right: 10px;
 }
 
+#searchForm * {
+  box-sizing: border-box;
+}
+#searchForm .twidget-origin,
+#searchForm li,
+#searchForm ul {
+  list-style: none;
+}
+#searchForm input:focus, #searchForm input:active, #searchForm input:hover {
+  border: 0;
+  outline: none;
+}
+#searchForm #twidget-tab1 .twidget-form-list .twidget-origin-iata,
+#searchForm #twidget-tab1 .twidget-form-list .twidget-destination-iata {
+  margin-top: -50px;
+}
+#searchForm .twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-cal {
+  background-image: url(/images/calendar.png?9e41d77e05f7162a0fc35ba943e604a0);
+}
+#searchForm .twidget-form-list li.input-daterange .twidget-input-box .twidget-icon-delete {
+  background-image: url(/images/icon-delete.png?4e9ea4eecda2372f298ec4125195a4d0);
+}
+#searchForm .twidget-form-list li .twidget-input-box label,
+#searchForm .twidget-passengers label,
+#searchForm .twidget-hotel-guest label {
+  margin: 0;
+}
+#searchForm .twidget-date-text {
+  top: 31px;
+}
+#searchForm .twidget-age-select .twidget-dec {
+  background-image: url(/images/minus.png) !important;
+}
+#searchForm .twidget-num input {
+  padding: 0;
+}
+#searchForm .twidget-form-list li .twidget-passengers-detail:after,
+#searchForm .twidget-form-list li .twidget-guest-detail:after {
+  background-image: url(/images/arrow-down.png?d7b6ca6739f2d5bf40289483509a6f78);
+}
+#searchForm .twidget-pseudo-input {
+  top: 31px;
+}
+#searchForm .twidget-pass-check,
+#searchForm .twidget-pas-class {
+  display: none;
+}
+#searchForm .twidget-header {
+  text-align: center;
+}
+#searchForm .twidget-header .twidget-title {
+  float: none;
+}
+
 .banner {
   background-image: url(/static/images/banner.jpg);
   width: 100%;

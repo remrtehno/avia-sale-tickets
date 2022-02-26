@@ -1019,7 +1019,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 /* Large desktop */
 @media (min-width: 2560px) {
 
-#slider_wrapper{background: url(../images/slider_large.jpg) top center no-repeat; background-size: cover;    padding-bottom: 280px;
+#slider_wrapper{background: url(../../images/slider_large.jpg) top center no-repeat; background-size: cover;    padding-bottom: 280px;
     padding-top: 370px; }
 
   #home{height: 1005px;}

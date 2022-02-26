@@ -19,6 +19,9 @@
   <link href="/static/css/smoothness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
   <link href="/static/css/style.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="/static/avia-ru/css/bootstrap-datepicker3.standalone.css" />
+  <link rel="stylesheet" href="/static/avia-ru/css/style.css" />
+
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="/css/custom.css">
 </head>
@@ -139,7 +142,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                      document.getElementById('logout-form').submit();">
+                                                                                                                            document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -252,9 +255,21 @@
 
   <script src="/static/js/jquery.ui.totop.js"></script>
 
+
+  <script src="/static/avia-ru/js/jquery.dateFormat.js"></script>
+  <script src="/static/avia-ru/js/bootstrap-datepicker.min.js"></script>
+  <script src="/static/avia-ru/js/jquery.twidget.js?v_1207"></script>
+
   <script src="/static/js/script.js"></script>
 
   <script src="{{ mix('js/app.js') }}"></script>
+
+  <script>
+    $('#searchForm').twidget({
+      type: 'avia',
+      locale: 'ru',
+    })
+  </script>
 </body>
 
 </html>

@@ -1,4 +1,7 @@
  <div class="tabs_wrapper tabs1_wrapper">
+
+   <div id="searchForm" class="twidget-container"></div>
+
    <div class="tabs tabs1">
      <div class="tabs_tabs tabs1_tabs">
        <ul>
