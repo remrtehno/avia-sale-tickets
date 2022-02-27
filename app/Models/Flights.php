@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use PhpParser\ErrorHandler\Collecting;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -71,6 +72,17 @@ class Flights extends Model implements HasMedia
     }
 
     /**
+     * Scope a query to get all cities
+     */
+    public function scopeCities(Builder $query)
+    {
+        $first = Flights::select('direction_from as city');
+
+        return DB::table('flights')->select('direction_to as city')
+            ->union($first);
+    }
+
+    /**
      * Scope a query to search flight including passengers
      */
     public function scopeWithPassengers(Builder $query)
@@ -101,11 +113,11 @@ class Flights extends Model implements HasMedia
      */
     public function scopeBetweenDate(Builder $query)
     {
-        if (request()->has('returning') && request()->has('departure')) {
-            $returning = new Carbon(request('returning'));
+        if (request()->has('return_date') && request()->has('depart_date')) {
+            $returning = new Carbon(request('return_date'));
             $returning->addHours(23)->addMinutes(59);
 
-            $departure = new Carbon(request('departure'));
+            $departure = new Carbon(request('depart_date'));
 
             return $query->whereBetween('date', [$departure, $returning]);
         }
@@ -116,7 +128,7 @@ class Flights extends Model implements HasMedia
      */
     public function scopeWithExcludes(Builder $query)
     {
-
+        return $query;
         //@TODO Replace to something is more properly.
         return $query->where(request()->except(
             [

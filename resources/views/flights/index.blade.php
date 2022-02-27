@@ -67,3 +67,23 @@
     </div>
   </div>
 @endsection
+
+
+@section('js')
+  <script>
+    $('#searchForm').twidget({
+      type: 'avia',
+      locale: 'ru',
+      open_in_new_tab: false,
+      default_origin: "{{ request('origin_iata') }}",
+      default_destination: "{{ request('destination_iata') }}",
+
+    })
+
+    setTimeout(() => {
+      // $('#searchForm [name="depart_date"]').datepicker('setDate', new Date("{{ request('depart_date') }}"))
+      // $('#searchForm [name="return_date"]').datepicker('setDate', new Date("{{ request('return_date') }}"))
+
+    }, 500);
+  </script>
+@endsection

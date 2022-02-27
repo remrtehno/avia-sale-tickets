@@ -142,7 +142,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                      document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -264,12 +264,21 @@
 
   <script src="{{ mix('js/app.js') }}"></script>
 
-  <script>
-    $('#searchForm').twidget({
-      type: 'avia',
-      locale: 'ru',
-    })
-  </script>
+
+  @hasSection('js')
+    @yield('js')
+  @else
+    <script>
+      $('#searchForm').twidget({
+        type: 'avia',
+        locale: 'ru',
+        open_in_new_tab: false
+      })
+    </script>
+  @endif
+
+
+
 </body>
 
 </html>
