@@ -78,8 +78,20 @@ class Flights extends Model implements HasMedia
     {
         $first = Flights::select('direction_from as city');
 
-        return DB::table('flights')->select('direction_to as city')
+        $getQuery = request()->q;
+
+        if ($getQuery) {
+            $first->where('direction_from', 'like', "%$getQuery%");
+        }
+
+        $flights = DB::table('flights')->select('direction_to as city')
             ->union($first);
+
+        if ($getQuery) {
+            $flights->where('direction_to', 'like', "%$getQuery%");
+        }
+
+        return $flights;
     }
 
     /**

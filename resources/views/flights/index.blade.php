@@ -37,7 +37,9 @@
 
             <div class="row">
               @foreach ($flights as $flight)
-                @include('flights.flight-item', ['flight' => $flight])
+                @include('flights.flight-item', [
+                    'flight' => $flight,
+                ])
               @endforeach
 
               @if (!$flights->count())
@@ -77,13 +79,9 @@
       open_in_new_tab: false,
       default_origin: "{{ request('origin_iata') }}",
       default_destination: "{{ request('destination_iata') }}",
+      dateStart: "{{ request('depart_date') }}",
+      dateEnd: "{{ request('return_date') }}",
 
     })
-
-    setTimeout(() => {
-      // $('#searchForm [name="depart_date"]').datepicker('setDate', new Date("{{ request('depart_date') }}"))
-      // $('#searchForm [name="return_date"]').datepicker('setDate', new Date("{{ request('return_date') }}"))
-
-    }, 500);
   </script>
 @endsection

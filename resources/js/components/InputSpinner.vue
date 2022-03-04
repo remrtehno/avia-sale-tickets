@@ -79,7 +79,7 @@ export default {
             componentKey: 0,
             adults: 1,
             children: 1,
-            infants: 0,
+            infants: 1,
             max: {
                 adults: this.maxPassengers,
                 children: this.maxPassengers - 1,
@@ -144,7 +144,9 @@ export default {
     padding-top: 7px;
     background: #fff;
     color: var(--black);
-
+    position: static;
+    box-shadow: none;
+    padding-left: 0;
     z-index: 999;
 }
 .twidget-age-group {
@@ -162,6 +164,7 @@ export default {
     display: table-cell;
     height: 44px;
     vertical-align: middle;
+    padding-left: 0;
 }
 .twidget-age-group li .twidget-age-select {
     padding-right: 10px;

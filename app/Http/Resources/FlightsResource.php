@@ -18,9 +18,9 @@ class FlightsResource extends JsonResource
             'city_code' => $this->city,
             // 'city_fullname' => 'Екатеринбург, Россия',
             'city_name' => $this->city,
-            'code' => $this->city,
-            'country_code' => $this->city,
-            'country_name' => $this->city,
+            'code' => '',
+            // 'country_code' => $this->city,
+            'country_name' => '',
             // 'title' => 'Екатеринбург',
             // '_score' => 3487863,
             '_type' => 'city'

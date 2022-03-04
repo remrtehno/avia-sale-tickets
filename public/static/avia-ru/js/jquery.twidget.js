@@ -109,6 +109,13 @@
         // future instances of the plugin
         this.settings = $.extend({}, defaults, options);
 
+        if (options.dateStart) {
+            dateOneWeekLater = new Date(options.dateStart);
+        }
+        if (options.dateEnd) {
+            dateTwoWeekLater = new Date(options.dateEnd);
+        }
+
         if (this.settings.locale == "ru") {
             this.settings.localization = {
                 avia_tab_caption: "Авиабилеты",
@@ -145,7 +152,7 @@
                 avia_passengers_select_ready_button: "Готово",
                 avia_submit_button_text: "Найти билеты",
                 hotel_submit_button_text: "Узнать цены",
-                avia_all_airports_caption: "Все аэропорты",
+                avia_all_airports_caption: "", //"Все аэропорты",
                 datepicker_language: "ru",
                 datepicker_return_ticket_caption: "Обратный билет не нужен",
                 weekdays_short: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
@@ -803,6 +810,7 @@
                 $(this).parent().find("input").trigger("focus");
             });
 
+            console.log(_this.settings.default_origin);
             /* origin city from parameters */
             if (_this.settings.default_origin) {
                 $.getJSON(
@@ -849,6 +857,7 @@
                     function (data) {
                         /* input focusout update */
                         if (data) {
+                            return;
                             container
                                 .find("#twidget-origin")
                                 .off("focusout")

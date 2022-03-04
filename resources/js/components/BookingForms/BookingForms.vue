@@ -4,6 +4,7 @@
             <booking-form
                 :disabled-email="n !== 1"
                 v-model="email"
+                :email="email"
                 type="adults"
                 v-for="n in adults"
                 :key="n"
@@ -18,6 +19,7 @@
             <booking-form
                 :disabled-email="true"
                 v-model="email"
+                :email="email"
                 type="children"
                 v-for="n in children"
                 :key="n"
