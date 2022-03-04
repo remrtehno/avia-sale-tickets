@@ -841,7 +841,7 @@
                                             ".twidget-origin .twidget-pseudo-country-name"
                                         )
                                         .text(", " + data[0].country_name);
-                                    origin_iata_input.val(data[0].code);
+                                    origin_iata_input.val(data[0].city_name);
                                 });
                             container
                                 .find("#twidget-origin")
@@ -1018,7 +1018,9 @@
                                         container
                                             .find(".twidget-origin-iata")
                                             .text(data[0].code);
-                                        origin_iata_input.val(data[0].code);
+                                        origin_iata_input.val(
+                                            data[0].city_name
+                                        );
                                         this_input
                                             .parent()
                                             .find(".twidget-pseudo-name")
@@ -1067,7 +1069,7 @@
                                     container
                                         .find(".twidget-origin-iata")
                                         .text(iata);
-                                    origin_iata_input.val(iata);
+                                    origin_iata_input.val(city);
                                     this_input
                                         .parent()
                                         .find(".twidget-pseudo-name")
@@ -1085,7 +1087,7 @@
                                             container
                                                 .find(".twidget-origin-iata")
                                                 .text(iata);
-                                            origin_iata_input.val(iata);
+                                            origin_iata_input.val(city);
                                             this_input
                                                 .parent()
                                                 .find(".twidget-pseudo-name")
@@ -1149,7 +1151,9 @@
                                             ".twidget-destination .twidget-pseudo-country-name"
                                         )
                                         .text(", " + data[0].country_name);
-                                    destination_iata_input.val(data[0].code);
+                                    destination_iata_input.val(
+                                        data[0].city_name
+                                    );
                                 });
                         }
                         /* input focusout update end */
@@ -1301,7 +1305,7 @@
                                                 )
                                                 .text(data[0].code);
                                             destination_iata_input.val(
-                                                data[0].code
+                                                data[0].city_name
                                             );
                                             this_input
                                                 .parent()
@@ -1360,7 +1364,7 @@
                                         container
                                             .find(".twidget-destination-iata")
                                             .text(iata);
-                                        destination_iata_input.val(iata);
+                                        destination_iata_input.val(city);
                                         this_input
                                             .parent()
                                             .find(".twidget-pseudo-name")
@@ -1387,7 +1391,7 @@
                                                     )
                                                     .text(iata);
                                                 destination_iata_input.val(
-                                                    iata
+                                                    city
                                                 );
                                                 this_input
                                                     .parent()

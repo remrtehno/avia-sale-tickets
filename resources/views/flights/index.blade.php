@@ -81,7 +81,18 @@
       default_destination: "{{ request('destination_iata') }}",
       dateStart: "{{ request('depart_date') }}",
       dateEnd: "{{ request('return_date') }}",
-
     })
+
+    $('#searchForm [name="adults"]').val({{ request('adults') }})
+    $('#searchForm [name="children"]').val({{ request('children') }})
+    $('#searchForm [name="infants"]').val({{ request('infants') }})
+
+
+    if ({{ request('children', 0) }} == 0) {
+      $('[data-age="children"]').eq(1).click()
+      $('[data-age="children"]').eq(0).click()
+    } else {
+      $('[data-age="children"]').click()
+    }
   </script>
 @endsection
