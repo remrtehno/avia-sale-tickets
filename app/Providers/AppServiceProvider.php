@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Http\ViewComposers\FooterMenuComposer;
-
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,5 +41,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', FooterMenuComposer::class);
 
         view()->composer('*', ContactsComposer::class);
+
+        JsonResource::withoutWrapping();
     }
 }

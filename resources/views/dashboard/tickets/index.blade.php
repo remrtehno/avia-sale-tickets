@@ -29,6 +29,8 @@ $configSelect2 = [
           $selected = $row->id == request('flight_id');
         @endphp
         <option value="{{ $row->id }}" @if ($selected) selected @endif>
+          {{ $row->getTime() }} {{ $row->getDeparute()->isoFormat('L') }}
+          |
           {{ $row->flight }}
           |
           <small>{{ $row->getTickets()->count() }}</small> - Билетов
@@ -52,7 +54,7 @@ $configSelect2 = [
         <td>
           <x-adminlte-modal id="modalMin-{{ $row->id }}">
             @include('dashboard.tickets.partials.render-fields', [
-            'row' => $row
+                'row' => $row,
             ])
           </x-adminlte-modal>
           <x-adminlte-button label="Просмотреть" data-toggle="modal" data-target="#modalMin-{{ $row->id }}" />
@@ -60,7 +62,7 @@ $configSelect2 = [
 
         <td>
           @include('dashboard.tickets.partials.action-buttons', [
-          'id' => $row->id
+              'id' => $row->id,
           ])
         </td>
       </tr>

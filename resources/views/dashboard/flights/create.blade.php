@@ -9,7 +9,6 @@ $config = ['format' => 'YYYY-MM-DD H:i'];
 @endphp
 
 @section('content')
-
   <form action="{{ route('dashboard.flights.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 

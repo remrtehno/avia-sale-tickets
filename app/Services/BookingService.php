@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Booking;
+use App\Models\Chairs;
 use App\Models\Flights;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -164,6 +165,7 @@ class BookingService
     for ($i = 0; $i < $tickets->count(); $i++) {
       $chair = $free_seats[$i];
       $chair->booking()->associate($booking);
+      $chair->status = Chairs::BOOKED;
       $chair->save();
     }
   }

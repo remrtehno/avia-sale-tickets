@@ -50,6 +50,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
   Route::middleware(['auth', 'dashboard'])->group(function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
+    Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
 
@@ -57,7 +58,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
     //single
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('export', [TicketController::class, 'export'])->name('tickets.csv');
+    Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 

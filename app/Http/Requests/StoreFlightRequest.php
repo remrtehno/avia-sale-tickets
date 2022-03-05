@@ -29,8 +29,6 @@ class StoreFlightRequest extends FormRequest
             'price_adult' => 'required|min:1',
             'price_child' => 'required|min:1',
             'price_infant' => 'required|min:1',
-            'total_purchased_price' => 'required|min:1',
-            'total_sales_price' => 'required|min:1',
             'date' => 'required|min:10',
             'date_arrival' => 'required|min:10',
             'logo' => 'image|mimes:jpg,jpeg,png,svg|max:2048',

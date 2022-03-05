@@ -1,5 +1,5 @@
 <template>
-    <div class="twidget-container">
+    <div class="twidget-container spinner">
         <div id="twidget-passenger-form" style="">
             <input
                 type="hidden"
@@ -79,7 +79,7 @@ export default {
             componentKey: 0,
             adults: 1,
             children: 1,
-            infants: 0,
+            infants: 1,
             max: {
                 adults: this.maxPassengers,
                 children: this.maxPassengers - 1,
@@ -138,53 +138,75 @@ export default {
 </script>
 
 <style lang="scss">
-#twidget-passenger-form,
-#twidget-guest-form {
+.spinner {
+    margin: 0;
+}
+.spinner #twidget-passenger-form,
+.spinner #twidget-guest-form {
     width: 270px;
     padding-top: 7px;
     background: #fff;
     color: var(--black);
-
+    position: static;
+    box-shadow: none;
+    padding-left: 0;
     z-index: 999;
 }
-.twidget-age-group {
-    display: table;
-    width: 100%;
-    padding: 0;
-}
-.twidget-age-group li {
-    display: table-row;
-}
-.twidget-age-group li .twidget-age-name {
-    width: 50%;
-}
-.twidget-age-group li .twidget-cell {
-    display: table-cell;
-    height: 44px;
-    vertical-align: middle;
-}
-.twidget-age-group li .twidget-age-select {
-    padding-right: 10px;
-    width: 40%;
+.spinner {
+    .twidget-age-group {
+        display: table;
+        width: 100%;
+        padding: 0;
+    }
+    .twidget-age-group li {
+        display: table-row;
+    }
+    .twidget-age-group li .twidget-age-name {
+        width: 50%;
+    }
+    .twidget-age-group li .twidget-cell {
+        display: table-cell;
+        height: 44px;
+        vertical-align: middle;
+        padding-left: 0;
+    }
+    .twidget-age-group li .twidget-age-select {
+        padding-right: 10px;
+        width: 40%;
+    }
+
+    .twidget-age-select .twidget-dec {
+        width: 35px;
+        height: 35px;
+        display: inline-block;
+        text-indent: -9999px;
+        cursor: pointer;
+        border-radius: 25px;
+        line-height: 35px;
+        background: #fff 50% 50%/14px no-repeat;
+        /* background-image: url(./images/minus.png); */
+    }
+    .twidget-age-select .twidget-num {
+        width: 30%;
+        text-align: center;
+        line-height: 1.4;
+        display: inline-block;
+    }
+
+    .twidget-age-select .twidget-num input {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .twidget-tab-content input[type="text"] {
+        line-height: 50px;
+        height: 50px;
+        padding: 0 37px 0 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
-.twidget-age-select .twidget-dec {
-    width: 35px;
-    height: 35px;
-    display: inline-block;
-    text-indent: -9999px;
-    cursor: pointer;
-    border-radius: 25px;
-    line-height: 35px;
-    background: #fff 50% 50%/14px no-repeat;
-    /* background-image: url(./images/minus.png); */
-}
-.twidget-age-select .twidget-num {
-    width: 30%;
-    text-align: center;
-    line-height: 1.4;
-    display: inline-block;
-}
 .twidget-age-select .twidget-inc {
     width: 35px;
     height: 35px;
@@ -196,18 +218,7 @@ export default {
     background: #fff 50% 50%/14px no-repeat;
     background-image: url("../../../public/static/images/plus.png");
 }
-.twidget-age-select .twidget-num input {
-    width: 100%;
-    padding: 0;
-    text-align: center;
-}
-.twidget-tab-content input[type="text"] {
-    line-height: 50px;
-    height: 50px;
-    padding: 0 37px 0 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+
 .vnis__button {
     width: 35px !important;
     height: 35px !important;

@@ -37,7 +37,9 @@
 
             <div class="row">
               @foreach ($flights as $flight)
-                @include('flights.flight-item', ['flight' => $flight])
+                @include('flights.flight-item', [
+                    'flight' => $flight,
+                ])
               @endforeach
 
               @if (!$flights->count())
@@ -66,4 +68,31 @@
 
     </div>
   </div>
+@endsection
+
+
+@section('js')
+  <script>
+    $('#searchForm').twidget({
+      type: 'avia',
+      locale: 'ru',
+      open_in_new_tab: false,
+      default_origin: "{{ request('origin_iata') }}",
+      default_destination: "{{ request('destination_iata') }}",
+      dateStart: "{{ request('depart_date') }}",
+      dateEnd: "{{ request('return_date') }}",
+    })
+
+    $('#searchForm [name="adults"]').val({{ request('adults') }})
+    $('#searchForm [name="children"]').val({{ request('children') }})
+    $('#searchForm [name="infants"]').val({{ request('infants') }})
+
+
+    if ({{ request('children', 0) }} == 0) {
+      $('[data-age="children"]').eq(1).click()
+      $('[data-age="children"]').eq(0).click()
+    } else {
+      $('[data-age="children"]').click()
+    }
+  </script>
 @endsection

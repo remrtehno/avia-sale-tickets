@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Flights;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
 
 class TicketService
@@ -24,7 +25,6 @@ class TicketService
       'surname2',
       'email',
       'birthday',
-      'gender',
       'passport_date',
       'passport_number',
       'citizenship',
@@ -35,6 +35,26 @@ class TicketService
       'price',
       'status'
     ];
+
+    fputcsv(
+      $handle,
+      [
+        'Имя',
+        'Фамилия',
+        'Отчество',
+        'Email',
+        'Дата рождения',
+        'Дата выпуска паспорта',
+        'Серия паспорта',
+        'Гражданство',
+        'Мобильный тел',
+        'Виза',
+        'Адрес',
+        'Типа билета',
+        'Цена',
+        'Статус',
+      ]
+    );
 
     foreach ($table as $row) {
       $data = [];
@@ -56,6 +76,8 @@ class TicketService
     ];
 
 
-    return Response::download($filename, 'tweets.csv', $headers);
+    $today = now()->isoFormat('L');
+
+    return Response::download($filename, "$today tickets.csv", $headers);
   }
 }

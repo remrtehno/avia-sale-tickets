@@ -310,6 +310,9 @@ export default {
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
     padding-bottom: 25px;
+    input[disabled="disabled"] {
+        opacity: 0.5;
+    }
 }
 .booking-form-delete {
     background: none;

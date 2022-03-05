@@ -407,6 +407,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -567,7 +569,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       componentKey: 0,
       adults: 1,
       children: 1,
-      infants: 0,
+      infants: 1,
       max: {
         adults: this.maxPassengers,
         children: this.maxPassengers - 1
@@ -1169,7 +1171,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.wrapper-booking-forms input[disabled=disabled] {\n  opacity: 0.5;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1202,7 +1204,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_public_static_images_plus_png__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_public_static_images_minus_png__WEBPACK_IMPORTED_MODULE_3__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#twidget-passenger-form,\n#twidget-guest-form {\n  width: 270px;\n  padding-top: 7px;\n  background: #fff;\n  color: var(--black);\n  z-index: 999;\n}\n.twidget-age-group {\n  display: table;\n  width: 100%;\n  padding: 0;\n}\n.twidget-age-group li {\n  display: table-row;\n}\n.twidget-age-group li .twidget-age-name {\n  width: 50%;\n}\n.twidget-age-group li .twidget-cell {\n  display: table-cell;\n  height: 44px;\n  vertical-align: middle;\n}\n.twidget-age-group li .twidget-age-select {\n  padding-right: 10px;\n  width: 40%;\n}\n.twidget-age-select .twidget-dec {\n  width: 35px;\n  height: 35px;\n  display: inline-block;\n  text-indent: -9999px;\n  cursor: pointer;\n  border-radius: 25px;\n  line-height: 35px;\n  background: #fff 50% 50%/14px no-repeat;\n  /* background-image: url(./images/minus.png); */\n}\n.twidget-age-select .twidget-num {\n  width: 30%;\n  text-align: center;\n  line-height: 1.4;\n  display: inline-block;\n}\n.twidget-age-select .twidget-inc {\n  width: 35px;\n  height: 35px;\n  display: inline-block;\n  text-indent: -9999px;\n  cursor: pointer;\n  border-radius: 25px;\n  line-height: 35px;\n  background: #fff 50% 50%/14px no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n.twidget-age-select .twidget-num input {\n  width: 100%;\n  padding: 0;\n  text-align: center;\n}\n.twidget-tab-content input[type=text] {\n  line-height: 50px;\n  height: 50px;\n  padding: 0 37px 0 12px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.vnis__button {\n  width: 35px !important;\n  height: 35px !important;\n  background: #fff 50% 50%/14px no-repeat !important;\n  color: var(--main-green) !important;\n  border-radius: 25px;\n  transition: 0.3s !important;\n  font-size: 0px !important;\n}\n.vnis__button:first-of-type {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") !important;\n}\n.vnis__button:last-of-type {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") !important;\n}\n.vnis__button:hover {\n  background-color: #e0e0e0 !important;\n}\n.vnis__button:focus {\n  outline: none !important;\n}\n.vnis__input {\n  font-size: 14px !important;\n  height: 35px !important;\n  border: 0 !important;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".spinner {\n  margin: 0;\n}\n.spinner #twidget-passenger-form,\n.spinner #twidget-guest-form {\n  width: 270px;\n  padding-top: 7px;\n  background: #fff;\n  color: var(--black);\n  position: static;\n  box-shadow: none;\n  padding-left: 0;\n  z-index: 999;\n}\n.spinner .twidget-age-group {\n  display: table;\n  width: 100%;\n  padding: 0;\n}\n.spinner .twidget-age-group li {\n  display: table-row;\n}\n.spinner .twidget-age-group li .twidget-age-name {\n  width: 50%;\n}\n.spinner .twidget-age-group li .twidget-cell {\n  display: table-cell;\n  height: 44px;\n  vertical-align: middle;\n  padding-left: 0;\n}\n.spinner .twidget-age-group li .twidget-age-select {\n  padding-right: 10px;\n  width: 40%;\n}\n.spinner .twidget-age-select .twidget-dec {\n  width: 35px;\n  height: 35px;\n  display: inline-block;\n  text-indent: -9999px;\n  cursor: pointer;\n  border-radius: 25px;\n  line-height: 35px;\n  background: #fff 50% 50%/14px no-repeat;\n  /* background-image: url(./images/minus.png); */\n}\n.spinner .twidget-age-select .twidget-num {\n  width: 30%;\n  text-align: center;\n  line-height: 1.4;\n  display: inline-block;\n}\n.spinner .twidget-age-select .twidget-num input {\n  width: 100%;\n  padding: 0;\n  text-align: center;\n}\n.spinner .twidget-tab-content input[type=text] {\n  line-height: 50px;\n  height: 50px;\n  padding: 0 37px 0 12px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.twidget-age-select .twidget-inc {\n  width: 35px;\n  height: 35px;\n  display: inline-block;\n  text-indent: -9999px;\n  cursor: pointer;\n  border-radius: 25px;\n  line-height: 35px;\n  background: #fff 50% 50%/14px no-repeat;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n.vnis__button {\n  width: 35px !important;\n  height: 35px !important;\n  background: #fff 50% 50%/14px no-repeat !important;\n  color: var(--main-green) !important;\n  border-radius: 25px;\n  transition: 0.3s !important;\n  font-size: 0px !important;\n}\n.vnis__button:first-of-type {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") !important;\n}\n.vnis__button:last-of-type {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") !important;\n}\n.vnis__button:hover {\n  background-color: #e0e0e0 !important;\n}\n.vnis__button:focus {\n  outline: none !important;\n}\n.vnis__input {\n  font-size: 14px !important;\n  height: 35px !important;\n  border: 0 !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8582,6 +8584,7 @@ var render = function () {
           key: n,
           attrs: {
             "disabled-email": n !== 1,
+            email: _vm.email,
             type: "adults",
             number: n,
             title: "Взрослый",
@@ -8621,6 +8624,7 @@ var render = function () {
           key: n,
           attrs: {
             "disabled-email": true,
+            email: _vm.email,
             type: "children",
             number: n,
             title: "Детский",
@@ -8730,7 +8734,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "twidget-container" }, [
+  return _c("div", { staticClass: "twidget-container spinner" }, [
     _c("div", { attrs: { id: "twidget-passenger-form" } }, [
       _c("input", {
         attrs: { type: "hidden", name: "totalPassengers" },

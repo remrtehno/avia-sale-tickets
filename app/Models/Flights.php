@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use PhpParser\ErrorHandler\Collecting;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -25,8 +26,6 @@ class Flights extends Model implements HasMedia
         'price_adult' => 'integer',
         'price_child' => 'integer',
         'price_infant' => 'integer',
-        'total_purchased_price' => 'integer',
-        'total_sales_price' => 'integer',
         'date' => 'timestamp',
         'date_arrival' => 'timestamp',
         'comment' => 'string',
@@ -39,7 +38,7 @@ class Flights extends Model implements HasMedia
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant'];
 
     /**
      * The attributes that are not mass assignable.
@@ -68,6 +67,29 @@ class Flights extends Model implements HasMedia
     public function getGrandTotal()
     {
         return $this->getTotal();
+    }
+
+    /**
+     * Scope a query to get all cities
+     */
+    public function scopeCities(Builder $query)
+    {
+        $first = Flights::select('direction_from as city');
+
+        $getQuery = request()->q;
+
+        if ($getQuery) {
+            $first->where('direction_from', 'like', "%$getQuery%");
+        }
+
+        $flights = DB::table('flights')->select('direction_to as city')
+            ->union($first);
+
+        if ($getQuery) {
+            $flights->where('direction_to', 'like', "%$getQuery%");
+        }
+
+        return $flights;
     }
 
     /**
@@ -101,11 +123,11 @@ class Flights extends Model implements HasMedia
      */
     public function scopeBetweenDate(Builder $query)
     {
-        if (request()->has('returning') && request()->has('departure')) {
-            $returning = new Carbon(request('returning'));
+        if (request()->has('return_date') && request()->has('depart_date')) {
+            $returning = new Carbon(request('return_date'));
             $returning->addHours(23)->addMinutes(59);
 
-            $departure = new Carbon(request('departure'));
+            $departure = new Carbon(request('depart_date'));
 
             return $query->whereBetween('date', [$departure, $returning]);
         }
@@ -116,7 +138,7 @@ class Flights extends Model implements HasMedia
      */
     public function scopeWithExcludes(Builder $query)
     {
-
+        return $query;
         //@TODO Replace to something is more properly.
         return $query->where(request()->except(
             [
@@ -150,8 +172,8 @@ class Flights extends Model implements HasMedia
         $dateFormatted = $this->date->format('Y-m-d');
 
         return request()->fullUrlWithQuery([
-            'departure' => $dateFormatted,
-            'returning' => $dateFormatted
+            'depart_date' => $dateFormatted,
+            'return_date' => $dateFormatted
         ]);
     }
 

@@ -88,8 +88,9 @@ class ChairsController extends Controller
      */
     public function destroy($id)
     {
-        $flight = Chairs::findOrFail($id);
-        $flight->delete();
+        $chair = Chairs::findOrFail($id);
+        $this->authorize($chair);
+        $chair->delete();
 
         return redirect()->back();
     }

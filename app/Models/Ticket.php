@@ -13,6 +13,7 @@ class Ticket extends Model
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
+    public const RETURNED = 'returned';
 
     public const ADULTS = 'adults';
     public const CHILDREN = 'children';

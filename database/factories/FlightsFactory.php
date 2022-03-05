@@ -40,8 +40,6 @@ class FlightsFactory extends Factory
             'price_adult' =>  $price_adult,
             'price_child' =>  $price_child,
             'price_infant' =>  $price_infant,
-            'total_purchased_price' => rand(30000, 50000),
-            'total_sales_price' => $count_chairs * $count_chairs,
             'date' => $date->getTimestamp(),
             'date_arrival' => $date->addHours(rand(0, 15))->getTimestamp(),
             'comment' => '',

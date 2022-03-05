@@ -30,6 +30,19 @@ class Chairs extends Model
     protected $fillable = ['flight_id', 'price', 'uuid', 'status'];
 
 
+    public function getStatus()
+    {
+        if ($this->status) {
+            return $this->status;
+        }
+
+        return is_null($this->booking_id) ? '' : self::BOOKED;
+    }
+
+    public function canDelete()
+    {
+        return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
+    }
 
     /**
      * Get the parent commentable model (post or video).
