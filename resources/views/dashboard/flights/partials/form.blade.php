@@ -61,17 +61,7 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
 
   <div class="col-md-12"></div>
 
-  @if ($flight->total_purchased_price ?? null)
-    <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" name="" disabled label="Приобретеная цена"
-      fgroup-class="col-md-3" />
-    <input type="hidden" name="total_purchased_price" value="{{ $flight->total_purchased_price ?? null }}">
-  @else
-    <x-adminlte-input value="{{ $flight->total_purchased_price ?? null }}" name="total_purchased_price"
-      label="Приобретеная цена" fgroup-class="col-md-3" enable-old-support />
-  @endif
 
-  <x-adminlte-input value="{{ $flight->total_sales_price ?? null }}" name="total_sales_price"
-    label="Продаваемая цена" fgroup-class="col-md-3" enable-old-support />
 
   <div class="col-md-12">
     <label>{{ __('dashboard.price_ticket') }}</label>

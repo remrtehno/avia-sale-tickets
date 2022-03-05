@@ -26,8 +26,6 @@ class Flights extends Model implements HasMedia
         'price_adult' => 'integer',
         'price_child' => 'integer',
         'price_infant' => 'integer',
-        'total_purchased_price' => 'integer',
-        'total_sales_price' => 'integer',
         'date' => 'timestamp',
         'date_arrival' => 'timestamp',
         'comment' => 'string',
@@ -40,7 +38,7 @@ class Flights extends Model implements HasMedia
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'total_purchased_price', 'total_sales_price',];
+    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant'];
 
     /**
      * The attributes that are not mass assignable.

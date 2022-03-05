@@ -9,8 +9,11 @@
   </td>
   <td>{{ $row->flight }}</td>
   <td>{{ $row->countChairs() }}</td>
-  <td class="text-capitalize">{{ $row->getFullDate() }}</td>
+  <td class="text-capitalize">{{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
+  </td>
   <td>
-    @include('dashboard.flights.partials.action-buttons', ['id' => $row->id])
+    @include('dashboard.flights.partials.action-buttons', [
+        'id' => $row->id,
+    ])
   </td>
 </tr>
