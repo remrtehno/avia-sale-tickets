@@ -840,7 +840,7 @@
                                         .find(
                                             ".twidget-origin .twidget-pseudo-country-name"
                                         )
-                                        .text(", " + data[0].country_name);
+                                        .text(" " + data[0].country_name);
                                     origin_iata_input.val(data[0].city_name);
                                 });
                             container
@@ -877,7 +877,7 @@
                                         .find(
                                             ".twidget-origin .twidget-pseudo-country-name"
                                         )
-                                        .text(", " + data.country_name);
+                                        .text(" " + data.country_name);
                                     origin_iata_input.val(data.iata);
                                 });
                             container
@@ -1030,7 +1030,7 @@
                                             .find(
                                                 ".twidget-pseudo-country-name"
                                             )
-                                            .text(", " + data[0].country_name);
+                                            .text(" " + data[0].country_name);
                                         container
                                             .find(
                                                 ".twidget-origin .twidget-auto-fill-wrapper ul li"
@@ -1077,7 +1077,7 @@
                                     this_input
                                         .parent()
                                         .find(".twidget-pseudo-country-name")
-                                        .text(", " + country);
+                                        .text(" " + country);
                                     /* input focusout update start */
                                     container
                                         .find("#twidget-origin")
@@ -1097,7 +1097,7 @@
                                                 .find(
                                                     ".twidget-pseudo-country-name"
                                                 )
-                                                .text(", " + country);
+                                                .text(" " + country);
                                         });
                                     /* input focusout update end */
                                     container
@@ -1150,7 +1150,7 @@
                                         .find(
                                             ".twidget-destination .twidget-pseudo-country-name"
                                         )
-                                        .text(", " + data[0].country_name);
+                                        .text("  " + data[0].country_name);
                                     destination_iata_input.val(
                                         data[0].city_name
                                     );
@@ -1317,7 +1317,7 @@
                                                     ".twidget-pseudo-country-name"
                                                 )
                                                 .text(
-                                                    ", " + data[0].country_name
+                                                    " " + data[0].country_name
                                                 );
                                             container
                                                 .find(
@@ -1374,7 +1374,7 @@
                                             .find(
                                                 ".twidget-pseudo-country-name"
                                             )
-                                            .text(", " + country);
+                                            .text("  " + country);
                                         /* input focusout update start */
                                         container
                                             .find("#twidget-destination")
@@ -1404,7 +1404,7 @@
                                                     .find(
                                                         ".twidget-pseudo-country-name"
                                                     )
-                                                    .text(", " + country);
+                                                    .text(" " + country);
                                             });
                                         /* input focusout update end */
                                         container
@@ -1475,7 +1475,7 @@
                                         .find(
                                             ".twidget-city-hotel .twidget-pseudo-country-name"
                                         )
-                                        .text(", " + focus_country);
+                                        .text(" " + focus_country);
                                     container
                                         .find(
                                             ".twidget-city-hotel .twidget-auto-fill-wrapper ul li"
@@ -1611,7 +1611,7 @@
                                             .find(
                                                 ".twidget-city-hotel .twidget-pseudo-country-name"
                                             )
-                                            .text(", " + focus_country);
+                                            .text(" " + focus_country);
                                         container
                                             .find(
                                                 ".twidget-city-hotel .twidget-auto-fill-wrapper ul li"
@@ -1657,7 +1657,7 @@
                                         .find(
                                             ".twidget-city-hotel .twidget-pseudo-country-name"
                                         )
-                                        .text(", " + country);
+                                        .text(" " + country);
                                     /* input focusout update start */
                                     container
                                         .find("#twidget-city-hotel")
@@ -1678,7 +1678,7 @@
                                                 .find(
                                                     ".twidget-city-hotel .twidget-pseudo-country-name"
                                                 )
-                                                .text(", " + country);
+                                                .text(" " + country);
                                         });
                                     /* input focusout update end */
                                     container

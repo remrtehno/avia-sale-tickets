@@ -27,147 +27,6 @@
         <div id="slider_inner">
           <div class="">
             <div id="slider">
-              <div class="">
-                <div class="carousel-box">
-                  <div class="inner">
-                    <div class="carousel main">
-                      <ul>
-                        <li>
-                          <div class="slider">
-                            <div
-                              class="
-                                                                slider_inner
-                                                            ">
-                              <div class="txt1">
-                                <span>Welcome
-                                  To
-                                  Our</span>
-                              </div>
-                              <div class="txt2">
-                                <span>TRAVEL
-                                  AGENCY</span>
-                              </div>
-                              <div class="txt3">
-                                <span>Nam
-                                  liber
-                                  tempor
-                                  cum
-                                  soluta
-                                  nobis
-                                  eleifend
-                                  option
-                                  congue
-                                  nihil
-                                  imperdiet
-                                  doming
-                                  id
-                                  quod.</span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="slider">
-                            <div
-                              class="
-                                                                slider_inner
-                                                            ">
-                              <div class="txt1">
-                                <span>7 - Day
-                                  Tour</span>
-                              </div>
-                              <div class="txt2">
-                                <span>AMAZING
-                                  CARIBBEAN</span>
-                              </div>
-                              <div class="txt3">
-                                <span>Lorem
-                                  ipsum
-                                  dolor
-                                  eleifend
-                                  option
-                                  congue
-                                  nihil
-                                  imperdiet
-                                  doming
-                                  id
-                                  quod.</span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="slider">
-                            <div
-                              class="
-                                                                slider_inner
-                                                            ">
-                              <div class="txt1">
-                                <span>5 Days
-                                  In</span>
-                              </div>
-                              <div class="txt2">
-                                <span>PARIS
-                                  (Capital
-                                  Of
-                                  World)</span>
-                              </div>
-                              <div class="txt3">
-                                <span>Nam
-                                  liber
-                                  tempor
-                                  cum
-                                  soluta
-                                  nobis
-                                  eleifend
-                                  option
-                                  congue
-                                  nihil
-                                  imperdiet
-                                  doming
-                                  id
-                                  quod.</span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="slider">
-                            <div
-                              class="
-                                                                slider_inner
-                                                            ">
-                              <div class="txt1">
-                                <span>12 -
-                                  Day
-                                  Cruises</span>
-                              </div>
-                              <div class="txt2">
-                                <span>FROM
-                                  GREECE
-                                  TO
-                                  SPAIN</span>
-                              </div>
-                              <div class="txt3">
-                                <span>MEDITERRANEAN
-                                  - 12 -
-                                  Day
-                                  Cruises
-                                  By
-                                  "GRAND
-                                  VICTORIA
-                                  III"
-                                  Cruise
-                                  Liner.</span>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div class="slider_pagination"></div>
             </div>
           </div>
@@ -178,8 +37,8 @@
     <div id="front_tabs">
       <div class="container">
         @include('flights._search-flights', [
-        'route' => route('flights.index'),
-        'search_list_cities' => $search_list_cities,
+            'route' => route('flights.index'),
+            'search_list_cities' => $search_list_cities,
         ])
       </div>
     </div>
@@ -208,7 +67,9 @@
                         <ul>
                           @foreach ($flights as $item)
                             <li>
-                              @include('partials.flight-item-slider', ['item' => $item])
+                              @include('partials.flight-item-slider', [
+                                  'item' => $item,
+                              ])
                             </li>
                           @endforeach
                         </ul>

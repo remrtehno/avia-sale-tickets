@@ -174,8 +174,8 @@ class Flights extends Model implements HasMedia
         $dateFormatted = $this->date->format('Y-m-d');
 
         return request()->fullUrlWithQuery([
-            'departure' => $dateFormatted,
-            'returning' => $dateFormatted
+            'depart_date' => $dateFormatted,
+            'return_date' => $dateFormatted
         ]);
     }
 
