@@ -111,6 +111,25 @@ class FlightsController extends Controller
         return redirect()->route('dashboard.flights.edit', ['flight' => $flight->id])->withStatus('Обновленно');
     }
 
+    public function createChair(Flights $flight)
+    {
+        $totalChairs = $flight->chairs->count();
+
+        $newChair = $flight->chairs()->create([
+            'uuid' => $flight->date->format('Y-m-d') .
+                '-' . $flight->flight .
+                '-' . ++$totalChairs,
+            'flight_id' => $flight->id,
+            'price' => $flight->price_adult,
+            'type' => Chairs::ADULT
+        ]);
+
+        return
+            redirect()
+            ->route('dashboard.flights.edit', ['flight' => $flight->id])
+            ->withStatus("Новое место добавлено ID: $newChair->uuid");
+    }
+
     /**
      * Remove the specified resource from storage.
      *
