@@ -32,12 +32,16 @@ class Chairs extends Model
 
     public function getStatus()
     {
+        if ($this->status) {
+            return $this->status;
+        }
+
         return is_null($this->booking_id) ? '' : self::BOOKED;
     }
 
     public function canDelete()
     {
-        return is_null($this->booking_id);
+        return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
     }
 
     /**
