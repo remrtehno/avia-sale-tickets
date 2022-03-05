@@ -25,7 +25,6 @@ class TicketService
       'surname2',
       'email',
       'birthday',
-      'gender',
       'passport_date',
       'passport_number',
       'citizenship',
@@ -36,6 +35,26 @@ class TicketService
       'price',
       'status'
     ];
+
+    fputcsv(
+      $handle,
+      [
+        'Имя',
+        'Фамилия',
+        'Отчество',
+        'Email',
+        'Дата рождения',
+        'Дата выпуска паспорта',
+        'Серия паспорта',
+        'Гражданство',
+        'Мобильный тел',
+        'Виза',
+        'Адрес',
+        'Типа билета',
+        'Цена',
+        'Статус',
+      ]
+    );
 
     foreach ($table as $row) {
       $data = [];

@@ -1,1 +1,2 @@
-adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2001-01-01,f,2022-01-01,adultspassport_number,adultscitizenship,"+998(32) 323-23-23",adultsvisa,adultsaddress,adults,225,booked
+Имя,Фамилия,Отчество,Email,"Дата рождения","Дата выпуска паспорта","Серия паспорта",Гражданство,"Мобильный тел",Виза,Адрес,"Типа билета",Цена,Статус
+adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2001-01-01,2022-01-01,adultspassport_number,adultscitizenship,"+998(32) 323-23-23",adultsvisa,adultsaddress,adults,225,booked
