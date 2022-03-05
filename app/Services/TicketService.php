@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Flights;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
 
 class TicketService
@@ -56,6 +57,8 @@ class TicketService
     ];
 
 
-    return Response::download($filename, 'tweets.csv', $headers);
+    $today = now()->isoFormat('L');
+
+    return Response::download($filename, "$today tickets.csv", $headers);
   }
 }
