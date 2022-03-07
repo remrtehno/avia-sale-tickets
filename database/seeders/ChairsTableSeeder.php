@@ -13,6 +13,18 @@ class ChairsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Chairs::factory(600)->create();
+
+        $flights = \App\Models\Flights::all();
+
+        $flights->each(function (\App\Models\Flights $flight) {
+            \App\Models\Chairs::factory(rand(50, 600))->create([
+                'flight_id' => $flight->id,
+                'chairsable_id' => $flight->id,
+                'uuid' =>
+                $flight->date->format('Y-m-d') .
+                    '-' . $flight->flight .
+                    '-' . 0,
+            ]);
+        });
     }
 }

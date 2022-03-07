@@ -32,13 +32,7 @@ class CreateChairsTable extends Migration
             //     ->onUpdate('cascade')
             //     ->onDelete('cascade');
 
-            // booking
-            // $table->foreignId('booking_id')
-            //     ->constrained()
-            //     ->onUpdate('cascade')
-            //     ->onDelete('cascade');
 
-            $table->integer('price');
             $table->string('uuid');
             $table->string('status')->nullable();
             $table->integer('booking_id')->nullable();

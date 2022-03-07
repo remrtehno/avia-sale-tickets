@@ -15,16 +15,20 @@ class FlightsController extends Controller
      */
     public function index(SearchRequest $request)
     {
-        // dd($request->all());
+
 
         $flightss = Flights::betweenDate()
-            // ->withExcludes()
-            // ->withPassengers()
+            ->withPassengers()
+            ->searchByDirections()
             ->paginate(9);
 
         $closestDateFound = $flightss->count()
             ? null
-            : Flights::withExcludes()->withPassengers()->orderByClosest()->first();
+            : Flights::withExcludes()
+            ->searchByDirections()
+            ->withPassengers()
+            ->orderByClosest()
+            ->first();
 
         return view('flights.index', [
             'flights' => $flightss,

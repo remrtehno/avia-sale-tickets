@@ -21,8 +21,6 @@ class Chairs extends Model
         'flight_id' => 'string',
         'order_id' => 'integer',
         'booking_id' => 'integer',
-        'type' => 'string',
-        'price' => 'string',
         'uuid' => 'string',
         'status' => 'string'
     ];

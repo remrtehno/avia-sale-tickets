@@ -120,7 +120,6 @@ class FlightsController extends Controller
                 '-' . $flight->flight .
                 '-' . ++$totalChairs,
             'flight_id' => $flight->id,
-            'price' => $flight->price_adult,
             'type' => Chairs::ADULT
         ]);
 

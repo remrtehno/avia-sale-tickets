@@ -1,5 +1,5 @@
 <nobr>
-  <a class="btn btn-xs btn-default text-teal mx-1 shadow"
+  <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
     href="{{ route('dashboard.flights.show', ['flight' => $id]) }}" title="Details">
     <i class="fa fa-lg fa-fw fa-eye"></i>
   </a>

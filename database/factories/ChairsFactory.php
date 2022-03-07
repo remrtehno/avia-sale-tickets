@@ -16,18 +16,9 @@ class ChairsFactory extends Factory
      */
     public function definition()
     {
-        $flights = Flights::all();
-        $flightOne = $this->faker->randomElement($flights);
 
         return [
-            'flight_id' => $flightOne->id,
-            'chairsable_id' => $flightOne->id,
             'chairsable_type' => 'App\Models\Flights',
-            'price' => rand(150, 700),
-            'uuid' =>
-            $flightOne->date->format('Y-m-d') .
-                '-' . $flightOne->flight .
-                '-' . 0,
         ];
     }
 }

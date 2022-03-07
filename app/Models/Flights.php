@@ -53,8 +53,8 @@ class Flights extends Model implements HasMedia
     public function countChairs()
     {
         return $this->chairs()
-            // ->where('type', Chairs::ADULT)
             ->where('booking_id', null)
+            ->orWhere('status', Chairs::AVAILABLE)
             ->get()->count();
     }
 
@@ -69,6 +69,22 @@ class Flights extends Model implements HasMedia
         return $this->getTotal();
     }
 
+
+    /**
+     * Scope a query to search by directions
+     */
+    public function scopeSearchByDirections(Builder $query)
+    {
+        $to = request()->destination_iata;
+        $from = request()->origin_iata;
+
+        $query->where('direction_from', 'like', "%$from%");
+        $query->where('direction_to', 'like', "%$to%");
+
+        return $query;
+    }
+
+
     /**
      * Scope a query to get all cities
      */
@@ -78,16 +94,18 @@ class Flights extends Model implements HasMedia
 
         $getQuery = request()->q;
 
-        if ($getQuery) {
-            $first->where('direction_from', 'like', "%$getQuery%");
+        if (!$getQuery) {
+            return $query;
         }
+
+
+        $first->where('direction_from', 'like', "%$getQuery%");
 
         $flights = DB::table('flights')->select('direction_to as city')
             ->union($first);
 
-        if ($getQuery) {
-            $flights->where('direction_to', 'like', "%$getQuery%");
-        }
+        $flights->where('direction_to', 'like', "%$getQuery%");
+
 
         return $flights;
     }
@@ -97,25 +115,9 @@ class Flights extends Model implements HasMedia
      */
     public function scopeWithPassengers(Builder $query)
     {
-        if (request()->has('child')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'child');
-            }, '>=', request('child'));
-        }
+        $passengers = request()->get('adults', 0) + request()->get('children', 0);
 
-        if (request()->has('adult')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'adult');
-            }, '>=', request('adult'));
-        }
-
-        if (request()->has('infant')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'infant');
-            }, '>=', request('infant'));
-        }
-
-        return $query;
+        return $query->where('count_chairs', '>=', $passengers);
     }
 
     /**

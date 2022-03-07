@@ -39,8 +39,15 @@ $configSelect2 = [
     </x-adminlte-select2>
   </form>
 
-  <a class="btn btn-danger my-3"
-    href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
+  <div class="d-flex justify-content-between align-items-center">
+    <a class="btn btn-danger my-3"
+      href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
+
+    <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
+      href="{{ route('dashboard.flights.show', ['flight' => request('flight_id')]) }}" title="Details">
+      <i class="fa fa-lg fa-fw fa-eye"></i>
+    </a>
+  </div>
 
 
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
