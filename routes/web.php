@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\BookingController as DashboardBookingController;
 use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\TicketController;
+use App\Http\Controllers\Dashboard\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -53,6 +55,8 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('booking', DashboardBookingController::class);
 
 
 

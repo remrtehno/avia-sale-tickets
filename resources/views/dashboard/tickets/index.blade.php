@@ -5,7 +5,7 @@
 @stop
 
 @php
-$heads = ['ID', 'Цена', 'Дата создания', 'Типа билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'Цена', 'Дата создания', 'Тип билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[0, 'desc']],
@@ -44,7 +44,7 @@ $configSelect2 = [
       href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
 
     <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
-      href="{{ route('dashboard.flights.show', ['flight' => request('flight_id')]) }}" title="Details">
+      href="{{ route('dashboard.flights.show', ['flight' => request('flight_id', 0)]) }}" title="Details">
       <i class="fa fa-lg fa-fw fa-eye"></i>
     </a>
   </div>

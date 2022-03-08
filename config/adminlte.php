@@ -243,13 +243,23 @@ return [
         //     'text' => 'search',
         // ],
         [
+            'text' => 'orders',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.orders.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+        [
+            'text' => 'booking',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.booking.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+        [
             'text' => 'reports',
             'can'  => 'manage-dashboard',
             'url'         => 'admin/pages',
             'icon' => 'fas fa-fw fa-bars',
         ],
-
-
         [
             'text'    => 'flights',
             'icon'    => 'fas fa-fw fa-plane',

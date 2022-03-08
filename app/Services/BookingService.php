@@ -22,6 +22,7 @@ class BookingService
 
     $this->storeTickets($booking, $flight);
     $this->assignChairs($booking, $flight);
+    $this->createOrder($booking, $flight->id);
 
     $flight->booking_id = $booking->id;
     $flight->save();
@@ -168,6 +169,14 @@ class BookingService
       $chair->status = Chairs::BOOKED;
       $chair->save();
     }
+  }
+
+  public function createOrder(Booking $booking, $flight_id)
+  {
+    return $booking->order()->create([
+      'status' => Booking::BOOKED,
+      'flight_id' => $flight_id,
+    ]);
   }
 
   public function unassignChairs(Booking $booking)
