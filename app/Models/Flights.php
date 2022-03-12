@@ -43,11 +43,6 @@ class Flights extends Model implements HasMedia
 
     protected $exchangeRate;
 
-    function __construct()
-    {
-        $this->exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first()->meta_content;
-    }
-
     /**
      * The attributes that are not mass assignable.
      *
@@ -66,11 +61,30 @@ class Flights extends Model implements HasMedia
             ->get()->count();
     }
 
+    public function getExchangeRate()
+    {
+        // @TODO Need singletone
+        $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
+
+        return $this->exchangeRate = $exchangeRate ? $exchangeRate->meta_content : '';
+    }
+
 
     public function getTotal()
     {
-        return $this->price_adult * $this->exchangeRate;
+        return $this->price_adult * $this->getExchangeRate();
     }
+
+    public function getPrice()
+    {
+        return $this->price_adult * $this->getExchangeRate();
+    }
+
+    public function getPriceFormatted()
+    {
+        return number_format($this->getPrice(), 2, '.', ' ');
+    }
+
 
     public function getGrandTotal()
     {

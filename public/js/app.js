@@ -867,9 +867,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var adults = this.priceAdult * this.bookingForms.adults;
       var children = this.priceChild * this.bookingForms.children;
       var infants = this.priceInfant * this.bookingForms.infants;
-      return (adults + children + infants + this.additional) * this.exchangeRate;
+      return this.formatPrice((adults + children + infants + this.additional) * this.exchangeRate);
     }
-  })
+  }),
+  methods: {
+    formatPrice: function formatPrice() {
+      var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "0";
+      return Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$& ");
+    }
+  }
 });
 
 /***/ }),
@@ -9108,7 +9114,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("span", { staticClass: "red", staticStyle: { "font-size": "30px" } }, [
+    _c("span", { staticClass: "red", staticStyle: { "font-size": "23px" } }, [
       _vm._v("UZS " + _vm._s(_vm.getTotal)),
     ]),
   ])

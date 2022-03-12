@@ -198,9 +198,9 @@
               <div class="margin-top"></div>
               <div class="clearfix"></div>
               <div class="input2_wrapper">
-                <label class="col-md-6" style="padding-left:0;padding-top:18px;font-size:16px;">ОБЩИЙ ИТОГ:</label>
+                <label class="col-md-5" style="padding-left:0;padding-top:18px;font-size:16px;">ОБЩИЙ ИТОГ:</label>
 
-                <div class="col-md-6" style="padding-right:0;padding-left:0;">
+                <div class="col-md-7" style="padding-right:0;padding-left:0;">
                   <input type="hidden" name="price_adult" value="{{ $flights->price_adult }}">
                   <input type="hidden" name="price_child" value="{{ $flights->price_child }}">
                   <input type="hidden" name="price_infant" value="{{ $flights->price_infant }}">

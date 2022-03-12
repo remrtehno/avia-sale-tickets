@@ -42,7 +42,15 @@ class FlightsFactory extends Factory
             'price_infant' =>  $price_infant,
             'date' => $date->getTimestamp(),
             'date_arrival' => $date->addHours(rand(0, 15))->getTimestamp(),
-            'comment' => '',
+            'comment' => "<p>Условия возврата: до вылета 5000UZS | после вылета 0UZS | вынужденный возврат 100% стоимости
+             </p>
+            <p>
+            Условия перебронирования: до вылета 0UZS | после вылета 0UZS
+            </p>
+            <p>
+               Норма багажа: 0КГ
+             </p>
+                <p>Ручная кладь: 0КГ</p>",
             'logo' =>  $logos->random(),
             'direction_from' => $direction_from->random(),
             'direction_to' => $direction_to->random(),

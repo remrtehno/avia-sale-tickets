@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="red" style="font-size: 30px">UZS {{ getTotal }}</span>
+        <span class="red" style="font-size: 23px">UZS {{ getTotal }}</span>
     </div>
 </template>
 
@@ -22,10 +22,18 @@ export default {
             const children = this.priceChild * this.bookingForms.children;
             const infants = this.priceInfant * this.bookingForms.infants;
 
-            return (
+            return this.formatPrice(
                 (adults + children + infants + this.additional) *
-                this.exchangeRate
+                    this.exchangeRate
             );
+        },
+    },
+
+    methods: {
+        formatPrice(value = "0") {
+            return Number(value)
+                .toFixed(2)
+                .replace(/\d(?=(\d{3})+\.)/g, "$& ");
         },
     },
 };
