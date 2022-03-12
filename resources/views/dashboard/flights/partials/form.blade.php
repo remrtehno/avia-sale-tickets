@@ -1,5 +1,10 @@
 @php
 $config = ['format' => 'DD-MM-YYYY HH:mm'];
+
+$configTextEditor = [
+    'height' => '200',
+];
+
 @endphp
 
 <div class="row">
@@ -85,9 +90,23 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
 
   <div class="col-md-12"></div>
 
-  <x-adminlte-textarea name="comment" label="Комментарий" fgroup-class="col-md-4" enable-old-support>
-    {{ $flight->comment ?? null }}
-  </x-adminlte-textarea>
+  <x-adminlte-text-editor name="comment" label="Комментарий" fgroup-class="col-md-6" :config="$configTextEditor"
+    enable-old-support>
+    @if ($flight->comment ?? null)
+      {{ $flight->comment }}
+    @else
+      <p>Условия возврата: до вылета 0UZS | после вылета 0UZS | вынужденный возврат 100% стоимости
+      </p>
+      <p>
+        Условия перебронирования: до вылета 0UZS | после вылета 0UZS
+      </p>
+      <p>
+        Норма багажа: 0КГ
+      </p>
+      <p>Ручная кладь: 0КГ</p>
+    @endif
+  </x-adminlte-text-editor>
+
 
   <div class="col-md-12"></div>
 

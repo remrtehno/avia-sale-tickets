@@ -177,6 +177,9 @@
                   <span class="red">${{ $flights->getTotal() }}</span>
                 </div>
               </div> --}}
+              <div class="wysiwyg py-15">
+                {!! $flights->comment !!}
+              </div>
               <div class="clearfix"></div>
               <div class="margin-top" style="margin-top:40px;"></div>
               <div class="border-3px"></div>

@@ -28,12 +28,12 @@ class Flights extends Model implements HasMedia
         'price_infant' => 'integer',
         'date' => 'timestamp',
         'date_arrival' => 'timestamp',
-        'comment' => 'string',
+        'comment' => 'longtext',
         'logo' => 'string',
         'direction_from' => 'string',
         'direction_to' => 'string',
         'rating' => 'string',
-        'penalty' => 'number'
+        'penalty' => 'integer'
     ];
 
     // Carbon instance fields
