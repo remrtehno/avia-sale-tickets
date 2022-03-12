@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFlightRequest;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\MetaInfo;
 use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
@@ -27,7 +28,11 @@ class FlightsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.flights.create');
+        $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
+
+        return view('dashboard.flights.create', [
+            'flight_comment' =>  $flight_comment->meta_content
+        ]);
     }
 
     /**
@@ -83,8 +88,10 @@ class FlightsController extends Controller
         $flight = Flights::findOrFail($id);
         $this->authorize($flight);
 
+        $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
 
-        return view('dashboard.flights.edit', ['flight' => $flight]);
+
+        return view('dashboard.flights.edit', ['flight' => $flight, 'flight_comment' =>  $flight_comment->meta_content]);
     }
 
     /**

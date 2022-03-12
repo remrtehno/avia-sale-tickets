@@ -92,18 +92,10 @@ $configTextEditor = [
 
   <x-adminlte-text-editor name="comment" label="Комментарий" fgroup-class="col-md-6" :config="$configTextEditor"
     enable-old-support>
-    @if ($flight->comment ?? null)
+    @if (trim($flight->comment ?? null))
       {{ $flight->comment }}
     @else
-      <p>Условия возврата: до вылета 0UZS | после вылета 0UZS | вынужденный возврат 100% стоимости
-      </p>
-      <p>
-        Условия перебронирования: до вылета 0UZS | после вылета 0UZS
-      </p>
-      <p>
-        Норма багажа: 0КГ
-      </p>
-      <p>Ручная кладь: 0КГ</p>
+      {{ $flight_comment ?? null }}
     @endif
   </x-adminlte-text-editor>
 
