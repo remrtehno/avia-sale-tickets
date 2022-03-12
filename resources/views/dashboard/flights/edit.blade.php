@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('dashboard.page')
 
 @section('content')
   <form action="{{ route('dashboard.flights.update', ['flight' => $flight->id]) }}" method="POST"

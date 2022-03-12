@@ -856,6 +856,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     additional: {
       "default": 0,
       type: Number
+    },
+    exchangeRate: {
+      "default": 1,
+      type: Number
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms"])), {}, {
@@ -863,7 +867,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var adults = this.priceAdult * this.bookingForms.adults;
       var children = this.priceChild * this.bookingForms.children;
       var infants = this.priceInfant * this.bookingForms.infants;
-      return adults + children + infants + this.additional;
+      return (adults + children + infants + this.additional) * this.exchangeRate;
     }
   })
 });
@@ -9105,7 +9109,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("span", { staticClass: "red", staticStyle: { "font-size": "30px" } }, [
-      _vm._v("$" + _vm._s(_vm.getTotal)),
+      _vm._v("UZS " + _vm._s(_vm.getTotal)),
     ]),
   ])
 }

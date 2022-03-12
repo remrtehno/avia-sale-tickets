@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\ContactsComposer;
+use App\Http\ViewComposers\ExchangeRateComposer;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ContactsComposer::class);
 
         $this->app->singleton(FooterMenuComposer::class);
+
+        $this->app->singleton(ExchangeRateComposer::class);
 
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Sven\ArtisanView\ServiceProvider::class);
@@ -41,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', FooterMenuComposer::class);
 
         view()->composer('*', ContactsComposer::class);
+
+        view()->composer('*', ExchangeRateComposer::class);
 
         JsonResource::withoutWrapping();
     }

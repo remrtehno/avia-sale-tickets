@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="red" style="font-size: 30px">${{ getTotal }}</span>
+        <span class="red" style="font-size: 30px">UZS {{ getTotal }}</span>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
         priceChild: { default: 0, type: Number },
         priceInfant: { default: 0, type: Number },
         additional: { default: 0, type: Number },
+        exchangeRate: { default: 1, type: Number },
     },
     computed: {
         ...mapGetters(["bookingForms"]),
@@ -21,7 +22,10 @@ export default {
             const children = this.priceChild * this.bookingForms.children;
             const infants = this.priceInfant * this.bookingForms.infants;
 
-            return adults + children + infants + this.additional;
+            return (
+                (adults + children + infants + this.additional) *
+                this.exchangeRate
+            );
         },
     },
 };

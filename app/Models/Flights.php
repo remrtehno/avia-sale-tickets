@@ -41,6 +41,13 @@ class Flights extends Model implements HasMedia
 
     protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
 
+    protected $exchangeRate;
+
+    function __construct()
+    {
+        $this->exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first()->meta_content;
+    }
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -62,7 +69,7 @@ class Flights extends Model implements HasMedia
 
     public function getTotal()
     {
-        return $this->price_adult;
+        return $this->price_adult * $this->exchangeRate;
     }
 
     public function getGrandTotal()

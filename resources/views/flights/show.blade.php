@@ -205,7 +205,8 @@
                   <input type="hidden" name="price_child" value="{{ $flights->price_child }}">
                   <input type="hidden" name="price_infant" value="{{ $flights->price_infant }}">
                   <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}"
-                    :price-infant="{{ $flights->price_infant }}" :additional="0" />
+                    :price-infant="{{ $flights->price_infant }}" :additional="0"
+                    :exchange-rate={{ $dollarExchangeRate }} />
                 </div>
               </div>
               <div class="clearfix"></div>
