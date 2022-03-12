@@ -78,6 +78,10 @@ $config = ['format' => 'DD-MM-YYYY HH:mm'];
         label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support />
     </div>
   </div>
+  <div class="col-md-4">
+    <x-adminlte-input value="{{ $flight->penalty ?? null }}" name="penalty" label="{{ __('dashboard.penalty') }}"
+      fgroup-class="col-md-4" enable-old-support />
+  </div>
 
   <div class="col-md-12"></div>
 

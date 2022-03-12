@@ -1,1 +1,6 @@
 Имя,Фамилия,Отчество,Email,"Дата рождения","Дата выпуска паспорта","Серия паспорта",Гражданство,"Мобильный тел",Виза,Адрес,"Типа билета",Цена,Статус
+adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-01-01,2022-01-01,adultspassport_number,adultscitizenship,"+998(32) 323-23-23",adultsvisa,adultsaddress,adults,221,booked
+adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2001-01-01,2020-04-26,adultspassport_number,adultscitizenship,"+998(32) 323-23-23",adultsvisa,adultsaddress,adults,221,booked
+adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,2022-01-01,adultspassport_number,adultscitizenship,"+998(32) 323-23-23",adultsvisa,adultsaddress,adults,221,booked
+children1,childrensurname,childrensurname2,,2020-11-11,childrenpassport_date,childrenpassport_number,childrencitizenship,childrentel,childrenvisa,childrenaddress,children,259,booked
+infants1,infantssurname,infantssurname2,,2022-11-11,infantspassport_date,infantspassport_number,infantscitizenship,infantstel,infantsvisa,infantsaddress,infants,267,booked

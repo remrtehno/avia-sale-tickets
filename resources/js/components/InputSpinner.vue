@@ -75,11 +75,13 @@ export default {
         },
     },
     data() {
+        const params = new URLSearchParams(window.location.search);
+
         return {
             componentKey: 0,
-            adults: 1,
-            children: 1,
-            infants: 1,
+            adults: +params.get("adults") || 1,
+            children: +params.get("children") || 0,
+            infants: +params.get("infants") || 0,
             max: {
                 adults: this.maxPassengers,
                 children: this.maxPassengers - 1,
@@ -124,6 +126,8 @@ export default {
             adults: this.computedMaxPassengers,
             children: this.computedMaxPassengers - 1,
         };
+
+        this.forceRerender();
     },
     watch: {
         bookingForms() {

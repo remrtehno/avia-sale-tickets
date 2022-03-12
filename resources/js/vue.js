@@ -7,6 +7,7 @@ import VDatePicker from "./components/VDatePicker.vue";
 import StarRating from "./components/StarRating.vue";
 import InputSpinner from "./components/InputSpinner.vue";
 import BookingForms from "./components/BookingForms/BookingForms.vue";
+import Total from "./components/Total.vue";
 
 Vue.config.productionTip = false;
 
@@ -40,6 +41,7 @@ new Vue({
         StarRating,
         InputSpinner,
         BookingForms,
+        Total,
     },
     store,
 

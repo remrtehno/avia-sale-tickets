@@ -33,12 +33,13 @@ class Flights extends Model implements HasMedia
         'direction_from' => 'string',
         'direction_to' => 'string',
         'rating' => 'string',
+        'penalty' => 'number'
     ];
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant'];
+    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
 
     /**
      * The attributes that are not mass assignable.
@@ -208,19 +209,23 @@ class Flights extends Model implements HasMedia
     {
         return $this->getDeparute()->translatedFormat('d M Y, D');
     }
-    public function getFullDate()
-    {
-        return $this->getDeparute()->translatedFormat('d F Y, l');
-    }
     public function getTime()
     {
         return $this->getDeparute()->translatedFormat('H:i');
     }
-
+    public function getDateArrival()
+    {
+        return $this->getArrival()->translatedFormat('d M Y, D');
+    }
     public function getTimeArrival()
     {
         return $this->getArrival()->translatedFormat('H:i');
     }
+    public function getFullDate()
+    {
+        return $this->getDeparute()->translatedFormat('d F Y, l');
+    }
+
 
     public function getTimeDepartureWithNameFrom()
     {

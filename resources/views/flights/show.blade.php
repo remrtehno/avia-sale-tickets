@@ -120,10 +120,7 @@
                 <label class="col-md-6" style="padding-left:0;padding-top:12px;">Откуда:</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                  <span class="red">Prague</span>
-                  <br>Vaclav Havel (PRG)
-
-
+                  <span class="red">{{ $flights->direction_from }}</span>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -131,9 +128,8 @@
                 <label class="col-md-6" style="padding-left:0;padding-top:12px;">Куда:</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                  <span class="red">New-York</span>
+                  <span class="red">{{ $flights->direction_to }}</span>
                   {{-- @TODO Do we need create separate codenames "JFK,TAS,PRG...."? --}}
-                  <br>John F.Kennedy lntl. (JFK)
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -141,11 +137,11 @@
                 <label class="col-md-6" style="padding-left:0;padding-top:12px;">Отправление:</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                  <span class="red">20 - Apr - 2017</span>
-                  <ul>
-                    <li>2:25pm (PRG)</li>
-                    <li>7:25pm (JFK)</li>
-                  </ul>
+                  <span class="red">
+                    {{ $flights->getDate() }}
+                  </span>
+                  <br>
+                  Время: {{ $flights->getTime() }}
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -153,12 +149,11 @@
                 <label class="col-md-6" style="padding-left:0;padding-top:12px;">Возвращение:</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                  <span class="red">20 - May - 2017</span>
-                  <ul>
-                    <li>4:20pm (JFK)</li>
-                    <li>8:50pm (PRG)</li>
-                  </ul>
-
+                  <span class="red">
+                    {{ $flights->getDateArrival() }}
+                  </span>
+                  <br>
+                  Время: {{ $flights->getTimeArrival() }}
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -174,13 +169,14 @@
                 </div>
               </div>
               <div class="clearfix"></div>
-              <div class="input2_wrapper">
+              {{-- @TODO In case we need fees --}}
+              {{-- <div class="input2_wrapper">
                 <label class="col-md-6" style="padding-left:0;padding-top:12px;">ОБЩЕЕ</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
                   <span class="red">${{ $flights->getTotal() }}</span>
                 </div>
-              </div>
+              </div> --}}
               <div class="clearfix"></div>
               <div class="margin-top" style="margin-top:40px;"></div>
               <div class="border-3px"></div>
@@ -202,7 +198,11 @@
                 <label class="col-md-6" style="padding-left:0;padding-top:18px;font-size:16px;">ОБЩИЙ ИТОГ:</label>
 
                 <div class="col-md-6" style="padding-right:0;padding-left:0;">
-                  <span class="red" style="font-size:30px;">${{ $flights->getGrandTotal() }}</span>
+                  <input type="hidden" name="price_adult" value="{{ $flights->price_adult }}">
+                  <input type="hidden" name="price_child" value="{{ $flights->price_child }}">
+                  <input type="hidden" name="price_infant" value="{{ $flights->price_infant }}">
+                  <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}"
+                    :price-infant="{{ $flights->price_infant }}" :additional="0" />
                 </div>
               </div>
               <div class="clearfix"></div>
