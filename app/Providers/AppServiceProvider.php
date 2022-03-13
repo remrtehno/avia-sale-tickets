@@ -48,6 +48,12 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', ExchangeRateComposer::class);
 
+        $this->app->singleton('exchange-rate', function ($app) {
+            $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
+
+            return $exchangeRate ? (int) $exchangeRate->meta_content : 0;
+        });
+
         JsonResource::withoutWrapping();
     }
 }

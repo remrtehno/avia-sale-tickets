@@ -25,7 +25,7 @@ class Chairs extends Model
         'status' => 'string'
     ];
 
-    protected $fillable = ['flight_id', 'price', 'uuid', 'status'];
+    protected $fillable = ['flight_id', 'uuid', 'status'];
 
 
     public function getStatus()

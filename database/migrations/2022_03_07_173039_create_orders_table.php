@@ -20,7 +20,9 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('booking_id');
             $table->integer('flight_id');
+            $table->integer('total');
             $table->string('status');
+            $table->integer('exchange_rate');
         });
     }
 

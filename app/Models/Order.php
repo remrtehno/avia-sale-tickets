@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status', 'user_id', 'flight_id'];
+    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate'];
 
     /**
      * Get the booking.

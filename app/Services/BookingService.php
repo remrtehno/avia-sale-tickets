@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\MetaInfo;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
@@ -173,9 +174,21 @@ class BookingService
 
   public function createOrder(Booking $booking, $flight_id)
   {
+
+    $exchangeRate = app('exchange-rate');
+
+    $totalPrice = (int) $booking->tickets->pluck('price')->reduce(function ($sum, $price) {
+      return $sum + $price;
+    });
+
+    $orderTotal = $totalPrice * $exchangeRate;
+
     return $booking->order()->create([
       'status' => Booking::BOOKED,
       'flight_id' => $flight_id,
+      'booking_id' => $booking->id,
+      'total' =>  $orderTotal,
+      'exchange_rate' => $exchangeRate
     ]);
   }
 
