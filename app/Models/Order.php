@@ -11,6 +11,16 @@ class Order extends Model
 
     protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate'];
 
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    public function getTotalFormatted()
+    {
+        return number_format($this->getTotal(), 2, '.', ' ');
+    }
+
     /**
      * Get the booking.
      */

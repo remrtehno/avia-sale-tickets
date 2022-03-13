@@ -5,29 +5,24 @@
 @stop
 
 @php
-$heads = ['ID', 'Цена', 'Дата создания', 'Типа билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'Рейс', 'Общая сумма', 'Дата создания', 'Статус', 'Билеты пассажиров', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[0, 'desc']],
     'language' => ['url' => '/lang/datatable/ru.json'],
 ];
+
+
+
 @endphp
+
 
 
 @section('content')
 
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
     @foreach ($orders as $row)
-      <tr>
-        <td>{{ $row->id }}</td>
-        <td>{{ $row->price }}</td>
-        <td>{{ $row->created_at }}</td>
-        <td>{{ $row->type }}</td>
-        <td>{{ $row->status }}</td>
-        <td>
-
-        </td>
-      </tr>
+      @include('dashboard.orders.partials.row')
     @endforeach
   </x-adminlte-datatable>
 @endsection

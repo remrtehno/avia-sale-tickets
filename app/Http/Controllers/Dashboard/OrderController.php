@@ -67,7 +67,9 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return view('dashboard.orders.edit', [
+            'order' => $order
+        ]);
     }
 
     /**
