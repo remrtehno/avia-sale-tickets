@@ -75,14 +75,15 @@ class Flights extends Model implements HasMedia
         return $this->price_adult * $this->getExchangeRate();
     }
 
-    public function getPrice()
+    public function getPrice($type = 'adult')
     {
-        return $this->price_adult * $this->getExchangeRate();
+        return $this->{"price_$type"} * $this->getExchangeRate();
     }
 
-    public function getPriceFormatted()
+
+    public function getPriceFormatted($type = 'adult')
     {
-        return number_format($this->getPrice(), 2, '.', ' ');
+        return number_format($this->getPrice($type), 2, '.', ' ');
     }
 
 

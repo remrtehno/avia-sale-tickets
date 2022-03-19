@@ -25,7 +25,7 @@
                         placeholder="Michael"
                         spellcheck="false"
                         :name="getType('name')"
-                        :value="type + number"
+                        :value="type + number + getValueFromFormsData('name')"
                     />
                 </div>
             </div>
@@ -44,7 +44,9 @@
                         placeholder="Dragan"
                         spellcheck="false"
                         :name="getType('surname')"
-                        :value="type + 'surname'"
+                        :value="
+                            type + 'surname' + getValueFromFormsData('surname')
+                        "
                     />
                 </div>
             </div>
@@ -63,7 +65,11 @@
                         placeholder="Berkovich"
                         spellcheck="false"
                         :name="getType('surname2')"
-                        :value="type + 'surname2'"
+                        :value="
+                            type +
+                            'surname2' +
+                            getValueFromFormsData('surname2')
+                        "
                     />
                 </div>
             </div>
@@ -107,7 +113,11 @@
                         placeholder="____-__-__"
                         spellcheck="false"
                         :name="getType('birthday')"
-                        :value="type + 'birthday'"
+                        :value="
+                            type +
+                            'birthday' +
+                            getValueFromFormsData('birthday')
+                        "
                     />
                 </div>
             </div>
@@ -158,7 +168,11 @@
                         placeholder="____-__-__"
                         spellcheck="false"
                         :name="getType('passport_date')"
-                        :value="type + 'passport_date'"
+                        :value="
+                            type +
+                            'passport_date' +
+                            getValueFromFormsData('passport_date')
+                        "
                     />
                 </div>
             </div>
@@ -177,7 +191,11 @@
                         placeholder="AA_______"
                         spellcheck="false"
                         :name="getType('passport_number')"
-                        :value="type + 'passport_number'"
+                        :value="
+                            type +
+                            'passport_number' +
+                            getValueFromFormsData('passport_number')
+                        "
                     />
                 </div>
             </div>
@@ -196,7 +214,11 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('citizenship')"
-                        :value="type + 'citizenship'"
+                        :value="
+                            type +
+                            'citizenship' +
+                            getValueFromFormsData('citizenship')
+                        "
                     />
                 </div>
             </div>
@@ -222,7 +244,7 @@
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
                         :name="getType('tel')"
-                        :value="type + 'tel'"
+                        :value="type + 'tel' + getValueFromFormsData('tel')"
                     />
                 </div>
             </div>
@@ -247,7 +269,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('visa')"
-                        :value="type + 'visa'"
+                        :value="type + 'visa' + getValueFromFormsData('visa')"
                     />
                 </div>
             </div>
@@ -272,7 +294,9 @@
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
                         :name="getType('address')"
-                        :value="type + 'address'"
+                        :value="
+                            type + 'address' + getValueFromFormsData('address')
+                        "
                     />
                 </div>
             </div>
@@ -289,13 +313,27 @@
 
 <script>
 export default {
-    props: ["number", "title", "hideDelete", "type", "email", "disabledEmail"],
+    props: [
+        "number",
+        "title",
+        "hideDelete",
+        "type",
+        "email",
+        "disabledEmail",
+        "formsData",
+    ],
     methods: {
         triggerEvent() {
             $emit("onClick");
         },
         getType(nameField) {
             return `${this.type}[${this.number}][${nameField}]`;
+        },
+        getValueFromFormsData(nameField) {
+            if (!nameField || !this.formsData[this.type]) {
+                return "";
+            }
+            return this.formsData[this.type][this.number][nameField];
         },
         inputEmail(evt) {
             this.$emit("input", evt.target.value);

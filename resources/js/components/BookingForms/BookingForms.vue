@@ -12,6 +12,7 @@
                 title="Взрослый"
                 :hideDelete="n === 1"
                 @onClick="setPassengers('adults')"
+                :formsData="formsData"
             ></booking-form>
         </div>
 
@@ -26,6 +27,7 @@
                 :number="n"
                 title="Детский"
                 @onClick="setPassengers('children')"
+                :formsData="formsData"
             ></booking-form>
         </div>
 
@@ -40,6 +42,7 @@
                 :number="n"
                 title="Младенческий"
                 @onClick="setPassengers('infants')"
+                :formsData="formsData"
             ></booking-form>
         </div>
     </div>
@@ -49,9 +52,19 @@
 import BookingForm from "./BookingForm.vue";
 
 export default {
+    props: {
+        old: {
+            type: String,
+            default: "[]",
+        },
+    },
     data() {
+        const formsData = JSON.parse(this.old || "{}");
+        const email = formsData?.adults && formsData?.adults["1"].email;
+
         return {
-            email: "",
+            email,
+            formsData,
         };
     },
     components: {
@@ -77,5 +90,6 @@ export default {
             });
         },
     },
+    mounted() {},
 };
 </script>

@@ -327,14 +327,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["number", "title", "hideDelete", "type", "email", "disabledEmail"],
+  props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData"],
   methods: {
     triggerEvent: function triggerEvent() {
       $emit("onClick");
     },
     getType: function getType(nameField) {
       return "".concat(this.type, "[").concat(this.number, "][").concat(nameField, "]");
+    },
+    getValueFromFormsData: function getValueFromFormsData(nameField) {
+      if (!nameField || !this.formsData[this.type]) {
+        return "";
+      }
+
+      return this.formsData[this.type][this.number][nameField];
     },
     inputEmail: function inputEmail(evt) {
       this.$emit("input", evt.target.value);
@@ -409,11 +440,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    old: {
+      type: String,
+      "default": "[]"
+    }
+  },
   data: function data() {
+    var formsData = JSON.parse(this.old || "{}");
+    var email = (formsData === null || formsData === void 0 ? void 0 : formsData.adults) && (formsData === null || formsData === void 0 ? void 0 : formsData.adults["1"].email);
     return {
-      email: ""
+      email: email,
+      formsData: formsData
     };
   },
   components: {
@@ -440,7 +483,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setPassengers: function setPassengers(nameField) {
       this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -562,15 +606,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     maxLimit: {
       type: Number,
       "default": 10
+    },
+    adultsCount: {
+      type: Number,
+      "default": 1
+    },
+    childrenCount: {
+      type: Number,
+      "default": 0
+    },
+    infantsCount: {
+      type: Number,
+      "default": 0
     }
   },
   data: function data() {
     var params = new URLSearchParams(window.location.search);
     return {
       componentKey: 0,
-      adults: +params.get("adults") || 1,
-      children: +params.get("children") || 0,
-      infants: +params.get("infants") || 0,
+      adults: +params.get("adults") || this.adultsCount,
+      children: +params.get("children") || this.childrenCount,
+      infants: +params.get("infants") || this.infantsCount,
       max: {
         adults: this.maxPassengers,
         children: this.maxPassengers - 1
@@ -8149,7 +8205,10 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("name"),
               },
-              domProps: { value: _vm.type + _vm.number },
+              domProps: {
+                value:
+                  _vm.type + _vm.number + _vm.getValueFromFormsData("name"),
+              },
             }),
           ]
         ),
@@ -8175,7 +8234,10 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("surname"),
               },
-              domProps: { value: _vm.type + "surname" },
+              domProps: {
+                value:
+                  _vm.type + "surname" + _vm.getValueFromFormsData("surname"),
+              },
             }),
           ]
         ),
@@ -8208,7 +8270,10 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("surname2"),
               },
-              domProps: { value: _vm.type + "surname2" },
+              domProps: {
+                value:
+                  _vm.type + "surname2" + _vm.getValueFromFormsData("surname2"),
+              },
             }),
           ]
         ),
@@ -8267,7 +8332,10 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("birthday"),
               },
-              domProps: { value: _vm.type + "birthday" },
+              domProps: {
+                value:
+                  _vm.type + "birthday" + _vm.getValueFromFormsData("birthday"),
+              },
             }),
           ]
         ),
@@ -8332,7 +8400,12 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("passport_date"),
               },
-              domProps: { value: _vm.type + "passport_date" },
+              domProps: {
+                value:
+                  _vm.type +
+                  "passport_date" +
+                  _vm.getValueFromFormsData("passport_date"),
+              },
             }),
           ]
         ),
@@ -8358,7 +8431,12 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("passport_number"),
               },
-              domProps: { value: _vm.type + "passport_number" },
+              domProps: {
+                value:
+                  _vm.type +
+                  "passport_number" +
+                  _vm.getValueFromFormsData("passport_number"),
+              },
             }),
           ]
         ),
@@ -8384,7 +8462,12 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("citizenship"),
               },
-              domProps: { value: _vm.type + "citizenship" },
+              domProps: {
+                value:
+                  _vm.type +
+                  "citizenship" +
+                  _vm.getValueFromFormsData("citizenship"),
+              },
             }),
           ]
         ),
@@ -8411,7 +8494,9 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("tel"),
               },
-              domProps: { value: _vm.type + "tel" },
+              domProps: {
+                value: _vm.type + "tel" + _vm.getValueFromFormsData("tel"),
+              },
             }),
           ]
         ),
@@ -8437,7 +8522,9 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("visa"),
               },
-              domProps: { value: _vm.type + "visa" },
+              domProps: {
+                value: _vm.type + "visa" + _vm.getValueFromFormsData("visa"),
+              },
             }),
           ]
         ),
@@ -8463,7 +8550,10 @@ var render = function () {
                 spellcheck: "false",
                 name: _vm.getType("address"),
               },
-              domProps: { value: _vm.type + "address" },
+              domProps: {
+                value:
+                  _vm.type + "address" + _vm.getValueFromFormsData("address"),
+              },
             }),
           ]
         ),
@@ -8732,6 +8822,7 @@ var render = function () {
             number: n,
             title: "Взрослый",
             hideDelete: n === 1,
+            formsData: _vm.formsData,
           },
           on: {
             onClick: function ($event) {
@@ -8771,6 +8862,7 @@ var render = function () {
             type: "children",
             number: n,
             title: "Детский",
+            formsData: _vm.formsData,
           },
           on: {
             onClick: function ($event) {
@@ -8810,6 +8902,7 @@ var render = function () {
             type: "infants",
             number: n,
             title: "Младенческий",
+            formsData: _vm.formsData,
           },
           on: {
             onClick: function ($event) {
@@ -8885,17 +8978,17 @@ var render = function () {
       }),
       _vm._v(" "),
       _c("input", {
-        attrs: { type: "hidden", name: "adults" },
+        attrs: { type: "hidden", name: "adults_count" },
         domProps: { value: _vm.adults },
       }),
       _vm._v(" "),
       _c("input", {
-        attrs: { type: "hidden", name: "children" },
+        attrs: { type: "hidden", name: "children_count" },
         domProps: { value: _vm.children },
       }),
       _vm._v(" "),
       _c("input", {
-        attrs: { type: "hidden", name: "infants" },
+        attrs: { type: "hidden", name: "infants_count" },
         domProps: { value: _vm.infants },
       }),
       _vm._v(" "),

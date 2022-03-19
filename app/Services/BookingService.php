@@ -14,6 +14,10 @@ use Illuminate\Support\Str;
 class BookingService
 {
 
+
+  public $textError = "Неверная дата рождения для:";
+  public $errors = [];
+
   public function store(Flights $flight)
   {
     $booking = Booking::create([
@@ -33,17 +37,13 @@ class BookingService
 
   public function isDateValidInfants(CarbonImmutable $departureValue)
   {
-    if (!request()->has('infants')) {
-      return true;
-    }
-
     $departureInfant = $departureValue->subYears(2);
-
     $infants = request()->get('infants', []);
 
     foreach ($infants as $infant) {
       $infantBirthday = new Carbon($infant['birthday']);
       if (!$infantBirthday->greaterThan($departureInfant)) {
+        $this->errors[] = "$this->textError Младенец";
         return false;
       }
     }
@@ -54,7 +54,7 @@ class BookingService
   public function isDateValidChidren(CarbonImmutable $departureValue)
   {
     if (!request()->has('children')) {
-      return true;
+      return false;
     }
 
     $departureInfant = $departureValue->subYears(2);
@@ -68,6 +68,7 @@ class BookingService
       $greaterThanChild = $childBirthday->greaterThan($departureChildren);
 
       if (!($lessThanOrEqualToInfant && $greaterThanChild)) {
+        $this->errors[] = "$this->textError Детский";
         return false;
       }
     }
@@ -88,6 +89,7 @@ class BookingService
     foreach ($adults as $adult) {
       $adultBirthday = new Carbon($adult['birthday']);
       if (!$adultBirthday->lessThan($departureAdult)) {
+        $this->errors[] = "$this->textError Взрослый";
         return false;
       }
     }
@@ -97,6 +99,9 @@ class BookingService
 
   public function isDatesValid(Flights $flight)
   {
+
+    $this->errors = [];
+
     $departureValue = $flight->getDeparute();
     $departureValue->hour = 0;
     $departureValue->minute = 0;
@@ -104,10 +109,14 @@ class BookingService
 
     $departure = new CarbonImmutable($departureValue);
 
+    $isDateValidInfants =  $this->isDateValidInfants($departure);
+    $isDateValidChidren = $this->isDateValidChidren($departure);
+    $isDateValidAdults = $this->isDateValidAdults($departure);
+
     return
-      $this->isDateValidInfants($departure)
-      && $this->isDateValidChidren($departure)
-      && $this->isDateValidAdults($departure);
+      $isDateValidInfants
+      &&  $isDateValidChidren
+      &&  $isDateValidAdults;
   }
 
   public function isAvailable()
