@@ -37,6 +37,7 @@ class CreateChairsTable extends Migration
             $table->string('status')->nullable();
             $table->integer('booking_id')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('seller_id');
         });
     }
 

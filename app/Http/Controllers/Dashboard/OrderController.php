@@ -20,9 +20,7 @@ class OrderController extends Controller
     {
         $userId = Auth::user()->id;
 
-        $orders = Order::whereHas('flight', function ($query) use ($userId) {
-            return $query->where('user_id', $userId);
-        })->get();
+        $orders = Order::where('seller_id', $userId)->get();
 
 
         return view('dashboard.orders.index', [

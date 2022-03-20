@@ -190,13 +190,15 @@ class BookingService
 
     //@TODO Split between users
     // dd($booking->chairs->groupBy('user_id')->toArray());
+    // dd($booking->chairs->first()->seller_id);
 
     return $booking->order()->create([
       'status' => Booking::BOOKED,
       'flight_id' => $flight_id,
       'booking_id' => $booking->id,
       'total' =>  $orderTotal,
-      'exchange_rate' => $exchangeRate
+      'exchange_rate' => $exchangeRate,
+      'seller_id' => $booking->chairs->first()->seller_id
     ]);
   }
 

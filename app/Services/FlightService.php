@@ -20,16 +20,19 @@ class FlightService
 
     $countChairs = $this->validateCount($availableChairs, request()->count_chairs);
 
+
     $flight->order()->create([
       'total' => $countChairs * $flight->getPrice(),
+      //@TODO Do we need it?
       'user_id' => Auth::user()->id,
-      'status' => Order::PAID
+      'status' => Order::PAID,
+      'seller_id' => Auth::user()->id
     ]);
 
     return $flight->avaliableChairs()
       ->limit($countChairs)
       ->whereNull('user_id')
-      ->update(['user_id' => $user->id]);
+      ->update(['user_id' => $user->id, 'seller_id' => $user->id,]);
   }
 
   public function validateCount($availableChairs, $countChairs)

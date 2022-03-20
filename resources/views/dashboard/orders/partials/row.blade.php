@@ -23,6 +23,8 @@
             {{ $key + 1 }} {{ $ticket->type }}
           </a>
         @endforeach
+      @else
+        Продано пользователю
       @endif
     </div>
   </td>

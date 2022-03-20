@@ -64,13 +64,16 @@ class FlightsController extends Controller
 
         $newFlight->storeFiles();
 
+        $user_id = Auth::user()->id;
+
         for ($i = 0; $i < $request->count_chairs; $i++) {
             $newFlight->chairs()->create([
                 'uuid' => $newFlight->date->format('Y-m-d') .
                     '-' . $newFlight->flight .
                     '-' . $i,
                 'flight_id' => $newFlight->id,
-                'type' => Chairs::ADULT
+                'type' => Chairs::ADULT,
+                'seller_id' => $user_id
             ]);
         }
 
@@ -102,7 +105,7 @@ class FlightsController extends Controller
 
         $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
 
-        $users = User::all();
+        $users = User::where('id', '!=', auth()->id())->get();
 
         // dd($flight->chairs()->where('user_id', '!=', null)->groupBy('user_id')->get());
 
@@ -141,13 +144,15 @@ class FlightsController extends Controller
     public function createChair(Flights $flight)
     {
         $totalChairs = $flight->chairs->count();
+        $user_id = Auth::user()->id;
 
         $newChair = $flight->chairs()->create([
             'uuid' => $flight->date->format('Y-m-d') .
                 '-' . $flight->flight .
                 '-' . ++$totalChairs,
             'flight_id' => $flight->id,
-            'type' => Chairs::ADULT
+            'type' => Chairs::ADULT,
+            'seller_id' => $user_id
         ]);
 
         return

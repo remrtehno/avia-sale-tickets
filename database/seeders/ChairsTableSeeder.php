@@ -24,6 +24,7 @@ class ChairsTableSeeder extends Seeder
                 $flight->date->format('Y-m-d') .
                     '-' . $flight->flight .
                     '-' . 0,
+                'seller_id' => $flight->user_id
             ]);
         });
     }

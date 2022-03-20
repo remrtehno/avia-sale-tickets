@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->integer('seller_id');
             $table->integer('user_id')->nullable();
             $table->integer('booking_id');
             $table->integer('flight_id');

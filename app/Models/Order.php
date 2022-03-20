@@ -13,7 +13,7 @@ class Order extends Model
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
 
-    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate'];
+    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id'];
 
     public function getTotal()
     {
