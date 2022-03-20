@@ -140,6 +140,12 @@ export default {
         };
 
         this.forceRerender();
+
+        //hack
+        $(document).on("click", ".vnis__button", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
     },
     watch: {
         bookingForms() {

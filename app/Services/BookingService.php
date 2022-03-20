@@ -188,7 +188,8 @@ class BookingService
 
     $orderTotal = $totalPrice * $exchangeRate;
 
-    // dd($booking->chairs);
+    //@TODO Split between users
+    // dd($booking->chairs->groupBy('user_id')->toArray());
 
     return $booking->order()->create([
       'status' => Booking::BOOKED,
