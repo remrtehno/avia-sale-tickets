@@ -18,9 +18,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::whereHas('flight', function ($query) {
-            return $query->where('user_id', Auth::user()->id);
+        $userId = Auth::user()->id;
+
+        $orders = Order::whereHas('flight', function ($query) use ($userId) {
+            return $query->where('user_id', $userId);
         })->get();
+
 
         return view('dashboard.orders.index', [
             'orders' => $orders

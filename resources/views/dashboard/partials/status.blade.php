@@ -6,6 +6,8 @@ $colorsMap = [
 ];
 @endphp
 
-<div class="alert py-0 px-1 d-inline-block {{ $colorsMap[$status] }}">
-  {{ $status }}
-</div>
+@if ($status)
+  <div class="alert py-0 px-1 d-inline-block {{ $colorsMap[$status] }}">
+    {{ $status }}
+  </div>
+@endif

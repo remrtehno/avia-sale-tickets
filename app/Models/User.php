@@ -165,4 +165,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Flights::class);
     }
+
+    public function chairs()
+    {
+        return $this->hasMany('App\Models\Chairs');
+    }
 }

@@ -28,6 +28,8 @@ class Chairs extends Model
     protected $fillable = ['flight_id', 'uuid', 'status'];
 
 
+
+
     public function getStatus()
     {
         if ($this->status) {
@@ -58,5 +60,10 @@ class Chairs extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

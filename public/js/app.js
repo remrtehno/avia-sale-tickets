@@ -1011,14 +1011,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_register_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scripts_register_modal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts/input-file.js */ "./resources/js/scripts/input-file.js");
 /* harmony import */ var _scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scripts_input_file_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/cash-or-transfer */ "./resources/js/scripts/cash-or-transfer.js");
-/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _scripts_input_number_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/input-number.js */ "./resources/js/scripts/input-number.js");
+/* harmony import */ var _scripts_input_number_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_input_number_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/cash-or-transfer */ "./resources/js/scripts/cash-or-transfer.js");
+/* harmony import */ var _scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_cash_or_transfer__WEBPACK_IMPORTED_MODULE_5__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import "./lib/bootstrap";
+
 
 
 
@@ -1136,6 +1139,38 @@ $(function () {
   $(document).on("click", ".plus-btn", function () {
     var parentElement = $(this).closest(".parent-plus-btn");
     parentElement.find('input[type="file"]').eq(0).clone().val("").appendTo(parentElement);
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/scripts/input-number.js":
+/*!**********************************************!*\
+  !*** ./resources/js/scripts/input-number.js ***!
+  \**********************************************/
+/***/ (() => {
+
+// Restricts input for the set of matched elements to the given inputFilter function.
+(function ($) {
+  $.fn.inputFilter = function (inputFilter) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  };
+})(jQuery);
+
+$(function () {
+  $(".input-number").inputFilter(function (value) {
+    return /^\d*$/.test(value); // Allow digits only, using a RegExp
   });
 });
 

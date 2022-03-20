@@ -9,6 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const BOOKED = 'booked';
+    public const PAID = 'paid';
+    public const AVAILABLE = 'available';
+
     protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate'];
 
     public function getTotal()

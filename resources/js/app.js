@@ -8,6 +8,7 @@ import "./vue";
 import "./lib/inputmask";
 import "./scripts/register-modal";
 import "./scripts/input-file.js";
+import "./scripts/input-number.js";
 import "./scripts/cash-or-transfer";
 
 /**

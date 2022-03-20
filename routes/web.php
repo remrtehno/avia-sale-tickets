@@ -63,6 +63,8 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //single
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
+    Route::put('flights/{flight}', [DashboardFlightsController::class, 'assignChairsToUser'])->name('flight.chairs.assign');
+
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 

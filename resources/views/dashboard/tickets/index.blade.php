@@ -80,6 +80,6 @@ $configSelect2 = [
 
 @section('js')
   <script>
-    window.location.search || flightSelect.submit()
+    window.location.search || {{ count($flights) }} && flightSelect.submit()
   </script>
 @stop

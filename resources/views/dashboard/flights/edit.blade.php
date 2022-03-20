@@ -22,5 +22,11 @@
 
 
 
-  @include('dashboard.flights.partials.chairs', ['chairs' => $flight->chairs])
+  @include('dashboard.flights.partials.chairs', [
+      'chairs' => $flight->getAvailableBookedChairs(),
+  ])
+
+  @include('dashboard.flights.partials.assigned-chairs', [
+      'assignedChairs' => $assignedChairs,
+  ])
 @endsection

@@ -3,14 +3,26 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssignChairsToUser;
 use App\Http\Requests\StoreFlightRequest;
 use App\Models\Chairs;
 use App\Models\Flights;
 use App\Models\MetaInfo;
+use App\Models\User;
+use App\Services\FlightService;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
 {
+
+    private $service;
+
+    function __construct(FlightService $flightService)
+    {
+        $this->service = $flightService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -73,6 +85,7 @@ class FlightsController extends Controller
      */
     public function show($id)
     {
+
         return redirect()->route('flights.show', ['flight' => $id]);
     }
 
@@ -89,8 +102,16 @@ class FlightsController extends Controller
 
         $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
 
+        $users = User::all();
 
-        return view('dashboard.flights.edit', ['flight' => $flight, 'flight_comment' =>  $flight_comment->meta_content]);
+        // dd($flight->chairs()->where('user_id', '!=', null)->groupBy('user_id')->get());
+
+        return view('dashboard.flights.edit', [
+            'users' => $users,
+            'flight' => $flight,
+            'flight_comment' =>  $flight_comment->meta_content,
+            'assignedChairs' => Collection::unwrap($flight->chairs->whereNotNull('user_id')->groupBy('user_id'))
+        ]);
     }
 
     /**
@@ -133,6 +154,19 @@ class FlightsController extends Controller
             redirect()
             ->route('dashboard.flights.edit', ['flight' => $flight->id])
             ->withStatus("Новое место добавлено ID: $newChair->uuid");
+    }
+
+
+    public function assignChairsToUser(AssignChairsToUser $request, Flights $flight)
+    {
+        $userCustomer = User::findOrFail($request->user_id);
+        $count = $this->service->assignChairs($flight, $userCustomer);
+
+        if ($count > 0) {
+            return back()->with('assigned_to', "Вы продали кресла $count шт. пользователю $userCustomer->name $userCustomer->email");
+        } else {
+            return back()->with('not_avaliable', "Свободные кресла $count шт.");
+        }
     }
 
     /**

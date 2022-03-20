@@ -53,10 +53,6 @@ class BookingService
 
   public function isDateValidChidren(CarbonImmutable $departureValue)
   {
-    if (!request()->has('children')) {
-      return false;
-    }
-
     $departureInfant = $departureValue->subYears(2);
     $departureChildren = $departureValue->subYears(12);
     $children = request()->get('children', []);
@@ -109,7 +105,7 @@ class BookingService
 
     $departure = new CarbonImmutable($departureValue);
 
-    $isDateValidInfants =  $this->isDateValidInfants($departure);
+    $isDateValidInfants = $this->isDateValidInfants($departure);
     $isDateValidChidren = $this->isDateValidChidren($departure);
     $isDateValidAdults = $this->isDateValidAdults($departure);
 
@@ -191,6 +187,8 @@ class BookingService
     });
 
     $orderTotal = $totalPrice * $exchangeRate;
+
+    // dd($booking->chairs);
 
     return $booking->order()->create([
       'status' => Booking::BOOKED,

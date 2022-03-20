@@ -22,6 +22,7 @@ $config = [
 <x-adminlte-datatable id="table12" :heads="$heads" :config="$config">
   @foreach ($chairs as $key => $row)
     <tr>
+
       <td>{{ $row->uuid }}</td>
       <td>{{ $row->getStatus() }}</td>
       <td>

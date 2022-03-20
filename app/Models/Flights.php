@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -50,15 +51,38 @@ class Flights extends Model implements HasMedia
      */
     protected $guarded = ['user_id'];
 
+    public function avaliableChairs()
+    {
+        return $this->chairs()
+            ->where(function ($query) {
+                $query
+                    ->whereNull('booking_id')
+                    ->orWhere('status', Chairs::AVAILABLE);
+            });
+    }
+
+    public function getChairsAvialiable()
+    {
+        return $this->avaliableChairs()->get();
+    }
+
+    public function getNotAssignedAvailableChairs()
+    {
+        return $this->avaliableChairs()->whereNull('user_id')->get();
+    }
+
+    public function getAvailableBookedChairs()
+    {
+        return $this->chairs()->whereNull('user_id')->get();
+    }
+
+
     /**
      * Get count chairs for the flight.
      */
     public function countChairs()
     {
-        return $this->chairs()
-            ->where('booking_id', null)
-            ->orWhere('status', Chairs::AVAILABLE)
-            ->get()->count();
+        return $this->getChairsAvialiable()->count();
     }
 
     public function getExchangeRate()

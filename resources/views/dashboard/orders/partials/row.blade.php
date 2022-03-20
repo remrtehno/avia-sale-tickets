@@ -15,13 +15,15 @@
   </td>
   <td>
     <div class="alert alert-warning p-1">
-      @foreach ($row->booking->tickets as $key => $ticket)
-        <a class="btn btn-xs btn-default text-primary mx-1 shadow btn"
-          href="{{ route('dashboard.tickets.edit', ['ticket' => $ticket->id]) }}" title="Edit">
-          <i class="fas fa-pen-square"></i>
-          {{ $key + 1 }} {{ $ticket->type }}
-        </a>
-      @endforeach
+      @if ($row->booking)
+        @foreach ($row->booking->tickets as $key => $ticket)
+          <a class="btn btn-xs btn-default text-primary mx-1 shadow btn"
+            href="{{ route('dashboard.tickets.edit', ['ticket' => $ticket->id]) }}" title="Edit">
+            <i class="fas fa-pen-square"></i>
+            {{ $key + 1 }} {{ $ticket->type }}
+          </a>
+        @endforeach
+      @endif
     </div>
   </td>
   <td>
