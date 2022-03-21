@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     /*----------------------------------------------------*/
     /* MOBILE DETECT FUNCTION
   /*----------------------------------------------------*/
@@ -503,7 +502,7 @@ $(document).ready(function () {
 
     $(document).on(
         "change",
-        ".autoSubmitAfterChange :input",
+        ".autoSubmitAfterChange :input, .autoSubmitChange",
         function (mouseEvent) {
             $(this).closest("form").submit();
         }

@@ -2,7 +2,7 @@
 $colorsMap = [
     'booked' => 'alert-danger',
     'paid' => 'alert-success',
-    'available' => '',
+    'available' => 'alert-primary',
 ];
 @endphp
 

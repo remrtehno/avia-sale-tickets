@@ -16,6 +16,11 @@ class Order extends Model
 
     protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id'];
 
+    public static function getStatuses()
+    {
+        return [self::BOOKED, self::PAID, self::AVAILABLE];
+    }
+
     public function getTotal()
     {
         return $this->total;

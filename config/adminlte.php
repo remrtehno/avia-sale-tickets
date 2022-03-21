@@ -237,21 +237,11 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
+
         [
             'text' => 'orders',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.orders.index',
-            'icon' => 'fas fa-fw fa-bars',
-        ],
-        [
-            'text' => 'booking',
-            'can'  => 'manage-dashboard',
-            'route' => 'dashboard.booking.index',
             'icon' => 'fas fa-fw fa-bars',
         ],
         [
