@@ -8,6 +8,7 @@ use App\Http\Requests\StoreFlightRequest;
 use App\Models\Chairs;
 use App\Models\Flights;
 use App\Models\MetaInfo;
+use App\Models\Order;
 use App\Models\User;
 use App\Services\FlightService;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,9 +29,12 @@ class FlightsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        return view('dashboard.flights.index', ['flights' => Flights::where('user_id', Auth::user()->id)->get()]);
+        return view('dashboard.flights.index', [
+            'flights' => Flights::where('user_id', Auth::user()->id)->get(),
+            'assignedFlights' => $order->getAssignedFlights()
+        ]);
     }
 
     /**

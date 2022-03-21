@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -23,6 +24,31 @@ class Order extends Model
     public function getTotalFormatted()
     {
         return number_format($this->getTotal(), 2, '.', ' ');
+    }
+
+    public function getOrders()
+    {
+        $userId = Auth::user()->id;
+        return $this->where('seller_id', $userId)->get();
+    }
+
+    public function getAssignedOrders()
+    {
+
+        $userId = Auth::user()->id;
+
+        return $this->where('seller_id', $userId)->whereHas('flight', function ($query) use ($userId) {
+            return $query->where('user_id', '!=', $userId);
+        })->get();
+    }
+
+    public function getAssignedFlights()
+    {
+        $userId = Auth::user()->id;
+
+        return Flights::where('user_id', '!=', $userId)->whereHas('chairs', function ($query) use ($userId) {
+            return $query->where('seller_id', $userId);
+        })->get();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Chairs extends Model
 {
@@ -41,7 +42,18 @@ class Chairs extends Model
 
     public function canDelete()
     {
+        if ($this->isSoldToOtherUser()) {
+            return false;
+        }
+
         return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
+    }
+
+    public function isSoldToOtherUser()
+    {
+        $user_id = Auth::user()->id;
+
+        return $this->flight->user_id !== $user_id || $this->seller_id !== $user_id;
     }
 
     /**
@@ -65,5 +77,10 @@ class Chairs extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function flight()
+    {
+        return $this->belongsTo(Flights::class);
     }
 }

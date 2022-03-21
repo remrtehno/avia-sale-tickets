@@ -8,14 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use PhpParser\ErrorHandler\Collecting;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use stdClass;
+
 
 class Flights extends Model implements HasMedia
 {
@@ -76,6 +74,33 @@ class Flights extends Model implements HasMedia
         return $this->chairs()->whereNull('user_id')->get();
     }
 
+    public function getAssignedChairs()
+    {
+        return $this->chairs()->where('user_id', Auth::user()->id)->get();
+    }
+
+    public function isAssignedTo($user_id = 0)
+    {
+        if (!$user_id) {
+            $user_id = Auth::user()->id;
+        }
+        /*
+            $isAssigned = !!Flights::where('id', $flights->id)->whereHas('order', function ($query) use ($user) {
+                return $query->where('seller_id', $user->id);
+            })->count();
+        */
+        if ($this->user_id === $user_id) {
+            return false;
+        }
+
+        return !!$this->chairs()->where('seller_id', $user_id)->get()->count();
+    }
+
+
+    public function getOwner()
+    {
+        return User::find($this->user_id);
+    }
 
     /**
      * Get count chairs for the flight.

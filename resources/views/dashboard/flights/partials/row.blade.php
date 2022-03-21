@@ -6,6 +6,12 @@
     @else
       <small class="text-muted">(нету логотипа)</ы>
     @endif
+
+    @if ($assignedFlihts ?? null)
+      <small class="alert py-0 px-1 d-inline-block alert-success">
+        куплен
+      </small>
+    @endif
   </td>
   <td>{{ $row->flight }}</td>
   <td>{{ $row->countChairs() }}</td>

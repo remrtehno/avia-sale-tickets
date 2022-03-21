@@ -16,12 +16,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        $userId = Auth::user()->id;
 
-        $orders = Order::where('seller_id', $userId)->get();
-
+        $orders = $order->getOrders();
 
         return view('dashboard.orders.index', [
             'orders' => $orders

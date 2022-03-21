@@ -12,7 +12,8 @@ $config = [
 <div class="d-flex justify-content-between flex-wrap align-items-center my-2">
   <h4 class="py-0">Места</h4>
 
-  <x-adminlte-button class="btn-xs" label="Добавить место" type="submit" icon="fas fa-xs fa-plus" theme="danger"
+  <x-adminlte-button :disabled="$isAssigned" class="btn-xs" label="Добавить место" type="submit"
+    icon="fas fa-xs fa-plus" theme="danger"
     onclick="confirm('Добавть место для этого рейса') ? location = '{{ route('dashboard.flight.chairs.create', [
         'flight' => $flight->id,
     ]) }}' : null" />
@@ -24,7 +25,9 @@ $config = [
     <tr>
 
       <td>{{ $row->uuid }}</td>
-      <td>{{ $row->getStatus() }}</td>
+      <td>
+        @include('dashboard.partials.status', ['status' => $row->getStatus()])
+      </td>
       <td>
         @if ($row->canDelete())
           @include(

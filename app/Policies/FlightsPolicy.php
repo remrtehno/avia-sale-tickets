@@ -53,7 +53,10 @@ class FlightsPolicy
      */
     public function update(User $user, Flights $flights)
     {
-        return $user->id == $flights->user_id;
+        //if order is exist we take this flight
+        $isAssigned = $flights->isAssignedTo();
+
+        return $isAssigned || $user->id == $flights->user_id;
     }
 
     /**
