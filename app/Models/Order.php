@@ -34,7 +34,6 @@ class Order extends Model
 
     public function getAssignedOrders()
     {
-
         $userId = Auth::user()->id;
 
         return $this->where('seller_id', $userId)->whereHas('flight', function ($query) use ($userId) {
@@ -64,5 +63,12 @@ class Order extends Model
     public function flight()
     {
         return $this->belongsTo(Flights::class);
+    }
+    /**
+     * Get the user.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

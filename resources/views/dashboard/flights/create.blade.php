@@ -6,6 +6,7 @@
 
 @php
 $config = ['format' => 'YYYY-MM-DD H:i'];
+$isAssigned = null;
 @endphp
 
 @section('content')

@@ -26,18 +26,13 @@ class CreateChairsTable extends Migration
             $table->integer('chairsable_id');
 
             $table->string("chairsable_type");
-            // order
-            // $table->foreignId('order_id')
-            //     ->constrained()
-            //     ->onUpdate('cascade')
-            //     ->onDelete('cascade');
-
 
             $table->string('uuid');
             $table->string('status')->nullable();
             $table->integer('booking_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('seller_id');
+            $table->integer('order_id');
         });
     }
 

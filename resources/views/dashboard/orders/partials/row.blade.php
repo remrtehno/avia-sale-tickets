@@ -14,7 +14,7 @@
     @include('dashboard.partials.status', ['status' => $row->status])
   </td>
   <td>
-    <div class="alert alert-warning p-1">
+    <div class="alert alert-warning p-1 m-0">
       @if ($row->booking)
         @foreach ($row->booking->tickets as $key => $ticket)
           <a class="btn btn-xs btn-default text-primary mx-1 shadow btn"
@@ -24,7 +24,10 @@
           </a>
         @endforeach
       @else
-        продано пользователю
+        <small class="d-block">
+          продано пользователю <br> {{ $row->user->name }}
+          {{ $row->user->email }}
+        </small>
       @endif
     </div>
   </td>

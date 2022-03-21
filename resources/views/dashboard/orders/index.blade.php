@@ -11,15 +11,9 @@ $config = [
     'order' => [[0, 'desc']],
     'language' => ['url' => '/lang/datatable/ru.json'],
 ];
-
-
-
 @endphp
 
-
-
 @section('content')
-
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
     @foreach ($orders as $row)
       @include('dashboard.orders.partials.row')
