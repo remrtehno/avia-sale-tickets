@@ -23,12 +23,11 @@ $configTextEditor = [
 
   @if ($flight->count_chairs ?? null)
     <x-adminlte-input value="{{ $flight->chairs->count() ?? null }}" name="" disabled
-      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" :disabled="$isAssigned" />
+      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" disabled />
     <input type="hidden" name="count_chairs" value="{{ $flight->count_chairs ?? null }}">
   @else
     <x-adminlte-input value="{{ $flight->count_chairs ?? null }}" name="count_chairs"
-      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support
-      :disabled="$isAssigned" />
+      label="{{ __('dashboard.count_seats_flight') }}" fgroup-class="col-md-2" enable-old-support />
   @endif
 
 

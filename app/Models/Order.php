@@ -50,6 +50,14 @@ class Order extends Model
         })->get();
     }
 
+
+    /**
+     * Get the booking.
+     */
+    public function chairs()
+    {
+        return $this->hasMany(Chairs::class);
+    }
     /**
      * Get the booking.
      */

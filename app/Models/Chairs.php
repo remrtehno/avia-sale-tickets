@@ -83,4 +83,8 @@ class Chairs extends Model
     {
         return $this->belongsTo(Flights::class);
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

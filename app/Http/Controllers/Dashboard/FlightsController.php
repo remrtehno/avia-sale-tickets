@@ -111,13 +111,11 @@ class FlightsController extends Controller
 
         $users = User::where('id', '!=', auth()->id())->get();
 
-        // dd($flight->chairs()->where('user_id', '!=', null)->groupBy('user_id')->get());
-
         return view('dashboard.flights.edit', [
             'users' => $users,
             'flight' => $flight,
             'flight_comment' =>  $flight_comment->meta_content,
-            'assignedChairs' => Collection::unwrap($flight->chairs->whereNotNull('user_id')->groupBy('user_id'))
+            'assignedChairs' => $flight->getSellers()
         ]);
     }
 

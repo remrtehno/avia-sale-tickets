@@ -1,5 +1,5 @@
 @php
-$heads = ['Имя пользователя', 'Кол-во кресел'];
+$heads = ['Имя пользователя', 'Кол-во кресел', 'ID Заказа'];
 
 $config = [
     'order' => [],
@@ -72,6 +72,7 @@ $config = [
     <tr>
       <td>{{ $row->first()->user->name }} {{ $row->first()->user->email }}</td>
       <td>продано: {{ $row->count() }}</td>
+      <td>{{ $row->first()->order->id }}</td>
     </tr>
   @endforeach
 </x-adminlte-datatable>

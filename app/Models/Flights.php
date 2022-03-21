@@ -102,6 +102,11 @@ class Flights extends Model implements HasMedia
         return User::find($this->user_id);
     }
 
+    public function getSellers()
+    {
+        return $this->chairs->whereNotNull('user_id')->groupBy('user_id');
+    }
+
     /**
      * Get count chairs for the flight.
      */

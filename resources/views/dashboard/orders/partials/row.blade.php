@@ -25,8 +25,9 @@
         @endforeach
       @else
         <small class="d-block">
-          продано пользователю <br> {{ $row->user->name }}
-          {{ $row->user->email }}
+          продано пользователю <br> {{ $row->chairs->count() }}. шт -
+          {{ $row->chairs->first()->user->name }}
+          {{ $row->chairs->first()->user->email }}
         </small>
       @endif
     </div>
