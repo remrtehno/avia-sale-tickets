@@ -9,6 +9,25 @@ $config = [
 
 <hr>
 
+@if ($isAssigned)
+  <h5>Хотите вернуть места?</h5>
+  <form action="{{ route('dashboard.order.return', ['order' => $flight->getChairs()->first()->order->id]) }}"
+    method="POST">
+    @csrf
+
+    <label for="count_chairs">
+      Кол-во мест, максимально {{ $flight->getChairs()->count() }}
+    </label>
+    <div class="d-flex flex-wrap align-items-start my-2">
+      <x-adminlte-input name="count_chairs" type="number" class="input-number" />
+
+      <x-adminlte-button class="btn-md mb-3" label="Вернуть" type="submit" icon="fas fa-xs fa-minus" theme="danger"
+        onclick="confirm('Вернуть места?') ? location = '' : null" />
+    </div>
+  </form>
+  <hr>
+@endif
+
 <div class="d-flex justify-content-between flex-wrap align-items-center my-2">
   <h4 class="py-0">Места</h4>
   <h5>
@@ -23,7 +42,6 @@ $config = [
 </div>
 
 <div class="p-2"></div>
-
 
 <x-adminlte-datatable id="table12" :heads="$heads" :config="$config">
   @foreach ($flight->getChairs() as $key => $row)

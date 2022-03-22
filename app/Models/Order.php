@@ -13,12 +13,13 @@ class Order extends Model
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
+    public const RETURNED = 'returned';
 
-    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id'];
+    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id', 'price_adult', 'count_chairs', 'is_returned', 'user_returned_id'];
 
     public static function getStatuses()
     {
-        return [self::BOOKED, self::PAID, self::AVAILABLE];
+        return [self::BOOKED, self::PAID, self::AVAILABLE, self::RETURNED];
     }
 
     public function getTotal()
@@ -53,6 +54,11 @@ class Order extends Model
         return Flights::where('user_id', '!=', $userId)->whereHas('chairs', function ($query) use ($userId) {
             return $query->where('seller_id', $userId);
         })->get();
+    }
+
+    public function getUserReturned()
+    {
+        return User::find($this->user_returned_id);
     }
 
 

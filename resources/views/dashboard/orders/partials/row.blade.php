@@ -23,9 +23,18 @@
             {{ $key + 1 }} {{ $ticket->type }}
           </a>
         @endforeach
+      @elseif($row->is_returned)
+        <small class="d-block">
+          Места вернул пользователь
+          <br> {{ $row->count_chairs }}. шт -
+          {{ $row->getUserReturned()->name }}
+          {{ $row->getUserReturned()->email }}
+
+        </small>
       @else
         <small class="d-block">
-          продано пользователю <br> {{ $row->chairs->count() }}. шт -
+          Места проданы пользователю
+          <br> {{ $row->count_chairs }}. шт -
           {{ $row->chairs->first()?->user?->name }}
           {{ $row->chairs->first()?->user?->email }}
         </small>

@@ -180,7 +180,7 @@ class BookingService
   public function createOrder(Booking $booking, $flight_id)
   {
 
-    $exchangeRate = app('exchange-rate');
+    $exchangeRate = 10950;
 
     $totalPrice = (int) $booking->tickets->pluck('price')->reduce(function ($sum, $price) {
       return $sum + $price;
@@ -198,7 +198,10 @@ class BookingService
       'booking_id' => $booking->id,
       'total' =>  $orderTotal,
       'exchange_rate' => $exchangeRate,
-      'seller_id' => $booking->chairs->first()->seller_id
+      'seller_id' => $booking->chairs->first()->seller_id,
+      'count_chairs' => $booking->chairs->count(),
+      //@TODO getPrice()
+      'price_adult' => $booking->chairs->first()->flight->price_adult
     ]);
   }
 

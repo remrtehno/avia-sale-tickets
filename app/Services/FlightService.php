@@ -25,7 +25,9 @@ class FlightService
       //@TODO Do we need it?
       'user_id' => $flight->user_id,
       'status' => Order::PAID,
-      'seller_id' => $flight->user_id
+      'seller_id' => $flight->user_id,
+      'price_adult' => $flight->price_adult,
+      'count_chairs' => $countChairs
     ]);
 
     return $flight->avaliableChairs()

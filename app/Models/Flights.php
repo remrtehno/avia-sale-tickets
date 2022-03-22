@@ -122,7 +122,7 @@ class Flights extends Model implements HasMedia
 
     public function getExchangeRate()
     {
-        // @TODO Need singletone
+        // @TODO DELET
         $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
 
         return $this->exchangeRate = $exchangeRate ? $exchangeRate->meta_content : '';

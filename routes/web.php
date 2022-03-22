@@ -70,6 +70,8 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
 
+    Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
+
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 

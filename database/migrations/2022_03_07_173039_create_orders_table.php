@@ -24,6 +24,10 @@ class CreateOrdersTable extends Migration
             $table->integer('total');
             $table->string('status');
             $table->integer('exchange_rate');
+            $table->integer('price_adult');
+            $table->integer('count_chairs');
+            $table->integer('user_returned_id')->nullable();
+            $table->integer('is_returned')->nullable();
         });
     }
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Chairs;
 use App\Models\Flights;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -94,5 +96,37 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+
+
+    public function returnToOwner(Request $request, Order $order)
+    {
+        $flight = $order->flight;
+
+        if ($request->count_chairs > $flight->getChairs()->count()) {
+            return back()->withErrors(['count_chairs' => 'Не верное кол-во мест']);
+        }
+
+        Order::create([
+            'status' => Order::RETURNED,
+            'user_id' => Auth::user()->id,
+            'flight_id' =>  $flight->id,
+            'total' => $order->price_adult * $request->count_chairs * -1,
+            'count_chairs' => $request->count_chairs,
+            'exchange_rate' => 0,
+            'seller_id' => $flight->user_id,
+            'price_adult' => $order->price_adult,
+            'is_returned' => 1,
+            'user_returned_id' => Auth::user()->id
+        ]);
+
+        $noBookedChairs = $flight->chairs()
+            ->where('user_id', Auth::user()->id)
+            ->whereNull('status')
+            ->limit($request->count_chairs)
+            ->update(['user_id' => null, 'seller_id' => $flight->user_id, 'order_id' => $order->id]);
+
+        return back();
     }
 }
