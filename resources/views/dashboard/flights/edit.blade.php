@@ -2,8 +2,7 @@
 
 @php
 $isAssigned = $flight->isAssignedTo();
-$chairs = $isAssigned ? $flight->getAssignedChairs() : $flight->getAvailableBookedChairs();
-$flightOwner = $isAssigned ? $flight->getOwner() : null;
+$flightOwner = $flight->getOwner();
 @endphp
 
 @section('content')
@@ -13,10 +12,16 @@ $flightOwner = $isAssigned ? $flight->getOwner() : null;
       @method('PUT')
       @csrf
     @else
-      <div class="alert alert-warning">
-        Места этого рейса были приобретены у другого пользователя
+      <div class="alert alert-success">
+        Места в кол-ве <b class="badge badge-dark ">{{ $flight->getChairs()->count() }}</b> этого рейса были приобретены
+        у
+        другого
+        пользователя
         {{ $flightOwner?->name }} {{ $flightOwner?->email }},
         вы не можете редактировать рейс
+      </div>
+      <div class="alert alert-warning">
+        Вы не являетесь владельцем этого рейса, вы не можете редактировать рейс.
       </div>
   @endif
 

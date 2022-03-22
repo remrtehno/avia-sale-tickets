@@ -96,10 +96,15 @@ class Flights extends Model implements HasMedia
         return !!$this->chairs()->where('seller_id', $user_id)->get()->count();
     }
 
+    public function getChairs()
+    {
+        return $this->isAssignedTo() ? $this->getAssignedChairs() : $this->getAvailableBookedChairs();
+    }
+
 
     public function getOwner()
     {
-        return User::find($this->user_id);
+        return $this->isAssignedTo() ? User::find($this->user_id) : null;
     }
 
     public function getSellers()

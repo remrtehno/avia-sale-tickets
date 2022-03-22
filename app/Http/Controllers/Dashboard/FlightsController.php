@@ -9,10 +9,9 @@ use App\Models\Chairs;
 use App\Models\Flights;
 use App\Models\MetaInfo;
 use App\Models\Order;
+use App\Models\PreAssignChairs;
 use App\Models\User;
 use App\Services\FlightService;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
@@ -33,7 +32,7 @@ class FlightsController extends Controller
     {
         return view('dashboard.flights.index', [
             'flights' => Flights::where('user_id', Auth::user()->id)->get(),
-            'assignedFlights' => $order->getAssignedFlights()
+            'assignedFlights' => $order->getAssignedFlights(),
         ]);
     }
 
@@ -115,7 +114,8 @@ class FlightsController extends Controller
             'users' => $users,
             'flight' => $flight,
             'flight_comment' =>  $flight_comment->meta_content,
-            'assignedChairs' => $flight->getSellers()
+            'assignedChairs' => $flight->getSellers(),
+            'preAssignChair' => PreAssignChairs::where('flight_id', $flight->id)->get()
         ]);
     }
 
@@ -169,7 +169,9 @@ class FlightsController extends Controller
         $userCustomer = User::findOrFail($request->user_id);
         $count = $this->service->assignChairs($flight, $userCustomer);
 
+
         if ($count > 0) {
+            $request->delete();
             return back()->with('assigned_to', "Вы продали кресла $count шт. пользователю $userCustomer->name $userCustomer->email");
         } else {
             return back()->with('not_avaliable', "Свободные кресла $count шт.");

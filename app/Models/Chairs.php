@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class Chairs extends Model
 {
@@ -53,7 +54,11 @@ class Chairs extends Model
     {
         $user_id = Auth::user()->id;
 
-        return $this->flight->user_id !== $user_id || $this->seller_id !== $user_id;
+        $flight = Cache::remember('flight-chairs', 60, function () {
+            return $this->flight;
+        });
+
+        return $flight->user_id !== $user_id || $this->seller_id !== $user_id;
     }
 
     /**

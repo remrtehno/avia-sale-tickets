@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Http\ViewComposers\FooterMenuComposer;
+use App\Http\ViewComposers\PreAssignChairsComposer;
 use App\Models\MetaInfo;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FooterMenuComposer::class);
 
         $this->app->singleton(ExchangeRateComposer::class);
+
+        $this->app->singleton(PreAssignChairsComposer::class);
 
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Sven\ArtisanView\ServiceProvider::class);
@@ -48,11 +51,13 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', ExchangeRateComposer::class);
 
-        $this->app->singleton('exchange-rate', function ($app) {
-            $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
+        view()->composer('dashboard/*', PreAssignChairsComposer::class);
 
-            return $exchangeRate ? (int) $exchangeRate->meta_content : 0;
-        });
+        // $this->app->singleton('exchange-rate', function ($app) {
+        //     $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
+
+        //     return $exchangeRate ? (int) $exchangeRate->meta_content : 0;
+        // });
 
         JsonResource::withoutWrapping();
     }

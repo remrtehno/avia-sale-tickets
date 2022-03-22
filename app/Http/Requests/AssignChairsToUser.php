@@ -26,6 +26,7 @@ class AssignChairsToUser extends FormRequest
         return [
             'count_chairs' => 'required|numeric',
             'user_id' => 'required|numeric',
+            'flight_id' => 'required|numeric',
         ];
     }
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PreAssignChairsController;
+use App\Models\PreAssignChairs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -63,7 +65,10 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //single
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
-    Route::put('flights/{flight}', [DashboardFlightsController::class, 'assignChairsToUser'])->name('flight.chairs.assign');
+    Route::put('flights/{flight}', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+
+    Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
+    Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
 
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 

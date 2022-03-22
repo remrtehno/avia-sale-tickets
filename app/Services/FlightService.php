@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class FlightService
 {
 
-  public function assignChairs(Flights $flight, User $user)
+  public function assignChairs(Flights $flight, User $user, $count_chairs)
   {
     $availableChairs = $flight->countChairs();
 
@@ -18,15 +18,14 @@ class FlightService
       return 0;
     }
 
-    $countChairs = $this->validateCount($availableChairs, request()->count_chairs);
-
+    $countChairs = $this->validateCount($availableChairs, request()->count_chairs ?? $count_chairs);
 
     $order = $flight->order()->create([
       'total' => $countChairs * $flight->getPrice(),
       //@TODO Do we need it?
-      'user_id' => Auth::user()->id,
+      'user_id' => $flight->user_id,
       'status' => Order::PAID,
-      'seller_id' => Auth::user()->id
+      'seller_id' => $flight->user_id
     ]);
 
     return $flight->avaliableChairs()

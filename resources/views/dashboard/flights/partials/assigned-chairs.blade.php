@@ -21,7 +21,7 @@ $config = [
   enctype="multipart/form-data">
   @method('PUT')
   @csrf
-
+  <input type="hidden" name="flight_id" value="{{ $flight->id }}">
 
   <div class="d-flex align-items-start mb-2">
     Продать кресла
@@ -73,6 +73,15 @@ $config = [
       <td>{{ $row->first()->user->name }} {{ $row->first()->user->email }}</td>
       <td>продано: {{ $row->count() }}</td>
       <td>{{ $row->first()->order->id }}</td>
+    </tr>
+  @endforeach
+  @foreach ($preAssignChair as $row)
+    <tr>
+      <td>{{ $row->user->name }} {{ $row->user->email }}</td>
+      <td>одижание: {{ $row->count_chairs }}</td>
+      <td>
+        <div class="alert alert-danger p-1 m-0">Не продано. Ожидает подтверждения.</div>
+      </td>
     </tr>
   @endforeach
 </x-adminlte-datatable>

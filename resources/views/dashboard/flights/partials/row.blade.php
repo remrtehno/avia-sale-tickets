@@ -14,8 +14,9 @@
     @endif
   </td>
   <td>{{ $row->flight }}</td>
-  <td>{{ $row->countChairs() }}</td>
-  <td class="text-capitalize">{{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
+  <td>{{ $row->getChairs()->count() }}</td>
+  <td class="text-capitalize">
+    {{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
   </td>
   <td>
     @include('dashboard.flights.partials.action-buttons', [

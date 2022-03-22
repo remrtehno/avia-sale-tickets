@@ -5,7 +5,7 @@
 @stop
 
 @php
-$heads = ['ID', 'Авиакомпания', 'Рейс', 'Осталось мест', 'Дата', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'Авиакомпания', 'Рейс', 'Доступно мест', 'Дата', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[0, 'desc']],
@@ -25,7 +25,4 @@ $config = [
       ])
     @endforeach
   </x-adminlte-datatable>
-
-
-
 @endsection
