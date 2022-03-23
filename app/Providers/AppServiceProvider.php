@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Http\ViewComposers\FooterMenuComposer;
 use App\Http\ViewComposers\PreAssignChairsComposer;
+use App\Http\ViewComposers\ReturnAssignedChairsComposer;
 use App\Models\MetaInfo;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -52,6 +53,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', ExchangeRateComposer::class);
 
         view()->composer('dashboard/*', PreAssignChairsComposer::class);
+
+        view()->composer('dashboard/*', ReturnAssignedChairsComposer::class);
 
         // $this->app->singleton('exchange-rate', function ($app) {
         //     $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();

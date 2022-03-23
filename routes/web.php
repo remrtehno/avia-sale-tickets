@@ -13,7 +13,9 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PreAssignChairsController;
+use App\Http\Controllers\ReturnAssignedChairsController;
 use App\Models\PreAssignChairs;
+use App\Models\ReturnAssignedChairs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -69,6 +71,8 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
 
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
+
+    Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
 

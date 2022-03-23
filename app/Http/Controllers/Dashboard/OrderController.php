@@ -5,14 +5,23 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Chairs;
-use App\Models\Flights;
 use App\Models\Order;
+use App\Models\ReturnAssignedChairs;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Return_;
 
 class OrderController extends Controller
 {
+    private $service;
+
+    function __construct(OrderService $orderService)
+    {
+        $this->service = $orderService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -108,24 +117,14 @@ class OrderController extends Controller
             return back()->withErrors(['count_chairs' => 'Не верное кол-во мест']);
         }
 
-        Order::create([
-            'status' => Order::RETURNED,
-            'user_id' => Auth::user()->id,
-            'flight_id' =>  $flight->id,
-            'total' => $order->price_adult * $request->count_chairs * -1,
-            'count_chairs' => $request->count_chairs,
-            'exchange_rate' => 0,
-            'seller_id' => $flight->user_id,
-            'price_adult' => $order->price_adult,
-            'is_returned' => 1,
-            'user_returned_id' => Auth::user()->id
-        ]);
 
-        $noBookedChairs = $flight->chairs()
-            ->where('user_id', Auth::user()->id)
-            ->whereNull('status')
-            ->limit($request->count_chairs)
-            ->update(['user_id' => null, 'seller_id' => $flight->user_id, 'order_id' => $order->id]);
+        $this->service->createNotificationReturnChairs($flight->user_id, $request->count_chairs, $flight->id, $order->id);
+
+        return back();
+
+        $this->service->createReturendOrder($flight, $request->count_chairs, $order);
+        $noBookedChairs = $this->service->returnBackChairs($flight, $request->count_chairs, $order);
+
 
         return back();
     }
