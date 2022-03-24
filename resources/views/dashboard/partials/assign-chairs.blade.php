@@ -4,7 +4,12 @@
       {{ $chair->ownerUser->name }}
       {{ $chair->ownerUser->email }}
     </b>
-    пользователь продает вам кресла в кол-ве <b>{{ $chair->count_chairs }}</b> шт.
+    <br>
+    пользователь продает <br>
+    вам кресла в кол-ве <b>{{ $chair->count_chairs }}</b> шт.
+    <br>
+    для рейса <a target="_blank" href="{{ route('flights.show', ['flight' => $chair->flight->id]) }}"
+      class="text-dark"><b>{{ $chair->flight->flight }}</b></a>
     <br>
     <a href="{{ route('dashboard.flight.chairs.assign.accept', ['id' => $chair->id]) }}"
       class="text-dark">Принять</a>
@@ -32,4 +37,3 @@
     <strong>{{ $message }}</strong>
   </div>
 @endif
-

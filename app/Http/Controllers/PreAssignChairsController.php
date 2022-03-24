@@ -85,7 +85,7 @@ class PreAssignChairsController extends Controller
         $id->delete();
 
         if ($count > 0) {
-            return back()->with('assigned_to', "Вы купили кресла $count шт. у пользователя $ownerUser->name $ownerUser->email");
+            return back()->with('assigned_to', "Вы купили кресла $count шт. у пользователя $ownerUser->name $ownerUser->email для рейса $flight->flight");
         } else {
             return back()->with('not_avaliable', "Свободные кресла $count шт.");
         }

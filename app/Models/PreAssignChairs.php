@@ -20,4 +20,8 @@ class PreAssignChairs extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+    public function flight()
+    {
+        return $this->belongsTo(Flights::class);
+    }
 }

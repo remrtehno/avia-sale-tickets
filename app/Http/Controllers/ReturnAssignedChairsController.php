@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReturnAssignedChairs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ReturnAssignedChairsController extends Controller
 {
@@ -81,7 +82,8 @@ class ReturnAssignedChairsController extends Controller
     public function destroy(ReturnAssignedChairs $id)
     {
         $id->delete();
-        dd($id);
+
+        Cache::forget('return-assigned-chairs');
         return back();
     }
 }
