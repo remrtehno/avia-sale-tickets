@@ -78,8 +78,10 @@ class ReturnAssignedChairsController extends Controller
      * @param  \App\Models\ReturnAssignedChairs  $returnAssignedChairs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReturnAssignedChairs $returnAssignedChairs)
+    public function destroy(ReturnAssignedChairs $id)
     {
-        //
+        $id->delete();
+        dd($id);
+        return back();
     }
 }

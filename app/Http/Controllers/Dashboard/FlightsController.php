@@ -10,6 +10,7 @@ use App\Models\Flights;
 use App\Models\MetaInfo;
 use App\Models\Order;
 use App\Models\PreAssignChairs;
+use App\Models\ReturnAssignedChairs;
 use App\Models\User;
 use App\Services\FlightService;
 use Illuminate\Support\Facades\Auth;
@@ -104,18 +105,20 @@ class FlightsController extends Controller
     public function edit($id)
     {
         $flight = Flights::findOrFail($id);
+        $user_id =  auth()->id();
         $this->authorize($flight);
 
         $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
 
-        $users = User::where('id', '!=', auth()->id())->get();
+        $users = User::where('id', '!=', $user_id)->get();
 
         return view('dashboard.flights.edit', [
             'users' => $users,
             'flight' => $flight,
             'flight_comment' =>  $flight_comment->meta_content,
             'assignedChairs' => $flight->getSellers(),
-            'preAssignChair' => PreAssignChairs::where('flight_id', $flight->id)->get()
+            'preAssignChair' => PreAssignChairs::where('flight_id', $flight->id)->get(),
+            'returnedAssignedChairs' => ReturnAssignedChairs::where('owner_id', $user_id)->get()
         ]);
     }
 

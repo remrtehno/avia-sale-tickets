@@ -25,6 +25,25 @@ $config = [
         onclick="confirm('Вернуть места?') ? location = '' : null" />
     </div>
   </form>
+
+  <h5>Ожидающие подтверждения возврата</h5>
+  <table class="table">
+    <tr>
+      <td>Количество кресел</td>
+      <td>Кому возвращаем (ждем подтверждения от пользователя)</td>
+      <td>На сумму</td>
+    </tr>
+    @foreach ($returnedAssignedChairs as $returnedChair)
+      <tr>
+        <td>{{ $returnedChair->count_chairs }} шт.</td>
+        <td>{{ $returnedChair->user->name }} {{ $returnedChair->user->email }}</td>
+        <td>{{ $returnedChair->count_chairs * $returnedChair->flight->price_adult }}</td>
+      </tr>
+    @endforeach
+
+  </table>
+
+
   <hr>
 @endif
 

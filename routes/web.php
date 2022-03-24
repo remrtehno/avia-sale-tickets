@@ -72,7 +72,8 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
 
-    Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
+    Route::get('return-chairs-reject/{id}', [ReturnAssignedChairsController::class, 'destroy'])->name('return.assigned.chairs.reject');
+    Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'destroy'])->name('return.assigned.chairs.accept');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
 

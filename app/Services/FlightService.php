@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class FlightService
 {
 
-  public function assignChairs(Flights $flight, User $user, $count_chairs)
+  public function assignChairs(Flights $flight, User $user, $count_chairs = null)
   {
     $availableChairs = $flight->countChairs();
 

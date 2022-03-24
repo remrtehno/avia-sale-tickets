@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\HasMedia;
@@ -76,6 +77,8 @@ class Flights extends Model implements HasMedia
 
     public function getAssignedChairs()
     {
+
+
         return $this->chairs()->where('user_id', Auth::user()->id)->get();
     }
 
