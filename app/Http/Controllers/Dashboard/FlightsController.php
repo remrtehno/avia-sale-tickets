@@ -3,21 +3,38 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssignChairsToUser;
 use App\Http\Requests\StoreFlightRequest;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\MetaInfo;
+use App\Models\Order;
+use App\Models\PreAssignChairs;
+use App\Models\ReturnAssignedChairs;
+use App\Models\User;
+use App\Services\FlightService;
 use Illuminate\Support\Facades\Auth;
 
 class FlightsController extends Controller
 {
+
+    private $service;
+
+    function __construct(FlightService $flightService)
+    {
+        $this->service = $flightService;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        return view('dashboard.flights.index', ['flights' => Flights::where('user_id', Auth::user()->id)->get()]);
+        return view('dashboard.flights.index', [
+            'flights' => Flights::where('user_id', Auth::user()->id)->get(),
+            'assignedFlights' => $order->getAssignedFlights(),
+        ]);
     }
 
     /**
@@ -27,7 +44,11 @@ class FlightsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.flights.create');
+        $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
+
+        return view('dashboard.flights.create', [
+            'flight_comment' =>  $flight_comment->meta_content
+        ]);
     }
 
     /**
@@ -47,14 +68,16 @@ class FlightsController extends Controller
 
         $newFlight->storeFiles();
 
+        $user_id = Auth::user()->id;
+
         for ($i = 0; $i < $request->count_chairs; $i++) {
             $newFlight->chairs()->create([
                 'uuid' => $newFlight->date->format('Y-m-d') .
                     '-' . $newFlight->flight .
                     '-' . $i,
                 'flight_id' => $newFlight->id,
-                'price' => $newFlight->price_adult,
-                'type' => Chairs::ADULT
+                'type' => Chairs::ADULT,
+                'seller_id' => $user_id
             ]);
         }
 
@@ -69,6 +92,7 @@ class FlightsController extends Controller
      */
     public function show($id)
     {
+
         return redirect()->route('flights.show', ['flight' => $id]);
     }
 
@@ -81,10 +105,23 @@ class FlightsController extends Controller
     public function edit($id)
     {
         $flight = Flights::findOrFail($id);
+        $user_id =  auth()->id();
         $this->authorize($flight);
 
+        $flight_comment = MetaInfo::where('meta_name', 'flight_comment')->first();
 
-        return view('dashboard.flights.edit', ['flight' => $flight]);
+        $users = User::where('id', '!=', $user_id)->get();
+
+        return view('dashboard.flights.edit', [
+            'users' => $users,
+            'flight' => $flight,
+            'flight_comment' =>  $flight_comment->meta_content,
+            'assignedChairs' => $flight->getSellers(),
+            'preAssignChair' => PreAssignChairs::where('flight_id', $flight->id)->get(),
+            'returnedAssignedChairs' => ReturnAssignedChairs::where('owner_id', $user_id)
+                ->where('flight_id', $flight->id)
+                ->get()
+        ]);
     }
 
     /**
@@ -114,20 +151,36 @@ class FlightsController extends Controller
     public function createChair(Flights $flight)
     {
         $totalChairs = $flight->chairs->count();
+        $user_id = Auth::user()->id;
 
         $newChair = $flight->chairs()->create([
             'uuid' => $flight->date->format('Y-m-d') .
                 '-' . $flight->flight .
                 '-' . ++$totalChairs,
             'flight_id' => $flight->id,
-            'price' => $flight->price_adult,
-            'type' => Chairs::ADULT
+            'type' => Chairs::ADULT,
+            'seller_id' => $user_id
         ]);
 
         return
             redirect()
             ->route('dashboard.flights.edit', ['flight' => $flight->id])
             ->withStatus("Новое место добавлено ID: $newChair->uuid");
+    }
+
+
+    public function assignChairsToUser(AssignChairsToUser $request, Flights $flight)
+    {
+        $userCustomer = User::findOrFail($request->user_id);
+        $count = $this->service->assignChairs($flight, $userCustomer);
+
+
+        if ($count > 0) {
+            $request->delete();
+            return back()->with('assigned_to', "Вы продали кресла $count шт. пользователю $userCustomer->name $userCustomer->email");
+        } else {
+            return back()->with('not_avaliable', "Свободные кресла $count шт.");
+        }
     }
 
     /**

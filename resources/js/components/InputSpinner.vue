@@ -6,9 +6,9 @@
                 name="totalPassengers"
                 :value="totalPassengers"
             />
-            <input type="hidden" name="adults" :value="adults" />
-            <input type="hidden" name="children" :value="children" />
-            <input type="hidden" name="infants" :value="infants" />
+            <input type="hidden" name="adults_count" :value="adults" />
+            <input type="hidden" name="children_count" :value="children" />
+            <input type="hidden" name="infants_count" :value="infants" />
             <div class="twidget-passenger-form-wrapper">
                 <ul class="twidget-age-group">
                     <li>
@@ -73,13 +73,27 @@ export default {
             type: Number,
             default: 10,
         },
+        adultsCount: {
+            type: Number,
+            default: 1,
+        },
+        childrenCount: {
+            type: Number,
+            default: 0,
+        },
+        infantsCount: {
+            type: Number,
+            default: 0,
+        },
     },
     data() {
+        const params = new URLSearchParams(window.location.search);
+
         return {
             componentKey: 0,
-            adults: 1,
-            children: 1,
-            infants: 1,
+            adults: +params.get("adults") || this.adultsCount,
+            children: +params.get("children") || this.childrenCount,
+            infants: +params.get("infants") || this.infantsCount,
             max: {
                 adults: this.maxPassengers,
                 children: this.maxPassengers - 1,
@@ -124,6 +138,14 @@ export default {
             adults: this.computedMaxPassengers,
             children: this.computedMaxPassengers - 1,
         };
+
+        this.forceRerender();
+
+        //hack
+        $(document).on("click", ".vnis__button", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
     },
     watch: {
         bookingForms() {

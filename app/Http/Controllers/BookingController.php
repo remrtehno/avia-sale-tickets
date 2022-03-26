@@ -51,11 +51,11 @@ class BookingController extends Controller
         $flight = Flights::find($request->flight_id);
 
         if (!$this->service->isDatesValid($flight)) {
-            return redirect()->back()->withErrors(['date_error' => 'Не правильная дата рождения для Младена']);
+            return back()->withInput()->withErrors(['date_error' => implode("<br> ", $this->service->errors)]);
         };
 
         if (!$this->service->isAvailable()) {
-            return redirect()->back()->withErrors(['no_seats' => 'Не достаточно мест']);
+            return back()->withInput()->withErrors(['no_seats' => 'Не достаточно мест']);
         };
 
 

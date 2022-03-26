@@ -25,6 +25,11 @@ class Booking extends Model
         return $this->hasMany('App\Models\Ticket');
     }
 
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
+
     public function chairs()
     {
         return $this->hasMany('App\Models\Chairs');

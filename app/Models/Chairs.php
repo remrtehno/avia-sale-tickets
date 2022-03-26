@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class Chairs extends Model
 {
@@ -21,13 +23,13 @@ class Chairs extends Model
         'flight_id' => 'string',
         'order_id' => 'integer',
         'booking_id' => 'integer',
-        'type' => 'string',
-        'price' => 'string',
         'uuid' => 'string',
         'status' => 'string'
     ];
 
-    protected $fillable = ['flight_id', 'price', 'uuid', 'status'];
+    protected $fillable = ['flight_id', 'uuid', 'status', 'seller_id', 'order_id'];
+
+
 
 
     public function getStatus()
@@ -41,7 +43,22 @@ class Chairs extends Model
 
     public function canDelete()
     {
+        if ($this->isSoldToOtherUser()) {
+            return false;
+        }
+
         return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
+    }
+
+    public function isSoldToOtherUser()
+    {
+        $user_id = Auth::user()->id;
+
+        $flight = Cache::remember('flight-chairs', 60, function () {
+            return $this->flight;
+        });
+
+        return $flight->user_id !== $user_id || $this->seller_id !== $user_id;
     }
 
     /**
@@ -60,5 +77,19 @@ class Chairs extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function flight()
+    {
+        return $this->belongsTo(Flights::class);
+    }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

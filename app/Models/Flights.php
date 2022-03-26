@@ -9,12 +9,12 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use PhpParser\ErrorHandler\Collecting;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use stdClass;
+
 
 class Flights extends Model implements HasMedia
 {
@@ -28,17 +28,20 @@ class Flights extends Model implements HasMedia
         'price_infant' => 'integer',
         'date' => 'timestamp',
         'date_arrival' => 'timestamp',
-        'comment' => 'string',
+        'comment' => 'longtext',
         'logo' => 'string',
         'direction_from' => 'string',
         'direction_to' => 'string',
         'rating' => 'string',
+        'penalty' => 'integer'
     ];
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant'];
+    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
+
+    protected $exchangeRate;
 
     /**
      * The attributes that are not mass assignable.
@@ -47,27 +50,125 @@ class Flights extends Model implements HasMedia
      */
     protected $guarded = ['user_id'];
 
+    public function avaliableChairs()
+    {
+        return $this->chairs()
+            ->where(function ($query) {
+                $query
+                    ->whereNull('booking_id')
+                    ->orWhere('status', Chairs::AVAILABLE);
+            });
+    }
+
+    public function getChairsAvialiable()
+    {
+        return $this->avaliableChairs()->get();
+    }
+
+    public function getNotAssignedAvailableChairs()
+    {
+        return $this->avaliableChairs()->whereNull('user_id')->get();
+    }
+
+    public function getAvailableBookedChairs()
+    {
+        return $this->chairs()->whereNull('user_id')->get();
+    }
+
+    public function getAssignedChairs()
+    {
+
+
+        return $this->chairs()->where('user_id', Auth::user()->id)->get();
+    }
+
+    public function isAssignedTo($user_id = 0)
+    {
+        if (!$user_id) {
+            $user_id = Auth::user()->id;
+        }
+        /*
+            $isAssigned = !!Flights::where('id', $flights->id)->whereHas('order', function ($query) use ($user) {
+                return $query->where('seller_id', $user->id);
+            })->count();
+        */
+        if ($this->user_id === $user_id) {
+            return false;
+        }
+
+        return !!$this->chairs()->where('seller_id', $user_id)->get()->count();
+    }
+
+    public function getChairs()
+    {
+        return $this->isAssignedTo() ? $this->getAssignedChairs() : $this->getAvailableBookedChairs();
+    }
+
+
+    public function getOwner()
+    {
+        return $this->isAssignedTo() ? User::find($this->user_id) : null;
+    }
+
+    public function getSellers()
+    {
+        return $this->chairs->whereNotNull('user_id')->groupBy('user_id');
+    }
+
     /**
      * Get count chairs for the flight.
      */
     public function countChairs()
     {
-        return $this->chairs()
-            // ->where('type', Chairs::ADULT)
-            ->where('booking_id', null)
-            ->get()->count();
+        return $this->getChairsAvialiable()->count();
+    }
+
+    public function getExchangeRate()
+    {
+        // @TODO DELET
+        $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
+
+        return $this->exchangeRate = $exchangeRate ? $exchangeRate->meta_content : '';
     }
 
 
     public function getTotal()
     {
-        return $this->price_adult;
+        return $this->price_adult * $this->getExchangeRate();
     }
+
+    public function getPrice($type = 'adult')
+    {
+        return $this->{"price_$type"} * $this->getExchangeRate();
+    }
+
+
+    public function getPriceFormatted($type = 'adult')
+    {
+        return number_format($this->getPrice($type), 2, '.', ' ');
+    }
+
 
     public function getGrandTotal()
     {
         return $this->getTotal();
     }
+
+
+    /**
+     * Scope a query to search by directions
+     */
+    public function scopeSearchByDirections(Builder $query)
+    {
+        $to = request()->destination_iata;
+        $from = request()->origin_iata;
+
+        $query->where('direction_from', 'like', "%$from%");
+        $query->where('direction_to', 'like', "%$to%");
+
+        return $query;
+    }
+
 
     /**
      * Scope a query to get all cities
@@ -78,16 +179,18 @@ class Flights extends Model implements HasMedia
 
         $getQuery = request()->q;
 
-        if ($getQuery) {
-            $first->where('direction_from', 'like', "%$getQuery%");
+        if (!$getQuery) {
+            return $query;
         }
+
+
+        $first->where('direction_from', 'like', "%$getQuery%");
 
         $flights = DB::table('flights')->select('direction_to as city')
             ->union($first);
 
-        if ($getQuery) {
-            $flights->where('direction_to', 'like', "%$getQuery%");
-        }
+        $flights->where('direction_to', 'like', "%$getQuery%");
+
 
         return $flights;
     }
@@ -97,25 +200,9 @@ class Flights extends Model implements HasMedia
      */
     public function scopeWithPassengers(Builder $query)
     {
-        if (request()->has('child')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'child');
-            }, '>=', request('child'));
-        }
+        $passengers = request()->get('adults', 0) + request()->get('children', 0);
 
-        if (request()->has('adult')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'adult');
-            }, '>=', request('adult'));
-        }
-
-        if (request()->has('infant')) {
-            $query->whereHas('chairs', function ($query) {
-                $query->where('type', 'infant');
-            }, '>=', request('infant'));
-        }
-
-        return $query;
+        return $query->where('count_chairs', '>=', $passengers);
     }
 
     /**
@@ -206,19 +293,23 @@ class Flights extends Model implements HasMedia
     {
         return $this->getDeparute()->translatedFormat('d M Y, D');
     }
-    public function getFullDate()
-    {
-        return $this->getDeparute()->translatedFormat('d F Y, l');
-    }
     public function getTime()
     {
         return $this->getDeparute()->translatedFormat('H:i');
     }
-
+    public function getDateArrival()
+    {
+        return $this->getArrival()->translatedFormat('d M Y, D');
+    }
     public function getTimeArrival()
     {
         return $this->getArrival()->translatedFormat('H:i');
     }
+    public function getFullDate()
+    {
+        return $this->getDeparute()->translatedFormat('d F Y, l');
+    }
+
 
     public function getTimeDepartureWithNameFrom()
     {
@@ -313,6 +404,11 @@ class Flights extends Model implements HasMedia
     /**
      * RELATIONSHIPS
      */
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order', 'flight_id');
+    }
+
     public function chairs()
     {
         return $this->morphMany(Chairs::class, 'chairsable');

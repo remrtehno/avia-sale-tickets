@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('dashboard.page')
 
 @section('content_header')
   <h1>@lang('dashboard.new_flight')</h1>
@@ -6,6 +6,7 @@
 
 @php
 $config = ['format' => 'YYYY-MM-DD H:i'];
+$isAssigned = null;
 @endphp
 
 @section('content')

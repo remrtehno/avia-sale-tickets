@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('dashboard.page')
 
 @section('content_header')
   <h1>Редактировать {{ $chairs->uuid }} </h1>

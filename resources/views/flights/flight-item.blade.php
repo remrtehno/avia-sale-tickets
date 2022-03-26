@@ -54,12 +54,12 @@
       </div>
       <div class="col-md-3">
         <div class="price-block">
-          <div class="price my-8"><b>{{ $flight->price_adult }} $</b></div>
-          <a href="{{ route('flights.show', ['flight' => $flight->id]) }}" class="btn-default btn1">
+          <div class="price my-8"><b>UZS {{ $flight->getPriceFormatted() }}</b></div>
+          <a href="{{ route('flights.show', array_merge(['flight' => $flight->id], $_GET)) }}"
+            class="btn-default btn1">
             Купить
           </a>
         </div>
-
       </div>
     </div>
   </div>

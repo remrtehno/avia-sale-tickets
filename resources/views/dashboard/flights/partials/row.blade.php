@@ -6,10 +6,17 @@
     @else
       <small class="text-muted">(нету логотипа)</ы>
     @endif
+
+    @if ($assignedFlihts ?? null)
+      <small class="alert py-0 px-1 d-inline-block alert-success">
+        куплен
+      </small>
+    @endif
   </td>
   <td>{{ $row->flight }}</td>
-  <td>{{ $row->countChairs() }}</td>
-  <td class="text-capitalize">{{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
+  <td>{{ $row->getChairs()->count() }}</td>
+  <td class="text-capitalize">
+    {{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
   </td>
   <td>
     @include('dashboard.flights.partials.action-buttons', [

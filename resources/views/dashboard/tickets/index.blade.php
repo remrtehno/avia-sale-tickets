@@ -1,11 +1,11 @@
-@extends('adminlte::page')
+@extends('dashboard.page')
 
 @section('content_header')
   <h1>@lang('dashboard.tickets')</h1>
 @stop
 
 @php
-$heads = ['ID', 'Цена', 'Дата создания', 'Типа билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'Цена', 'Дата создания', 'Тип билета', 'Статус', 'Личные данные пассажира', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[0, 'desc']],
@@ -39,8 +39,15 @@ $configSelect2 = [
     </x-adminlte-select2>
   </form>
 
-  <a class="btn btn-danger my-3"
-    href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
+  <div class="d-flex justify-content-between align-items-center">
+    <a class="btn btn-danger my-3"
+      href="{{ route('dashboard.tickets.csv', ['flight_id' => request('flight_id')]) }}">CSV</a>
+
+    <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
+      href="{{ route('dashboard.flights.show', ['flight' => request('flight_id', 0)]) }}" title="Details">
+      <i class="fa fa-lg fa-fw fa-eye"></i>
+    </a>
+  </div>
 
 
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
@@ -73,6 +80,6 @@ $configSelect2 = [
 
 @section('js')
   <script>
-    window.location.search || flightSelect.submit()
+    window.location.search || {{ count($flights) }} && flightSelect.submit()
   </script>
 @stop

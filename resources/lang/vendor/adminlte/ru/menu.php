@@ -21,5 +21,7 @@ return [
     'add_flights'                   => 'Добавление рейсов',
     'flights'                       => 'Рейсы',
     'all_flights'                   => 'Все рейсы',
-    'tickets'                       => 'Билеты'
+    'tickets'                       => 'Билеты',
+    'orders'                        => 'Заказы',
+    'booking'                       => 'Бронирование'
 ];

@@ -1,15 +1,21 @@
 <?php
 
-use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\BookingController as DashboardBookingController;
 use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\TicketController;
+use App\Http\Controllers\Dashboard\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PreAssignChairsController;
+use App\Http\Controllers\ReturnAssignedChairsController;
+use App\Models\PreAssignChairs;
+use App\Models\ReturnAssignedChairs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -53,12 +59,24 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('booking', DashboardBookingController::class);
 
 
 
     //single
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
+    Route::put('flights/{flight}', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+
+    Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
+    Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
+
+    Route::get('return-chairs-reject/{id}', [ReturnAssignedChairsController::class, 'destroy'])->name('return.assigned.chairs.reject');
+    Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'update'])->name('return.assigned.chairs.accept');
+
+    Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
+
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 
 

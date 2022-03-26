@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\MetaInfo;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Str;
@@ -12,6 +13,10 @@ use Illuminate\Support\Str;
 
 class BookingService
 {
+
+
+  public $textError = "Неверная дата рождения для:";
+  public $errors = [];
 
   public function store(Flights $flight)
   {
@@ -22,6 +27,7 @@ class BookingService
 
     $this->storeTickets($booking, $flight);
     $this->assignChairs($booking, $flight);
+    $this->createOrder($booking, $flight->id);
 
     $flight->booking_id = $booking->id;
     $flight->save();
@@ -31,17 +37,13 @@ class BookingService
 
   public function isDateValidInfants(CarbonImmutable $departureValue)
   {
-    if (!request()->has('infants')) {
-      return true;
-    }
-
     $departureInfant = $departureValue->subYears(2);
-
     $infants = request()->get('infants', []);
 
     foreach ($infants as $infant) {
       $infantBirthday = new Carbon($infant['birthday']);
       if (!$infantBirthday->greaterThan($departureInfant)) {
+        $this->errors[] = "$this->textError Младенец";
         return false;
       }
     }
@@ -51,10 +53,6 @@ class BookingService
 
   public function isDateValidChidren(CarbonImmutable $departureValue)
   {
-    if (!request()->has('children')) {
-      return true;
-    }
-
     $departureInfant = $departureValue->subYears(2);
     $departureChildren = $departureValue->subYears(12);
     $children = request()->get('children', []);
@@ -66,6 +64,7 @@ class BookingService
       $greaterThanChild = $childBirthday->greaterThan($departureChildren);
 
       if (!($lessThanOrEqualToInfant && $greaterThanChild)) {
+        $this->errors[] = "$this->textError Детский";
         return false;
       }
     }
@@ -86,6 +85,7 @@ class BookingService
     foreach ($adults as $adult) {
       $adultBirthday = new Carbon($adult['birthday']);
       if (!$adultBirthday->lessThan($departureAdult)) {
+        $this->errors[] = "$this->textError Взрослый";
         return false;
       }
     }
@@ -95,6 +95,9 @@ class BookingService
 
   public function isDatesValid(Flights $flight)
   {
+
+    $this->errors = [];
+
     $departureValue = $flight->getDeparute();
     $departureValue->hour = 0;
     $departureValue->minute = 0;
@@ -102,10 +105,14 @@ class BookingService
 
     $departure = new CarbonImmutable($departureValue);
 
+    $isDateValidInfants = $this->isDateValidInfants($departure);
+    $isDateValidChidren = $this->isDateValidChidren($departure);
+    $isDateValidAdults = $this->isDateValidAdults($departure);
+
     return
-      $this->isDateValidInfants($departure)
-      && $this->isDateValidChidren($departure)
-      && $this->isDateValidAdults($departure);
+      $isDateValidInfants
+      &&  $isDateValidChidren
+      &&  $isDateValidAdults;
   }
 
   public function isAvailable()
@@ -168,6 +175,34 @@ class BookingService
       $chair->status = Chairs::BOOKED;
       $chair->save();
     }
+  }
+
+  public function createOrder(Booking $booking, $flight_id)
+  {
+
+    $exchangeRate = 10950;
+
+    $totalPrice = (int) $booking->tickets->pluck('price')->reduce(function ($sum, $price) {
+      return $sum + $price;
+    });
+
+    $orderTotal = $totalPrice * $exchangeRate;
+
+    //@TODO Split between users
+    // dd($booking->chairs->groupBy('user_id')->toArray());
+    // dd($booking->chairs->first()->seller_id);
+
+    return $booking->order()->create([
+      'status' => Booking::BOOKED,
+      'flight_id' => $flight_id,
+      'booking_id' => $booking->id,
+      'total' =>  $orderTotal,
+      'exchange_rate' => $exchangeRate,
+      'seller_id' => $booking->chairs->first()->seller_id,
+      'count_chairs' => $booking->chairs->count(),
+      //@TODO getPrice()
+      'price_adult' => $booking->chairs->first()->flight->price_adult
+    ]);
   }
 
   public function unassignChairs(Booking $booking)

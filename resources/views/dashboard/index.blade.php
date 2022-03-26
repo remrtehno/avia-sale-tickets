@@ -1,6 +1,4 @@
-@extends('adminlte::page')
+@extends('dashboard.page')
 
 @section('content')
-
 @endsection
-

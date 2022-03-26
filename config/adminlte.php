@@ -237,19 +237,19 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
+
+        [
+            'text' => 'orders',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.orders.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
         [
             'text' => 'reports',
             'can'  => 'manage-dashboard',
             'url'         => 'admin/pages',
             'icon' => 'fas fa-fw fa-bars',
         ],
-
-
         [
             'text'    => 'flights',
             'icon'    => 'fas fa-fw fa-plane',
@@ -509,6 +509,22 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '/vendor/bs-custom-file-input/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
+
+        'Summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/summernote/summernote-bs4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/summernote/summernote-bs4.min.css',
                 ],
             ],
         ],
