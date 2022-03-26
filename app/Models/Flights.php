@@ -145,6 +145,14 @@ class Flights extends Model implements HasMedia
         return $this->getTotal();
     }
 
+    public function getSummary()
+    {
+        $date = $this->getDate();
+        $time = $this->getTime();
+
+        return "$this->flight $date $time";
+    }
+
 
     /**
      * Scope a query to search by directions
