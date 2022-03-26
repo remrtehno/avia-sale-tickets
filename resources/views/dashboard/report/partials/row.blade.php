@@ -1,8 +1,8 @@
 <tr>
-  <td>{{ $ticket->updated_at }}</td>
+  <td>{{ $ticket->updated_at->format('Y-m-d H:i') }}</td>
 
   <td>
-    {{ $ticket->name }}
+    <a href="?name={{ $ticket->name }}">{{ $ticket->name }}</a>
   </td>
 
   <td>

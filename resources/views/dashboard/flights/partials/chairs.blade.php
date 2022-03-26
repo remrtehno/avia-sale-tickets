@@ -37,7 +37,7 @@ $config = [
       <tr>
         <td>{{ $returnedChair->count_chairs }} шт.</td>
         <td>{{ $returnedChair->user->name }} {{ $returnedChair->user->email }}</td>
-        <td>{{ $returnedChair->count_chairs * $returnedChair->flight->price_adult }}</td>
+        <td>{{ number_format($returnedChair->count_chairs * $returnedChair->flight->price_adult, 2, '.', ' ') }}</td>
       </tr>
     @endforeach
 
