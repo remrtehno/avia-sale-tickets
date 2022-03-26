@@ -23,7 +23,7 @@ $config = [
   @csrf
   <input type="hidden" name="flight_id" value="{{ $flight->id }}">
 
-  <div class="d-flex align-items-start mb-2">
+  <div class="d-flex align-items-start mb-2 flex-wrap">
     Продать кресла
     <div>
       <input type="text" name="count_chairs" class="mx-2 text-center input-number" style="width: 40px" value="0">

@@ -21,11 +21,11 @@ class OrderService
     ]);
   }
 
-  public function returnBackChairs(Flights $flight, $count_chairs, Order $order)
+  public function returnBackChairs(Flights $flight, $count_chairs, Order $order, $userReturnedId)
   {
 
     $flight->chairs()
-      ->where('user_id', Auth::user()->id)
+      ->where('user_id', $userReturnedId)
       ->whereNull('status')
       ->limit($count_chairs)
       ->update(['user_id' => null, 'seller_id' => $flight->user_id, 'order_id' => $order->id]);

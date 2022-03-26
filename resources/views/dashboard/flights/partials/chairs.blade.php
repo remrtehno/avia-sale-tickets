@@ -22,7 +22,7 @@ $config = [
       <x-adminlte-input name="count_chairs" type="number" class="input-number" />
 
       <x-adminlte-button class="btn-md mb-3" label="Вернуть" type="submit" icon="fas fa-xs fa-minus" theme="danger"
-        onclick="confirm('Вернуть места?') ? location = '' : null" />
+        onclick="return confirm('Вернуть места?')" />
     </div>
   </form>
 

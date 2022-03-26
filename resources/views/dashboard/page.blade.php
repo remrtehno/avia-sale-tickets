@@ -8,3 +8,12 @@
     @include('dashboard.partials.return-chairs')
   </li>
 @stop
+
+@push('css')
+  <style>
+    .main-header .navbar-nav:first-child {
+      overflow: auto;
+    }
+
+  </style>
+@endpush

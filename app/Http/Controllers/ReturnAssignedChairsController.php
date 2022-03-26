@@ -89,8 +89,8 @@ class ReturnAssignedChairsController extends Controller
 
         $userReturnedId = $id->owner_id;
 
-        $this->orderService->createReturendOrder($id->flight, $id->count_chairs,  $order, $id->owner_id);
-        $noBookedChairs = $this->orderService->returnBackChairs($id->flight, $id->count_chairs, $order);
+        $this->orderService->createReturendOrder($id->flight, $id->count_chairs,  $order, $userReturnedId);
+        $this->orderService->returnBackChairs($id->flight, $id->count_chairs, $order, $userReturnedId);
 
         $id->delete();
 
