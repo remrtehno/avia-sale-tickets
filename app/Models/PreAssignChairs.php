@@ -12,6 +12,17 @@ class PreAssignChairs extends Model
 
     protected $fillable = ['user_id', 'owner_id', 'count_chairs', 'flight_id'];
 
+
+    //METHODS
+    public function getAllPreAssignChairs($flight_id)
+    {
+        return $this->where([
+            'flight_id' => $flight_id
+        ])->get();
+    }
+
+    //REATIONSHIPS
+
     public function user()
     {
         return $this->belongsTo(User::class);

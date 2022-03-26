@@ -7,6 +7,7 @@ use App\Models\Flights;
 use App\Models\PreAssignChairs;
 use App\Models\User;
 use App\Services\FlightService;
+use App\Services\PreAssignChairsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,10 +15,12 @@ class PreAssignChairsController extends Controller
 {
 
     private $flightService;
+    private $service;
 
-    function __construct(FlightService $flightService)
+    function __construct(FlightService $flightService, PreAssignChairsService $preAssignChairsService)
     {
         $this->flightService = $flightService;
+        $this->service = $preAssignChairsService;
     }
 
 
@@ -47,13 +50,27 @@ class PreAssignChairsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AssignChairsToUser $request)
+    public function store(AssignChairsToUser $request, PreAssignChairs $preAssignChairs)
     {
         $owner_id = Auth::user()->id;
 
+        $flight = Flights::findOrFail($request->flight_id);
+        $availableChairs = $flight->countChairs();
+
+        $totalAmountChairs = $this->service->getTotalAmountOfChairs($flight, $preAssignChairs);
+
+        $canBeCreated = $this->service->canBeCreated($availableChairs, $totalAmountChairs, $request->count_chairs);
+
+
+        if (!$canBeCreated) {
+            return back()->withErrors(['count_chairs' => 'Не верное кол-во мест или нету доступных мест']);
+        };
+
+        $countChairs = $this->flightService->validateCount($availableChairs, $request->count_chairs);
+
         PreAssignChairs::create([
             'user_id' =>  $request->user_id,
-            'count_chairs' => $request->count_chairs,
+            'count_chairs' => $countChairs,
             'owner_id' =>  $owner_id,
             'flight_id' => $request->flight_id
         ]);

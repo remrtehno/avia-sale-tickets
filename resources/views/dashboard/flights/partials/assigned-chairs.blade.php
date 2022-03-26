@@ -54,14 +54,14 @@ $config = [
 @if ($message = Session::get('assigned_to'))
   <div class="alert alert-success alert-block">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>{{ $message }}</strong>
+    <strong>{!! $message !!}</strong>
   </div>
 @endif
 
 @if ($message = Session::get('not_avaliable'))
   <div class="alert alert-danger alert-block">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>{{ $message }}</strong>
+    <strong>{!! $message !!}</strong>
   </div>
 @endif
 
@@ -72,7 +72,22 @@ $config = [
     <tr>
       <td>{{ $row->first()->user->name }} {{ $row->first()->user->email }}</td>
       <td>продано: {{ $row->count() }}</td>
-      <td>{{ $row->first()->order->id }}</td>
+      <td>
+        {{-- //@TODO Maybe something is more better? --}}
+        <script>
+          var orderIds = [];
+
+          @foreach ($row as $key => $item)
+            orderIds.push({{ $item->order->id }});
+          @endforeach
+
+          var unique = orderIds.filter(function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+          })
+
+          document.write(unique)
+        </script>
+      </td>
     </tr>
   @endforeach
   @foreach ($preAssignChair as $row)

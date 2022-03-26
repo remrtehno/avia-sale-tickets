@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\ReturnAssignedChairs;
+use App\Services\OrderService;
+use App\Services\ReturnAssignedChairsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ReturnAssignedChairsController extends Controller
 {
+    private $service;
+    private $orderService;
+
+    function __construct(ReturnAssignedChairsService $returnAssignedChairsService, OrderService $orderService)
+    {
+        $this->service = $returnAssignedChairsService;
+        $this->orderService = $orderService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -68,9 +81,22 @@ class ReturnAssignedChairsController extends Controller
      * @param  \App\Models\ReturnAssignedChairs  $returnAssignedChairs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReturnAssignedChairs $returnAssignedChairs)
+    public function update(Request $request, ReturnAssignedChairs $id)
     {
-        //
+
+        $order = Order::where('id', $id->order_id)
+            ->firstOrFail();
+
+        $userReturnedId = $id->owner_id;
+
+        $this->orderService->createReturendOrder($id->flight, $id->count_chairs,  $order, $id->owner_id);
+        $noBookedChairs = $this->orderService->returnBackChairs($id->flight, $id->count_chairs, $order);
+
+        $id->delete();
+
+        Cache::forget('return-assigned-chairs');
+
+        return back();
     }
 
     /**

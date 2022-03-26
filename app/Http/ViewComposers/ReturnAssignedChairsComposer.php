@@ -18,7 +18,7 @@ class ReturnAssignedChairsComposer
 
     $view->with(
       'returnAssignedChairs',
-      Cache::remember('return-assigned-chairs', 60, function () use ($user_id) {
+      Cache::remember('return-assigned-chairs', 5, function () use ($user_id) {
         return ReturnAssignedChairs::where('user_id', $user_id)->get();
       })
     );

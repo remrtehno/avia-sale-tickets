@@ -118,7 +118,9 @@ class FlightsController extends Controller
             'flight_comment' =>  $flight_comment->meta_content,
             'assignedChairs' => $flight->getSellers(),
             'preAssignChair' => PreAssignChairs::where('flight_id', $flight->id)->get(),
-            'returnedAssignedChairs' => ReturnAssignedChairs::where('owner_id', $user_id)->get()
+            'returnedAssignedChairs' => ReturnAssignedChairs::where('owner_id', $user_id)
+                ->where('flight_id', $flight->id)
+                ->get()
         ]);
     }
 

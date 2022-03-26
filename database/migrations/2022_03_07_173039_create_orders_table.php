@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->integer('count_chairs');
             $table->integer('user_returned_id')->nullable();
             $table->integer('is_returned')->nullable();
+            $table->integer('is_completed')->nullable();
         });
     }
 

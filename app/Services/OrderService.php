@@ -31,7 +31,7 @@ class OrderService
       ->update(['user_id' => null, 'seller_id' => $flight->user_id, 'order_id' => $order->id]);
   }
 
-  public function createReturendOrder(Flights $flight, $count_chairs, Order $order)
+  public function createReturendOrder(Flights $flight, $count_chairs, Order $order, $owner_id)
   {
     Order::create([
       'status' => Order::RETURNED,
@@ -43,7 +43,7 @@ class OrderService
       'seller_id' => $flight->user_id,
       'price_adult' => $order->price_adult,
       'is_returned' => 1,
-      'user_returned_id' => Auth::user()->id
+      'user_returned_id' => $owner_id
     ]);
   }
 }

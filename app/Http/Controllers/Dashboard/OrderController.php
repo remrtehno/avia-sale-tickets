@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Models\PreAssignChairs;
 use App\Models\ReturnAssignedChairs;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
@@ -113,18 +114,23 @@ class OrderController extends Controller
     {
         $flight = $order->flight;
 
-        if ($request->count_chairs > $flight->getChairs()->count()) {
+        if ($request->count_chairs > $flight->getChairs()->count() or $request->count_chairs < 1) {
             return back()->withErrors(['count_chairs' => 'Не верное кол-во мест']);
         }
+        $user_id = Auth::user()->id;
+        $returnChairs = ReturnAssignedChairs::where('owner_id', $user_id)->where('flight_id', $flight->id)->get();
 
+        $countReturnedChairs = $returnChairs->reduce(function ($sum, $flight) {
+            return $sum + $flight->count_chairs;
+        });
+
+        $totalCountReturnedChairs = $request->count_chairs + $countReturnedChairs;
+
+        if ($totalCountReturnedChairs > $flight->getChairs()->count()) {
+            return back()->withErrors(['count_chairs' => 'Вы уже вернули максимальное количество или укажите меньшее кол-во']);
+        }
 
         $this->service->createNotificationReturnChairs($flight->user_id, $request->count_chairs, $flight->id, $order->id);
-
-        return back();
-
-        $this->service->createReturendOrder($flight, $request->count_chairs, $order);
-        $noBookedChairs = $this->service->returnBackChairs($flight, $request->count_chairs, $order);
-
 
         return back();
     }
