@@ -123,23 +123,14 @@ class Flights extends Model implements HasMedia
         return $this->getChairsAvialiable()->count();
     }
 
-    public function getExchangeRate()
-    {
-        // @TODO DELET
-        $exchangeRate = MetaInfo::where('meta_name', 'dollar_exchange_rate')->first();
-
-        return $this->exchangeRate = $exchangeRate ? $exchangeRate->meta_content : '';
-    }
-
-
     public function getTotal()
     {
-        return $this->price_adult * $this->getExchangeRate();
+        return $this->price_adult;
     }
 
     public function getPrice($type = 'adult')
     {
-        return $this->{"price_$type"} * $this->getExchangeRate();
+        return $this->{"price_$type"};
     }
 
 
