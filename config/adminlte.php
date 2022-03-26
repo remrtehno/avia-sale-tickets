@@ -247,7 +247,7 @@ return [
         [
             'text' => 'reports',
             'can'  => 'manage-dashboard',
-            'url'         => 'admin/pages',
+            'route' => 'dashboard.reports.index',
             'icon' => 'fas fa-fw fa-bars',
         ],
         [

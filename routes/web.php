@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\FlightsController as DashboardFlightsControll
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\TicketController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
@@ -14,8 +15,6 @@ use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
-use App\Models\PreAssignChairs;
-use App\Models\ReturnAssignedChairs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -61,6 +60,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('tickets', TicketController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('booking', DashboardBookingController::class);
+    Route::resource('reports', ReportController::class);
 
 
 

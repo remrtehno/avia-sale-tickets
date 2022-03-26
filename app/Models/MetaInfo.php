@@ -11,9 +11,4 @@ class MetaInfo extends Model
     use HasFactory;
 
     protected $fillable = ['meta_name', 'meta_content'];
-
-    public function getExchangeRate(Builder $query)
-    {
-        return $query->where('meta_name', 'dollar_exchange_rate');
-    }
 }

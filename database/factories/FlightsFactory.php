@@ -36,10 +36,10 @@ class FlightsFactory extends Factory
 
         return [
             'flight' => $flights->random() . rand(10, 9999),
-            'count_chairs' =>  $count_chairs,
-            'price_adult' =>  $price_adult,
-            'price_child' =>  $price_child,
-            'price_infant' =>  $price_infant,
+            'count_chairs' => $count_chairs,
+            'price_adult' =>  $price_adult * 10950,
+            'price_child' =>  $price_child * 9000,
+            'price_infant' =>  $price_infant * 5000,
             'date' => $date->getTimestamp(),
             'date_arrival' => $date->addHours(rand(0, 15))->getTimestamp(),
             'comment' => "<p>Условия возврата: до вылета 5000UZS | после вылета 0UZS | вынужденный возврат 100% стоимости

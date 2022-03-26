@@ -28,10 +28,5 @@ class MetaInfoSeeder extends Seeder
       'meta_name' => 'flight_comment',
       'meta_content' => $template_comment
     ]);
-
-    \App\Models\MetaInfo::factory()->create([
-      'meta_name' => 'dollar_exchange_rate',
-      'meta_content' => '10950'
-    ]);
   }
 }

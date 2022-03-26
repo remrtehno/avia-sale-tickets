@@ -67,7 +67,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('dashboard.orders.show', [
+            'orders' => [$order]
+        ]);
     }
 
     /**
