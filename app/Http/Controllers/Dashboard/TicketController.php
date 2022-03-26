@@ -69,7 +69,11 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+        $this->authorize($ticket);
+
+        return view('dashboard.tickets.show', [
+            'ticket' => $ticket,
+        ]);
     }
 
     /**
