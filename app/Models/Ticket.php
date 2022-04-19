@@ -20,6 +20,7 @@ class Ticket extends Model
     public const INFANTS = 'infants';
 
     protected $fillable = [
+        'uuid',
         'name',
         'surname',
         'surname2',
@@ -41,6 +42,11 @@ class Ticket extends Model
         'f' => 'Жен.',
         'm' => 'Муж.'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     public function getGender($gender = false)
     {

@@ -135,6 +135,7 @@ class BookingService
     foreach ($adults as $adult) {
 
       $tickets->create(array_merge($adult, [
+        'uuid' => $this->UUID(),
         'status' => Booking::BOOKED,
         'price' => $flight->price_adult
       ]));
@@ -142,6 +143,7 @@ class BookingService
 
     foreach ($children as $child) {
       $tickets->create(array_merge($child, [
+        'uuid' => $this->UUID(),
         'status' => Booking::BOOKED,
         'price' => $flight->price_child
       ]));
@@ -149,6 +151,7 @@ class BookingService
 
     foreach ($infants as $infant) {
       $tickets->create(array_merge($infant, [
+        'uuid' => $this->UUID(),
         'status' => Booking::BOOKED,
         'price' => $flight->price_infant
       ]));
@@ -180,24 +183,22 @@ class BookingService
   public function createOrder(Booking $booking, $flight_id)
   {
 
-    $exchangeRate = 10950;
-
     $totalPrice = (int) $booking->tickets->pluck('price')->reduce(function ($sum, $price) {
       return $sum + $price;
     });
 
-    $orderTotal = $totalPrice * $exchangeRate;
 
     //@TODO Split between users
     // dd($booking->chairs->groupBy('user_id')->toArray());
     // dd($booking->chairs->first()->seller_id);
 
     return $booking->order()->create([
+      'uuid' => $this->UUIDOrder(),
       'status' => Booking::BOOKED,
       'flight_id' => $flight_id,
       'booking_id' => $booking->id,
-      'total' =>  $orderTotal,
-      'exchange_rate' => $exchangeRate,
+      'total' =>  $totalPrice,
+      'exchange_rate' => 1,
       'seller_id' => $booking->chairs->first()->seller_id,
       'count_chairs' => $booking->chairs->count(),
       //@TODO getPrice()
@@ -211,5 +212,15 @@ class BookingService
       $chair->booking()->dissociate($booking);
       $chair->save();
     }
+  }
+
+  public function UUID()
+  {
+    return random_int(000000000000, 1000000000000);
+  }
+  public function UUIDOrder()
+  {
+    $uuid = strtoupper(bin2hex(openssl_random_pseudo_bytes(3)));
+    return substr($uuid, 1);
   }
 }

@@ -15,7 +15,12 @@ class Order extends Model
     public const AVAILABLE = 'available';
     public const RETURNED = 'returned';
 
-    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id', 'price_adult', 'count_chairs', 'is_returned', 'user_returned_id', 'is_completed'];
+    protected $fillable = ['uuid', 'status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id', 'price_adult', 'count_chairs', 'is_returned', 'user_returned_id', 'is_completed'];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     public static function getStatuses()
     {

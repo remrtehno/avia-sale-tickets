@@ -12,14 +12,14 @@
   <td>{{ $flight = $ticket->booking->flight->getSummary() }}</td>
 
   <td>
-    <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->id)]) }}">
+    <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->uuid)]) }}">
       {{ $orderID }}
     </a>
   </td>
 
   <td>
-    <a href="{{ route('dashboard.tickets.show', ['ticket' => $ticket->id]) }}">
-      {{ $ticket->id }}
+    <a href="{{ route('dashboard.tickets.show', ['ticket' => $ticket->uuid]) }}">
+      {{ $ticket->uuid }}
     </a>
   </td>
 

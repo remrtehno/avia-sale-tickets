@@ -18,6 +18,7 @@ class CreateTicketsTable extends Migration
             $table->timestamps();
             $table->string('type');
 
+            $table->string('uuid');
             $table->string('name');
             $table->string('surname');
             $table->string('surname2')->nullable();
