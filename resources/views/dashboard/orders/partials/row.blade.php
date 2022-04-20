@@ -1,5 +1,5 @@
 <tr>
-  <td>{{ $row->id }}</td>
+  <td>{{ $row->uuid }}</td>
   <td>
     <a target="_blank" href="{{ route('dashboard.flights.edit', ['flight' => $row->flight->id]) }}">
       <i class="fa fa-xs fa-fw fa-external-link-alt"></i>
@@ -18,7 +18,7 @@
       @if ($row->booking)
         @foreach ($row->booking->tickets as $key => $ticket)
           <a class="btn btn-xs btn-default text-primary mx-1 shadow btn"
-            href="{{ route('dashboard.tickets.edit', ['ticket' => $ticket->id]) }}" title="Edit">
+            href="{{ route('dashboard.tickets.edit', ['ticket' => $ticket->uuid]) }}" title="Edit">
             <i class="fas fa-pen-square"></i>
             {{ $key + 1 }} {{ $ticket->type }}
           </a>
@@ -43,7 +43,7 @@
   </td>
   <td>
     @include('dashboard.orders.partials.action-buttons', [
-        'id' => $row->id,
+        'id' => $row->uuid or 1,
     ])
   </td>
 </tr>

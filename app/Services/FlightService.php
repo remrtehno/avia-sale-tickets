@@ -21,6 +21,7 @@ class FlightService
     $countChairs = $this->validateCount($availableChairs, request()->count_chairs ?? $count_chairs);
 
     $order = $flight->order()->create([
+      'uuid' => BookingService::UUIDOrder(),
       'total' => $countChairs * $flight->getPrice(),
       //@TODO Do we need it?
       'user_id' => $flight->user_id,

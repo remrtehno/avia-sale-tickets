@@ -218,7 +218,7 @@ class BookingService
   {
     return random_int(000000000000, 1000000000000);
   }
-  public function UUIDOrder()
+  static function UUIDOrder()
   {
     $uuid = strtoupper(bin2hex(openssl_random_pseudo_bytes(3)));
     return substr($uuid, 1);

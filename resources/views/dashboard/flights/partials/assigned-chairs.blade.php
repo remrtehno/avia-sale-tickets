@@ -77,11 +77,17 @@ $config = [
         <script>
           var orderIds = [];
 
+
+
           @foreach ($row as $key => $item)
-            orderIds.push({{ $item->order->id }});
+            @if ($item->order?->uuid)
+              orderIds.push(` <a href="{{ route('dashboard.orders.show', ['order' => $item->order->uuid]) }}" title="Edit">
+                {{ $item->order->uuid }}
+              </a>`);
+            @endif
           @endforeach
 
-          var unique = orderIds.filter(function onlyUnique(value, index, self) {
+          var unique = orderIds.filter(function(value, index, self) {
             return self.indexOf(value) === index;
           })
 
