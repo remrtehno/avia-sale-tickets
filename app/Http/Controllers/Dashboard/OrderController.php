@@ -136,4 +136,16 @@ class OrderController extends Controller
 
         return back();
     }
+
+
+    public function paymoCallback($request)
+    {
+        $order = Order::findOrFail($request->invoice);
+
+        if ($order->total === $request->amount) {
+            return response()->json(['status' => '1', 'message' => 'Успешно']);
+        } else {
+            return response()->json(['status' => '0', 'message' => 'Инвойс не существует или не верная сумма']);
+        }
+    }
 }

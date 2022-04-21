@@ -32,9 +32,10 @@ use Illuminate\Support\Facades\Auth;
 //single pages
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/paymo-callback', [OrderController::class, 'paymoCallback']);
+
 //@TODO $ - need to replace because we can see {page}%24
 Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
-
 
 //resources
 Route::resource('flights', FlightsController::class);
