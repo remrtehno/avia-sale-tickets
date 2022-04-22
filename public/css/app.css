@@ -306,6 +306,10 @@ body,
   resize: none;
 }
 
+.text-dark {
+  color: var(--dark);
+}
+
 .arrow-separator {
   vertical-align: 10%;
 }

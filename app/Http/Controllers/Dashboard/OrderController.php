@@ -143,7 +143,7 @@ class OrderController extends Controller
         $order = Order::where('uuid', $request->invoice)->firstOrFail();
 
         if (number_format($order->total, 2, '', '') === $request->amount) {
-            $order->status = Order::PAID;
+            $order->changeStatus(Order::PAID);
 
             if ($order->save()) {
                 return response()->json(['status' => '1', 'message' => 'Успешно']);

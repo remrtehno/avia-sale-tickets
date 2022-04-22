@@ -68,6 +68,26 @@ class Order extends Model
         return User::find($this->user_returned_id);
     }
 
+    public function isPaid()
+    {
+        return $this->status === self::PAID;
+    }
+
+    public function changeStatus($status = self::BOOKED)
+    {
+
+        $this->booking->tickets->each(function ($item) use ($status) {
+            $item->update(
+                ['status' => $status]
+            );
+        });
+
+        $this->booking->status = $status;
+        $this->booking->save();
+
+        $this->status = $status;
+        return $this->save();
+    }
 
     /**
      * Get the booking.

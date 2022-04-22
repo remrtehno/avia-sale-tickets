@@ -72,6 +72,9 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
+        if ($booking->isOrderPaid()) {
+            return view('booking.payed', ['booking' => $booking]);
+        }
 
         return view('booking.index', ['booking' => $booking]);
     }

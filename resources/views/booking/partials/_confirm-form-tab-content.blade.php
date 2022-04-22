@@ -33,9 +33,11 @@
     </div>
 
     <div class="contacts">
-      Мы работаем....
-      Наш адрес...
+      <p>Для того чтобы оплатить за авиабилет(ы) обратитесь по нижеуказанному адресу и контактам:</p>
+      <br>
       {!! $contacts->email_footer !!}
+      <br>
+      {!! $contacts->phone_header !!}
 
       <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
       <script>

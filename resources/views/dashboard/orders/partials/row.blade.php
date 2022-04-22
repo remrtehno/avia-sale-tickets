@@ -43,7 +43,7 @@
   </td>
   <td>
     @include('dashboard.orders.partials.action-buttons', [
-        'id' => $row->uuid or 1,
+        'id' => (bool) $row->uuid ? $row->uuid : 1,
     ])
   </td>
 </tr>

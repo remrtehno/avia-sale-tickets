@@ -20,6 +20,11 @@ class Booking extends Model
         return 'uuid';
     }
 
+    public function isOrderPaid()
+    {
+        return $this->order->first()->isPaid();
+    }
+
     public function tickets()
     {
         return $this->hasMany('App\Models\Ticket');
