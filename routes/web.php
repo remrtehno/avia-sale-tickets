@@ -68,7 +68,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //single
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
-    Route::put('flights/{flight}', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+    Route::put('flights/{flight}/assign', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
 
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');

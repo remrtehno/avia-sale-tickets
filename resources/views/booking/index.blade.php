@@ -20,11 +20,7 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
             После оплаты, вам придет уведомление на почту, с деталями заказа.
           </p>
 
-          @if (Auth::check())
-            @include('booking.partials._confirm-form')
-          @else
-            @include('booking.partials._confirm-form-user')
-          @endif
+          @include('booking.partials._confirm-form')
 
           <p style="height: 20px"></p>
 
