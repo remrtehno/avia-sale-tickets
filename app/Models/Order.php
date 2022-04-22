@@ -10,6 +10,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    // protected $primaryKey = 'uuid';
+
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
