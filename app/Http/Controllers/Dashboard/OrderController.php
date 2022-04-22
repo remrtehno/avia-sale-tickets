@@ -143,9 +143,13 @@ class OrderController extends Controller
         $order = Order::where('uuid', $request->invoice)->firstOrFail();
 
         if (number_format($order->total, 2, '', '') === $request->amount) {
-            return response()->json(['status' => '1', 'message' => 'Успешно']);
-        } else {
-            return response()->json(['status' => '0', 'message' => 'Инвойс не существует или не верная сумма']);
+            $order->status = Order::PAID;
+
+            if ($order->save()) {
+                return response()->json(['status' => '1', 'message' => 'Успешно']);
+            }
         }
+
+        return response()->json(['status' => '0', 'message' => 'Инвойс не существует или не верная сумма']);
     }
 }

@@ -8,7 +8,7 @@
 $heads = ['ID', 'Рейс', 'Общая сумма', 'Дата создания', 'Статус', 'Билеты пассажиров', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
-    'order' => [[0, 'desc']],
+    'order' => [[3, 'desc']],
     'language' => ['url' => '/lang/datatable/ru.json'],
 ];
 @endphp
