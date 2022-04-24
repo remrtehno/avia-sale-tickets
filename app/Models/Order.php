@@ -12,6 +12,8 @@ class Order extends Model
 
     // protected $primaryKey = 'uuid';
 
+
+    public const BOOKING_MINUTES_LIMIT = 30;
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
@@ -116,5 +118,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function canBePayed()
+    {
+        return now()->diffInMinutes($this->created_at) <= self::BOOKING_MINUTES_LIMIT;
     }
 }

@@ -73,13 +73,18 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
+        $order = $booking->order->first();
+
         if ($booking->isOrderPaid()) {
-            return view('booking.payed', ['booking' => $booking]);
+            return view('booking.payed', ['booking' => $booking, 'order' => $order]);
         }
 
+        if (!$order->canBePayed()) {
+            return view('booking.expired', ['booking' => $booking, 'order' => $order]);
+        }
 
-        if ($booking->order->first()->status === Order::BOOKED) {
-            return view('booking.index', ['booking' => $booking]);
+        if ($order->status === Order::BOOKED) {
+            return view('booking.index', ['booking' => $booking, 'order' => $order]);
         }
 
         return abort(404);

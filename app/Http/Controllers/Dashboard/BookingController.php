@@ -16,11 +16,11 @@ class BookingController extends Controller
      */
     public function index()
     {
-
-
         $booking = Booking::whereHas('flight', function ($query) {
             return $query->where('user_id', Auth::user()->id);
         })->get();
+
+
 
         return view('dashboard.booking.index', [
             'booking' => $booking

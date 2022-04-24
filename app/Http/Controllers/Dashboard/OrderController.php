@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
-use App\Models\PreAssignChairs;
 use App\Models\ReturnAssignedChairs;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Return_;
 
 class OrderController extends Controller
 {
@@ -142,6 +140,10 @@ class OrderController extends Controller
     public function paymoCallback(Request $request)
     {
         $order = Order::where('uuid', $request->invoice)->firstOrFail();
+
+        if (!$order->canBePayed()) {
+            return response()->json(['status' => '0', 'message' => 'Срок брони истек']);
+        }
 
         if (number_format($order->total, 2, '', '') === $request->amount) {
             $order->changeStatus(Order::PAID);

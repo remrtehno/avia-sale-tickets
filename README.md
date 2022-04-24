@@ -30,6 +30,8 @@ removing images https://stackoverflow.com/questions/62429023/how-to-create-a-fac
 
 docker-compose run --rm artisan make:controller FlightsController --resource
 
+docker-compose run --rm artisan make:observer OrderObserver --model=Order
+
 Tinker:
 Faker instance: >>> $faker = Faker\Factory::create();
 
