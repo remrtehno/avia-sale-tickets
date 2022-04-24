@@ -14,10 +14,10 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
       <div class="row">
         <div class="col-md-6 col-centered">
           <h3 class="text-center">Бронирование</h3>
-          <p class="text-center border-bottom">ID бронирования: <span>{{ $booking->uuid }}</span></p>
+          <p class="text-center border-bottom">После оплаты, вам придет уведомление на почту, с деталями заказа.</p>
 
           <p>
-            После оплаты, вам придет уведомление на почту, с деталями заказа.
+
           </p>
 
           @include('booking.partials._confirm-form')

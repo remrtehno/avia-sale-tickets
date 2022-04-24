@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookingRequest;
 use App\Models\Booking;
 use App\Models\Flights;
+use App\Models\Order;
 use App\Services\BookingService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -76,7 +77,12 @@ class BookingController extends Controller
             return view('booking.payed', ['booking' => $booking]);
         }
 
-        return view('booking.index', ['booking' => $booking]);
+
+        if ($booking->order->first()->status === Order::BOOKED) {
+            return view('booking.index', ['booking' => $booking]);
+        }
+
+        return abort(404);
     }
 
     /**

@@ -14,5 +14,6 @@ $(function () {
     $("#radio-card-cash input").on("change", function () {
         $(".booking-submit").toggle();
         $(".contacts").toggle();
+        $("#cash-or-transfer").attr("disabled", (_, attr) => !attr);
     });
 });

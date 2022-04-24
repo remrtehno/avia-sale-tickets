@@ -8,6 +8,7 @@ use App\Models\Flights;
 use App\Models\MetaInfo;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -132,10 +133,13 @@ class BookingService
 
     $tickets = $booking->tickets();
 
+    $user_id = Auth::check() ? Auth::user()->id : 0;
+
     foreach ($adults as $adult) {
 
       $tickets->create(array_merge($adult, [
         'uuid' => $this->UUID(),
+        'user_id' => $user_id,
         'status' => Booking::BOOKED,
         'price' => $flight->price_adult
       ]));
@@ -144,6 +148,7 @@ class BookingService
     foreach ($children as $child) {
       $tickets->create(array_merge($child, [
         'uuid' => $this->UUID(),
+        'user_id' => $user_id,
         'status' => Booking::BOOKED,
         'price' => $flight->price_child
       ]));
@@ -152,6 +157,7 @@ class BookingService
     foreach ($infants as $infant) {
       $tickets->create(array_merge($infant, [
         'uuid' => $this->UUID(),
+        'user_id' => $user_id,
         'status' => Booking::BOOKED,
         'price' => $flight->price_infant
       ]));

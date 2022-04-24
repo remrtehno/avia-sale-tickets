@@ -223,6 +223,10 @@ body,
   width: 0;
   height: 0;
 }
+.switch input[disabled] + .slider {
+  background-color: grey;
+  opacity: 0.6;
+}
 
 .slider {
   position: absolute;

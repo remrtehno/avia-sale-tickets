@@ -6,6 +6,7 @@
 
 
 @section('content')
+  <h2>Заказ {{ $order->uuid }}</h2>
   <form action="{{ route('dashboard.orders.update', ['order' => $order->uuid]) }}" method="POST">
     @csrf
     @method('PUT')

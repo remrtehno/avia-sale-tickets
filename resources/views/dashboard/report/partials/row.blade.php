@@ -1,8 +1,16 @@
+@php
+$user_link = '?user_id=' . $ticket->user?->id;
+
+if (request('from') || request('to')) {
+    $user_link .= "&from=$from&to=$to";
+}
+@endphp
+
 <tr>
   <td>{{ $ticket->updated_at->format('Y-m-d H:i') }}</td>
 
   <td>
-    <a href="?name={{ $ticket->name }}">{{ $ticket->name }}</a>
+    <a href="{{ $user_link }}">{{ $ticket->user?->name }}</a>
   </td>
 
   <td>
