@@ -94,7 +94,8 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order->update($request->validated());
+        $validated = $request->validated();
+        $order->changeStatus($validated['status']);
 
         return redirect()->route('dashboard.orders.index');
     }
