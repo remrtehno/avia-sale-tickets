@@ -48,7 +48,9 @@ class Chairs extends Model
             return false;
         }
 
-        return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
+        $status = $this->getStatus();
+
+        return !$this->getStatus() || $status === self::AVAILABLE || $status === self::RETURNED;
     }
 
     public function isSoldToOtherUser()
