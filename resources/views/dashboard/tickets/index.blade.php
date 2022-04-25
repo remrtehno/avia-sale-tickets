@@ -53,7 +53,7 @@ $configSelect2 = [
   <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
     @foreach ($tickets as $row)
       <tr>
-        <td>{{ $row->id }}</td>
+        <td>{{ $row->uuid }}</td>
         <td>{{ $row->price }}</td>
         <td>{{ $row->created_at }}</td>
         <td>{{ $row->type }}</td>
@@ -69,7 +69,7 @@ $configSelect2 = [
 
         <td>
           @include('dashboard.tickets.partials.action-buttons', [
-              'id' => $row->id,
+              'id' => $row->uuid,
           ])
         </td>
       </tr>

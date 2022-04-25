@@ -6,7 +6,8 @@
 
 
 @section('content')
-  <form action="{{ route('dashboard.orders.update', ['order' => $order->id]) }}" method="POST">
+  <h2>Заказ {{ $order->uuid }}</h2>
+  <form action="{{ route('dashboard.orders.update', ['order' => $order->uuid]) }}" method="POST">
     @csrf
     @method('PUT')
     <x-adminlte-select name="status" label="Статус"

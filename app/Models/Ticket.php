@@ -20,6 +20,8 @@ class Ticket extends Model
     public const INFANTS = 'infants';
 
     protected $fillable = [
+        'user_id',
+        'uuid',
         'name',
         'surname',
         'surname2',
@@ -42,12 +44,23 @@ class Ticket extends Model
         'm' => 'Муж.'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     public function getGender($gender = false)
     {
         if ($gender) {
             return $this->genderMap[$gender];
         }
         return $this->genderMap[$this->gender];
+    }
+
+    //RELATIONSHIPS
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function booking()

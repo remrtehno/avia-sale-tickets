@@ -18,6 +18,7 @@ class Chairs extends Model
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
+    public const RETURNED = 'returned';
 
     public const FIELDS = [
         'flight_id' => 'string',
@@ -47,7 +48,9 @@ class Chairs extends Model
             return false;
         }
 
-        return !$this->getStatus() or $this->getStatus() === self::AVAILABLE;
+        $status = $this->getStatus();
+
+        return !$status;
     }
 
     public function isSoldToOtherUser()

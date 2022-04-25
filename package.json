@@ -26,6 +26,7 @@
     "dependencies": {
         "@mathieustan/vue-datepicker": "^0.2.11",
         "inputmask": "^5.0.7",
+        "js-sha256": "^0.9.0",
         "ramda": "^0.27.1",
         "vue-number-input-spinner": "^2.2.0",
         "vue-select": "^3.16.0",

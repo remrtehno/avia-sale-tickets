@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
-use App\Models\PreAssignChairs;
 use App\Models\ReturnAssignedChairs;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Return_;
 
 class OrderController extends Controller
 {
@@ -94,7 +92,8 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order->update($request->validated());
+        $validated = $request->validated();
+        $order->changeStatus($validated['status']);
 
         return redirect()->route('dashboard.orders.index');
     }
@@ -135,5 +134,25 @@ class OrderController extends Controller
         $this->service->createNotificationReturnChairs($flight->user_id, $request->count_chairs, $flight->id, $order->id);
 
         return back();
+    }
+
+
+    public function paymoCallback(Request $request)
+    {
+        $order = Order::where('uuid', $request->invoice)->firstOrFail();
+
+        if (!$order->canBePayed()) {
+            return response()->json(['status' => '0', 'message' => 'Срок брони истек']);
+        }
+
+        if (number_format($order->total, 2, '', '') === $request->amount) {
+            $order->changeStatus(Order::PAID);
+
+            if ($order->save()) {
+                return response()->json(['status' => '1', 'message' => 'Успешно']);
+            }
+        }
+
+        return response()->json(['status' => '0', 'message' => 'Инвойс не существует или не верная сумма']);
     }
 }

@@ -56,6 +56,7 @@ class Flights extends Model implements HasMedia
             ->where(function ($query) {
                 $query
                     ->whereNull('booking_id')
+                    ->orWhere('status', Chairs::RETURNED)
                     ->orWhere('status', Chairs::AVAILABLE);
             });
     }

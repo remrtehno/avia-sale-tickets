@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Ticket;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -27,7 +29,7 @@ class ReportController extends Controller
             $query->whereHas('flight', function (Builder $queryFight) {
                 $queryFight->where('user_id', Auth::user()->id);
             });
-        });
+        })->where('status', Order::PAID);
 
         if ($request->from && $request->to) {
             $from = new Carbon($request->from);
@@ -36,8 +38,8 @@ class ReportController extends Controller
             $tickets->whereBetween('updated_at', [$from, $to]);
         }
 
-        if ($request->name) {
-            $tickets->where('name', $request->name);
+        if ($request->user_id) {
+            $tickets->where('user_id', $request->user_id);
         }
 
         return view(
@@ -46,6 +48,7 @@ class ReportController extends Controller
                 'tickets' => $tickets->get(),
                 'from' => $from,
                 'to' => $to,
+                'user' => User::find($request->user_id)
 
             ]
         );

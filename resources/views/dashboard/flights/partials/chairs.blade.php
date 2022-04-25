@@ -50,7 +50,7 @@ $config = [
 <div class="d-flex justify-content-between flex-wrap align-items-center my-2">
   <h4 class="py-0">Места</h4>
   <h5>
-    доступно <div class="badge badge-warning">{{ $flight->getChairs()->count() }}</div>
+    доступно <div class="badge badge-warning">{{ $flight->getNotAssignedAvailableChairs()->count() }}</div>
   </h5>
 
   <x-adminlte-button :disabled="$isAssigned" class="btn-md" label="Добавить место" type="submit"

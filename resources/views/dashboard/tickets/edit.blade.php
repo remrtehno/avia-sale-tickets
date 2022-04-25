@@ -15,6 +15,7 @@
 
     <input type="hidden" name="flight_id" value="{{ $ticket->booking->flight->id }}">
 
+    <h3> ID: {{ $ticket->uuid }}</h3>
     @include('dashboard.tickets.partials.form')
 
     <x-adminlte-button type="submit" label="{{ __('common.save') }}" theme="primary" />

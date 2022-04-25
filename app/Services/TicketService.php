@@ -20,6 +20,7 @@ class TicketService
     $handle = fopen($filename, 'w+');
 
     $fields = [
+      'uuid',
       'name',
       'surname',
       'surname2',
@@ -39,6 +40,7 @@ class TicketService
     fputcsv(
       $handle,
       [
+        'ID',
         'Имя',
         'Фамилия',
         'Отчество',

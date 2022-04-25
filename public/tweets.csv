@@ -1,1 +1,7 @@
-Имя,Фамилия,Отчество,Email,"Дата рождения","Дата выпуска паспорта","Серия паспорта",Гражданство,"Мобильный тел",Виза,Адрес,"Типа билета",Цена,Статус
+ID,Имя,Фамилия,Отчество,Email,"Дата рождения","Дата выпуска паспорта","Серия паспорта",Гражданство,"Мобильный тел",Виза,Адрес,"Типа билета",Цена,Статус
+66162929107,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,,adultspassport_number,adultscitizenship,,adultsvisa,adultsaddress,adults,2211900,booked
+889336112525,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,2020-04-26,adultspassport_number,adultscitizenship,"+998(32) 323-23-32",adultsvisa,adultsaddress,adults,2211900,booked
+976592453291,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,2020-04-26,adultspassport_number,adultscitizenship,"+998(32) 323-23-32",adultsvisa,adultsaddress,adults,2211900,booked
+863913505038,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,2020-04-26,adultspassport_number,adultscitizenship,"+998(32) 323-23-32",adultsvisa,adultsaddress,adults,2211900,booked
+329097680884,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,2020-04-26,adultspassport_number,adultscitizenship,,adultsvisa,adultsaddress,adults,2211900,booked
+780993427308,adults1,adultssurname,adultssurname2,remrtehno@mail.ru,2000-04-26,,adultspassport_number,adultscitizenship,,adultsvisa,adultsaddress,adults,2211900,booked

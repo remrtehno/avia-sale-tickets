@@ -32,9 +32,10 @@ use Illuminate\Support\Facades\Auth;
 //single pages
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/paymo-callback', [OrderController::class, 'paymoCallback']);
+
 //@TODO $ - need to replace because we can see {page}%24
 Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
-
 
 //resources
 Route::resource('flights', FlightsController::class);
@@ -67,7 +68,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //single
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
-    Route::put('flights/{flight}', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+    Route::put('flights/{flight}/assign', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
 
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');

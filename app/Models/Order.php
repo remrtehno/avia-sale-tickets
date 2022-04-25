@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -10,12 +11,30 @@ class Order extends Model
 {
     use HasFactory;
 
+    // protected $primaryKey = 'uuid';
+
+
+    public const BOOKING_MINUTES_LIMIT = 30;
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
     public const RETURNED = 'returned';
 
-    protected $fillable = ['status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id', 'price_adult', 'count_chairs', 'is_returned', 'user_returned_id', 'is_completed'];
+    protected $fillable = ['uuid', 'status', 'user_id', 'flight_id', 'total', 'exchange_rate', 'seller_id', 'price_adult', 'count_chairs', 'is_returned', 'user_returned_id', 'is_completed'];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    private function changeStatusOfModel($model, $status)
+    {
+        $model->each(function ($item) use ($status) {
+            $item->update(
+                ['status' => $status]
+            );
+        });
+    }
 
     public static function getStatuses()
     {
@@ -61,6 +80,34 @@ class Order extends Model
         return User::find($this->user_returned_id);
     }
 
+    public function isPaid()
+    {
+        return $this->status === self::PAID;
+    }
+
+    public function changeStatus($status = self::BOOKED)
+    {
+
+        $this->changeStatusOfModel($this->booking->tickets, $status);
+        $this->changeStatusOfModel($this->booking->chairs, $status);
+
+        $this->booking->status = $status;
+        $this->booking->save();
+
+        $this->status = $status;
+        return $this->save();
+    }
+
+
+    public function markAsCanceled()
+    {
+        return $this->changeStatus(self::AVAILABLE);
+    }
+
+    public function isExpired()
+    {
+        return $this->created_at->greaterThan($this->created_at->addMinutes(self::BOOKING_MINUTES_LIMIT));
+    }
 
     /**
      * Get the booking.
@@ -89,5 +136,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function canBePayed()
+    {
+        return now()->diffInMinutes($this->created_at) <= self::BOOKING_MINUTES_LIMIT;
     }
 }

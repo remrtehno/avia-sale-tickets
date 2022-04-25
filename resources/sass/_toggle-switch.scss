@@ -10,6 +10,11 @@
     opacity: 0;
     width: 0;
     height: 0;
+
+    &[disabled] + .slider {
+        background-color: grey;
+        opacity: 0.6;
+    }
 }
 
 .slider {

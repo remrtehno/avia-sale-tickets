@@ -1,8 +1,16 @@
+@php
+$user_link = '?user_id=' . $ticket->user?->id;
+
+if (request('from') || request('to')) {
+    $user_link .= "&from=$from&to=$to";
+}
+@endphp
+
 <tr>
   <td>{{ $ticket->updated_at->format('Y-m-d H:i') }}</td>
 
   <td>
-    <a href="?name={{ $ticket->name }}">{{ $ticket->name }}</a>
+    <a href="{{ $user_link }}">{{ $ticket->user?->name }}</a>
   </td>
 
   <td>
@@ -12,14 +20,14 @@
   <td>{{ $flight = $ticket->booking->flight->getSummary() }}</td>
 
   <td>
-    <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->id)]) }}">
+    <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->uuid)]) }}">
       {{ $orderID }}
     </a>
   </td>
 
   <td>
-    <a href="{{ route('dashboard.tickets.show', ['ticket' => $ticket->id]) }}">
-      {{ $ticket->id }}
+    <a href="{{ route('dashboard.tickets.show', ['ticket' => $ticket->uuid]) }}">
+      {{ $ticket->uuid }}
     </a>
   </td>
 

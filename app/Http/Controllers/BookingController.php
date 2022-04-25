@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookingRequest;
 use App\Models\Booking;
 use App\Models\Flights;
+use App\Models\Order;
 use App\Services\BookingService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -72,8 +73,21 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
+        $order = $booking->order->first();
 
-        return view('booking.index', ['booking' => $booking]);
+        if ($booking->isOrderPaid()) {
+            return view('booking.payed', ['booking' => $booking, 'order' => $order]);
+        }
+
+        if (!$order->canBePayed()) {
+            return view('booking.expired', ['booking' => $booking, 'order' => $order]);
+        }
+
+        if ($order->status === Order::BOOKED) {
+            return view('booking.index', ['booking' => $booking, 'order' => $order]);
+        }
+
+        return abort(404);
     }
 
     /**
