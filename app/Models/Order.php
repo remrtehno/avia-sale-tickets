@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -98,7 +99,15 @@ class Order extends Model
     }
 
 
+    public function markAsCanceled()
+    {
+        return $this->changeStatus(self::AVAILABLE);
+    }
 
+    public function isExpired()
+    {
+        return $this->created_at->greaterThan($this->created_at->addMinutes(self::BOOKING_MINUTES_LIMIT));
+    }
 
     /**
      * Get the booking.

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\MonitorPendingOrder;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
@@ -32,6 +33,8 @@ class BookingService
 
     $flight->booking_id = $booking->id;
     $flight->save();
+
+    MonitorPendingOrder::dispatch($booking->order->first())->delay(1850);
 
     return $booking;
   }
