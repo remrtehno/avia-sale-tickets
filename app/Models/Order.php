@@ -26,6 +26,15 @@ class Order extends Model
         return 'uuid';
     }
 
+    private function changeStatusOfModel($model, $status)
+    {
+        $model->each(function ($item) use ($status) {
+            $item->update(
+                ['status' => $status]
+            );
+        });
+    }
+
     public static function getStatuses()
     {
         return [self::BOOKED, self::PAID, self::AVAILABLE, self::RETURNED];
@@ -78,11 +87,8 @@ class Order extends Model
     public function changeStatus($status = self::BOOKED)
     {
 
-        $this->booking->tickets->each(function ($item) use ($status) {
-            $item->update(
-                ['status' => $status]
-            );
-        });
+        $this->changeStatusOfModel($this->booking->tickets, $status);
+        $this->changeStatusOfModel($this->booking->chairs, $status);
 
         $this->booking->status = $status;
         $this->booking->save();
@@ -90,6 +96,9 @@ class Order extends Model
         $this->status = $status;
         return $this->save();
     }
+
+
+
 
     /**
      * Get the booking.

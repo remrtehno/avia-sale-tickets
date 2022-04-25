@@ -18,6 +18,7 @@ class Chairs extends Model
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
+    public const RETURNED = 'returned';
 
     public const FIELDS = [
         'flight_id' => 'string',
