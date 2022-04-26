@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             PartnerTableSeeder::class,
             ContactsTableSeeder::class,
             ChairsTableSeeder::class,
-            MetaInfoSeeder::class
+            MetaInfoSeeder::class,
+            CustomerContactsSeeder::class
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-booking-forms">
-        <input type="hidden" :value="type" :name="getType('type')" />
+        <input type="hidden" :value="current.type" :name="getType('type')" />
         <h5>{{ title }} {{ number }}</h5>
         <button
             v-show="!hideDelete"
@@ -15,6 +15,46 @@
                 <label
                     class="col-md-5"
                     style="padding-left: 0; padding-top: 12px"
+                    >Серия паспорта <span red>*</span></label
+                >
+
+                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
+                    <input
+                        ref="passport_number"
+                        type="text"
+                        class="form-control"
+                        placeholder="AA_______"
+                        spellcheck="false"
+                        :name="getType('passport_number')"
+                        :value="current.passport_number"
+                    />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="input2_wrapper">
+                <label
+                    class="col-md-5"
+                    style="padding-left: 0; padding-top: 12px"
+                    >Cрок паспорта <span red>*</span></label
+                >
+
+                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
+                    <input
+                        data-inputmask="'alias': 'dategood'"
+                        type="text"
+                        class="form-control"
+                        placeholder="____-__-__"
+                        spellcheck="false"
+                        :name="getType('passport_date')"
+                        :value="current.passport_date"
+                    />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="input2_wrapper">
+                <label
+                    class="col-md-5"
+                    style="padding-left: 0; padding-top: 12px"
                     >Имя <span red>*</span></label
                 >
 
@@ -25,7 +65,7 @@
                         placeholder="Michael"
                         spellcheck="false"
                         :name="getType('name')"
-                        :value="type + number + getValueFromFormsData('name')"
+                        :value="current.name"
                     />
                 </div>
             </div>
@@ -44,9 +84,7 @@
                         placeholder="Dragan"
                         spellcheck="false"
                         :name="getType('surname')"
-                        :value="
-                            type + 'surname' + getValueFromFormsData('surname')
-                        "
+                        :value="current.surname"
                     />
                 </div>
             </div>
@@ -65,11 +103,7 @@
                         placeholder="Berkovich"
                         spellcheck="false"
                         :name="getType('surname2')"
-                        :value="
-                            type +
-                            'surname2' +
-                            getValueFromFormsData('surname2')
-                        "
+                        :value="current.surname2"
                     />
                 </div>
             </div>
@@ -90,7 +124,7 @@
                         placeholder="your@email.com"
                         spellcheck="false"
                         :name="getType('email')"
-                        :value="email"
+                        :value="current.email"
                         :disabled="disabledEmail"
                     />
                 </div>
@@ -113,11 +147,7 @@
                         placeholder="____-__-__"
                         spellcheck="false"
                         :name="getType('birthday')"
-                        :value="
-                            type +
-                            'birthday' +
-                            getValueFromFormsData('birthday')
-                        "
+                        :value="current.birthday"
                     />
                 </div>
             </div>
@@ -157,53 +187,6 @@
                 <label
                     class="col-md-5"
                     style="padding-left: 0; padding-top: 12px"
-                    >Cрок паспорта <span red>*</span></label
-                >
-
-                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
-                    <input
-                        data-inputmask="'alias': 'dategood'"
-                        type="text"
-                        class="form-control"
-                        placeholder="____-__-__"
-                        spellcheck="false"
-                        :name="getType('passport_date')"
-                        :value="
-                            type +
-                            'passport_date' +
-                            getValueFromFormsData('passport_date')
-                        "
-                    />
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="input2_wrapper">
-                <label
-                    class="col-md-5"
-                    style="padding-left: 0; padding-top: 12px"
-                    >Серия паспорта <span red>*</span></label
-                >
-
-                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="AA_______"
-                        spellcheck="false"
-                        :name="getType('passport_number')"
-                        :value="
-                            type +
-                            'passport_number' +
-                            getValueFromFormsData('passport_number')
-                        "
-                    />
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="input2_wrapper">
-                <label
-                    class="col-md-5"
-                    style="padding-left: 0; padding-top: 12px"
                     >Гражданство <span red>*</span>
                 </label>
 
@@ -214,11 +197,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('citizenship')"
-                        :value="
-                            type +
-                            'citizenship' +
-                            getValueFromFormsData('citizenship')
-                        "
+                        :value="current.citizenship"
                     />
                 </div>
             </div>
@@ -244,7 +223,7 @@
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
                         :name="getType('tel')"
-                        :value="type + 'tel' + getValueFromFormsData('tel')"
+                        :value="current.tel"
                     />
                 </div>
             </div>
@@ -269,7 +248,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('visa')"
-                        :value="type + 'visa' + getValueFromFormsData('visa')"
+                        :value="current.visa"
                     />
                 </div>
             </div>
@@ -294,9 +273,7 @@
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
                         :name="getType('address')"
-                        :value="
-                            type + 'address' + getValueFromFormsData('address')
-                        "
+                        :value="current.address"
                     />
                 </div>
             </div>
@@ -322,6 +299,25 @@ export default {
         "disabledEmail",
         "formsData",
     ],
+    data() {
+        return {
+            customers: [],
+
+            current: {
+                passport_number: this.getValueFromFormsData("passport_number"),
+                passport_date: this.getValueFromFormsData("passport_date"),
+                name: this.getValueFromFormsData("name"),
+                surname: this.getValueFromFormsData("surname"),
+                surname2: this.getValueFromFormsData("surname2"),
+                birthday: this.getValueFromFormsData("birthday"),
+                gender: "",
+                citizenship: this.getValueFromFormsData("citizenship"),
+                tel: this.getValueFromFormsData("tel"),
+                visa: this.getValueFromFormsData("visa"),
+                address: this.getValueFromFormsData("address"),
+            },
+        };
+    },
     methods: {
         triggerEvent() {
             $emit("onClick");
@@ -338,6 +334,33 @@ export default {
         inputEmail(evt) {
             this.$emit("input", evt.target.value);
         },
+    },
+
+    mounted() {
+        $(this.$refs.passport_number).autocomplete({
+            minLength: 3,
+            source: async ({ term }, result) => {
+                await fetch(
+                    "/api/v1/customer-contacts?" +
+                        new URLSearchParams({
+                            passport_number: term,
+                        })
+                )
+                    .then((response) => response.json())
+                    .then((response) => {
+                        this.customers = response.customers;
+                    });
+
+                result(
+                    this.customers.map(({ passport_number }) => passport_number)
+                );
+            },
+            select: (event, ui) => {
+                this.current = this.customers.find(
+                    ({ passport_number }) => passport_number === ui.item.value
+                );
+            },
+        });
     },
 };
 </script>

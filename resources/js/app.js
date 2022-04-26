@@ -4,11 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import "./lib/bootstrap";
+
 import "./vue";
 import "./lib/inputmask";
 import "./scripts/register-modal";
-import "./scripts/input-file.js";
-import "./scripts/input-number.js";
+import "./scripts/input-file";
+import "./scripts/input-number";
 import "./scripts/cash-or-transfer";
 
 /**

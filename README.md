@@ -96,3 +96,5 @@ docker-compose run --rm artisan make:view products --resource --extends=layout -
 @if ($errors->any())
 {!! implode('', $errors->all('<div> :key :message</div>')) !!}
 @endif
+
+docker-compose run --rm artisan make:controller Api/V1/CustomerContacts --api
