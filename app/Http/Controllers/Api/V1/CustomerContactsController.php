@@ -25,6 +25,7 @@ class CustomerContactsController extends Controller
     public function index(Request $request)
     {
         $query = $request->input('passport_number');
+        // dd($request->user('api'));
 
         return response()->json([
             'customers' =>

@@ -340,16 +340,13 @@ export default {
         $(this.$refs.passport_number).autocomplete({
             minLength: 3,
             source: async ({ term }, result) => {
-                await fetch(
-                    "/api/v1/customer-contacts?" +
-                        new URLSearchParams({
-                            passport_number: term,
-                        })
-                )
-                    .then((response) => response.json())
-                    .then((response) => {
-                        this.customers = response.customers;
-                    });
+                const { data } = await axios.get("/api/v1/customer-contacts", {
+                    params: {
+                        passport_number: term,
+                    },
+                });
+
+                this.customers = data.customers;
 
                 result(
                     this.customers.map(({ passport_number }) => passport_number)
