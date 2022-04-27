@@ -2400,8 +2400,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData"],
+  props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
     return {
       customers: [],
@@ -2412,7 +2416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         surname: this.getValueFromFormsData("surname"),
         surname2: this.getValueFromFormsData("surname2"),
         birthday: this.getValueFromFormsData("birthday"),
-        gender: "",
+        gender: this.getValueFromFormsData("gender"),
         citizenship: this.getValueFromFormsData("citizenship"),
         tel: this.getValueFromFormsData("tel"),
         visa: this.getValueFromFormsData("visa"),
@@ -2445,21 +2449,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       minLength: 3,
       source: function () {
         var _source = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref, result) {
-          var term, _yield$axios$get, data;
+          var term, user_id, _yield$axios$get, data;
 
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
                   term = _ref.term;
-                  _context.next = 3;
+                  user_id = $('[name="user_id"]').val();
+
+                  if (user_id) {
+                    _context.next = 4;
+                    break;
+                  }
+
+                  return _context.abrupt("return", result(_this.customers));
+
+                case 4:
+                  _context.next = 6;
                   return axios.get("/api/v1/customer-contacts", {
                     params: {
-                      passport_number: term
+                      passport_number: term,
+                      user_id: user_id
                     }
                   });
 
-                case 3:
+                case 6:
                   _yield$axios$get = _context.sent;
                   data = _yield$axios$get.data;
                   _this.customers = data.customers;
@@ -2468,7 +2483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return passport_number;
                   }));
 
-                case 7:
+                case 10:
                 case "end":
                   return _context.stop();
               }
@@ -2562,12 +2577,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     old: {
       type: String,
       "default": "[]"
+    },
+    loggedIn: {
+      type: Boolean,
+      "default": false
     }
   },
   data: function data() {
@@ -11886,6 +11908,26 @@ var render = function () {
     _vm._v(" "),
     _c("div", [
       _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.loggedIn,
+                expression: "loggedIn",
+              },
+            ],
+            staticClass: "alert alert-warning px-10 py-5",
+          },
+          [
+            _vm._v("\n                Поле "),
+            _c("b", [_vm._v('"Серия паспорта"')]),
+            _vm._v(" имеет автозаполнение\n            "),
+          ]
+        ),
+        _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
         _c(
@@ -12100,6 +12142,7 @@ var render = function () {
                   name: _vm.getType("gender"),
                   value: "m",
                 },
+                domProps: { checked: _vm.current.gender === "m" },
               }),
               _vm._v("\n                    Мужской\n                "),
             ]),
@@ -12110,8 +12153,8 @@ var render = function () {
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "f",
-                  checked: "",
                 },
+                domProps: { checked: _vm.current.gender === "f" },
               }),
               _vm._v("\n                    Женский\n                "),
             ]),
@@ -12488,6 +12531,7 @@ var render = function () {
             title: "Взрослый",
             hideDelete: n === 1,
             formsData: _vm.formsData,
+            loggedIn: _vm.loggedIn,
           },
           on: {
             onClick: function ($event) {
@@ -12528,6 +12572,7 @@ var render = function () {
             number: n,
             title: "Детский",
             formsData: _vm.formsData,
+            loggedIn: _vm.loggedIn,
           },
           on: {
             onClick: function ($event) {
@@ -12568,6 +12613,7 @@ var render = function () {
             number: n,
             title: "Младенческий",
             formsData: _vm.formsData,
+            loggedIn: _vm.loggedIn,
           },
           on: {
             onClick: function ($event) {

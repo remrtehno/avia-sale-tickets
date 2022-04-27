@@ -24,13 +24,13 @@ class CustomerContactsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->input('passport_number');
-        // dd($request->user('api'));
+        $query = $request->passport_number;
+        $user_id = $request->user_id;
 
         return response()->json([
             'customers' =>
-            strlen($query) > 2
-                ? CustomerContacts::where("passport_number", "like", "%$query%")->limit(20)->get()
+            strlen($query) > 2 && $user_id
+                ? CustomerContacts::where('user_id', $user_id)->where("passport_number", "like", "%$query%")->limit(20)->get()
                 : null
         ]);
     }

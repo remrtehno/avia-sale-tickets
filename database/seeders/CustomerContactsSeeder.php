@@ -16,8 +16,12 @@ class CustomerContactsSeeder extends Seeder
         $users = \App\Models\User::all();
 
 
-        \App\Models\CustomerContacts::factory()->count(75)->create([
+        \App\Models\CustomerContacts::factory()->count(50)->create([
             'user_id' => $users->random()->id
+        ]);
+
+        \App\Models\CustomerContacts::factory()->count(25)->create([
+            'user_id' => 10,
         ]);
     }
 }

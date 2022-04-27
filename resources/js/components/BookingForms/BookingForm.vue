@@ -12,6 +12,9 @@
         </button>
         <div>
             <div class="input2_wrapper">
+                <div v-show="loggedIn" class="alert alert-warning px-10 py-5">
+                    Поле <b>"Серия паспорта"</b> имеет автозаполнение
+                </div>
                 <label
                     class="col-md-5"
                     style="padding-left: 0; padding-top: 12px"
@@ -168,6 +171,7 @@
                             type="radio"
                             :name="getType('gender')"
                             value="m"
+                            :checked="current.gender === 'm'"
                         />
                         Мужской
                     </label>
@@ -176,7 +180,7 @@
                             type="radio"
                             :name="getType('gender')"
                             value="f"
-                            checked
+                            :checked="current.gender === 'f'"
                         />
                         Женский
                     </label>
@@ -298,6 +302,7 @@ export default {
         "email",
         "disabledEmail",
         "formsData",
+        "loggedIn",
     ],
     data() {
         return {
@@ -310,7 +315,7 @@ export default {
                 surname: this.getValueFromFormsData("surname"),
                 surname2: this.getValueFromFormsData("surname2"),
                 birthday: this.getValueFromFormsData("birthday"),
-                gender: "",
+                gender: this.getValueFromFormsData("gender"),
                 citizenship: this.getValueFromFormsData("citizenship"),
                 tel: this.getValueFromFormsData("tel"),
                 visa: this.getValueFromFormsData("visa"),
@@ -340,9 +345,16 @@ export default {
         $(this.$refs.passport_number).autocomplete({
             minLength: 3,
             source: async ({ term }, result) => {
+                const user_id = $('[name="user_id"]').val();
+
+                if (!user_id) {
+                    return result(this.customers);
+                }
+
                 const { data } = await axios.get("/api/v1/customer-contacts", {
                     params: {
                         passport_number: term,
+                        user_id,
                     },
                 });
 
