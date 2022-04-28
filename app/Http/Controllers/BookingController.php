@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Flights;
 use App\Models\Order;
 use App\Services\BookingService;
+use App\Services\CustomerContactsService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -16,10 +17,12 @@ use Illuminate\Http\Request;
 class BookingController extends Controller
 {
     private $service;
+    private $customerContactsService;
 
-    public function __construct(BookingService $bookingService)
+    public function __construct(BookingService $bookingService, CustomerContactsService $customerContactsService)
     {
         $this->service = $bookingService;
+        $this->customerContactsService = $customerContactsService;
     }
 
     /**
@@ -59,7 +62,7 @@ class BookingController extends Controller
             return back()->withInput()->withErrors(['no_seats' => 'Не достаточно мест']);
         };
 
-
+        $this->customerContactsService->store($request->all());
         $booking = $this->service->store($flight);
 
         return redirect()->route('booking.show', ['booking' => $booking]);
@@ -74,17 +77,18 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         $order = $booking->order->first();
+        $options = ['booking' => $booking, 'order' => $order];
 
         if ($booking->isOrderPaid()) {
-            return view('booking.payed', ['booking' => $booking, 'order' => $order]);
+            return view('booking.payed', $options);
         }
 
         if (!$order->canBePayed()) {
-            return view('booking.expired', ['booking' => $booking, 'order' => $order]);
+            return view('booking.expired', $options);
         }
 
         if ($order->status === Order::BOOKED) {
-            return view('booking.index', ['booking' => $booking, 'order' => $order]);
+            return view('booking.index', $options);
         }
 
         return abort(404);

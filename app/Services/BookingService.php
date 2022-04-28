@@ -6,7 +6,6 @@ use App\Jobs\MonitorPendingOrder;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
-use App\Models\MetaInfo;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;

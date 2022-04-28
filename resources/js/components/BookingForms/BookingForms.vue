@@ -13,6 +13,7 @@
                 :hideDelete="n === 1"
                 @onClick="setPassengers('adults')"
                 :formsData="formsData"
+                :loggedIn="loggedIn"
             ></booking-form>
         </div>
 
@@ -28,6 +29,7 @@
                 title="Детский"
                 @onClick="setPassengers('children')"
                 :formsData="formsData"
+                :loggedIn="loggedIn"
             ></booking-form>
         </div>
 
@@ -43,6 +45,7 @@
                 title="Младенческий"
                 @onClick="setPassengers('infants')"
                 :formsData="formsData"
+                :loggedIn="loggedIn"
             ></booking-form>
         </div>
     </div>
@@ -56,6 +59,10 @@ export default {
         old: {
             type: String,
             default: "[]",
+        },
+        loggedIn: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {

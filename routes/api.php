@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CustomerContactsController;
 use App\Http\Controllers\Api\V1\FlightsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('flights', FlightsController::class);
+    Route::apiResource('customer-contacts', CustomerContactsController::class);
 });

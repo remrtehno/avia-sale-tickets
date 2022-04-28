@@ -112,6 +112,7 @@
 
       </div>
 
+      <input type="hidden" name="user_id" value="{{ Auth::id() }}">
       <input type="hidden" name="flight_id" value="{{ $flights->id }}">
       <input type="hidden" name="seats_left" value="{{ $flights->getSeats() }}">
 
@@ -236,8 +237,7 @@
                   <input type="hidden" name="price_adult" value="{{ $flights->price_adult }}">
                   <input type="hidden" name="price_child" value="{{ $flights->price_child }}">
                   <input type="hidden" name="price_infant" value="{{ $flights->price_infant }}">
-                  <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}"
-                    :price-infant="{{ $flights->price_infant }}" :additional="0" />
+                  <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}" :price-infant="{{ $flights->price_infant }}" :additional="0" />
                 </div>
               </div>
               <div class="clearfix"></div>
