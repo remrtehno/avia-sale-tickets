@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomerContacts;
 use App\Services\CustomerContactsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CustomerContactsController extends Controller
 {
@@ -26,11 +25,17 @@ class CustomerContactsController extends Controller
     {
         $query = $request->passport_number;
         $user_id = $request->user_id;
+        $type = $request->type;
+
+        $canBeShowed = strlen($query) > 2 && $user_id;
 
         return response()->json([
             'customers' =>
-            strlen($query) > 2 && $user_id
-                ? CustomerContacts::where('user_id', $user_id)->where("passport_number", "like", "%$query%")->limit(20)->get()
+            $canBeShowed
+                ? CustomerContacts::where([
+                    'user_id' => $user_id,
+                    'type' => $type,
+                ])->where("passport_number", "like", "%$query%")->limit(20)->get()
                 : null
         ]);
     }

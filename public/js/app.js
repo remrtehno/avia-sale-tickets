@@ -2470,7 +2470,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return axios.get("/api/v1/customer-contacts", {
                     params: {
                       passport_number: term,
-                      user_id: user_id
+                      user_id: user_id,
+                      type: _this.type
                     }
                   });
 
@@ -11879,7 +11880,7 @@ var render = function () {
   return _c("div", { staticClass: "wrapper-booking-forms" }, [
     _c("input", {
       attrs: { type: "hidden", name: _vm.getType("type") },
-      domProps: { value: _vm.current.type },
+      domProps: { value: _vm.type },
     }),
     _vm._v(" "),
     _c("h5", [_vm._v(_vm._s(_vm.title) + " " + _vm._s(_vm.number))]),

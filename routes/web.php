@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CustomerContactsController;
 use App\Http\Controllers\Dashboard\BookingController as DashboardBookingController;
 use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -62,6 +63,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('orders', OrderController::class);
     Route::resource('booking', DashboardBookingController::class);
     Route::resource('reports', ReportController::class);
+    Route::resource('customer-contacts', CustomerContactsController::class);
 
 
 

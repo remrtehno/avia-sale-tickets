@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-booking-forms">
-        <input type="hidden" :value="current.type" :name="getType('type')" />
+        <input type="hidden" :value="type" :name="getType('type')" />
         <h5>{{ title }} {{ number }}</h5>
         <button
             v-show="!hideDelete"
@@ -355,6 +355,7 @@ export default {
                     params: {
                         passport_number: term,
                         user_id,
+                        type: this.type,
                     },
                 });
 

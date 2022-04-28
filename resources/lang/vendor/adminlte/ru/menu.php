@@ -23,5 +23,6 @@ return [
     'all_flights'                   => 'Все рейсы',
     'tickets'                       => 'Билеты',
     'orders'                        => 'Заказы',
-    'booking'                       => 'Бронирование'
+    'booking'                       => 'Бронирование',
+    'customer-contacts'             => 'Контакты покупателей'
 ];

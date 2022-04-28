@@ -31,7 +31,7 @@ class CreateCustomerContactsTable extends Migration
             'user_id'
         ];
 
-        Schema::create('customer_contacts', function (Blueprint $table) use ($fields) {
+        Schema::create('customer-contacts', function (Blueprint $table) use ($fields) {
             $table->id();
             $table->timestamps();
 
@@ -48,6 +48,6 @@ class CreateCustomerContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_contacts');
+        Schema::dropIfExists('customer-contacts');
     }
 }

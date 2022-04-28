@@ -277,6 +277,13 @@ return [
             'icon' => 'fas fa-fw fa-bars',
         ],
 
+        [
+            'text' => 'customer-contacts',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.customer-contacts.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [
