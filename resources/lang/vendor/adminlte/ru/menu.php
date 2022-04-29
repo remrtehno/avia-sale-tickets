@@ -24,5 +24,6 @@ return [
     'tickets'                       => 'Билеты',
     'orders'                        => 'Заказы',
     'booking'                       => 'Бронирование',
-    'customer-contacts'             => 'Контакты покупателей'
+    'customer-contacts'             => 'Контакты покупателей',
+    'users'                         => 'Все пользователи',
 ];

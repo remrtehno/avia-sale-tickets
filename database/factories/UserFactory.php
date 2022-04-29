@@ -16,13 +16,15 @@ class UserFactory extends Factory
     public function ind()
     {
         return $this->state(function (array $attributes) {
+            $image = 'https://placeimg.com/300/300/any?1';
+
             return [
                 'role' => 'ind',
                 'birthday' => $this->faker->dateTimeBetween('1990-01-01', '2001-12-31')
                     ->format('Y-m-d H:m:s'),
                 'surname' => $this->faker->firstName(),
                 'surname2' => $this->faker->lastName(),
-                'passport_file' => null
+                'passport_file' => $image . rand(0, 99)
             ];
         });
     }
@@ -35,21 +37,23 @@ class UserFactory extends Factory
     public function org()
     {
         return $this->state(function (array $attributes) {
+            $image = 'https://placeimg.com/300/300/any?1';
+
             return [
                 'role' => 'org',
                 'dir_surname' => $this->faker->firstName(),
                 'dir_name' => $this->faker->lastName(),
                 'dir_surname2' => $this->faker->firstNameMale(),
-                'dir_passport_file' => null,
+                'dir_passport_file' => $image . rand(0, 99),
                 'tel_director' => $this->faker->phoneNumber(),
                 'inn' => rand(11111111, 99999999),
-                'inn_file' => null,
+                'inn_file' => $image . rand(0, 99),
                 'license' => rand(11111111, 99999999),
-                'license_file' => null,
+                'license_file' => $image . rand(0, 99),
                 'agreement_contract' => rand(11111111, 99999999),
-                'agreement_contract_file' => null,
+                'agreement_contract_file' => $image . rand(0, 99),
                 'cadastre' => rand(11111111, 99999999),
-                'cadastre_file' => null,
+                'cadastre_file' => $image . rand(0, 99),
             ];
         });
     }

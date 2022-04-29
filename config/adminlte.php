@@ -284,6 +284,13 @@ return [
             'icon' => 'fas fa-fw fa-bars',
         ],
 
+        [
+            'text' => 'users',
+            'can'  => 'is-admin',
+            'route' => 'dashboard.users.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [

@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Http\Controllers\Dashboard\ChairsController;
 use App\Http\Controllers\Dashboard\TicketController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Models\Flights;
 use App\Models\User;
 use App\Policies\ChairsPolicy;
 use App\Policies\FlightsPolicy;
 use App\Policies\TicketPolicy;
+use App\Policies\UsersPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -22,7 +24,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Flights::class => FlightsPolicy::class,
         ChairsController::class => ChairsPolicy::class,
-        TicketController::class => TicketPolicy::class
+        TicketController::class => TicketPolicy::class,
+        UserController::class => UsersPolicy::class,
     ];
 
     /**
@@ -36,6 +39,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('manage-dashboard', function (User $user) {
             return $user->is_approved;
+        });
+
+        Gate::define('is-admin', function (User $user) {
+            return $user->is_admin;
         });
     }
 }
