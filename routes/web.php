@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\TopFlightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
@@ -58,6 +59,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
   Route::middleware(['auth', 'dashboard'])->group(function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
+    Route::resource('top-flights', TopFlightsController::class);
     Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);

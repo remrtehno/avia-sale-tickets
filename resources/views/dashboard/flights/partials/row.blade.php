@@ -12,6 +12,12 @@
         куплен
       </small>
     @endif
+
+    @can('is-admin')
+      <br>
+      {{ $row->user->name }}
+      {{ $row->user->email }}
+    @endcan
   </td>
   <td>{{ $row->flight }}</td>
   <td>{{ $row->getChairs()->count() }}</td>

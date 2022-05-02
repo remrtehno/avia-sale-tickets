@@ -291,6 +291,13 @@ return [
             'icon' => 'fas fa-fw fa-bars',
         ],
 
+        [
+            'text' => 'top',
+            'can'  => 'is-admin',
+            'route' => 'dashboard.top-flights.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [
