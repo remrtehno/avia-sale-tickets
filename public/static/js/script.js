@@ -100,7 +100,7 @@ $(document).ready(function () {
         });
     }
 
-    var o = $("#popular .carousel.main ul");
+    var o = $(".popular-main .carousel.main ul");
     if (o.length > 0) {
         o.carouFredSel({
             auto: {
@@ -109,7 +109,40 @@ $(document).ready(function () {
             responsive: true,
             // prev: '.popular_prev',
             // next: '.popular_next',
-            pagination: ".popular_pagination",
+            pagination: ".popular_pagination-driver",
+            width: "100%",
+            scroll: {
+                // fx : "crossfade",
+                items: 1,
+                duration: 1000,
+                easing: "easeOutExpo",
+            },
+            items: {
+                width: "520",
+                height: "variable", //  optionally resize item-height
+                visible: {
+                    min: 1,
+                    max: 3,
+                },
+            },
+            mousewheel: false,
+            swipe: {
+                onMouse: true,
+                onTouch: true,
+            },
+        });
+    }
+
+    var o2 = $(".top-main .carousel.main ul");
+    if (o2.length > 0) {
+        o2.carouFredSel({
+            auto: {
+                timeoutDuration: 8000,
+            },
+            responsive: true,
+            // prev: '.popular_prev',
+            // next: '.popular_next',
+            pagination: ".top_pagination",
             width: "100%",
             scroll: {
                 // fx : "crossfade",

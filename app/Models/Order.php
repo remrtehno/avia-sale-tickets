@@ -53,6 +53,11 @@ class Order extends Model
 
     public function getOrders()
     {
+
+        if (Auth::user()->is_admin) {
+            return $this->all();
+        };
+
         $userId = Auth::user()->id;
         return $this->where('seller_id', $userId)->get();
     }

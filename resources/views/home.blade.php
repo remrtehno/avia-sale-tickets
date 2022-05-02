@@ -43,23 +43,54 @@
       </div>
     </div>
 
+    @if (count($flightsTop))
+      <div id="popular_cruises1">
+        <div class="container">
+          <h2 class="animated">TOP</h2>
+
+          <br /><br />
+
+          <div id="popular_wrapper" class="animated" data-animation="fadeIn" data-animation-delay="300">
+            <div id="popular_inner">
+              <div class="">
+                <div id="popular" class="top-main">
+                  <div class="">
+                    <div class="carousel-box">
+                      <div class="inner">
+                        <div class="carousel main">
+                          <ul>
+                            @foreach ($flightsTop as $item)
+                              <li>
+                                @include('partials.flight-item-slider', [
+                                    'item' => $item,
+                                ])
+                              </li>
+                            @endforeach
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="popular_pagination top_pagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
 
     <div id="popular_cruises1">
       <div class="container">
         <h2 class="animated">POPULAR CRUISES</h2>
 
-        <div class="title1 animated">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing
-          elit, sed diam nonummy nibh euismod <br />tincidunt ut
-          laoreet dolore magna aliquam erat volutpat.
-        </div>
 
         <br /><br />
 
         <div id="popular_wrapper" class="animated" data-animation="fadeIn" data-animation-delay="300">
           <div id="popular_inner">
             <div class="">
-              <div id="popular">
+              <div id="popular" class="popular-main">
                 <div class="">
                   <div class="carousel-box">
                     <div class="inner">
@@ -77,7 +108,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="popular_pagination"></div>
+                <div class="popular_pagination popular_pagination-driver"></div>
               </div>
             </div>
           </div>

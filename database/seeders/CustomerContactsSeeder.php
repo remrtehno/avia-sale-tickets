@@ -17,11 +17,29 @@ class CustomerContactsSeeder extends Seeder
 
 
         \App\Models\CustomerContacts::factory()->count(50)->create([
-            'user_id' => $users->random()->id
+            'user_id' => $users->random()->id,
         ]);
 
-        \App\Models\CustomerContacts::factory()->count(25)->create([
+        \App\Models\CustomerContacts::factory()->count(50)->create([
+            'user_id' => $users->random()->id,
+            'type' => collect(['children', 'infants'])->random(),
+        ]);
+
+
+        \App\Models\CustomerContacts::factory()->count(10)->create([
             'user_id' => 10,
+        ]);
+        \App\Models\CustomerContacts::factory()->count(10)->create([
+            'user_id' => 11,
+        ]);
+
+        \App\Models\CustomerContacts::factory()->count(10)->create([
+            'user_id' => 10,
+            'type' => 'children',
+        ]);
+        \App\Models\CustomerContacts::factory()->count(10)->create([
+            'user_id' => 11,
+            'type' => 'infants',
         ]);
     }
 }

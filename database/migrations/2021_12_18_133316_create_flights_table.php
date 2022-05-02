@@ -23,6 +23,7 @@ class CreateFlightsTable extends Migration
             }
 
             $table->string('booking_id')->nullable();
+            $table->integer('top')->nullable();
         });
     }
 

@@ -50,5 +50,23 @@ class FlightsTableSeeder extends Seeder
             $flight->addMediaFromUrl($logos->random())
                 ->toMediaCollection($nameCollection);
         });
+
+
+        \App\Models\Flights::factory(10)->make([
+            'top' => 1
+        ])->each(function ($flight) use ($users, $logos) {
+            $flight->user_id = $users->random()->id;
+            //save
+            $flight->save();
+
+
+            //logos
+            $nameCollection = $flight->getPathImages('logo');
+
+            $flight->clearMedia($nameCollection);
+
+            $flight->addMediaFromUrl($logos->random())
+                ->toMediaCollection($nameCollection);
+        });
     }
 }
