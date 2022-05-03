@@ -163,16 +163,10 @@ class Flights extends Model implements HasMedia
         $to = request()->destination_iata;
         $from = request()->origin_iata;
 
-        $this->upperQuery('direction_from', $from);
-        $this->upperQuery('direction_to', $to);
+        $query->where('direction_from', 'like', "%$from%");
+        $query->where('direction_to', 'like', "%$to%");
 
         return $query;
-    }
-
-
-    public function upperQuery($column, $value)
-    {
-        $this->whereRaw("UPPER('{$column}') LIKE '%'" . strtoupper($value) . "'%'");
     }
 
 
