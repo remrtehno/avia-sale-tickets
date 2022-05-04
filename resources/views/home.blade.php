@@ -52,7 +52,7 @@
 
           <div class="animated row brick-flights" data-animation="fadeIn" data-animation-delay="300">
             @foreach ($flightsTop as $item)
-              <div class="col-md-2">
+              <div class="col-md-3 col-lg-2 col-sm-6">
                 @include('partials.flight-item', [
                     'item' => $item,
                 ])
