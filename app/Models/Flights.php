@@ -154,6 +154,11 @@ class Flights extends Model implements HasMedia
         return "$this->flight $date $time";
     }
 
+    public function canBeDeleted()
+    {
+        return $this->booking->count() < 1;
+    }
+
 
     /**
      * Scope a query to search by directions

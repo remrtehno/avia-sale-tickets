@@ -13,11 +13,11 @@ class Ticket extends Model
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
-    public const RETURNED = 'returned';
+    public const RETURNED = 'RFND';
 
-    public const ADULTS = 'adults';
-    public const CHILDREN = 'children';
-    public const INFANTS = 'infants';
+    public const ADULTS = 'ADT';
+    public const CHILDREN = 'CHD';
+    public const INFANTS = 'INF';
 
     protected $fillable = [
         'user_id',

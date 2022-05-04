@@ -22,7 +22,7 @@ class CustomerContactsSeeder extends Seeder
 
         \App\Models\CustomerContacts::factory()->count(50)->create([
             'user_id' => $users->random()->id,
-            'type' => collect(['children', 'infants'])->random(),
+            'type' => collect(['CHD', 'INF'])->random(),
         ]);
 
 
@@ -30,16 +30,19 @@ class CustomerContactsSeeder extends Seeder
             'user_id' => 10,
         ]);
         \App\Models\CustomerContacts::factory()->count(10)->create([
+            'user_id' => 12,
+        ]);
+        \App\Models\CustomerContacts::factory()->count(10)->create([
             'user_id' => 11,
         ]);
 
         \App\Models\CustomerContacts::factory()->count(10)->create([
             'user_id' => 10,
-            'type' => 'children',
+            'type' => 'CHD',
         ]);
         \App\Models\CustomerContacts::factory()->count(10)->create([
             'user_id' => 11,
-            'type' => 'infants',
+            'type' => 'INF',
         ]);
     }
 }

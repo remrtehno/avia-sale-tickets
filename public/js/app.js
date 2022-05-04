@@ -12527,7 +12527,7 @@ var render = function () {
           attrs: {
             "disabled-email": n !== 1,
             email: _vm.email,
-            type: "adults",
+            type: "ADT",
             number: n,
             title: "Взрослый",
             hideDelete: n === 1,
@@ -12569,7 +12569,7 @@ var render = function () {
           attrs: {
             "disabled-email": true,
             email: _vm.email,
-            type: "children",
+            type: "CHD",
             number: n,
             title: "Детский",
             formsData: _vm.formsData,
@@ -12610,7 +12610,7 @@ var render = function () {
           attrs: {
             "disabled-email": true,
             email: _vm.email,
-            type: "infants",
+            type: "INF",
             number: n,
             title: "Младенческий",
             formsData: _vm.formsData,
