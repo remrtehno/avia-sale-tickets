@@ -14,6 +14,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\TopFlightsController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +59,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
   Route::middleware(['auth', 'dashboard'])->group(function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
+    Route::resource('top-flights', TopFlightsController::class);
     Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
@@ -64,6 +67,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('booking', DashboardBookingController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('customer-contacts', CustomerContactsController::class);
+    Route::resource('users', UserController::class);
 
 
 
@@ -79,6 +83,9 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'update'])->name('return.assigned.chairs.accept');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
+
+    Route::put('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
+    Route::put('users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
 
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
 

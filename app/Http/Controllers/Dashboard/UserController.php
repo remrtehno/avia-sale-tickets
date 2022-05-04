@@ -3,60 +3,26 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\Ticket;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ReportController extends Controller
+class UserController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-
-
-        $from = new Carbon('-1 day 00:00');
-        $to = now();
-
-
-
-        $tickets = Ticket::whereHas('booking', function (Builder $query) {
-            $query->whereHas('flight', function (Builder $queryFight) {
-                $user = Auth::user();
-
-                if (!$user->isAdmin()) {
-                    $queryFight->where('user_id', $user->id);
-                }
-            });
-        })->where('status', Order::PAID);
-
-        if ($request->from && $request->to) {
-            $from = new Carbon($request->from);
-            $to = new Carbon($request->to);
-
-            $tickets->whereBetween('updated_at', [$from, $to]);
-        }
-
-        if ($request->user_id) {
-            $tickets->where('user_id', $request->user_id);
-        }
+        $this->authorizeOnlyAdmins();
 
         return view(
-            'dashboard.report.index',
-            [
-                'tickets' => $tickets->get(),
-                'from' => $from,
-                'to' => $to,
-                'user' => User::find($request->user_id)
-
-            ]
+            'dashboard.users.index',
+            ['users' => User::all()]
         );
     }
 
@@ -67,7 +33,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorizeOnlyAdmins();
     }
 
     /**
@@ -78,7 +44,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorizeOnlyAdmins();
     }
 
     /**
@@ -89,7 +55,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->authorizeOnlyAdmins();
     }
 
     /**
@@ -100,7 +66,13 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->authorizeOnlyAdmins();
+
+
+        return view(
+            'dashboard.users.edit',
+            ['user' => User::find($id)]
+        );
     }
 
     /**
@@ -112,7 +84,7 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorizeOnlyAdmins();
     }
 
     /**
@@ -123,6 +95,29 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorizeOnlyAdmins();
+
+        User::find($id)->delete();
+
+        return back();
+    }
+
+    public function approve(User $user)
+    {
+        $user->is_approved = 1;
+        return $user->save() ? $this->index()->with('success', 'Пользователь подтвержден') : abort(505);
+    }
+
+    public function deactivate(User $user)
+    {
+        $user->is_approved = 0;
+        return $user->save() ? $this->index()->with('success', 'Пользователь деактивирован') : abort(505);
+    }
+
+    public function authorizeOnlyAdmins()
+    {
+        if (!Auth::user()?->is_admin) {
+            return abort('401');
+        }
     }
 }

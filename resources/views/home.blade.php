@@ -43,23 +43,38 @@
       </div>
     </div>
 
+    @if (count($flightsTop))
+      <div id="popular_cruises1">
+        <div class="container">
+          <h2 class="animated">TOP</h2>
+
+          <br /><br />
+
+          <div class="animated row brick-flights" data-animation="fadeIn" data-animation-delay="300">
+            @foreach ($flightsTop as $item)
+              <div class="col-md-3 col-lg-2 col-sm-6">
+                @include('partials.flight-item', [
+                    'item' => $item,
+                ])
+              </div>
+            @endforeach
+
+          </div>
+        </div>
+      </div>
+    @endif
 
     <div id="popular_cruises1">
       <div class="container">
         <h2 class="animated">POPULAR CRUISES</h2>
 
-        <div class="title1 animated">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing
-          elit, sed diam nonummy nibh euismod <br />tincidunt ut
-          laoreet dolore magna aliquam erat volutpat.
-        </div>
 
         <br /><br />
 
         <div id="popular_wrapper" class="animated" data-animation="fadeIn" data-animation-delay="300">
           <div id="popular_inner">
             <div class="">
-              <div id="popular">
+              <div id="popular" class="popular-main">
                 <div class="">
                   <div class="carousel-box">
                     <div class="inner">
@@ -77,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="popular_pagination"></div>
+                <div class="popular_pagination popular_pagination-driver"></div>
               </div>
             </div>
           </div>

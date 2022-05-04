@@ -27,6 +27,16 @@ class User extends Authenticatable implements HasMedia
     ];
     public const SEPARATOR = ',';
 
+    public const APPROVED_TEXT = [
+        0 => 'На модерации',
+        1 => "Подтвержден"
+    ];
+
+    public const ROLES = [
+        self::ORG => 'Юридическое лицо',
+        self::IND => "Физическое лицо"
+    ];
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -90,6 +100,41 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
+    public function canBeDeleted()
+    {
+        return !$this->flights?->count();
+    }
+
+    /**
+     * Returns info text depends by Approved.
+     *
+     * @returns Boolean
+     */
+    public function isApprovedText()
+    {
+        return self::APPROVED_TEXT[$this->isApproved()];
+    }
+
+
+    /**
+     * Returns true or false if user is Approved.
+     *
+     * @returns Boolean
+     */
+    public function isApproved()
+    {
+        return $this->is_approved;
+    }
+
+    /**
+     * Returns text roles.
+     *
+     * @returns Boolean
+     */
+    public function roleText()
+    {
+        return self::ROLES[$this->role];
+    }
 
     /**
      * Returns true or false if user is Organizator.

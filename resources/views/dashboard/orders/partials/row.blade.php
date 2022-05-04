@@ -1,11 +1,11 @@
 <tr>
   <td>{{ $row->uuid }}</td>
   <td>
-    <a target="_blank" href="{{ route('dashboard.flights.edit', ['flight' => $row->flight->id]) }}">
+    <a target="_blank" href="{{ route('dashboard.flights.edit', ['flight' => $row->flight?->id ?: 0]) }}">
       <i class="fa fa-xs fa-fw fa-external-link-alt"></i>
-      {{ $row->flight->flight }}
+      {{ $row->flight?->flight }}
       <br>
-      {{ $row->flight->getDate() }}
+      {{ $row->flight?->getDate() }}
     </a>
   </td>
   <td>UZS {{ $row->getTotalFormatted() }}</td>
@@ -43,7 +43,7 @@
   </td>
   <td>
     @include('dashboard.orders.partials.action-buttons', [
-        'id' => (bool) $row->uuid ? $row->uuid : 1,
+        'id' => $row->uuid ?: 1,
     ])
   </td>
 </tr>

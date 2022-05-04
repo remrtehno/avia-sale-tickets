@@ -19,6 +19,11 @@ class UserTableSeeder extends Seeder
         \App\Models\User::factory()->count(2)->isApproved()->ind()->create();
         \App\Models\User::factory()->count(2)->ind()->create();
 
+        \App\Models\User::factory()->ind()->create([
+            'email' => 'ind2@example.com',
+            'name' => 'Individual2'
+        ]);
+
         //ind
         \App\Models\User::factory()->isApproved()->ind()->create([
             'email' => 'ind@example.com',
@@ -35,6 +40,11 @@ class UserTableSeeder extends Seeder
         \App\Models\User::factory()->ind()->isAdmin()->isApproved()->create([
             'email' => 'admin@example.com',
             'name' => 'Admin'
+        ]);
+
+        \App\Models\User::factory()->count(1)->org()->create([
+            'email' => 'test@example.com',
+            'name' => 'test',
         ]);
     }
 }

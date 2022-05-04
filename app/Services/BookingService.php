@@ -6,6 +6,7 @@ use App\Jobs\MonitorPendingOrder;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\Ticket;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
@@ -129,16 +130,15 @@ class BookingService
 
   public function storeTickets(Booking $booking, Flights $flight)
   {
-    $adults = request()->get('adults', []);
-    $children = request()->get('children', []);
-    $infants = request()->get('infants', []);
+    $adults = request()->get(Ticket::ADULTS, []);
+    $children = request()->get(Ticket::CHILDREN, []);
+    $infants = request()->get(Ticket::INFANTS, []);
 
     $tickets = $booking->tickets();
 
     $user_id = Auth::check() ? Auth::user()->id : 0;
 
     foreach ($adults as $adult) {
-
       $tickets->create(array_merge($adult, [
         'uuid' => $this->UUID(),
         'user_id' => $user_id,
@@ -199,6 +199,8 @@ class BookingService
     //@TODO Split between users
     // dd($booking->chairs->groupBy('user_id')->toArray());
     // dd($booking->chairs->first()->seller_id);
+    $sellerId = $booking->chairs->first()?->seller_id;
+    $priceAdult = $booking->chairs->first()?->flight->price_adult;
 
     return $booking->order()->create([
       'uuid' => $this->UUIDOrder(),
@@ -207,10 +209,10 @@ class BookingService
       'booking_id' => $booking->id,
       'total' =>  $totalPrice,
       'exchange_rate' => 1,
-      'seller_id' => $booking->chairs->first()->seller_id,
+      'seller_id' => $sellerId ? $sellerId : 0,
       'count_chairs' => $booking->chairs->count(),
       //@TODO getPrice()
-      'price_adult' => $booking->chairs->first()->flight->price_adult
+      'price_adult' => $priceAdult ? $priceAdult : 0
     ]);
   }
 

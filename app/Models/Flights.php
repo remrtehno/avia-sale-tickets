@@ -39,7 +39,7 @@ class Flights extends Model implements HasMedia
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
+    protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
 
     protected $exchangeRate;
 
@@ -152,6 +152,11 @@ class Flights extends Model implements HasMedia
         $time = $this->getTime();
 
         return "$this->flight $date $time";
+    }
+
+    public function canBeDeleted()
+    {
+        return $this->booking->count() < 1;
     }
 
 

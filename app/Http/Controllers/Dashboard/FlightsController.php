@@ -31,8 +31,12 @@ class FlightsController extends Controller
      */
     public function index(Order $order)
     {
+
+
+        $flights = Auth::user()->is_admin ? Flights::all() : Flights::where('user_id', Auth::user()->id)->get();
+
         return view('dashboard.flights.index', [
-            'flights' => Flights::where('user_id', Auth::user()->id)->get(),
+            'flights' => $flights,
             'assignedFlights' => $order->getAssignedFlights(),
         ]);
     }

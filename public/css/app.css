@@ -277,6 +277,29 @@ body,
   margin-bottom: 15px;
 }
 
+.brick-flights .txt2 {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.brick-flights .txt3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.brick-flights .stars1 {
+  margin-bottom: 10px;
+}
+.brick-flights .caption {
+  padding: 20px !important;
+  height: 325px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .d-flex {
   display: flex;
 }

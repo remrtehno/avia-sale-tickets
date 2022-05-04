@@ -28,7 +28,7 @@ class CustomerContactsFactory extends Factory
             'tel' => '+9989' . rand(00000001, 100000001),
             'visa' => rand(00000001, 100000001),
             'address' => $this->faker->address(),
-            'type' => collect(['adults', 'children', 'infants'])->random()
+            'type' => 'ADT'
         ];
     }
 }

@@ -11,14 +11,14 @@ class Chairs extends Model
 {
     use HasFactory;
 
-    public const ADULT = 'adult';
-    public const CHILD = 'child';
-    public const INFANT = 'infant';
+    public const ADULT = 'ADT';
+    public const CHILD = 'CHD';
+    public const INFANT = 'INF';
 
     public const BOOKED = 'booked';
     public const PAID = 'paid';
     public const AVAILABLE = 'available';
-    public const RETURNED = 'returned';
+    public const RETURNED = 'RFND';
 
     public const FIELDS = [
         'flight_id' => 'string',
