@@ -50,31 +50,15 @@
 
           <br /><br />
 
-          <div id="popular_wrapper" class="animated" data-animation="fadeIn" data-animation-delay="300">
-            <div id="popular_inner">
-              <div class="">
-                <div id="popular" class="top-main">
-                  <div class="">
-                    <div class="carousel-box">
-                      <div class="inner">
-                        <div class="carousel main">
-                          <ul>
-                            @foreach ($flightsTop as $item)
-                              <li>
-                                @include('partials.flight-item-slider', [
-                                    'item' => $item,
-                                ])
-                              </li>
-                            @endforeach
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="popular_pagination top_pagination"></div>
-                </div>
+          <div class="animated row brick-flights" data-animation="fadeIn" data-animation-delay="300">
+            @foreach ($flightsTop as $item)
+              <div class="col-md-2">
+                @include('partials.flight-item', [
+                    'item' => $item,
+                ])
               </div>
-            </div>
+            @endforeach
+
           </div>
         </div>
       </div>
