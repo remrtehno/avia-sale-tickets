@@ -25,9 +25,15 @@ class ReportController extends Controller
         $from = new Carbon('-1 day 00:00');
         $to = now();
 
+
+
         $tickets = Ticket::whereHas('booking', function (Builder $query) {
             $query->whereHas('flight', function (Builder $queryFight) {
-                $queryFight->where('user_id', Auth::user()->id);
+                $user = Auth::user();
+
+                if (!$user->isAdmin()) {
+                    $queryFight->where('user_id', $user->id);
+                }
             });
         })->where('status', Order::PAID);
 

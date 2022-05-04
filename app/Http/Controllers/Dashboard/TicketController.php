@@ -29,14 +29,17 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $flight = Flights::find($request->flight_id);
+        $user = Auth::user();
 
-        if ($flight && Auth::user()->id !== $flight->user_id) {
+        if ($flight && $user->id !== $flight->user_id && !$user->is_admin) {
             return abort('401');
         }
 
+        $flights = $user->is_admin ? Flights::all() : Auth::user()->flights;
+
         return view('dashboard.tickets.index', [
             'tickets' => $flight ? $flight->getTickets() : [],
-            'flights' => Auth::user()->flights
+            'flights' => $flights
         ]);
     }
 
