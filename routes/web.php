@@ -18,8 +18,15 @@ use App\Http\Controllers\Dashboard\TopFlightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
+use App\Models\Flights;
+use App\Models\Order;
+use App\Models\Ticket;
+use App\Services\PDFService;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,9 +94,40 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::put('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
     Route::put('users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
 
+    Route::get('mailable', function () {
+      $pdf = new PDFService();
+
+      $order = Order::find(1);
+      $seller = User::find(11);
+
+
+      //order
+      $data['order'] =  $order;
+
+      //seller
+      $data['seller'] = $seller;
+
+
+      //flight
+      $data['flight'] = Flights::find(3);
+      $data["logo"] =  ''; //Storage::disk('local')->get(($data['flight']->getImages()[0]?->getPath()));
+
+      //tickets
+      $data['passengers'] = [Ticket::find(1)];
+
+
+
+      return Response::make(($pdf->generatePDF($data)), 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="pdf.file"'
+      ]);
+
+      $ticket = \App\Models\Ticket::find(1);
+      return new \App\Mail\TicketMarkDown($ticket);
+    });
+
+
     Route::group(['as' => 'profile.', 'prefix' => 'profile'], function () {
-
-
       Route::get('/', [ProfileController::class, 'edit'])->name('edit');
       Route::put('/update', [ProfileController::class, 'update'])->name('update');
     });
