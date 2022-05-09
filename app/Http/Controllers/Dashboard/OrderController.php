@@ -8,16 +8,20 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\ReturnAssignedChairs;
 use App\Services\OrderService;
+use App\Services\PDFService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
 {
     private $service;
+    private $PDFService;
 
-    function __construct(OrderService $orderService)
+    function __construct(OrderService $orderService, PDFService $PDFService)
     {
         $this->service = $orderService;
+        $this->PDFService = $PDFService;
     }
 
 
@@ -154,5 +158,13 @@ class OrderController extends Controller
         }
 
         return response()->json(['status' => '0', 'message' => 'Инвойс не существует или не верная сумма']);
+    }
+
+    public function gerateTicketsPDF(Request $request, Order $order)
+    {
+        return Response::make($this->PDFService->generatePDFFromOrder($order), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="pdf.file"'
+        ]);
     }
 }

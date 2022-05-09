@@ -115,6 +115,14 @@ class Order extends Model
     }
 
     /**
+     * Get the Seller.
+     */
+    public function seller()
+    {
+        return $this->hasOne(User::class, 'id', 'seller_id');
+    }
+
+    /**
      * Get the booking.
      */
     public function chairs()
