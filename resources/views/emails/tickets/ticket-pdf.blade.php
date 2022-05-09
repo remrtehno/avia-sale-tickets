@@ -483,7 +483,7 @@
 
   <p style=" text-indent: 0pt; text-align: left"><br />
   </p>
-  <table style="border-collapse: collapse; margin-left: 0px" cellspacing="0">
+  <table style="border-collapse: collapse; margin-left: 0px; width: 100%;" cellspacing="0">
     <tr style="height: 23pt">
       <td style="
             width: 113pt;
@@ -826,7 +826,7 @@
     </tr>
   </table>
   <p style="text-indent: 0pt; text-align: left"><br /></p>
-  <table style="border-collapse: collapse; margin-left: 0px" cellspacing="0">
+  <table style="border-collapse: collapse; margin-left: 0px; width: 100%;" cellspacing="0">
     <tr style="height: 26pt">
       <td style="
             width: 146pt;
@@ -936,33 +936,7 @@
           TICKET NUMBER
         </p>
       </td>
-      <td style="
-            width: 63pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          " bgcolor="#F1F1F1">
-        <p class="s7" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          ТАРИФ
-        </p>
-        <p class="s8" style="padding-left: 3pt; text-indent: 0pt; text-align: left">
-          FARE
-        </p>
-      </td>
+
       <td style="
             width: 57pt;
             border-top-style: solid;
@@ -979,15 +953,15 @@
             border-right-color: #cecece;
           " bgcolor="#F1F1F1">
         <p class="s7" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          ТАКСА
+                padding-top: 1pt;
+                padding-left: 3pt;
+                text-indent: 0pt;
+                text-align: left;
+              ">
+          ТАРИФ
         </p>
         <p class="s8" style="padding-left: 3pt; text-indent: 0pt; text-align: left">
-          TAX
+          FARE
         </p>
       </td>
     </tr>
@@ -1094,38 +1068,6 @@
           </p>
         </td>
         <td style="
-            width: 63pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          ">
-          <p class="s2" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-            {{ $passenger->price }}
-          </p>
-          <p class="s2" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-            сўм
-          </p>
-        </td>
-        <td style="
             width: 57pt;
             border-top-style: solid;
             border-top-width: 2pt;
@@ -1140,28 +1082,29 @@
             border-right-width: 2pt;
             border-right-color: #cecece;
           ">
-          {{-- <p class="s2" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
+
+          <p class="s2" style="
+            padding-top: 1pt;
+            padding-left: 3pt;
+            text-indent: 0pt;
+            text-align: left;
             ">
-            992 389,00
+            {{ $passenger->getPriceFormatted() }}
           </p>
           <p class="s2" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
+            padding-top: 1pt;
+            padding-left: 3pt;
+            text-indent: 0pt;
+            text-align: left;
             ">
             сўм
-          </p> --}}
+          </p>
         </td>
       </tr>
     @endforeach
   </table>
   <p style="text-indent: 0pt; text-align: left"><br /></p>
-  <table style="border-collapse: collapse; margin-left: 0px" cellspacing="0">
+  <table style="border-collapse: collapse; margin-left: 0px; float:right" cellspacing="0">
     <tr style="height: 18pt">
       <td style="
             width: 165pt;
@@ -1184,55 +1127,7 @@
               text-indent: 0pt;
               text-align: left;
             ">
-          СПОСОБ ОПЛАТЫ / PAYMENT
-        </p>
-      </td>
-      <td style="
-            width: 82pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          " bgcolor="#F1F1F1">
-        <p class="s7" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          ТАРИФ / FARE
-        </p>
-      </td>
-      <td style="
-            width: 197pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          " bgcolor="#F1F1F1">
-        <p class="s7" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          ТАКСЫ + СЕРВ.СБОР / TAXES + FEE
+          Оплата
         </p>
       </td>
       <td style="
@@ -1283,63 +1178,7 @@
               text-indent: 0pt;
               text-align: left;
             ">
-          Наличные
-        </p>
-      </td>
-      <td style="
-            width: 82pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          ">
-        <p class="s6" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          1 286 976,00
-        </p>
-        <p class="s6" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          сўм
-        </p>
-      </td>
-      <td style="
-            width: 197pt;
-            border-top-style: solid;
-            border-top-width: 2pt;
-            border-top-color: #cecece;
-            border-left-style: solid;
-            border-left-width: 2pt;
-            border-left-color: #cecece;
-            border-bottom-style: solid;
-            border-bottom-width: 2pt;
-            border-bottom-color: #cecece;
-            border-right-style: solid;
-            border-right-width: 2pt;
-            border-right-color: #cecece;
-          ">
-        <p class="s6" style="
-              padding-top: 1pt;
-              padding-left: 3pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-          992 389,00 сўм
+          {{-- Наличные --}}
         </p>
       </td>
       <td style="
@@ -1364,11 +1203,13 @@
               text-indent: 0pt;
               text-align: center;
             ">
-          2 279 365,00 сўм
+          {{ $order->getTotalFormatted() }}
+          сўм
         </p>
       </td>
     </tr>
   </table>
+  <div style="clear: both"></div>
   <p style="text-indent: 0pt; text-align: left"><br /></p>
   <p style="
         padding-top: 10pt;

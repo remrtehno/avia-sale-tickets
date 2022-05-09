@@ -49,6 +49,16 @@ class Ticket extends Model
         return 'uuid';
     }
 
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getPriceFormatted()
+    {
+        return number_format($this->getPrice(), 2, '.', ' ');
+    }
+
     public function getGender($gender = false)
     {
         if ($gender) {
