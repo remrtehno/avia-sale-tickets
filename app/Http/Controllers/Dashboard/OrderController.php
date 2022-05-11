@@ -5,23 +5,28 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Mail\TicketMarkDown;
 use App\Models\Order;
 use App\Models\ReturnAssignedChairs;
 use App\Services\OrderService;
 use App\Services\PDFService;
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
 {
     private $service;
     private $PDFService;
+    private $emailService;
 
-    function __construct(OrderService $orderService, PDFService $PDFService)
+    function __construct(OrderService $orderService, PDFService $PDFService, EmailService $emailService)
     {
         $this->service = $orderService;
         $this->PDFService = $PDFService;
+        $this->emailService = $emailService;
     }
 
 
@@ -166,5 +171,27 @@ class OrderController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="pdf.file"'
         ]);
+    }
+
+    public function emailTickets(Request $request, Order $order)
+    {
+        $emailCollection = $order->booking->tickets->filter(function ($ticket) use ($order) {
+            return $ticket->email && !$order->booking->tickets->has($ticket->email);
+        })->map(function ($ticket) {
+            return $ticket->email;
+        });
+
+        $data['from'] = $order->seller->email;
+        $data["title"] = "Билеты на рейс {$order->booking->flight->flight}";
+        $data["body"] = "Ваши билеты";
+        $data['file'] = $this->PDFService->generatePDFFromOrder($order);
+        $data['flight'] = $order->booking->flight;
+        $data['subject'] = 'Ваши билеты на рейс ' . $data['flight']->flight;
+
+        $this->emailService->sendTicketsByOrder($emailCollection, $data);
+
+        $request->session()->put(['emailCollection' => $emailCollection]);
+
+        return redirect()->route('dashboard.order.tickets.pdf.email.success');
     }
 }

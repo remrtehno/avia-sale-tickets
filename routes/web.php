@@ -90,7 +90,18 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'update'])->name('return.assigned.chairs.accept');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
-    Route::get('orders/{order}/tickets', [OrderController::class, 'gerateTicketsPDF'])->name('order.tickets.pdf');
+
+    //Start pdf
+    Route::get('orders/{order}/tickets/print', [OrderController::class, 'gerateTicketsPDF'])->name('order.tickets.pdf');
+    Route::get('orders/{order}/tickets/email', [OrderController::class, 'emailTickets'])->name('order.tickets.pdf.email');
+
+    Route::get('orders/tickets/email/success', function () {
+      return view('emails.success.success')->with([
+        'back' => route('dashboard.orders.index'),
+      ]);
+    })->name('order.tickets.pdf.email.success');
+    // END df
+
 
     Route::put('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
     Route::put('users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
@@ -101,27 +112,23 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
       $order = Order::find(1);
       $seller = User::find(11);
 
-
       //order
       $data['order'] =  $order;
 
       //seller
       $data['seller'] = $seller;
 
-
       //flight
       $data['flight'] = Flights::find(3);
-      $data["logo"] =  ''; //Storage::disk('local')->get(($data['flight']->getImages()[0]?->getPath()));
+      $data["logo"] = ''; //Storage::disk('local')->get(($data['flight']->getImages()[0]?->getPath()));
 
       //tickets
       $data['passengers'] = [Ticket::find(1)];
 
-
-
-      return Response::make(($pdf->generatePDF($data)), 200, [
-        'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="pdf.file"'
-      ]);
+      // return Response::make(($pdf->generatePDF($data)), 200, [
+      //   'Content-Type' => 'application/pdf',
+      //   'Content-Disposition' => 'inline; filename="pdf.file"'
+      // ]);
 
       $ticket = \App\Models\Ticket::find(1);
       return new \App\Mail\TicketMarkDown($ticket);

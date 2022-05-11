@@ -155,4 +155,9 @@ class Order extends Model
     {
         return now()->diffInMinutes($this->created_at) <= self::BOOKING_MINUTES_LIMIT;
     }
+
+    public function isTicketsExist()
+    {
+        return $this?->booking->tickets->count() > 0;
+    }
 }
