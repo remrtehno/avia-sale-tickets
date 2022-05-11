@@ -10,6 +10,87 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $address
+ * @property string $tel
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $role ind=Individual, org=Organization
+ * @property int $is_admin
+ * @property int $is_approved
+ * @property string|null $birthday
+ * @property string|null $surname
+ * @property string|null $surname2
+ * @property string|null $passport_file
+ * @property string|null $dir_surname
+ * @property string|null $dir_name
+ * @property string|null $dir_surname2
+ * @property string|null $tel_director
+ * @property string|null $dir_passport_file
+ * @property string|null $inn
+ * @property string|null $inn_file
+ * @property string|null $license
+ * @property string|null $license_file
+ * @property string|null $agreement_contract
+ * @property string|null $agreement_contract_file
+ * @property string|null $cadastre
+ * @property string|null $cadastre_file
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ticket[] $Tickets
+ * @property-read int|null $tickets_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chairs[] $chairs
+ * @property-read int|null $chairs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Flights[] $flights
+ * @property-read int|null $flights_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAgreementContract($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAgreementContractFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCadastre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCadastreFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDirName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDirPassportFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDirSurname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDirSurname2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereInn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereInnFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLicense($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLicenseFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassportFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSurname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSurname2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTelDirector($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;

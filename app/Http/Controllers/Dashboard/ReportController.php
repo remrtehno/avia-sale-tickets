@@ -25,7 +25,7 @@ class ReportController extends Controller
         $from = new Carbon('-1 day 00:00');
         $to = now();
 
-
+        $soldToUser = Order::whereDoesntHave('booking')->get();
 
         $tickets = Ticket::whereHas('booking', function (Builder $query) {
             $query->whereHas('flight', function (Builder $queryFight) {
@@ -42,15 +42,18 @@ class ReportController extends Controller
             $to = new Carbon($request->to);
 
             $tickets->whereBetween('updated_at', [$from, $to]);
+            $soldToUser->whereBetween('updated_at', [$from, $to]);
         }
 
         if ($request->user_id) {
             $tickets->where('user_id', $request->user_id);
+            $soldToUser->where('user_id', $request->user_id);
         }
 
         return view(
             'dashboard.report.index',
             [
+                'soldToUser' => $soldToUser,
                 'tickets' => $tickets->get(),
                 'from' => $from,
                 'to' => $to,

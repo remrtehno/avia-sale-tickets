@@ -35,5 +35,8 @@ $configDate = ['format' => 'YYYY-MM-DD HH:mm'];
     @foreach ($tickets as $ticket)
       @include('dashboard.report.partials.row')
     @endforeach
+    @foreach ($soldToUser as $item)
+      @include('dashboard.report.partials.row-to-user')
+    @endforeach
   </x-adminlte-datatable>
 @endsection

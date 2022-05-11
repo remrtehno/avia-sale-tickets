@@ -16,6 +16,68 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 
+/**
+ * App\Models\Flights
+ *
+ * @property int $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property string $flight
+ * @property int $count_chairs
+ * @property int $price_adult
+ * @property int $price_child
+ * @property int $price_infant
+ * @property Carbon $date
+ * @property Carbon $date_arrival
+ * @property string $comment
+ * @property string $logo
+ * @property string $direction_from
+ * @property string $direction_to
+ * @property string $rating
+ * @property int $penalty
+ * @property string|null $booking_id
+ * @property int|null $top
+ * @property int $user_id
+ * @property-read Collection|\App\Models\Booking[] $booking
+ * @property-read int|null $booking_count
+ * @property-read Collection|\App\Models\Chairs[] $chairs
+ * @property-read int|null $chairs_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read Collection|\App\Models\Order[] $order
+ * @property-read int|null $order_count
+ * @property-read \App\Models\User $user
+ * @method static Builder|Flights betweenDate()
+ * @method static Builder|Flights cities()
+ * @method static \Database\Factories\FlightsFactory factory(...$parameters)
+ * @method static Builder|Flights newModelQuery()
+ * @method static Builder|Flights newQuery()
+ * @method static Builder|Flights orderByClosest()
+ * @method static Builder|Flights query()
+ * @method static Builder|Flights searchByDirections()
+ * @method static Builder|Flights whereBookingId($value)
+ * @method static Builder|Flights whereComment($value)
+ * @method static Builder|Flights whereCountChairs($value)
+ * @method static Builder|Flights whereCreatedAt($value)
+ * @method static Builder|Flights whereDate($value)
+ * @method static Builder|Flights whereDateArrival($value)
+ * @method static Builder|Flights whereDirectionFrom($value)
+ * @method static Builder|Flights whereDirectionTo($value)
+ * @method static Builder|Flights whereFlight($value)
+ * @method static Builder|Flights whereId($value)
+ * @method static Builder|Flights whereLogo($value)
+ * @method static Builder|Flights wherePenalty($value)
+ * @method static Builder|Flights wherePriceAdult($value)
+ * @method static Builder|Flights wherePriceChild($value)
+ * @method static Builder|Flights wherePriceInfant($value)
+ * @method static Builder|Flights whereRating($value)
+ * @method static Builder|Flights whereTop($value)
+ * @method static Builder|Flights whereUpdatedAt($value)
+ * @method static Builder|Flights whereUserId($value)
+ * @method static Builder|Flights withExcludes()
+ * @method static Builder|Flights withPassengers()
+ * @mixin \Eloquent
+ */
 class Flights extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
