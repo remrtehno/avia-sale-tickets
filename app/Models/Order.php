@@ -158,6 +158,6 @@ class Order extends Model
 
     public function isTicketsExist()
     {
-        return $this?->booking->tickets->count() > 0;
+        return $this?->booking?->tickets->count() > 0;
     }
 }
