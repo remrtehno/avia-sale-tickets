@@ -177,11 +177,12 @@ return [
         App\Providers\CarbonServiceProvider::class,
 
         //file manager
-        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        // UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         App\Providers\ResponseMacroServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -240,6 +241,7 @@ return [
 
 
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => \Barryvdh\DomPDF\Facade\Pdf::class,
 
     ],
 

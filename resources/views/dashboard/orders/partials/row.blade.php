@@ -44,6 +44,7 @@
   <td>
     @include('dashboard.orders.partials.action-buttons', [
         'id' => $row->uuid ?: 1,
+        'order' => $row,
     ])
   </td>
 </tr>

@@ -115,6 +115,14 @@ class Order extends Model
     }
 
     /**
+     * Get the Seller.
+     */
+    public function seller()
+    {
+        return $this->hasOne(User::class, 'id', 'seller_id');
+    }
+
+    /**
      * Get the booking.
      */
     public function chairs()
@@ -146,5 +154,10 @@ class Order extends Model
     public function canBePayed()
     {
         return now()->diffInMinutes($this->created_at) <= self::BOOKING_MINUTES_LIMIT;
+    }
+
+    public function isTicketsExist()
+    {
+        return $this?->booking->tickets->count() > 0;
     }
 }
