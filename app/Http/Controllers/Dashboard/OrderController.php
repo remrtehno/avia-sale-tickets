@@ -156,6 +156,7 @@ class OrderController extends Controller
 
         if (number_format($order->total, 2, '', '') === $request->amount) {
             $order->changeStatus(Order::PAID);
+            $this->emailTickets($request, $order);
 
             if ($order->save()) {
                 return response()->json(['status' => '1', 'message' => 'Успешно']);
