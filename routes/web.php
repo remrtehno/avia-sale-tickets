@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\TopFlightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
+use App\Http\Controllers\UserController as ControllersUserController;
 use App\Models\Flights;
 use App\Models\Order;
 use App\Models\Ticket;
@@ -50,6 +51,7 @@ Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
 //resources
 Route::resource('flights', FlightsController::class);
 Route::resource('booking', BookingController::class);
+Route::resource('users', ControllersUserController::class);
 
 
 

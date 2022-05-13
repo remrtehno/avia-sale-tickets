@@ -12,6 +12,7 @@
   <meta name="keywords" content="Your keywords">
   <meta name="author" content="Your name">
 
+
   <link href="/static/css/bootstrap.css" rel="stylesheet">
   <link href="/static/css/font-awesome.css" rel="stylesheet">
   <link href="/static/css/animate.css" rel="stylesheet">
@@ -142,7 +143,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                  document.getElementById('logout-form').submit();">
+                                                                                                                                                            document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -277,7 +278,6 @@
       })
     </script>
   @endif
-
 
 
 </body>
