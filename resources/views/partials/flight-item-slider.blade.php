@@ -36,7 +36,7 @@
       <div class="txt3 clearfix">
         <div class="left_side">
           <div class="stars1">
-            <star-rating read-only :rating="{{ $item->rating }}"></star-rating>
+            <star-rating read-only :rating="{{ $item->getRating() }}"></star-rating>
           </div>
         </div>
         <div class="right_side">

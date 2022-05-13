@@ -17,8 +17,14 @@
                     {{ $flight->direction_from }} - {{ $flight->direction_to }}
                   </div>
                 </div>
+                <div style="text-overflow: ellipsis; overflow: hidden;" class="text-left">
+                  <a href="{{ route('users.show', ['user' => $item->id]) }}">
+                    Отзывы
+                  </a>
+                </div>
                 <div class="col-md-2">
-                  Рейтинг: <star-rating read-only :size="14" :rating="{{ $flight->rating }}"></star-rating>
+                  Рейтинг: <star-rating read-only :size="14" :rating="{{ $flight->rating }}">
+                  </star-rating>
                 </div>
                 @if ($flight->getSeats() < 10)
                   <div class="col-md-2">

@@ -90,6 +90,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTelDirector($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|User[] $ratings
+ * @property-read int|null $ratings_count
  */
 class User extends Authenticatable implements HasMedia
 {
@@ -299,5 +301,9 @@ class User extends Authenticatable implements HasMedia
     public function Tickets()
     {
         return $this->hasMany('App\Models\Ticket');
+    }
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\User');
     }
 }

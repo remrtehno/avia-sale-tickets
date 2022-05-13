@@ -73,6 +73,11 @@ class Order extends Model
         return 'uuid';
     }
 
+    public function isSoldToInternalUser()
+    {
+        return !$this->isTicketsExist();
+    }
+
     private function changeStatusOfModel($model, $status)
     {
         $model->each(function ($item) use ($status) {
@@ -139,11 +144,14 @@ class Order extends Model
     public function changeStatus($status = self::BOOKED)
     {
 
-        $this->changeStatusOfModel($this->booking->tickets, $status);
-        $this->changeStatusOfModel($this->booking->chairs, $status);
+        if (!$this->isSoldToInternalUser()) {
+            $this->changeStatusOfModel($this->booking->tickets, $status);
+            $this->changeStatusOfModel($this->booking->chairs, $status);
 
-        $this->booking->status = $status;
-        $this->booking->save();
+            $this->booking->status = $status;
+            $this->booking->save();
+        }
+
 
         $this->status = $status;
         return $this->save();

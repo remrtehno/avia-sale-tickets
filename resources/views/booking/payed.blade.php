@@ -17,7 +17,8 @@
           </h5>
 
           <h5 class="text-dark py-5">
-
+            Если вы хотите оставить оценить продацва пройдите по
+            <a href="{{ route('users.show', ['user' => $booking->flight->user_id]) }}">ссылке</a>
           </h5>
 
 

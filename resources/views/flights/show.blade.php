@@ -61,8 +61,15 @@
 
                     <h5>Длительность: {{ $flights->getDuration() }}</h5>
 
+                    <h5>Продавец "{{ $flights->user->name }} {{ $flights->user->email }}"</h5>
+                    <div style="text-overflow: ellipsis; overflow: hidden;" class="text-left">
+                      <a href="{{ route('users.show', ['user' => $flights->user->id]) }}">
+                        Посмотреть отзывы продавца
+                      </a>
+                    </div>
+
                     <h5>Rating: </h5>
-                    <star-rating read-only :size="20" :rating="{{ $flights->rating }}"></star-rating>
+                    <star-rating read-only :size="20" :rating="{{ $flights->getRating() }}"></star-rating>
                     @if ($flights->getSeats() < 10)
                       <div class="alert alert-warning my-15" style="display: inline-block">
                         Осталось мест: {{ $flights->getSeats() }}
@@ -237,7 +244,8 @@
                   <input type="hidden" name="price_adult" value="{{ $flights->price_adult }}">
                   <input type="hidden" name="price_child" value="{{ $flights->price_child }}">
                   <input type="hidden" name="price_infant" value="{{ $flights->price_infant }}">
-                  <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}" :price-infant="{{ $flights->price_infant }}" :additional="0" />
+                  <Total :price-adult="{{ $flights->price_adult }}" :price-child="{{ $flights->price_child }}"
+                    :price-infant="{{ $flights->price_infant }}" :additional="0" />
                 </div>
               </div>
               <div class="clearfix"></div>

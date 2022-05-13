@@ -467,6 +467,11 @@ class Flights extends Model implements HasMedia
         return count($images) ? $images[0]->getFullUrl() : null;
     }
 
+    public function getRating()
+    {
+        return Rating::ratingByUser($this->user_id);
+    }
+
 
     /**
      * RELATIONSHIPS
