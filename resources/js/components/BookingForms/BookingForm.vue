@@ -10,7 +10,7 @@
         >
             <i class="fa fa-close"></i>
         </button>
-        <div>
+        <div class="booking-form">
             <div class="input2_wrapper">
                 <div v-show="loggedIn" class="alert alert-warning px-10 py-5">
                     Поле <b>"Серия паспорта"</b> имеет автозаполнение
@@ -403,6 +403,16 @@ export default {
     top: 15px;
     &:hover {
         color: red;
+    }
+}
+</style>
+
+<style scoped lang="scss">
+.booking-form {
+    columns: 2;
+    column-gap: 25px;
+    @media (max-width: 992px) {
+        columns: unset;
     }
 }
 </style>
