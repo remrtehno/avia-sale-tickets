@@ -43,7 +43,8 @@ class OrderService
       'seller_id' => $flight->user_id,
       'price_adult' => $order->price_adult,
       'is_returned' => 1,
-      'user_returned_id' => $owner_id
+      'user_returned_id' => $owner_id,
+      'uuid' => BookingService::UUIDOrder(),
     ]);
   }
 }

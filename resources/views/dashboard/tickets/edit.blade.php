@@ -8,7 +8,7 @@
 @section('content')
 
   <form method="POST" action="{{ route('dashboard.tickets.update', [
-      'ticket' => $ticket->id,
+      'ticket' => $ticket->uuid,
   ]) }}">
     @csrf
     @method('PUT')
@@ -19,5 +19,6 @@
     @include('dashboard.tickets.partials.form')
 
     <x-adminlte-button type="submit" label="{{ __('common.save') }}" theme="primary" />
+    <x-adminlte-button type="button" label="{{ __('common.back') }}" theme="primary" onclick="window.history.back()" />
   </form>
 @endsection

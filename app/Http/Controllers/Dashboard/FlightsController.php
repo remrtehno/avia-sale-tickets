@@ -33,7 +33,7 @@ class FlightsController extends Controller
     {
 
 
-        $flights = Auth::user()->is_admin ? Flights::all() : Flights::where('user_id', Auth::user()->id)->get();
+        $flights = Auth::user()->is_admin ? Flights::all() : Flights::where('user_id', Auth::user()->id)->latest()->get();
 
         return view('dashboard.flights.index', [
             'flights' => $flights,

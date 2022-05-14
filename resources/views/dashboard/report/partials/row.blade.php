@@ -7,7 +7,7 @@ if (request('from') || request('to')) {
 @endphp
 
 <tr>
-  <td>{{ $ticket->updated_at->format('Y-m-d H:i') }}</td>
+  <td>{{ $ticket->updated_at }}</td>
 
   <td>
     <a href="{{ $user_link }}">{{ $ticket->user?->name }}</a>
@@ -17,7 +17,11 @@ if (request('from') || request('to')) {
     @include('dashboard.report.partials.ticket-modal')
   </td>
 
-  <td>{{ $flight = $ticket->booking->flight->getSummary() }}</td>
+  <td>
+    <a href="{{ route('dashboard.flights.show', ['flight' => $ticket->booking->flight->id]) }}">
+      {{ $flight = $ticket->booking->flight->getSummary() }}
+    </a>
+  </td>
 
   <td>
     <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->uuid)]) }}">

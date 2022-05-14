@@ -16,10 +16,14 @@
     N/A
   </td>
   <td>
-    {{ $item->flight->flight }}
+    <a href="{{ route('dashboard.flights.show', ['flight' => $item->flight->id]) }}">
+      {{ $item->flight->getSummary() }}
+    </a>
   </td>
   <td>
-    {{ $item->uuid }}
+    <a href="{{ route('dashboard.orders.show', ['order' => $item->uuid ?: 0]) }}">
+      {{ $item->uuid }}
+    </a>
   </td>
   <td>
     N/A

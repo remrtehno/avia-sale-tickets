@@ -25,7 +25,7 @@ class ReportController extends Controller
         $from = new Carbon('-1 day 00:00');
         $to = now();
 
-        $soldToUser = Order::whereDoesntHave('booking')->get();
+        $soldToUser = Order::whereDoesntHave('booking');
 
         $tickets = Ticket::whereHas('booking', function (Builder $query) {
             $query->whereHas('flight', function (Builder $queryFight) {
@@ -53,7 +53,7 @@ class ReportController extends Controller
         return view(
             'dashboard.report.index',
             [
-                'soldToUser' => $soldToUser,
+                'soldToUser' => $soldToUser->get(),
                 'tickets' => $tickets->get(),
                 'from' => $from,
                 'to' => $to,

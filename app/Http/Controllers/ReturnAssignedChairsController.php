@@ -83,7 +83,6 @@ class ReturnAssignedChairsController extends Controller
      */
     public function update(Request $request, ReturnAssignedChairs $id)
     {
-
         $order = Order::where('id', $id->order_id)
             ->firstOrFail();
 
