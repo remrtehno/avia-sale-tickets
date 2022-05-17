@@ -176,11 +176,7 @@ class OrderController extends Controller
 
     public function emailTickets(Request $request, Order $order)
     {
-        $emailCollection = $order->booking->tickets->filter(function ($ticket) use ($order) {
-            return $ticket->email && !$order->booking->tickets->has($ticket->email);
-        })->map(function ($ticket) {
-            return $ticket->email;
-        });
+        $emailCollection = $order->getCustomersEmails();
 
         $data['from'] = $order->seller->email;
         $data["title"] = "Билеты на рейс {$order->booking->flight->flight}";

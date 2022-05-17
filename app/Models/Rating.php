@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereUserId($value)
  * @mixin \Eloquent
+ * @property int $author_id
+ * @property-read \App\Models\User|null $author
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereAuthorId($value)
  */
 class Rating extends Model
 {

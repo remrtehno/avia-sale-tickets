@@ -78,4 +78,3 @@ echo '<div class="notification_error">'.$error.'</div>';
 }
 
 }
-?>

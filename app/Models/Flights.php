@@ -98,12 +98,16 @@ class Flights extends Model implements HasMedia
         'penalty' => 'integer'
     ];
 
+    public const OBSERVE_COLUMNS = ['date_arrival', 'date', 'direction_to', 'direction_from', 'price_adult', 'price_child', 'price_infant'];
+
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
     protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
 
     protected $exchangeRate;
+
+
 
     /**
      * The attributes that are not mass assignable.
@@ -167,7 +171,6 @@ class Flights extends Model implements HasMedia
         return $this->isAssignedTo() ? $this->getAssignedChairs() : $this->getAvailableBookedChairs();
     }
 
-
     public function getOwner()
     {
         return $this->isAssignedTo() ? User::find($this->user_id) : null;
@@ -202,7 +205,6 @@ class Flights extends Model implements HasMedia
         return number_format($this->getPrice($type), 2, '.', ' ');
     }
 
-
     public function getGrandTotal()
     {
         return $this->getTotal();
@@ -221,7 +223,6 @@ class Flights extends Model implements HasMedia
         return $this->booking->count() < 1;
     }
 
-
     /**
      * Scope a query to search by directions
      */
@@ -235,7 +236,6 @@ class Flights extends Model implements HasMedia
 
         return $query;
     }
-
 
     /**
      * Scope a query to get all cities
@@ -331,7 +331,6 @@ class Flights extends Model implements HasMedia
         ]);
     }
 
-
     public function getSeats()
     {
         return $this->countChairs();
@@ -376,7 +375,6 @@ class Flights extends Model implements HasMedia
     {
         return $this->getDeparute()->translatedFormat('d F Y, l');
     }
-
 
     public function getTimeDepartureWithNameFrom()
     {
@@ -423,7 +421,6 @@ class Flights extends Model implements HasMedia
         return $tickets;
     }
 
-
     //store files
     public function storeFiles($clean = false)
     {
@@ -448,12 +445,19 @@ class Flights extends Model implements HasMedia
         return $this->clearMediaCollection($collectionName);
     }
 
+    public function getAllCustomersEmails()
+    {
+        return $this->order->reduce(function ($collect, Order $orderItem) {
+            $emailsOrder = $orderItem->getCustomersEmails();
+
+            return $collect->merge($emailsOrder->count() ? $emailsOrder : $collect);
+        }, collect());
+    }
 
     public function getPathImages($fileName)
     {
         return $this->id . '-'  . $fileName;
     }
-
 
     public function getImages($fieldName = 'logo')
     {
@@ -471,7 +475,6 @@ class Flights extends Model implements HasMedia
     {
         return Rating::ratingByUser($this->user_id);
     }
-
 
     /**
      * RELATIONSHIPS
@@ -496,13 +499,11 @@ class Flights extends Model implements HasMedia
         return $this->hasMany('App\Models\Booking', 'flights_id');
     }
 
-
     //RELATIONSHIPS
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 
     /**
      * The "booted" method of the model.

@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CarbonServiceProvider::class,
+        App\Providers\QueueServiceProvier::class,
 
         //file manager
         // UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,

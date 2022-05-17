@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -59,7 +60,7 @@ class Order extends Model
 
     // protected $primaryKey = 'uuid';
 
-
+    public const BOOKED_SECONDS_LIMIT = 1850;
     public const BOOKING_MINUTES_LIMIT = 30;
     public const BOOKED = 'booked';
     public const PAID = 'paid';
@@ -213,5 +214,18 @@ class Order extends Model
     public function isTicketsExist()
     {
         return $this?->booking?->tickets->count() > 0;
+    }
+
+    public function getCustomersEmails()
+    {
+        if (!$this->isTicketsExist()) {
+            return collect();
+        }
+
+        return $this->booking->tickets->filter(function ($ticket) {
+            return $ticket->email && !$this->booking->tickets->has($ticket->email);
+        })->map(function ($ticket) {
+            return $ticket->email;
+        });
     }
 }

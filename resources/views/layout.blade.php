@@ -103,7 +103,7 @@
             <header>
               <div class="logo_wrapper">
                 <a href="{{ route('home') }}" class="logo">
-                  <img src="/static/images/logo.png" alt="" class="img-responsive" />
+                  <img src="/static/images/logo.svg" style="width: 110px; margin-top: -7px;" class="img-responsive" />
                 </a>
               </div>
             </header>
@@ -143,7 +143,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                    document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
