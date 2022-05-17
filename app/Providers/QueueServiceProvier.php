@@ -27,7 +27,7 @@ class QueueServiceProvier extends ServiceProvider
     public function boot()
     {
         Queue::before(function (JobProcessing $event) {
-            Order::update('status', '12');
+            // Order::update('status', '12');
 
             return $event;
         });

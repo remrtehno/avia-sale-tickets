@@ -35,8 +35,7 @@ class FlightsObserver
     public function updated(Flights $flights)
     {
         if ($flights->wasChanged(Flights::OBSERVE_COLUMNS)) {
-            //, $flights->getChanges()
-            dd($this->emailService, $flights->getAllCustomersEmails());
+            $this->emailService->sendChangesOfFlights($flights->getAllCustomersEmails(), $flights->getChanges(), $flights);
         }
     }
 
