@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailService
 {
+  public const EMAILS = [
+    "CHANGED_FLIGHT" => "CHANGED_FLIGHT"
+  ];
 
   public const MESSAGES = [
     'date_arrival' => "Дата прибытия",
@@ -38,14 +41,14 @@ class EmailService
       $data['flight'] = $flight;
       $data['subject'] = "Поменялся рейс {$flight->flight}";
 
-      $this->emailApp($data, 'native');
+      $this->emailApp($data, self::EMAILS['CHANGED_FLIGHT']);
     }
   }
 
   public function emailApp($data, $type = null)
   {
     switch ($type) {
-      case 'native': {
+      case self::EMAILS['CHANGED_FLIGHT']: {
           $message = "Чтото поменялось в рейсе. Теперь: ";
           foreach (self::MESSAGES as $key => $msg) {
             $message .= ' ' . $msg . ' ' . $data['flight']->{$key};
@@ -58,6 +61,48 @@ class EmailService
           return mail($data['to'], $data['subject'], $message, $headers);
         }
       default: {
+
+          // (A) EMAIL SETTINGS
+          $mailTo = $data['to'];
+          $mailSubject = "Рейс {$data['flight']->flight}";
+          $mailMessage = "<strong>Билеты на рейс {$data['flight']->getSummary()}</strong>";
+          $mailAttach = $data['file'];
+          $basename = now() . " tickets.pdf";
+
+          // (B) GENERATE RANDOM BOUNDARY TO SEPARATE MESSAGE & ATTACHMENTS
+          // https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
+          $mailBoundary = md5(time());
+          $mailHead = implode("\r\n", [
+            "MIME-Version: 1.0",
+            "Content-Type: multipart/mixed; boundary=\"$mailBoundary\"",
+            "From: {$this->getSender()}",
+          ]);
+
+          // (C) DEFINE THE EMAIL MESSAGE
+          $mailBody = implode("\r\n", [
+            "--$mailBoundary",
+            "Content-type: text/html; charset=utf-8",
+            "",
+            $mailMessage
+          ]);
+
+
+          // (D) MANUALLY ENCODE & ATTACH THE FILE
+          $mailBody .= implode("\r\n", [
+            "",
+            "--$mailBoundary",
+            "Content-Type: application/octet-stream; name=\"" . $basename . "\"",
+            "Content-Transfer-Encoding: base64",
+            "Content-Disposition: attachment",
+            "",
+            chunk_split(base64_encode(($mailAttach))),
+            "--$mailBoundary--"
+          ]);
+
+          // (E) SEND
+          return mail($mailTo, $mailSubject, $mailBody, $mailHead);
+
+
           return Mail::send(
             new TicketMarkDown($data)
           );

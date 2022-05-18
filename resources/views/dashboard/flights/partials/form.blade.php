@@ -109,9 +109,6 @@ $configTextEditor = [
 
   </x-adminlte-text-editor>
 
-
-
-
   <div class="col-md-12"></div>
 
 </div>

@@ -222,7 +222,7 @@ class Order extends Model
             return collect();
         }
 
-        return $this->booking->tickets->filter(function ($ticket) {
+        return $this->booking->tickets()->where('status', Order::PAID)->get()->filter(function ($ticket) {
             return $ticket->email && !$this->booking->tickets->has($ticket->email);
         })->map(function ($ticket) {
             return $ticket->email;
