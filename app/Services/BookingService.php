@@ -6,6 +6,7 @@ use App\Jobs\MonitorPendingOrder;
 use App\Models\Booking;
 use App\Models\Chairs;
 use App\Models\Flights;
+use App\Models\Order;
 use App\Models\Ticket;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -34,7 +35,7 @@ class BookingService
     $flight->booking_id = $booking->id;
     $flight->save();
 
-    MonitorPendingOrder::dispatch($booking->order->first())->delay(1850);
+    MonitorPendingOrder::dispatch($booking->order->first())->delay(Order::BOOKED_SECONDS_LIMIT);
 
     return $booking;
   }

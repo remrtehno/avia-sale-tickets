@@ -98,3 +98,8 @@ docker-compose run --rm artisan make:view products --resource --extends=layout -
 @endif
 
 docker-compose run --rm artisan make:controller Api/V1/CustomerContacts --api
+
+<!-- nohup -->
+
+jobs -l
+kill

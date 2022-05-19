@@ -31,7 +31,17 @@ $flightOwner = $flight->getOwner();
     @include('dashboard.partials.messages')
   </div>
   <div class="col-md-12">
-    <x-adminlte-button type="submit" label="{{ __('common.edit') }}" :disabled="$isAssigned" theme="primary" />
+    <div class="d-flex align-items-center">
+      <x-adminlte-button type="submit" label="{{ __('common.edit') }}" :disabled="$isAssigned" theme="primary" />
+
+      <div class="ml-4">
+        <label>
+          <input type="checkbox" name="notify_all" id="">
+          Уведомить всех покупателей об изменениях
+        </label>
+      </div>
+
+    </div>
 
     <a class="btn btn-xs btn-default text-teal mx-1 shadow float-right" target="_blank"
       href="{{ route('dashboard.flights.show', ['flight' => $flight->id]) }}" title="Details">

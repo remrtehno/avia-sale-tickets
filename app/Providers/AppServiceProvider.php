@@ -9,7 +9,8 @@ use Illuminate\Pagination\Paginator;
 use App\Http\ViewComposers\FooterMenuComposer;
 use App\Http\ViewComposers\PreAssignChairsComposer;
 use App\Http\ViewComposers\ReturnAssignedChairsComposer;
-
+use App\Models\Flights;
+use App\Observers\FlightsObserver;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
@@ -54,5 +55,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('dashboard/*', ReturnAssignedChairsComposer::class);
 
         JsonResource::withoutWrapping();
+
+        Flights::observe(FlightsObserver::class);
     }
 }
