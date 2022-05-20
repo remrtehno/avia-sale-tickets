@@ -110,6 +110,28 @@ class EmailService
     }
   }
 
+
+  public function approveEmail($to)
+  {
+    $message = "Поздравляем с успешной регистрацией в InAvia.online!
+    
+    Ваше имя пользователя :
+    Ваш пароль :
+    
+    С уважением,
+    
+    InAvia.online
+    
+    По техническим вопросам, просим писать на support@inavia.online";
+
+
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers = "From:" . $this->getSender();
+
+    return mail($to, 'Успешная регистрация', $message, $headers);
+  }
+
   public function getSender()
   {
     return env('MAIL_FROM_ADDRESS');
