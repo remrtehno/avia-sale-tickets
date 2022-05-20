@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\SiteSettingsController;
 use App\Http\Controllers\Dashboard\TopFlightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
@@ -77,7 +78,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('reports', ReportController::class);
     Route::resource('customer-contacts', CustomerContactsController::class);
     Route::resource('users', UserController::class);
-
+    Route::resource('settings', SiteSettingsController::class);
 
 
     //single

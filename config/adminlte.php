@@ -298,6 +298,13 @@ return [
             'icon' => 'fas fa-fw fa-bars',
         ],
 
+        [
+            'text' => 'site-settings',
+            'can'  => 'is-admin',
+            'route' => 'dashboard.settings.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [

@@ -30,7 +30,7 @@ $config = [
         </td>
         <td>
           <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
-            href="{{ route('dashboard.flights.show', ['fRatinglight' => $row->id]) }}" title="Details">
+            href="{{ route('dashboard.flights.show', ['flight' => $row->id]) }}" title="Details">
             <i class="fa fa-lg fa-fw fa-eye"></i>
           </a>
           <a class="btn btn-xs btn-default text-primary mx-1 shadow"

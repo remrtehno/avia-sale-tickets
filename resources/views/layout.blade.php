@@ -48,7 +48,7 @@
         <div class="container">
           <div class="top1 clearfix">
             <div class="email1">
-              {!! $contacts->email_header !!}
+              <a href='mailto:{{ $contacts->email_header }}'>{{ $contacts->email_header }}</a>
             </div>
             <div class="phone1">{!! $contacts->phone_header !!}</div>
             @if (Auth::check())
@@ -143,7 +143,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                                                        document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -197,7 +197,7 @@
             <div class="col-sm-3">
               <div class="phone2">{!! $contacts->phone_footer !!}</div>
               <div class="support1">
-                {!! $contacts->email_footer !!}
+                <a href='mailto:{{ $contacts->email_footer }}'>{{ $contacts->email_footer }}</a>
               </div>
             </div>
           </div>

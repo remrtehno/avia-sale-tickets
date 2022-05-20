@@ -39,4 +39,12 @@ use Illuminate\Database\Eloquent\Model;
 class Contacts extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'email_header',
+        'email_footer',
+        'phone_header',
+        'phone_footer'
+    ];
 }

@@ -16,8 +16,8 @@ class ContactsFactory extends Factory
         $email = $this->faker->unique()->safeEmail();
 
         return [
-            'email_header' =>  "<a href='mailto:$email'>$email</a>",
-            'email_footer' =>  "<a href='mailto:$email'>$email</a>",
+            'email_header' =>  $email,
+            'email_footer' =>  $email,
 
             'phone_header' => '(90) 979-33-54',
             'phone_footer' => '(90) 979-33-54',
