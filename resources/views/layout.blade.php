@@ -25,6 +25,7 @@
 
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="/css/custom.css">
+
 </head>
 
 <body class="front {{ env('APP_DEBUG') ? '' : 'loaded_hiding' }}">
@@ -143,7 +144,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                      document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -199,8 +200,8 @@
                 <a href="{{ $link->slug }}">{{ $link->title }}</a>
               @endforeach --}}
               <a href="/О-проекте%24">О проекте</a> <br>
-              <a href="{{ $footerMenu[3]->slug }}%24">Форма для жалоб и предложений</a> <br>
-              <a href="{{ $footerMenu[4]->slug }}%24">Наши партнеры</a> <br>
+              <a href="/feedback">Форма для жалоб и предложений</a> <br>
+              <a href="{{ $footerMenu[3]->slug }}%24">Наши партнеры</a> <br>
               <a href="/faq%24">FAQ</a> <br>
             </div>
           </div>
@@ -241,6 +242,7 @@
   <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
   <script src="/static/js/jquery.easing.1.3.js"></script>
   <script src="/static/js/superfish.js"></script>
+  <script src="/static/js/cform.js"></script>
 
   <script src="/static/js/select2.js"></script>
 
@@ -259,6 +261,7 @@
   <script src="/static/avia-ru/js/jquery.twidget.js?v_1207"></script>
 
   <script src="/static/js/script.js"></script>
+
 
   <script src="{{ mix('js/app.js') }}"></script>
 

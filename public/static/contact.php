@@ -6,75 +6,69 @@ URL: http://www.bitrepository.com/
 
 include 'contact_config.php';
 session_start();
-error_reporting (E_ALL ^ E_NOTICE);
+error_reporting(E_ALL ^ E_NOTICE);
 
 $post = (!empty($_POST)) ? true : false;
 
-if($post)
-{
-include 'functions.php';
+if ($post) {
+    include 'functions.php';
 
-$name = stripslashes($_POST['name']);
-$email = trim($_POST['email']);
-// $phone = stripslashes($_POST['phone']);
+    $name = stripslashes($_POST['name']);
+    $email = trim($_POST['email']);
+    // $phone = stripslashes($_POST['phone']);
 
-$subject = stripslashes($_POST['subject']);
-$message = "Site visitor information:
-
+    $subject = stripslashes($_POST['subject'] ?? '');
+    $message = "Site visitor information:
 
 
-Name: ".$_POST['name']
-."
 
-E-mail Address: ".$_POST['email']
-."
+Name: " . $_POST['name']
+        . "
 
-
-Message: ".$_POST['content'];
+E-mail Address: " . $_POST['email']
+        . "
 
 
-$error = '';
+Message: " . $_POST['content'];
 
-// Check name
 
-if(!$name)
-{
-$error .= 'Please enter your name.<br />';
-}
+    $error = '';
 
-// Check email
+    // Check name
 
-if(!$email)
-{
-$error .= 'Please enter an e-mail address.<br />';
-}
+    if (!$name) {
+        $error .= 'Please enter your name.<br />';
+    }
 
-if($email && !ValidateEmail($email))
-{
-$error .= 'Please enter a valid e-mail address.<br />';
-}
+    // Check email
+
+    if (!$email) {
+        $error .= 'Please enter an e-mail address.<br />';
+    }
+
+    if ($email && !ValidateEmail($email)) {
+        $error .= 'Please enter a valid e-mail address.<br />';
+    }
 
 
 
 
 
-if(!$error)
-{
+    if (!$error) {
 
-	$mail = mail(WEBMASTER_EMAIL, $subject, $message,
-     "From: ".$name." <".$email.">\r\n"
-    ."Reply-To: ".$email."\r\n"
-    ."X-Mailer: PHP/" . phpversion());
+        $mail = mail(
+            WEBMASTER_EMAIL,
+            $subject,
+            $message,
+            "From: " . $name . " <" . $email . ">\r\n"
+                . "Reply-To: " . $email . "\r\n"
+                . "X-Mailer: PHP/" . phpversion()
+        );
 
-if($mail)
-{
-echo 'OK';
-}
-
-}
-else
-{
-echo '<div class="notification_error">'.$error.'</div>';
-}
-
+        if ($mail) {
+            echo 'OK';
+        }
+    } else {
+        echo '<div class="notification_error">' . $error . '</div>';
+    }
 }

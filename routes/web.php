@@ -48,6 +48,9 @@ Route::post('/paymo-callback', [OrderController::class, 'paymoCallback']);
 
 //@TODO $ - need to replace because we can see {page}%24
 Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
+Route::get('/feedback', function () {
+  return view('pages.feedback');
+});
 
 //resources
 Route::resource('flights', FlightsController::class);
