@@ -25,7 +25,8 @@ class ContactsFactory extends Factory
             'facebook' => 'https://facebook.com/',
             'twitter' => 'https://twitter.com/',
             'google_plus' => 'https://google.com/',
-            'instagram' => 'https://instagram.com/'
+            'instagram' => 'https://instagram.com/',
+            'address' => $this->faker->address(),
 
         ];
     }

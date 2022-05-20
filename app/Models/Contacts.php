@@ -45,6 +45,7 @@ class Contacts extends Model
         'email_header',
         'email_footer',
         'phone_header',
-        'phone_footer'
+        'phone_footer',
+        'address'
     ];
 }

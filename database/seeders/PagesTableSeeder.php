@@ -14,7 +14,7 @@ class PagesTableSeeder extends Seeder
     public function run()
     {
 
-        $pages = ['Privacy Policy', 'About Us', 'FAQ', 'Contact'];
+        $pages = ['Политика конфидециальности', 'О проекте', 'FAQ', 'Форма для жалоб и предложений', 'Наши партнеры'];
 
         foreach ($pages as $page) {
             \App\Models\Pages::factory()->create([

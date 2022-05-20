@@ -30,6 +30,9 @@ class CreateContactsTable extends Migration
             //footer
             $table->string('phone_footer');
             $table->string('email_footer');
+
+            //address
+            $table->string('address');
         });
     }
 

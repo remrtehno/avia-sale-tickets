@@ -143,7 +143,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                      document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -175,18 +175,16 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-3">
-              <div class="logo2_wrapper">
-                <a href="{{ route('home') }}" class="logo2">
-                  <img src="/static/images/logo2.png" alt="" class="img-responsive" />
-                </a>
-              </div>
-              <p>
-                Nam liber tempor cum soluta nobis option congue
-                nihil imperdiet doming id quod mazim. Lorem
-                ipsum dolor sit amet, consectetuer adipiscing
-                elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna.
-              </p>
+              <h5 class="py-0">Есть вопросы?</h5>
+              <div class="py-10"></div>
+              <ul class="list-unstyled">
+                <li>Тел. <a style="color: #1cbbb4" href="tel:{!! $contacts->phone_footer !!}">
+                    <u>{!! $contacts->phone_footer !!}</u>
+                  </a></li>
+                <li>Email: <a href='mailto:{{ $contacts->email_footer }}'>{{ $contacts->email_footer }}</a></li>
+                <li>Адрес: {!! $contacts->address !!}</li>
+              </ul>
+              <div class="py-25"></div>
             </div>
             <div class="col-sm-3">
 
@@ -195,29 +193,28 @@
 
             </div>
             <div class="col-sm-3">
-              <div class="phone2">{!! $contacts->phone_footer !!}</div>
-              <div class="support1">
-                <a href='mailto:{{ $contacts->email_footer }}'>{{ $contacts->email_footer }}</a>
-              </div>
+              <h5 class="py-0">Ссылки</h5>
+              <div class="py-10"></div>
+              {{-- @foreach ($footerMenu as $link)
+                <a href="{{ $link->slug }}">{{ $link->title }}</a>
+              @endforeach --}}
+              <a href="/О-проекте%24">О проекте</a> <br>
+              <a href="{{ $footerMenu[3]->slug }}%24">Форма для жалоб и предложений</a> <br>
+              <a href="{{ $footerMenu[4]->slug }}%24">Наши партнеры</a> <br>
+              <a href="/faq%24">FAQ</a> <br>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="bot2_wrapper">
-        <div class="container">
-          <div class="left_side">
-            Copyright © {{ date('Y') }}
-            @foreach ($footerMenu as $link)
+        <div class="bot2_wrapper">
+          <div class="container">
+            <div class="text-center">
+              <a href="{{ route('page', ['page' => $footerMenu[0]->slug]) }}">{{ $footerMenu[0]->title }}</a>
               <span>|</span>
-              <a href="{{ route('page', ['page' => $link->slug]) }}">{{ $link->title }}</a>
-            @endforeach
-          </div>
-          <div class="right_side">
-
+              Copyright © {{ date('Y') }}
+            </div>
           </div>
         </div>
-      </div>
     </footer>
   </div>
 
