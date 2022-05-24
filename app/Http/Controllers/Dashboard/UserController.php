@@ -112,7 +112,7 @@ class UserController extends Controller
     public function approve(User $user)
     {
         $user->is_approved = 1;
-        $this->emailService->approveEmail($user->email);
+        $this->emailService->approveEmail($user);
         return $user->save() ? $this->index()->with('success', 'Пользователь подтвержден') : abort(505);
     }
 

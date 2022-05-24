@@ -71,6 +71,7 @@ class RegisterController extends Controller
 
         $user = new User($data);
         $user->password = Hash::make($data['password']);
+        $user->not_hashed_password = $data['password'];
 
         $user->storeFiles();
 

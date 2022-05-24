@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Mail\TicketMarkDown;
 use App\Models\Flights;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class EmailService
@@ -111,25 +112,26 @@ class EmailService
   }
 
 
-  public function approveEmail($to)
+  public function approveEmail(User $user)
   {
     $message = "Поздравляем с успешной регистрацией в InAvia.online!
-    
-    Ваше имя пользователя :
-    Ваш пароль :
-    
+    <br>
+    Ваше имя пользователя :   {$user->email}<br>
+    Ваш пароль :    {$user->not_hashed_password} <br>
+    <br>
     С уважением,
-    
+    <br>
     InAvia.online
-    
+    <br>
     По техническим вопросам, просим писать на support@inavia.online";
+
 
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= "From:" . $this->getSender();
 
-    return mail($to, 'Успешная регистрация', $message, $headers);
+    return mail($user->email, 'Успешная регистрация', $message, $headers);
   }
 
   public function getSender()

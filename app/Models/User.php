@@ -140,6 +140,7 @@ class User extends Authenticatable implements HasMedia
         "role",
         "address",
         "tel",
+        "not_hashed_password",
 
         //org
         'dir_surname',
