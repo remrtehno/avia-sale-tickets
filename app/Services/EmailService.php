@@ -56,7 +56,7 @@ class EmailService
 
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-          $headers = "From:" . $this->getSender();
+          $headers .= "From:" . $this->getSender();
 
           return mail($data['to'], $data['subject'], $message, $headers);
         }
@@ -127,7 +127,7 @@ class EmailService
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers = "From:" . $this->getSender();
+    $headers .= "From:" . $this->getSender();
 
     return mail($to, 'Успешная регистрация', $message, $headers);
   }
