@@ -13,6 +13,15 @@ class TopPeriodsToFlights extends Model
     protected $fillable = ['period', 'flight_id', 'user_id', 'top_report_id'];
 
 
+    static public function getFlights()
+    {
+        return self::whereDate('period', '>', now())->with('flight')->get()->map(function (self $item) {
+            return $item->flight;
+        });
+    }
+
+
+
 
     static public function periods($period = null)
     {
@@ -30,6 +39,24 @@ class TopPeriodsToFlights extends Model
         return $periods;
     }
 
+
+
+    public function getPeriod()
+    {
+        if (!$this->period) {
+            return null;
+        }
+
+        return new Carbon($this->period);
+    }
+
+    public function isPeriodExpired()
+    {
+        return now()->gt($this->getPeriod());
+    }
+
+
+    //relationships
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -37,7 +64,7 @@ class TopPeriodsToFlights extends Model
 
     public function flight()
     {
-        return $this->belongsTo(Flights::class);
+        return $this->belongsTo(Flights::class, 'flight_id');
     }
 
     public function topReport()
