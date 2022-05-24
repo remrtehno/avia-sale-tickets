@@ -48,8 +48,14 @@
       <td><input type="text" wire:model="emailFooter" class="form-control input-sm"></td>
       <td><input type="text" wire:model="phoneHeader" class="form-control input-sm"></td>
       <td><input type="text" wire:model="phoneFooter" class="form-control input-sm"></td>
-      <td>
+      <td rowspan="2" style="vertical-align: bottom;">
         <button wire:click="update({{ 1 }})" class="btn btn-sm btn-outline-danger py-0">Обновить</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td colspan="3">
+        <textarea type="text" wire:model="address" class="form-control input-sm"></textarea>
       </td>
     </tr>
 

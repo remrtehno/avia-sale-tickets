@@ -10,7 +10,7 @@ use Livewire\Component;
 class SiteSettings extends Component
 {
 
-    public $contacts, $emailHeader, $emailFooter, $phoneHeader, $phoneFooter;
+    public $contacts, $emailHeader, $emailFooter, $phoneHeader, $phoneFooter, $address;
     public $pages;
     public $updateMode = false;
 
@@ -31,6 +31,7 @@ class SiteSettings extends Component
         $this->emailFooter = $this->contacts->email_footer;
         $this->phoneHeader = $this->contacts->phone_header;
         $this->phoneFooter = $this->contacts->phone_footer;
+        $this->address = $this->contacts->address;
 
         $this->pages = Pages::all();
     }
@@ -44,6 +45,7 @@ class SiteSettings extends Component
             'emailFooter' => 'required',
             'phoneHeader' => 'required',
             'phoneFooter' => 'required',
+            'address'     => 'required',
         ]);
 
         $record = Contacts::first();
@@ -52,6 +54,7 @@ class SiteSettings extends Component
             'email_footer' => $this->emailFooter,
             'phone_header' => $this->phoneHeader,
             'phone_footer' => $this->phoneFooter,
+            'address' => $this->address,
         ]);
 
         $this->success($result);
@@ -65,8 +68,6 @@ class SiteSettings extends Component
 
         $this->success();
     }
-
-
 
     public function success($result = true)
     {
