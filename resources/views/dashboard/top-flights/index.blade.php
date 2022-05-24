@@ -5,7 +5,7 @@
 @stop
 
 @php
-$heads = ['ID', 'top', 'Рейс', 'Дата', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['ID', 'top', 'Рейс', 'Дата', 'Осталось дней', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[1, 'desc']],
@@ -28,6 +28,7 @@ $config = [
         <td class="text-capitalize">
           {{ $row->getTime() }} <span class="p-1"></span> {{ $row->getFullDate() }}
         </td>
+        <td>{{ $row->getDaysLeftInTop() }}</td>
         <td>
           <a class="btn btn-xs btn-default text-teal mx-1 shadow" target="_blank"
             href="{{ route('dashboard.flights.show', ['flight' => $row->id]) }}" title="Details">

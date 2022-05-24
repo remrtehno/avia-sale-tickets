@@ -476,6 +476,29 @@ class Flights extends Model implements HasMedia
         return Rating::ratingByUser($this->user_id);
     }
 
+    public function getPeriod()
+    {
+        if (!$this->period?->period) {
+            return null;
+        }
+
+        return new Carbon($this->period->period);
+    }
+
+    public function getDaysLeftInTop()
+    {
+        if ($this->isPeriodExpired()) {
+            return null;
+        }
+
+        return $this->getPeriod()->diffInDays() + 1;
+    }
+
+    public function isPeriodExpired()
+    {
+        return now()->gt($this->getPeriod());
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -499,10 +522,14 @@ class Flights extends Model implements HasMedia
         return $this->hasMany('App\Models\Booking', 'flights_id');
     }
 
-    //RELATIONSHIPS
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function period()
+    {
+        return $this->hasOne(TopPeriodsToFlights::class, 'flight_id');
     }
 
     /**

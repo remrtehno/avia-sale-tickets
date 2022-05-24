@@ -17,7 +17,7 @@ class CreateTopPeriodsToFlightsTable extends Migration
             $table->id();
 
             $table->integer('user_id');
-            $table->integer('top_report_id');
+            $table->integer('top_report_id')->nullable();
             $table->integer('flight_id');
             $table->timestamp('period')->nullable();
 
