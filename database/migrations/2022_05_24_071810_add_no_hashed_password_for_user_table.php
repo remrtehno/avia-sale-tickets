@@ -13,7 +13,7 @@ class AddNoHashedPasswordForUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('tickets', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('not_hashed_password')->nullable();
         });
     }
