@@ -299,6 +299,13 @@ return [
         ],
 
         [
+            'text' => 'Платежки за топ услугу',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.top.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
             'text' => 'site-settings',
             'can'  => 'is-admin',
             'route' => 'dashboard.settings.index',
