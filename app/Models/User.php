@@ -184,6 +184,13 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
+
+
+    public function getSummary()
+    {
+        return $this->name . ' ' . $this->email;
+    }
+
     public function canBeDeleted()
     {
         return !$this->flights?->count();

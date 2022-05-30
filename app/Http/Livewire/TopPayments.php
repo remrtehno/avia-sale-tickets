@@ -22,7 +22,6 @@ class TopPayments extends Component
         'topPayment.date' => 'required',
         'topPayment.sum' => 'required',
         'topPayment.customer_id' => 'required',
-        'topPayment.seller_id' => 'required',
         'topPayment.flight_id' => 'required',
         'topPayment.tariff' => 'required'
     ];
@@ -59,7 +58,7 @@ class TopPayments extends Component
 
     public function store()
     {
-
+        $this->topPayment->seller_id = auth()->user()->id;
         $this->validate();
         $this->topPayment->save();
 

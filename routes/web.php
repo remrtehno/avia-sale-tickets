@@ -84,6 +84,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('users', UserController::class);
     Route::resource('settings', SiteSettingsController::class);
     Route::resource('top', TopPaymentsController::class);
+    Route::get('top-report', [TopPaymentsController::class, 'report'])->name('top.report');
 
 
     //single

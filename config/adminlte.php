@@ -300,8 +300,15 @@ return [
 
         [
             'text' => 'Платежки за топ услугу',
-            'can'  => 'manage-dashboard',
+            'can'  => 'is-admin',
             'route' => 'dashboard.top.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'Отчеты за топ услугу',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.top.report',
             'icon' => 'fas fa-fw fa-bars',
         ],
 

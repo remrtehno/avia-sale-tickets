@@ -1,5 +1,5 @@
 @php
-$heads = ['дата платежки', 'сумма', 'Клиент', 'Покупатель', 'Рейс', 'тариф', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['дата платежки', 'сумма', 'Покупатель', 'Рейс', 'тариф', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
 
 $config = [
     'order' => [[1, 'desc']],
@@ -24,7 +24,6 @@ $config = [
         <tr>
           <td>{{ $topPaymentItem->date }}</td>
           <td>{{ $topPaymentItem->getSum() }} UZS</td>
-          <td>{{ $topPaymentItem->seller->name }} {{ $topPaymentItem->seller->email }}</td>
           <td>{{ $topPaymentItem->customer->name }} {{ $topPaymentItem->customer->email }}</td>
           <td>{{ $topPaymentItem->flight->getSummary() }}</td>
           <td>{{ $topPaymentItem->tariff }}</td>
@@ -95,14 +94,10 @@ $config = [
             <label for="exampleFormControlInput1">Продавец</label>
             <br>
             <div wire:ignore>
-              <x-adminlte-select2 required name="seller_id" class="w-100" wire:model="topPayment.seller_id">
-                <option>Выбрать</option>
-                @foreach ($users as $user)
-                  <option value="{{ $user->id }}">
-                    {{ $user->name }} {{ $user->email }}
-                  </option>
-                @endforeach
-              </x-adminlte-select2>
+              <x-adminlte-select disabled required name="seller_id" class="w-100"
+                wire:model="topPayment.seller_id">
+                <option selected>{{ auth()->user()->getSummary() }}</option>
+              </x-adminlte-select>
             </div>
             @error('topPayment.seller_id')
               <span class="text-danger">{{ $message }}</span>

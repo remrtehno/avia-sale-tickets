@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TopPayments;
+use Auth;
 use Illuminate\Http\Request;
 
 class TopPaymentsController extends Controller
@@ -14,7 +15,17 @@ class TopPaymentsController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->route('dashboard.top.report');
+        }
         return view('dashboard.top-payments.index');
+    }
+
+    public function report()
+    {
+        return view('dashboard.top-payments.report', [
+            'topPayments' => TopPayments::where('customer_id', auth()->user()->id)->get()
+        ]);
     }
 
     /**
