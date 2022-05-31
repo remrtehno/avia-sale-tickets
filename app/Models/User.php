@@ -92,6 +92,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|User[] $ratings
  * @property-read int|null $ratings_count
+ * @property string|null $not_hashed_password
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNotHashedPassword($value)
  */
 class User extends Authenticatable implements HasMedia
 {

@@ -6,6 +6,30 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TopPeriodsToFlights
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int|null $top_report_id
+ * @property int $flight_id
+ * @property string|null $period
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Flights $flight
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereFlightId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights wherePeriod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereTopReportId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TopPeriodsToFlights whereUserId($value)
+ * @mixin \Eloquent
+ */
 class TopPeriodsToFlights extends Model
 {
     use HasFactory;

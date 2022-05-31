@@ -313,6 +313,20 @@ return [
         ],
 
         [
+            'text' => 'Оплаты перечислением',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.deposit.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'Депозиты',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.deposits.deposits',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
             'text' => 'site-settings',
             'can'  => 'is-admin',
             'route' => 'dashboard.settings.index',

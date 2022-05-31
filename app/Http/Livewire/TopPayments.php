@@ -62,6 +62,6 @@ class TopPayments extends Component
         $this->validate();
         $this->topPayment->save();
 
-        session()->flash('success', 'Post Created Successfully.');
+        session()->flash('success', 'Record Created Successfully.');
     }
 }

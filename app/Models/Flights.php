@@ -77,6 +77,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static Builder|Flights withExcludes()
  * @method static Builder|Flights withPassengers()
  * @mixin \Eloquent
+ * @property-read \App\Models\TopPeriodsToFlights|null $period
  */
 class Flights extends Model implements HasMedia
 {
