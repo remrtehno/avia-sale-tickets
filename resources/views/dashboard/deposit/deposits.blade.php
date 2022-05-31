@@ -5,7 +5,7 @@
 @stop
 
 @php
-$heads = ['дата платежки', 'сумма', 'Покупатель', 'Рейс', 'тариф', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
+$heads = ['дата платежки', 'сумма', 'Продавец', 'Комментарий'];
 
 $config = [
     'order' => [[1, 'desc']],
@@ -20,19 +20,11 @@ $config = [
       <tr>
         <td>{{ $row->date }}</td>
         <td>{{ $row->getSum() }} UZS</td>
-        <td>{{ $row->customer->name }} {{ $row->customer->email }}</td>
-        <td>{{ $row->flight->getSummary() }}</td>
-        <td>{{ $row->tariff }}</td>
-        <td>
-          <button wire:click="edit({{ $row->id }})" class="btn btn-primary btn-sm reset-select2"><i
-              class="fa fa-lg fa-fw fa-pen"></i></button>
-          <button wire:click="delete({{ $row->id }})" class="btn btn-danger btn-sm"><i
-              class="fa fa-lg fa-fw fa-trash"></i></button>
-        </td>
+        <td>{{ $row->seller->getSummary() }}</td>
+        <td>{{ $row->comment }}</td>
       </tr>
     @endforeach
 
   </x-adminlte-datatable>
 
 @endsection
-
