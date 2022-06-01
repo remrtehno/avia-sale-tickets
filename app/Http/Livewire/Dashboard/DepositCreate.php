@@ -26,7 +26,7 @@ class DepositCreate extends Component
     public function mount()
     {
         $this->deposit = $this->depositId ? Deposit::findOrFail($this->depositId) : new Deposit;
-        $this->users = User::where('is_approved', 1)->get();
+        $this->users = User::where('is_approved', 1)->where('id', '!=', auth()->user()->id)->get();
     }
 
     public function store()
