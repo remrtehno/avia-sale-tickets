@@ -18,7 +18,7 @@ class CreateDepositsTable extends Migration
             $table->timestamps();
 
             $table->timestamp('date');
-            $table->decimal('sum');
+            $table->string('sum');
             $table->integer('customer_id');
             $table->string('comment');
             $table->integer('seller_id');

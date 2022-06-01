@@ -20,8 +20,6 @@ class BookingController extends Controller
             return $query->where('user_id', Auth::user()->id);
         })->get();
 
-
-
         return view('dashboard.booking.index', [
             'booking' => $booking
         ]);

@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
+use App\Models\User;
+use App\Services\DepositService;
 use Illuminate\Http\Request;
 
 class DepositController extends Controller
 {
+    private $depositService;
+
+    function __construct(DepositService $depositService)
+    {
+        $this->depositService = $depositService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +31,11 @@ class DepositController extends Controller
 
     public function deposits()
     {
+        $deposits = Deposit::where('customer_id', auth()->user()?->id)->get();
+
         return view('dashboard.deposit.deposits', [
-            'deposits' => Deposit::where('customer_id', auth()->user()->id)->get(),
+            'deposits' =>  $deposits,
+            'mergedByUsers' => $this->depositService->getTotalDeposit($deposits),
         ]);
     }
 

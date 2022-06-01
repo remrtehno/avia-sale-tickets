@@ -291,14 +291,34 @@ class User extends Authenticatable implements HasMedia
         return $this->email . '-'  . $fileName;
     }
 
-
     public function getImages($fieldName)
     {
         return $this->getMedia($this->getPathImages($fieldName));
     }
 
+    public function totalDepositFormatted()
+    {
+        return number_format($this->totalDeposit(), 2, '.', ' ');
+    }
+
+    public function totalDeposit()
+    {
+        return $this->getDeposits()->reduce(function ($sum, Deposit $deposit) {
+            return $sum + $deposit->sum;
+        }, 0);
+    }
+
+    public function getDeposits($userId = null)
+    {
+        return $this->deposits->where('customer_id', $userId ? $userId : auth()->user()?->id);
+    }
+
 
     //RELATIONSHIPS
+    public function deposits()
+    {
+        return $this->hasMany(Deposit::class, 'seller_id');
+    }
     public function flights()
     {
         return $this->hasMany(Flights::class);

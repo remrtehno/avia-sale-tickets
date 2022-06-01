@@ -24,7 +24,19 @@ $config = [
         <td>{{ $row->comment }}</td>
       </tr>
     @endforeach
+  </x-adminlte-datatable>
+  <div class="p-3"></div>
+  <hr>
+  <h3>Общая сумма депозита к каждому юзеру</h3>
 
+  <x-adminlte-datatable wire:ignore id="table2" :heads="['Пользователь', 'Общая сумма', 'Остаток']" :config="$config">
+    @foreach ($mergedByUsers as $row)
+      <tr>
+        <td>{{ $row->seller->getSummary() }}</td>
+        <td>{{ $row->getSum() }} UZS</td>
+        <td>{{ $row->getSum($row->leftSum) }} UZS</td>
+      </tr>
+    @endforeach
   </x-adminlte-datatable>
 
 @endsection

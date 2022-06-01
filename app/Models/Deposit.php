@@ -39,9 +39,9 @@ class Deposit extends Model
         return (new Carbon($this->date))->format('Y-m-d\TH:i');
     }
 
-    public function getSum()
+    public function getSum($sum = null)
     {
-        return number_format($this->sum, 2, '.', ' ');
+        return number_format($sum ?: $this->sum, 2, '.', ' ');
     }
 
 

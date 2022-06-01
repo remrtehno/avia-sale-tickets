@@ -101,6 +101,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'update'])->name('return.assigned.chairs.accept');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
+    Route::post('orders', [OrderController::class, 'payByDeposit'])->name('order.pay_deposit');
 
     //Start pdf
     Route::get('orders/{order}/tickets/print', [OrderController::class, 'gerateTicketsPDF'])->name('order.tickets.pdf');

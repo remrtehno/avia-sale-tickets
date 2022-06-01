@@ -12,6 +12,13 @@
   <td>{{ $row->created_at }}</td>
   <td>
     @include('dashboard.partials.status', ['status' => $row->status])
+    <div></div>
+    @if ($row->payed_by_deposit)
+      <small class="badge bg-warning">DEPOSIT</small>
+      <div></div>
+      <small>{{ $row->user->getSummary() }}</small>
+    @endif
+
   </td>
   <td>
     <div class="alert alert-warning p-1 m-0">

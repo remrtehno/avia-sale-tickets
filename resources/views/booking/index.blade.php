@@ -21,12 +21,6 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
           </p>
 
           @include('booking.partials._confirm-form')
-
-          <p style="height: 20px"></p>
-
-          <button type="submit" onclick="makePay()" class="btn btn-default btn-cf-submit3 w-100 booking-submit">
-            ОПЛАТИТЬ
-          </button>
           <div class="paddinger"></div>
         </div>
       </div>

@@ -191,4 +191,23 @@ class OrderController extends Controller
 
         return redirect()->route('dashboard.order.tickets.pdf.email.success');
     }
+
+    public function payByDeposit(Request $request)
+    {
+        $order = Order::where('uuid', $request->order_id)->firstOrFail();
+        $deposit = $order->flight->user->totalDeposit();
+
+        if ($deposit < $order->total) {
+            return abort('500');
+        }
+
+        $order->changeStatus(Order::PAID);
+        $order->payed_by_deposit = 1;
+        $order->user_id = auth()->user()->id;
+        $this->emailTickets($request, $order);
+
+        if ($order->save()) {
+            return back();
+        }
+    }
 }
