@@ -27,6 +27,9 @@ if (request('from') || request('to')) {
     <a href="{{ route('dashboard.orders.show', ['order' => ($orderID = $ticket->booking->order->first()->uuid)]) }}">
       {{ $orderID }}
     </a>
+    @if ($ticket->booking->order->first()->payed_by_deposit)
+      <span class="badge bg-warning">DEPOSIT</span>
+    @endif
   </td>
 
   <td>
