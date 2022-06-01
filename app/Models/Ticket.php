@@ -120,6 +120,11 @@ class Ticket extends Model
         return $this->genderMap[$this->gender];
     }
 
+    public function getDataCopy()
+    {
+        return "{$this->passport_number}/{$this->citizenship}/{$this->birthday}/{$this->gender}/{$this->passport_date}/{$this->surname}/{$this->name}";
+    }
+
     //RELATIONSHIPS
     public function user()
     {

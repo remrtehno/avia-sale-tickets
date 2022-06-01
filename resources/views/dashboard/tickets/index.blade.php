@@ -81,5 +81,10 @@ $configSelect2 = [
 @section('js')
   <script>
     window.location.search || {{ count($flights) }} && flightSelect.submit()
+
+    function copy(s) {
+      navigator.clipboard.writeText(s.toUpperCase());
+      alert('Данные пользователя скопированы в буфер обмена!');
+    }
   </script>
 @stop
