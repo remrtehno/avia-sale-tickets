@@ -17,9 +17,16 @@ $images = ['dir_passport_file', 'inn_file', 'license_file', 'agreement_contract_
       @foreach ($user->getImages($imageLibrary) as $image)
         <div class="col-md-6 mb-3">
           <h5>{{ $labels[$key] }}</h5>
-          @include('dashboard.users._partials.users-image', [
-              'url' => $image->getUrl(),
-          ])
+          @if (str_ends_with($image->getUrl(), '.pdf'))
+            @include('dashboard.users._partials.show-pdf', [
+                'url' => $image->getUrl(),
+            ])
+          @else
+            @include('dashboard.users._partials.users-image', [
+                'url' => $image->getUrl(),
+            ])
+          @endif
+
         </div>
       @endforeach
     @endforeach
