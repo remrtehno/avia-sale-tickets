@@ -63,5 +63,22 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
       });
 
     }
+
+
+    $(document).on('click', function(event) {
+      if (
+        event.target.style.cursor === 'pointer' &&
+        event.target.style.width === '24px' &&
+        event.target.style.height === '24px'
+
+        ||
+
+        event.target.style.position === 'fixed' &&
+        event.target.style.inset === '0px' &&
+        event.target.style.zIndex === '1000000'
+      ) {
+        window.location.reload();
+      }
+    })
   </script>
 @endsection
