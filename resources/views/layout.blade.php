@@ -144,7 +144,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -278,6 +278,12 @@
       })
     </script>
   @endif
+
+
+  <script src="https://api.imbachat.com/imbachat/v1/16375/widget"></script>
+  <script>
+    window.imbaApi.load();
+  </script>
 
 
 </body>
