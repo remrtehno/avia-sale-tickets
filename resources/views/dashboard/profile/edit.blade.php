@@ -137,7 +137,7 @@
           'title' => __('org.agreement_contract'),
           'name' => 'agreement_contract',
           'placeholder' => '___________________',
-          'mask' => '9999999999999999999',
+          'mask' => '*******************',
       
           'value' => $user->agreement_contract,
       ])
