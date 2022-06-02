@@ -8,7 +8,7 @@
               <div class="row">
                 <div class="col-md-2">
                   <figure>
-                    <img src="{{ $flight->logo }}" style="max-width: 93px" alt="{{ $flight->title }}"
+                    <img src="{{ $flight->getImage() }}" style="max-width: 93px" alt="{{ $flight->title }}"
                       class="img-responsive">
                   </figure>
                 </div>
