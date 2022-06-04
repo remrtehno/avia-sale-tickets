@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\CustomerContacts;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +11,7 @@ class CustomerContactsService
 {
   public function getCustomers($collection)
   {
-    $typeOfCustomers = ['adults', 'children', 'infants'];
+    $typeOfCustomers = Ticket::TYPES_PASSENGERS;
     $collectNewCustomers = collect();
 
     foreach ($typeOfCustomers as $type) {

@@ -71,6 +71,7 @@ class Ticket extends Model
     public const ADULTS = 'ADT';
     public const CHILDREN = 'CHD';
     public const INFANTS = 'INF';
+    public const TYPES_PASSENGERS = [self::ADULTS, self::CHILDREN, self::INFANTS];
 
     protected $fillable = [
         'user_id',

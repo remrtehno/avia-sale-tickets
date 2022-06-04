@@ -2404,6 +2404,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
@@ -2440,6 +2441,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     inputEmail: function inputEmail(evt) {
       this.$emit("input", evt.target.value);
+    },
+    upper: function upper(e) {
+      e.target.value = e.target.value.toUpperCase();
     }
   },
   mounted: function mounted() {
@@ -3280,13 +3284,14 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
   dategood: {
     alias: "datetime",
     //@TODO set 20yy as default, to avoid set morer than 20xx years
-    inputFormat: "yyyy-mm-dd",
-    placeholder: "_",
-    min: "2010",
-    max: "2060"
+    inputFormat: "dd-mm-yyyy",
+    placeholder: "_" // min: "2010",
+    // max: "2060",
+
   },
   birthday: {
     alias: "dategood",
+    inputFormat: "dd-mm-yyyy",
     min: "1910",
     max: "".concat(date.getFullYear(), "-").concat(date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1, "-").concat(date.getDate())
   }
@@ -12017,6 +12022,11 @@ var render = function () {
                 name: _vm.getType("passport_number"),
               },
               domProps: { value: _vm.current.passport_number },
+              on: {
+                input: function ($event) {
+                  return _vm.upper($event)
+                },
+              },
             }),
           ]
         ),
@@ -12039,7 +12049,7 @@ var render = function () {
               attrs: {
                 "data-inputmask": "'alias': 'dategood'",
                 type: "text",
-                placeholder: "____-__-__",
+                placeholder: "__-__-____",
                 spellcheck: "false",
                 name: _vm.getType("passport_date"),
               },
@@ -12183,7 +12193,7 @@ var render = function () {
               attrs: {
                 "data-inputmask": "'alias': 'birthday'",
                 type: "text",
-                placeholder: "____-__-__",
+                placeholder: "__-__-____",
                 spellcheck: "false",
                 name: _vm.getType("birthday"),
               },

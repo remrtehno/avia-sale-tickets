@@ -67,6 +67,7 @@ class CustomerContacts extends Model
         'tel',
         'visa',
         'address',
-        'user_id'
+        'user_id',
+        'type'
     ];
 }

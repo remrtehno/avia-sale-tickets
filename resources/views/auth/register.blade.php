@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
   <div class="container">
     <div class="min-50vh">
       <h2 class="card-header">{{ __('common.register') }}</h2>
@@ -27,145 +26,145 @@
                       <input type="hidden" name="role" value="{{ \App\Models\User::ORG }}">
 
                       @include('auth.partial._input', [
-                      "title" => __('common.name.org'),
-                      "name" => 'name',
-                      "placeholder" => __("org.org_placeholder"),
-                      "required" => true,
+                          'title' => __('common.name.org'),
+                          'name' => 'name',
+                          'placeholder' => __('org.org_placeholder'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.address'),
-                      "name" => 'address',
-                      "placeholder" => __("common.address_placeholder"),
-                      "required" => true,
+                          'title' => __('common.address'),
+                          'name' => 'address',
+                          'placeholder' => __('common.address_placeholder'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.tel'),
-                      "name" => 'tel',
-                      "placeholder" => "+998(__) ___-__-__",
-                      "mask" => "+\\\9\\\98(99) 999-99-99",
-                      "required" => true,
+                          'title' => __('common.tel'),
+                          'name' => 'tel',
+                          'placeholder' => '+998(__) ___-__-__',
+                          'mask' => '+\\\9\\\98(99) 999-99-99',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('Email'),
-                      "name" => 'email',
-                      "placeholder" => "example@com.com",
-                      "required" => true,
-                      "type" => 'email',
-                      "alias" => "email"
-                      ])
-
-
-                      @include('auth.partial._input', [
-                      "title" => __('org.fullname_director'),
-                      "name" => 'dir_surname',
-                      "placeholder" => __("common.surname"),
-                      "required" => true,
+                          'title' => __('Email'),
+                          'name' => 'email',
+                          'placeholder' => 'example@com.com',
+                          'required' => true,
+                          'type' => 'email',
+                          'alias' => 'email',
                       ])
 
 
                       @include('auth.partial._input', [
-                      "name" => 'dir_name',
-                      "placeholder" => __("common.name"),
-                      "required" => true,
+                          'title' => __('org.fullname_director'),
+                          'name' => 'dir_surname',
+                          'placeholder' => __('common.surname'),
+                          'required' => true,
+                      ])
+
+
+                      @include('auth.partial._input', [
+                          'name' => 'dir_name',
+                          'placeholder' => __('common.name'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "name" => 'dir_surname2',
-                      "placeholder" => __("common.surname2"),
-                      "required" => true,
+                          'name' => 'dir_surname2',
+                          'placeholder' => __('common.surname2'),
+                          'required' => true,
                       ])
 
 
                       @include('auth.partial._input_file', [
-                      "title" => __("org.scan_passport_file"),
-                      "name" => 'dir_passport_file',
-                      "required" => true,
-                      "hint" => __("common.only_face_page_and_home")
+                          'title' => __('org.scan_passport_file'),
+                          'name' => 'dir_passport_file',
+                          'required' => true,
+                          'hint' => __('common.only_face_page_and_home'),
                       ])
 
 
                       @include('auth.partial._input', [
-                      "title" => __('org.tel_director'),
-                      "name" => 'tel_director',
-                      "placeholder" => "+998(__) ___-__-__",
-                      "mask" => "+\\\9\\\98(99) 999-99-99",
-                      "required" => true,
+                          'title' => __('org.tel_director'),
+                          'name' => 'tel_director',
+                          'placeholder' => '+998(__) ___-__-__',
+                          'mask' => '+\\\9\\\98(99) 999-99-99',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('org.inn'),
-                      "name" => 'inn',
-                      "placeholder" => "___________________",
-                      "mask" => "9999999999999999999",
-                      "required" => true,
+                          'title' => __('org.inn'),
+                          'name' => 'inn',
+                          'placeholder' => '___________________',
+                          'mask' => '9999999999999999999',
+                          'required' => true,
                       ])
 
 
                       @include('auth.partial._input_file', [
-                      "title" => __("org.scan_inn"),
-                      "name" => 'inn_file',
-                      "required" => true,
+                          'title' => __('org.scan_inn'),
+                          'name' => 'inn_file',
+                          'required' => true,
                       ])
 
 
                       @include('auth.partial._input', [
-                      "title" => __('org.license'),
-                      "name" => 'license',
-                      "placeholder" => "___________________",
-                      "mask" => "9999999999999999999",
-                      "required" => true,
+                          'title' => __('org.license'),
+                          'name' => 'license',
+                          'placeholder' => '___________________',
+                          'mask' => '9999999999999999999',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input_file', [
-                      "title" => __('org.scan_license'),
-                      "name" => 'license_file',
-                      "required" => true,
+                          'title' => __('org.scan_license'),
+                          'name' => 'license_file',
+                          'required' => true,
                       ])
 
 
                       @include('auth.partial._input', [
-                      "title" => __('org.agreement_contract'),
-                      "name" => 'agreement_contract',
-                      "placeholder" => "___________________",
-                      "mask" => "9999999999999999999",
-                      "required" => true,
+                          'title' => __('org.agreement_contract'),
+                          'name' => 'agreement_contract',
+                          'placeholder' => '___________________',
+                          'mask' => '9999999999999999999',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input_file', [
-                      "title" => __('org.scan_agreements_with_avia_and_cons'),
-                      "name" => 'agreement_contract_file',
-                      "required" => true,
+                          'title' => __('org.scan_agreements_with_avia_and_cons'),
+                          'name' => 'agreement_contract_file',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('org.cadastre'),
-                      "name" => 'cadastre',
-                      "placeholder" => "___________________",
-                      "required" => true,
+                          'title' => __('org.cadastre'),
+                          'name' => 'cadastre',
+                          'placeholder' => '___________________',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input_file', [
-                      "title" => __('org.scan_cadastre'),
-                      "name" => 'cadastre_file',
-                      "required" => true,
+                          'title' => __('org.scan_cadastre'),
+                          'name' => 'cadastre_file',
+                          'required' => true,
                       ])
 
 
                       @include('auth.partial._input', [
-                      "title" => __('common.password'),
-                      "name" => "password",
-                      "required" => true,
-                      "type" => "password"
+                          'title' => __('common.password'),
+                          'name' => 'password',
+                          'required' => true,
+                          'type' => 'password',
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.password_confirmation'),
-                      "name" => "password_confirmation",
-                      "required" => true,
-                      "type" => "password"
+                          'title' => __('common.password_confirmation'),
+                          'name' => 'password_confirmation',
+                          'required' => true,
+                          'type' => 'password',
                       ])
 
                       @include('auth.partial._submit', ['title' => __('common.register')])
@@ -185,75 +184,75 @@
                       <input type="hidden" name="role" value="{{ \App\Models\User::IND }}">
 
                       @include('auth.partial._input', [
-                      "title" => __('common.fullname'),
-                      "name" => 'name',
-                      "placeholder" => "Имя",
-                      "required" => true,
+                          'title' => __('common.fullname'),
+                          'name' => 'name',
+                          'placeholder' => 'Имя',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "name" => 'surname',
-                      "placeholder" => __('common.surname'),
-                      "required" => true,
+                          'name' => 'surname',
+                          'placeholder' => __('common.surname'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "name" => 'surname2',
-                      "placeholder" => __('common.surname2'),
-                      "required" => true,
+                          'name' => 'surname2',
+                          'placeholder' => __('common.surname2'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.birthday'),
-                      "name" => 'birthday',
-                      "placeholder" => "____-__-__",
-                      "required" => true,
-                      'alias' => 'birthday'
+                          'title' => __('common.birthday'),
+                          'name' => 'birthday',
+                          'placeholder' => '__-__-____',
+                          'required' => true,
+                          'alias' => 'birthday',
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.address'),
-                      "name" => 'address',
-                      "placeholder" => __('common.address_placeholder'),
-                      "required" => true,
+                          'title' => __('common.address'),
+                          'name' => 'address',
+                          'placeholder' => __('common.address_placeholder'),
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input_file', [
-                      "title" => __('common.scan_passport'),
-                      "name" => 'passport_file',
-                      "required" => true,
-                      "hint" => __('common.only_face_page_and_home')
+                          'title' => __('common.scan_passport'),
+                          'name' => 'passport_file',
+                          'required' => true,
+                          'hint' => __('common.only_face_page_and_home'),
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.tel'),
-                      "name" => 'tel',
-                      "placeholder" => "+998(__) ___-__-__",
-                      "mask" => "+\\\9\\\98(99) 999-99-99",
-                      "required" => true,
+                          'title' => __('common.tel'),
+                          'name' => 'tel',
+                          'placeholder' => '+998(__) ___-__-__',
+                          'mask' => '+\\\9\\\98(99) 999-99-99',
+                          'required' => true,
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('Email'),
-                      "name" => 'email',
-                      "placeholder" => "example@com.com",
-                      "required" => true,
-                      "type" => 'email',
-                      "alias" => "email"
+                          'title' => __('Email'),
+                          'name' => 'email',
+                          'placeholder' => 'example@com.com',
+                          'required' => true,
+                          'type' => 'email',
+                          'alias' => 'email',
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.password'),
-                      "name" => "password",
-                      "required" => true,
-                      "type" => "password"
+                          'title' => __('common.password'),
+                          'name' => 'password',
+                          'required' => true,
+                          'type' => 'password',
                       ])
 
                       @include('auth.partial._input', [
-                      "title" => __('common.password_confirmation'),
-                      "name" => "password_confirmation",
-                      "required" => true,
-                      "type" => "password"
+                          'title' => __('common.password_confirmation'),
+                          'name' => 'password_confirmation',
+                          'required' => true,
+                          'type' => 'password',
                       ])
 
 

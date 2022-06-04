@@ -30,6 +30,7 @@
                         spellcheck="false"
                         :name="getType('passport_number')"
                         :value="current.passport_number"
+                        @input="upper($event)"
                     />
                 </div>
             </div>
@@ -46,7 +47,7 @@
                         data-inputmask="'alias': 'dategood'"
                         type="text"
                         class="form-control"
-                        placeholder="____-__-__"
+                        placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('passport_date')"
                         :value="current.passport_date"
@@ -147,7 +148,7 @@
                         data-inputmask="'alias': 'birthday'"
                         type="text"
                         class="form-control"
-                        placeholder="____-__-__"
+                        placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('birthday')"
                         :value="current.birthday"
@@ -338,6 +339,9 @@ export default {
         },
         inputEmail(evt) {
             this.$emit("input", evt.target.value);
+        },
+        upper(e) {
+            e.target.value = e.target.value.toUpperCase();
         },
     },
 

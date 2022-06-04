@@ -4,7 +4,7 @@
       <div class="form-check">
         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
         <label class="form-check-label" for="flexRadioDefault1">
-          Онайн картой
+          Онлайн картой
         </label>
       </div>
       <div class="form-check">
