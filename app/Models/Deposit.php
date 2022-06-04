@@ -34,6 +34,8 @@ class Deposit extends Model
 {
     use HasFactory;
 
+    protected $dates = ['date'];
+
     public function getDate()
     {
         return (new Carbon($this->date))->format('Y-m-d\TH:i');

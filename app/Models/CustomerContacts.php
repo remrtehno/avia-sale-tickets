@@ -70,4 +70,6 @@ class CustomerContacts extends Model
         'user_id',
         'type'
     ];
+
+    protected $dates = ['birthday'];
 }

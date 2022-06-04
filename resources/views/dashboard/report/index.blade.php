@@ -12,14 +12,14 @@ $config = [
     'language' => ['url' => '/lang/datatable/ru.json'],
 ];
 
-$configDate = ['format' => 'YYYY-MM-DD HH:mm'];
+$configDate = ['format' => 'DD-MM-YYYY HH:mm'];
 
 @endphp
 
 @section('content')
 
-  <h4 class="mb-4">Данные показаны за период {{ $from->format('Y-m-d H:i') }} -
-    {{ $to->format('Y-m-d H:i') }}
+  <h4 class="mb-4">Данные показаны за период {{ $from->format('d-m-Y H:i') }} -
+    {{ $to->format('d-m-Y H:i') }}
   </h4>
 
   @if ($user?->name)

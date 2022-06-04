@@ -18,7 +18,7 @@ $config = [
   <x-adminlte-datatable wire:ignore id="table1" :heads="$heads" :config="$config">
     @foreach ($deposits as $row)
       <tr>
-        <td>{{ $row->date }}</td>
+        <td>{{ $row->date->format('d-m-Y H:i:s') }}</td>
         <td>{{ $row->getSum() }} UZS</td>
         <td>{{ $row->seller->getSummary() }}</td>
         <td>{{ $row->comment }}</td>

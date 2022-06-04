@@ -7,10 +7,10 @@
     <div class="col-md-3">От:</div>
     <div class="col-md-9">До:</div>
     <div class="col-md-3">
-      <x-adminlte-input-date name="from" :value="$from" :config="$configDate" />
+      <x-adminlte-input-date name="from" :value="$from->format('d-m-Y H:i:s')" :config="$configDate" />
     </div>
     <div class="col-md-3">
-      <x-adminlte-input-date name="to" :value="$to" :config="$configDate" />
+      <x-adminlte-input-date name="to" :value="$to->format('d-m-Y H:i:s')" :config="$configDate" />
     </div>
     <div class="col-md-3">
       <x-adminlte-button type="submit" label="Показать" />

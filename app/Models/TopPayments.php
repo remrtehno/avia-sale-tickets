@@ -39,6 +39,8 @@ class TopPayments extends Model
 {
     use HasFactory;
 
+    protected $dates = ['date'];
+
 
     public function getDate()
     {

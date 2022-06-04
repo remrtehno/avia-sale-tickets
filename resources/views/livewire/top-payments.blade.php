@@ -22,7 +22,7 @@ $config = [
     <x-adminlte-datatable wire:ignore id="table1" :heads="$heads" :config="$config">
       @foreach ($topPayments as $topPaymentItem)
         <tr>
-          <td>{{ $topPaymentItem->date }}</td>
+          <td>{{ $topPaymentItem->date->format('d-m-Y H:i:s') }}</td>
           <td>{{ $topPaymentItem->getSum() }} UZS</td>
           <td>{{ $topPaymentItem->customer->name }} {{ $topPaymentItem->customer->email }}</td>
           <td>{{ $topPaymentItem->flight->getSummary() }}</td>

@@ -122,6 +122,8 @@ class User extends Authenticatable implements HasMedia
         self::IND => "Физическое лицо"
     ];
 
+
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -185,6 +187,9 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    protected $dates = ['birthday'];
 
 
 
