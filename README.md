@@ -26,6 +26,9 @@ docker-compose run --rm artisan make:model Image --migration
 https://smknstd.medium.com/fake-beautiful-images-in-laravel-51062967d1db
 removing images https://stackoverflow.com/questions/62429023/how-to-create-a-factory-with-images-for-testing
 
+##OPTIMIZATION
+https://github.com/renatomarinho/laravel-page-speed
+
 ####
 
 docker-compose run --rm artisan make:controller FlightsController --resource
