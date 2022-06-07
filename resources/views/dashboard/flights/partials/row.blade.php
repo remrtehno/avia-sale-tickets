@@ -2,7 +2,7 @@
   <td>{{ $row->id }}</td>
   <td>
     @if ($row->getImage())
-      <img src="{{ $row->getImage() }}" style="max-width: 68px" class="img-fluid">
+      <img loading="lazy" src="{{ $row->getImage() }}" style="max-width: 68px" class="img-fluid">
     @else
       <small class="text-muted">(нету логотипа)</ы>
     @endif

@@ -60,7 +60,7 @@ $configTextEditor = [
   @endif
   @if (isset($flight) && $flight->getImage())
     <div class="col-md-2">
-      <img class="img-fluid mt-4" src="{{ $flight->getImage() }}" alt="">
+      <img loading="lazy" class="img-fluid mt-4" src="{{ $flight->getImage() }}" alt="">
     </div>
   @endif
 
@@ -78,14 +78,11 @@ $configTextEditor = [
     <div class="row">
 
       <x-adminlte-input value="{{ $flight->price_adult ?? null }}" name="price_adult"
-        label="{{ __('dashboard.adult') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.adult') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
       <x-adminlte-input value="{{ $flight->price_child ?? null }}" name="price_child"
-        label="{{ __('dashboard.child') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.child') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
       <x-adminlte-input value="{{ $flight->price_infant ?? null }}" name="price_infant"
-        label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
     </div>
   </div>
   <div class="col-md-4">

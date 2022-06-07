@@ -9,7 +9,8 @@
         </div>
         <div class="col-md-4">
           <figure>
-            <img src="{{ $item->getImage() }}" alt="" style="max-width: 93px" class="img-responsive my-15" />
+            <img loading="lazy" src="{{ $item->getImage() }}" alt="" style="max-width: 93px"
+              class="img-responsive my-15" />
           </figure>
         </div>
         <div class="col-md-8  my-5">
