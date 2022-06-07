@@ -41,3 +41,12 @@
   </div>
 
 @endsection
+
+
+@push('js')
+  <script src="/static/js/fancybox.umd.js"></script>
+@endpush
+
+@push('css')
+  <link rel="stylesheet" href="/static/css/fancybox.css" />
+@endpush
