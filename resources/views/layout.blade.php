@@ -109,7 +109,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                              document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -168,6 +168,7 @@
               <a href="/feedback">Форма для жалоб и предложений</a> <br>
               <a href="{{ $footerMenu[3]->slug }}%24">Наши партнеры</a> <br>
               <a href="/faq%24">FAQ</a> <br>
+              <div class="py-10"></div>
             </div>
           </div>
         </div>
