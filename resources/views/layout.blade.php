@@ -57,42 +57,6 @@
                 Привет, {{ Auth::user()->name }}
               </div>
             @endif
-            <div class="social_wrapper">
-              <ul class="social clearfix">
-                @if (trim($contacts->facebook))
-                  <li>
-                    <a href="{!! $contacts->facebook !!}"><i class="fa fa-facebook"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->twitter))
-                  <li>
-                    <a href="{!! $contacts->twitter !!}"><i class="fa fa-twitter"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->google_plus))
-                  <li>
-                    <a href="{!! $contacts->google_plus !!}"><i class="fa fa-google-plus"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->instagram))
-                  <li>
-                    <a href="{!! $contacts->instagram !!}"><i class="fa fa-instagram"></i></a>
-                  </li>
-                @endif
-              </ul>
-            </div>
-            <div class="lang1">
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="true">
-                  English<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><a class="ge" href="#">German</a></li>
-                  <li><a class="ru" href="#">Russian</a></li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -145,7 +109,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                          document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                              document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
