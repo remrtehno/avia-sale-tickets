@@ -426,6 +426,13 @@ class Flights extends Model implements HasMedia
         return $tickets;
     }
 
+    public function getCountTickets()
+    {
+        return $this->booking->reduce(function ($sum, Booking $book) {
+            return $sum + $book->tickets->count();
+        }, 0);
+    }
+
     //store files
     public function storeFiles($clean = false)
     {

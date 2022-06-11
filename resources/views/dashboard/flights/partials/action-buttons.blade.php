@@ -7,11 +7,14 @@
     href="{{ route('dashboard.flights.edit', ['flight' => $id]) }}" title="Edit">
     <i class="fa fa-lg fa-fw fa-pen"></i>
   </a>
-  <a class="btn btn-xs btn-default text-primary mx-1 shadow"
-    href="{{ route('dashboard.flights.customers_to_txt', ['flight' => $id]) }}"
+
+
+  <a @if ($row->getCountTickets()) class="btn btn-xs btn-default text-primary mx-1 shadow" href="{{ route('dashboard.flights.customers_to_txt', ['flight' => $id]) }}" @else
+    class="btn btn-xs btn-default mx-1 shadow" @endif
     title="Выгрузить данные покупателей в txt">
     <i class="fa fa-lg fa-fw fa-save"></i>
   </a>
+
   @if (!Route::is('dashboard.top-flights.index'))
     <form method="POST"
       @if (!$row?->canBeDeleted()) action="{{ route('dashboard.flights.destroy', ['flight' => $id]) }}" @endif
