@@ -12,17 +12,21 @@ use App\Models\Order;
 use App\Models\PreAssignChairs;
 use App\Models\ReturnAssignedChairs;
 use App\Models\User;
+use App\Services\ExportToFileService;
 use App\Services\FlightService;
 use Illuminate\Support\Facades\Auth;
+use Response;
 
 class FlightsController extends Controller
 {
 
     private $service;
+    private $exportToFileService;
 
-    function __construct(FlightService $flightService)
+    function __construct(FlightService $flightService, ExportToFileService $exportToFileService)
     {
         $this->service = $flightService;
+        $this->exportToFileService = $exportToFileService;
     }
     /**
      * Display a listing of the resource.
@@ -199,5 +203,19 @@ class FlightsController extends Controller
         $flight->delete();
 
         return redirect()->route('dashboard.flights.index');
+    }
+
+
+    public function customersToTxt(Flights $flight)
+    {
+        $data = $this->exportToFileService->prepareData($flight->getTickets());
+        $fileName = $flight->getSummary() . ' customers ' . now();
+
+        $headers = [
+            'Content-Type' => 'plain/txt',
+            'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
+        ];
+
+        return Response::make($data, '200', $headers);
     }
 }

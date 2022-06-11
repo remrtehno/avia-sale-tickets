@@ -75,7 +75,6 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
     Route::resource('top-flights', TopFlightsController::class);
-    Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('orders', OrderController::class);
@@ -93,6 +92,10 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
     Route::put('flights/{flight}/assign', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+    Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
+
+    Route::get('flights/{flight}/customers-to-txt', [DashboardFlightsController::class, 'customersToTxt'])->name('flights.customers_to_txt');
+
 
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
