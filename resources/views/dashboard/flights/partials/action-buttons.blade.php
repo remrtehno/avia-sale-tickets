@@ -17,7 +17,7 @@
 
   @if (!Route::is('dashboard.top-flights.index'))
     <form method="POST"
-      @if (!$row?->canBeDeleted()) action="{{ route('dashboard.flights.destroy', ['flight' => $id]) }}" @endif
+      @if ($row?->canBeDeleted()) action="{{ route('dashboard.flights.destroy', ['flight' => $id]) }}" @endif
       class="d-inline-block">
       @csrf
       @method('delete')
