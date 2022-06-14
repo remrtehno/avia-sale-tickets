@@ -38,6 +38,9 @@ class OrderController extends Controller
     public function index(Order $order)
     {
 
+
+        $this->service->setAsCanceledIfExpired($order->getOrders());
+
         $orders = $order->getOrders();
 
         return view('dashboard.orders.index', [

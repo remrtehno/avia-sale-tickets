@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -166,9 +167,9 @@ class Order extends Model
 
     public function isExpired()
     {
-        $createdAtNewInstace = new Carbon($this->created_at);
+        $createdAtNewInstace = new CarbonImmutable($this->created_at);
 
-        return $createdAtNewInstace->greaterThan($createdAtNewInstace->addMinutes(self::BOOKING_MINUTES_LIMIT));
+        return $createdAtNewInstace->addMinutes(self::BOOKING_MINUTES_LIMIT)->lessThan(now());
     }
 
     /**

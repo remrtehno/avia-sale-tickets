@@ -5,10 +5,20 @@ namespace App\Services;
 use App\Models\Flights;
 use App\Models\Order;
 use App\Models\ReturnAssignedChairs;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class OrderService
 {
+  //@TODO HACK BECAUSE JOBS DOESN'T WORK
+  public function setAsCanceledIfExpired(Collection $orders)
+  {
+    $orders->each(function (Order $order) {
+      if ($order->status === Order::BOOKED && $order->isExpired()) {
+        $order->markAsCanceled();
+      }
+    });
+  }
 
   public function createNotificationReturnChairs($userId, $count_chairs, $flightId, $order_id)
   {
