@@ -39,6 +39,6 @@ class TopFlightsController extends Controller
             'top_report_id' => 0,
         ]);
 
-        return $this->index();
+        return redirect()->route('dashboard.top-flights.index');
     }
 }
