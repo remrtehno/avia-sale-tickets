@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App;
+use App\Services\ExportToFileService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -123,7 +125,8 @@ class Ticket extends Model
 
     public function getDataCopy()
     {
-        return "{$this->passport_number}/{$this->citizenship}/{$this->birthday}/{$this->gender}/{$this->passport_date}/{$this->surname}/{$this->name}";
+        $service = App::make(ExportToFileService::class);
+        return $service->extractDataFromPerTicket($this);
     }
 
     //RELATIONSHIPS
