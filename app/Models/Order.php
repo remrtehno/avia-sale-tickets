@@ -166,7 +166,9 @@ class Order extends Model
 
     public function isExpired()
     {
-        return $this->created_at->greaterThan($this->created_at->addMinutes(self::BOOKING_MINUTES_LIMIT));
+        $createdAtNewInstace = new Carbon($this->created_at);
+
+        return $createdAtNewInstace->greaterThan($createdAtNewInstace->addMinutes(self::BOOKING_MINUTES_LIMIT));
     }
 
     /**
