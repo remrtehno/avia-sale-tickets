@@ -12,7 +12,7 @@ class TopFlightsController extends Controller
     public function index()
     {
         return view('dashboard.top-flights.index', [
-            'flights' => Flights::orderBy('top', 'desc')->get(),
+            'flights' => Flights::actual()->orderBy('top', 'desc')->get(),
         ]);
     }
 
@@ -39,6 +39,6 @@ class TopFlightsController extends Controller
             'top_report_id' => 0,
         ]);
 
-        return back();
+        return $this->index();
     }
 }

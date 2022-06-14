@@ -292,6 +292,11 @@ class Flights extends Model implements HasMedia
         }
     }
 
+    public function scopeActual(Builder $query)
+    {
+        return $query->whereDate('date', '>=', now());
+    }
+
     /**
      * Scope a query to search different fields seat flight
      */
