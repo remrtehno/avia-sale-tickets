@@ -3,8 +3,10 @@
 
 @section('content')
   <h3> Продвинуть в топ {{ $flights->flight }}</h3>
-  <h4>Текущий период: {{ !$flights->isPeriodExpired() ? $flights->getPeriod() : '-' }}</h4>
-  <h5>Осталось дней: {{ $flights->getDaysLeftInTop() }} </h5>
+  @if ($flights->top)
+    <h4>Текущий период: {{ !$flights->isPeriodExpired() ? $flights->getPeriod() : '-' }}</h4>
+    <h5>Осталось дней: {{ $flights->getDaysLeftInTop() }} </h5>
+  @endif
 
   <form action="{{ route('dashboard.top-flights.update', ['top_flight' => $flights->id]) }}" method="POST">
     @csrf
