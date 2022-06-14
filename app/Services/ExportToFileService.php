@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Ticket;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class ExportToFileService
@@ -12,7 +14,7 @@ class ExportToFileService
   function __construct()
   {
     $this->fieldsToSave = collect(
-      ['passport_number', 'citizenship', 'birthday', 'gender', 'passport_date', 'surname', 'name']
+      ['passport_number', 'citizenship', User::BIRTHDAY, 'gender', User::PASSPORT_DATE, 'surname', 'name']
     );
   }
 
@@ -25,6 +27,9 @@ class ExportToFileService
 
   public function extractDataFromPerTicket(Ticket $ticket)
   {
+    $ticket[User::BIRTHDAY] = $this->formatDate($ticket[User::BIRTHDAY]);
+    $ticket[User::PASSPORT_DATE] = $this->formatDate($ticket[User::PASSPORT_DATE]);
+
     return
       $this->fieldsToSave->reduce(function ($acc, $fieldToSave) use ($ticket) {
         $separator = $acc ? '/' : '';
@@ -32,5 +37,12 @@ class ExportToFileService
 
         return "$acc{$separator}{$fieldData}";
       }, '');
+  }
+
+
+  public function formatDate($timestamp)
+  {
+    $instance = new Carbon($timestamp);
+    return $instance->format('dMY');
   }
 }

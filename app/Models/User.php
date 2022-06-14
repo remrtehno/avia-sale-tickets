@@ -122,6 +122,9 @@ class User extends Authenticatable implements HasMedia
         self::IND => "Физическое лицо"
     ];
 
+    public const PASSPORT_DATE = "passport_date";
+    public const BIRTHDAY = "birthday";
+
 
 
     /**
