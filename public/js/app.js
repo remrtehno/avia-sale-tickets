@@ -2405,6 +2405,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
@@ -2628,6 +2653,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     setPassengers: function setPassengers(nameField) {
       this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
+    },
+    setBag: function setBag(nameField) {
+      console.log(nameField);
     }
   },
   mounted: function mounted() {}
@@ -3057,6 +3085,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Number
     },
     priceInfant: {
+      "default": 0,
+      type: Number
+    },
+    priceAdultBag: {
+      "default": 0,
+      type: Number
+    },
+    priceChildBag: {
+      "default": 0,
+      type: Number
+    },
+    priceInfantBag: {
       "default": 0,
       type: Number
     },
@@ -3536,7 +3576,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.wrapper-booking-forms input[disabled=disabled] {\n  opacity: 0.5;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.wrapper-booking-forms input[disabled=disabled] {\n  opacity: 0.5;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}\ninput[type=checkbox] {\n  width: auto;\n  height: auto !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12343,6 +12383,54 @@ var render = function () {
               },
               domProps: { value: _vm.current.address },
             }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _c(
+              "label",
+              { staticClass: "my-0", attrs: { for: _vm.getType("bag") } },
+              [_vm._v("С багажом")]
+            ),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "text-muted",
+                staticStyle: { "line-height": "10px", display: "block" },
+              },
+              [_vm._v("(если требуется)")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("label", { staticClass: "w-100" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  id: _vm.getType("bag"),
+                  type: "checkbox",
+                  name: _vm.getType("bag"),
+                },
+              }),
+            ]),
           ]
         ),
       ]),

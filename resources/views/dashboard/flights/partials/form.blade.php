@@ -83,6 +83,16 @@ $configTextEditor = [
         label="{{ __('dashboard.child') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
       <x-adminlte-input value="{{ $flight->price_infant ?? null }}" name="price_infant"
         label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
+
+      <x-adminlte-input value="{{ $flight->price_adult_bag ?? null }}" name="price_adult_bag"
+        label="{{ __('dashboard.adult_bag') }}" fgroup-class="col-md-4" enable-old-support
+        :disabled="$isAssigned" />
+      <x-adminlte-input value="{{ $flight->price_child_bag ?? null }}" name="price_child_bag"
+        label="{{ __('dashboard.child_bag') }}" fgroup-class="col-md-4" enable-old-support
+        :disabled="$isAssigned" />
+      <x-adminlte-input value="{{ $flight->price_infant_bag ?? null }}" name="price_infant_bag"
+        label="{{ __('dashboard.infant_bag') }}" fgroup-class="col-md-4" enable-old-support
+        :disabled="$isAssigned" />
     </div>
   </div>
   <div class="col-md-4">

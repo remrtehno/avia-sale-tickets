@@ -284,6 +284,31 @@
             </div>
 
             <div class="clearfix"></div>
+            <div class="input2_wrapper">
+                <div
+                    class="col-md-5"
+                    style="padding-left: 0; padding-top: 12px"
+                >
+                    <label :for="getType('bag')" class="my-0">С багажом</label>
+                    <small
+                        class="text-muted"
+                        style="line-height: 10px; display: block"
+                        >(если требуется)</small
+                    >
+                </div>
+
+                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
+                    <label class="w-100">
+                        <input
+                            :id="getType('bag')"
+                            type="checkbox"
+                            class="form-control"
+                            :name="getType('bag')"
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
             <br />
             <small class="text-muted" style="line-height: 10px; display: block"
                 >Поля обозначеные <span middle red>*</span> - обязательны к
@@ -408,6 +433,11 @@ export default {
     &:hover {
         color: red;
     }
+}
+
+input[type="checkbox"] {
+    width: auto;
+    height: auto !important;
 }
 </style>
 

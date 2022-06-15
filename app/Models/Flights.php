@@ -99,12 +99,18 @@ class Flights extends Model implements HasMedia
         'penalty' => 'integer'
     ];
 
+    public const PRICES_WITH_BAG = [
+        'price_adult_bag' => 'integer',
+        'price_child_bag' => 'integer',
+        'price_infant_bag' => 'integer'
+    ];
+
     public const OBSERVE_COLUMNS = ['date_arrival', 'date', 'direction_to', 'direction_from', 'price_adult', 'price_child', 'price_infant'];
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
+    protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant',  'price_adult_bag', 'price_child_bag', 'price_infant_bag', 'penalty'];
 
     protected $exchangeRate;
 

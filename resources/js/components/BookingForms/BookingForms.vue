@@ -96,6 +96,9 @@ export default {
                 [nameField]: this.$store.getters.bookingForms[nameField] - 1,
             });
         },
+        setBag(nameField) {
+            console.log(nameField);
+        },
     },
     mounted() {},
 };
