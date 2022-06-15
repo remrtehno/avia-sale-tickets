@@ -2404,6 +2404,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
@@ -2420,7 +2447,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         citizenship: this.getValueFromFormsData("citizenship"),
         tel: this.getValueFromFormsData("tel"),
         visa: this.getValueFromFormsData("visa"),
-        address: this.getValueFromFormsData("address")
+        address: this.getValueFromFormsData("address"),
+        bag: this.getValueFromFormsData("bag")
       }
     };
   },
@@ -2440,6 +2468,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     inputEmail: function inputEmail(evt) {
       this.$emit("input", evt.target.value);
+    },
+    upper: function upper(e) {
+      e.target.value = e.target.value.toUpperCase();
     }
   },
   mounted: function mounted() {
@@ -2505,6 +2536,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       }
     });
+  },
+  watch: {
+    "current.bag": function currentBag() {
+      var value = this.current.bag ? 1 : -1;
+      this.$emit("setBag", this.type, value);
+    }
   }
 });
 
@@ -2528,6 +2565,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -2624,6 +2664,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     setPassengers: function setPassengers(nameField) {
       this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
+    },
+    setBag: function setBag(typeOfPassenger, value) {
+      var bag = "".concat(typeOfPassenger, "_bag");
+      this.$store.commit("setBags", _objectSpread(_objectSpread({}, this.$store.getters.bags), {}, _defineProperty({}, bag, (this.$store.getters.bags[bag] || 0) + Number(value))));
     }
   },
   mounted: function mounted() {}
@@ -3056,6 +3100,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 0,
       type: Number
     },
+    priceAdultBag: {
+      "default": 0,
+      type: Number
+    },
+    priceChildBag: {
+      "default": 0,
+      type: Number
+    },
+    priceInfantBag: {
+      "default": 0,
+      type: Number
+    },
     additional: {
       "default": 0,
       type: Number
@@ -3065,19 +3121,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Number
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms"])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms", "bags"])), {}, {
     getTotal: function getTotal() {
       var adults = this.priceAdult * this.bookingForms.adults;
       var children = this.priceChild * this.bookingForms.children;
       var infants = this.priceInfant * this.bookingForms.infants;
-      return this.formatPrice((adults + children + infants + this.additional) * this.exchangeRate);
+      var adults_bags = this.getBagsPrice(this.priceAdultBag - this.priceAdult) * (this.bags.ADT_bag || 0);
+      var child_bags = this.getBagsPrice(this.priceChildBag - this.priceChild) * (this.bags.CHD_bag || 0);
+      var infant_bags = this.getBagsPrice(this.priceInfantBag - this.priceInfant) * (this.bags.INF_bag || 0);
+      return this.formatPrice((adults + children + infants + adults_bags + child_bags + infant_bags + this.additional) * this.exchangeRate);
     }
   }),
   methods: {
     formatPrice: function formatPrice() {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "0";
       return Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$& ");
+    },
+    getBagsPrice: function getBagsPrice() {
+      var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var priceWithBags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      return Math.abs(priceWithBags - price);
     }
+  },
+  updated: function updated() {
+    console.log(JSON.stringify(this.bags));
   }
 });
 
@@ -3280,13 +3347,14 @@ inputmask__WEBPACK_IMPORTED_MODULE_0___default().extendAliases({
   dategood: {
     alias: "datetime",
     //@TODO set 20yy as default, to avoid set morer than 20xx years
-    inputFormat: "yyyy-mm-dd",
-    placeholder: "_",
-    min: "2010",
-    max: "2060"
+    inputFormat: "dd-mm-yyyy",
+    placeholder: "_" // min: "2010",
+    // max: "2060",
+
   },
   birthday: {
     alias: "dategood",
+    inputFormat: "dd-mm-yyyy",
     min: "1910",
     max: "".concat(date.getFullYear(), "-").concat(date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1, "-").concat(date.getDate())
   }
@@ -3464,16 +3532,23 @@ window.Event = new vue__WEBPACK_IMPORTED_MODULE_7__["default"]();
 vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store({
   state: {
-    bookingForms: {}
+    bookingForms: {},
+    bags: {}
   },
   mutations: {
     bookingFormCreator: function bookingFormCreator(state, bookingFormsData) {
       state.bookingForms = bookingFormsData;
+    },
+    setBags: function setBags(state, bags) {
+      state.bags = bags;
     }
   },
   getters: {
     bookingForms: function bookingForms(state) {
       return state.bookingForms;
+    },
+    bags: function bags(state) {
+      return state.bags;
     }
   }
 });
@@ -3531,7 +3606,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.wrapper-booking-forms input[disabled=disabled] {\n  opacity: 0.5;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".wrapper-booking-forms {\n  position: relative;\n  margin-bottom: 15px;\n  border-bottom: 1px solid #eee;\n  padding-bottom: 25px;\n}\n.wrapper-booking-forms input[disabled=disabled] {\n  opacity: 0.5;\n}\n.booking-form-delete {\n  background: none;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete {\n  border-radius: 100px !important;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  outline: none;\n  box-shadow: none;\n  background: none;\n  color: #a8a6a6;\n  border: 1px solid #c5c4c4;\n  position: absolute;\n  right: 0;\n  top: 15px;\n}\n.btn-default.btn-cf-submit3.booking-form-btn-delete:hover {\n  color: red;\n}\ninput[type=checkbox] {\n  width: auto;\n  height: auto !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12017,6 +12092,11 @@ var render = function () {
                 name: _vm.getType("passport_number"),
               },
               domProps: { value: _vm.current.passport_number },
+              on: {
+                input: function ($event) {
+                  return _vm.upper($event)
+                },
+              },
             }),
           ]
         ),
@@ -12039,7 +12119,7 @@ var render = function () {
               attrs: {
                 "data-inputmask": "'alias': 'dategood'",
                 type: "text",
-                placeholder: "____-__-__",
+                placeholder: "__-__-____",
                 spellcheck: "false",
                 name: _vm.getType("passport_date"),
               },
@@ -12183,7 +12263,7 @@ var render = function () {
               attrs: {
                 "data-inputmask": "'alias': 'birthday'",
                 type: "text",
-                placeholder: "____-__-__",
+                placeholder: "__-__-____",
                 spellcheck: "false",
                 name: _vm.getType("birthday"),
               },
@@ -12333,6 +12413,91 @@ var render = function () {
               },
               domProps: { value: _vm.current.address },
             }),
+          ]
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "input2_wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "col-md-5",
+            staticStyle: { "padding-left": "0", "padding-top": "12px" },
+          },
+          [
+            _c(
+              "label",
+              { staticClass: "my-0", attrs: { for: _vm.getType("bag") } },
+              [_vm._v("С багажом")]
+            ),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "text-muted",
+                staticStyle: { "line-height": "10px", display: "block" },
+              },
+              [_vm._v("(если требуется)")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "col-md-7",
+            staticStyle: { "padding-right": "0", "padding-left": "0" },
+          },
+          [
+            _c("label", { staticClass: "w-100" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.current.bag,
+                    expression: "current.bag",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: _vm.getType("bag"),
+                  type: "checkbox",
+                  name: _vm.getType("bag"),
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.current.bag)
+                    ? _vm._i(_vm.current.bag, null) > -1
+                    : _vm.current.bag,
+                },
+                on: {
+                  change: function ($event) {
+                    var $$a = _vm.current.bag,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(_vm.current, "bag", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.current,
+                            "bag",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.current, "bag", $$c)
+                    }
+                  },
+                },
+              }),
+            ]),
           ]
         ),
       ]),
@@ -12607,6 +12772,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("adults")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,
@@ -12648,6 +12814,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("children")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,
@@ -12689,6 +12856,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("infants")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,

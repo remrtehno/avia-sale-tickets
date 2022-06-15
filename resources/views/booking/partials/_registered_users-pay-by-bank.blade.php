@@ -1,5 +1,10 @@
 @if (Auth::user()->isOrg())
-  Ваш депозит: 0
+  Ваш депозит: <strong>{{ number_format($deposit, 2, '.', ' ') }} UZS</strong>
+  @if ($deposit < $booking->order->get(0)->total)
+    <div style="background: red;" class="badge">Не достаточно средств на депозите</div>
+  @endif
+
+  @include('booking.partials._order-info')
 @elseif (Auth::user()->isInd())
   <div class="alert alert-warning" role="alert">
     Вы не можете оплатить перечислением, так как вы явялетесь Физ. лицом.

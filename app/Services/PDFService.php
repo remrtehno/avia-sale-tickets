@@ -21,6 +21,9 @@ class PDFService
 
   public function getFlightLogo(Flights $flight)
   {
+    if (!$flight->getImages()->count()) {
+      return '';
+    }
     return File::get($flight->getImages()[0]?->getPath());
   }
 

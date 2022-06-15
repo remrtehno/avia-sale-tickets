@@ -19,10 +19,10 @@ class CustomerContactsFactory extends Factory
             'surname2' => $this->faker->lastName(),
             'email' => $this->faker->email(),
             'birthday' => $this->faker->dateTimeBetween('1990-01-01', '2001-12-31')
-                ->format('Y-m-d H:m:s'),
+                ->format('d-m-Y'),
             'gender' => collect(['f', 'm'])->random(),
             'passport_date' => $this->faker->dateTimeBetween('2007-01-01', '2021-12-31')
-                ->format('Y-m-d H:m:s'),
+                ->format('d-m-Y'),
             'passport_number' => 'AA' . rand(11111111, 99999999),
             'citizenship' => 'UZB',
             'tel' => '+9989' . rand(00000001, 100000001),

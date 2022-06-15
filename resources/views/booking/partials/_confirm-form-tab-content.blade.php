@@ -4,7 +4,7 @@
       <div class="form-check">
         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
         <label class="form-check-label" for="flexRadioDefault1">
-          Онайн картой
+          Онлайн картой
         </label>
       </div>
       <div class="form-check">
@@ -15,22 +15,7 @@
       </div>
     </div>
 
-    <div class="my-18">
-      <table class="table">
-        <tr>
-          <td>ID Заказа</td>
-          <td>{{ $booking->order->get(0)->uuid }}</td>
-        </tr>
-        <tr>
-          <td>Бронь заказа</td>
-          <td>действует 30 минут</td>
-        </tr>
-        <tr>
-          <td>Сумма</td>
-          <td>{{ number_format($booking->order->get(0)->total, 2, '.', ' ') }} UZS</td>
-        </tr>
-      </table>
-    </div>
+    @include('booking.partials._order-info')
 
     <div class="contacts">
       <p>Для того чтобы оплатить за авиабилет(ы) обратитесь по нижеуказанному адресу и контактам:</p>
@@ -666,12 +651,28 @@
       <p class="my-15"></p>
       <div id="map" style="height: 400px;"></div>
     </div>
+
+    <p style="height: 20px"></p>
+
+    <button type="submit" onclick="makePay()" class="btn btn-default btn-cf-submit3 w-100 booking-submit">
+      ОПЛАТИТЬ
+    </button>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="transfer">
 
     @auth
       @include('booking.partials._registered_users-pay-by-bank')
     @endauth
+
+    <p style="height: 20px"></p>
+    <form action="{{ route('dashboard.order.pay_deposit') }}" method="POST">
+      @csrf
+      <input name="order_id" type="hidden" value="{{ $order->uuid }}">
+      <button @if ($deposit < $booking->order->get(0)->total) disabled @endif type="submit"
+        class="btn btn-default btn-cf-submit3 w-100 booking-submit">
+        ОПЛАТИТЬ ИЗ ДЕПОЗИТА
+      </button>
+    </form>
 
   </div>
 </div>

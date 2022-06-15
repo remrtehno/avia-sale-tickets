@@ -14,19 +14,16 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
       <div class="row">
         <div class="col-md-6 col-centered">
           <h3 class="text-center">Бронирование</h3>
-          <p class="text-center border-bottom">После оплаты, вам придет уведомление на почту, с деталями заказа.</p>
+          <p class="text-center ">Бронь успешно создана! Ваш номер заказа
+            <span style="font-size: 14px; color: red;" red>{{ $booking->order->first()->uuid }}</span>.
+          </p>
 
+          <p class="text-center border-bottom"> Выберите удобный для Вас метод оплаты ниже:</p>
           <p>
 
           </p>
 
           @include('booking.partials._confirm-form')
-
-          <p style="height: 20px"></p>
-
-          <button type="submit" onclick="makePay()" class="btn btn-default btn-cf-submit3 w-100 booking-submit">
-            ОПЛАТИТЬ
-          </button>
           <div class="paddinger"></div>
         </div>
       </div>
@@ -66,5 +63,22 @@ $sha256 = hash('sha256', $storeId . $amount . $orderId . $apiKey);
       });
 
     }
+
+
+    $(document).on('click', function(event) {
+      if (
+        event.target.style.cursor === 'pointer' &&
+        event.target.style.width === '24px' &&
+        event.target.style.height === '24px'
+
+        ||
+
+        event.target.style.position === 'fixed' &&
+        event.target.style.inset === '0px' &&
+        event.target.style.zIndex === '1000000'
+      ) {
+        window.location.reload();
+      }
+    })
   </script>
 @endsection

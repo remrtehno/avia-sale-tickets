@@ -23,7 +23,7 @@ $config = [
         <td>{{ $row->name }} {{ $row->surname }} {{ $row->surname2 }}</td>
         <td>{{ $row->email }}</td>
         <td>{{ $row->type }}</td>
-        <td>{{ $row->birthday }}</td>
+        <td>{{ $row->birthday->format('d-m-Y') }}</td>
         <td>
           <nobr>
             @include('components.edit-btn-form', [

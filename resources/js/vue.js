@@ -18,15 +18,22 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         bookingForms: {},
+        bags: {},
     },
     mutations: {
         bookingFormCreator(state, bookingFormsData) {
             state.bookingForms = bookingFormsData;
         },
+        setBags(state, bags) {
+            state.bags = bags;
+        },
     },
     getters: {
         bookingForms(state) {
             return state.bookingForms;
+        },
+        bags(state) {
+            return state.bags;
         },
     },
 });

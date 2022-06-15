@@ -125,7 +125,8 @@ class TicketController extends Controller
     {
         $flight = Flights::find($request->flight_id);
 
-        if ($flight && Auth::user()->id !== $flight->user_id) {
+        //@TODO Refactring
+        if ($flight && Auth::user()->id !== $flight->user_id && !Auth::user()->isAdmin()) {
             return abort('401');
         }
 

@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
+    private $emailService;
+
+    function __construct(EmailService $emailService)
+    {
+        $this->emailService = $emailService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -105,6 +112,7 @@ class UserController extends Controller
     public function approve(User $user)
     {
         $user->is_approved = 1;
+        $this->emailService->approveEmail($user);
         return $user->save() ? $this->index()->with('success', 'Пользователь подтвержден') : abort(505);
     }
 

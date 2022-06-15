@@ -10,7 +10,7 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 //home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail,  $slot) {
-  $trail->push('Home', route('home'));
+  $trail->push('Главная', route('home'));
 
   if ($slot) {
     $trail->push($slot);

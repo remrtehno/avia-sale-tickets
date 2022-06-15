@@ -53,7 +53,7 @@ class FlightsTableSeeder extends Seeder
 
 
         \App\Models\Flights::factory(3)->make([
-            'top' => 1
+            // 'top' => 1
         ])->each(function ($flight) use ($users, $logos) {
             $flight->user_id = $users->random()->id;
             //save

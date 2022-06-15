@@ -476,7 +476,7 @@
     </tr>
   </table>
   <p style="padding-left: 67pt; padding-top: 55px; text-indent: 0pt; text-align: left" class="left">
-    <img width="148" src="data:image/jpeg;base64, {{ base64_encode($logo) }}" />
+    <img loading="lazy" width="148" src="data:image/jpeg;base64, {{ base64_encode($logo) }}" />
   </p>
 
   <div class="clearfix"></div>

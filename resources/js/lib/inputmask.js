@@ -6,13 +6,14 @@ Inputmask.extendAliases({
     dategood: {
         alias: "datetime",
         //@TODO set 20yy as default, to avoid set morer than 20xx years
-        inputFormat: "yyyy-mm-dd",
+        inputFormat: "dd-mm-yyyy",
         placeholder: "_",
-        min: "2010",
-        max: "2060",
+        // min: "2010",
+        // max: "2060",
     },
     birthday: {
         alias: "dategood",
+        inputFormat: "dd-mm-yyyy",
         min: "1910",
         max: `${date.getFullYear()}-${
             date.getMonth() < 10

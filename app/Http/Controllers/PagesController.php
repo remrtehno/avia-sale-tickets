@@ -46,6 +46,7 @@ class PagesController extends Controller
      */
     public function show($slug)
     {
+
         return view('page', [
             'page' => Pages::where('slug', $slug)->firstOrFail()
         ]);

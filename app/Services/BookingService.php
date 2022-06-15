@@ -144,7 +144,7 @@ class BookingService
         'uuid' => $this->UUID(),
         'user_id' => $user_id,
         'status' => Booking::BOOKED,
-        'price' => $flight->price_adult
+        'price' => $this->getPriceFromFlight('adult', $adult, $flight),
       ]));
     }
 
@@ -153,7 +153,7 @@ class BookingService
         'uuid' => $this->UUID(),
         'user_id' => $user_id,
         'status' => Booking::BOOKED,
-        'price' => $flight->price_child
+        'price' => $this->getPriceFromFlight('child', $child, $flight),
       ]));
     }
 
@@ -162,15 +162,23 @@ class BookingService
         'uuid' => $this->UUID(),
         'user_id' => $user_id,
         'status' => Booking::BOOKED,
-        'price' => $flight->price_infant
+        'price' => $this->getPriceFromFlight('infant', $infant, $flight),
       ]));
     }
+  }
+
+  public function getPriceFromFlight($type = 'adult', $passengerData, $flight)
+  {
+    $price = 'price_' . $type;
+    $price .= array_key_exists('bag', $passengerData) ? "_bag" : '';
+
+    return $flight->{$price};
   }
 
   public function assignChairs(Booking $booking, Flights $flight)
   {
     $free_seats = $flight->chairs->filter(function ($chair) {
-      return $chair->booking_id === null;
+      return $chair->booking_id === null || $chair->status === Order::AVAILABLE;
     })->values();
 
     $tickets = $booking->tickets->filter(function ($ticket) {

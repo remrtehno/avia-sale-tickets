@@ -8,6 +8,7 @@ use App\Models\Flights;
 use App\Models\Order;
 use App\Services\BookingService;
 use App\Services\CustomerContactsService;
+use App\Services\DepositService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -18,11 +19,13 @@ class BookingController extends Controller
 {
     private $service;
     private $customerContactsService;
+    private $depositService;
 
-    public function __construct(BookingService $bookingService, CustomerContactsService $customerContactsService)
+    public function __construct(BookingService $bookingService, CustomerContactsService $customerContactsService, DepositService $depositService)
     {
         $this->service = $bookingService;
         $this->customerContactsService = $customerContactsService;
+        $this->depositService = $depositService;
     }
 
     /**
@@ -76,8 +79,10 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
+        $deposit = $this->depositService->getDepositBySeller($booking->order->first()->seller_id)->leftSum ?? 0;
+
         $order = $booking->order->first();
-        $options = ['booking' => $booking, 'order' => $order];
+        $options = ['booking' => $booking, 'order' => $order, 'deposit' => $deposit];
 
         if ($booking->isOrderPaid()) {
             return view('booking.payed', $options);

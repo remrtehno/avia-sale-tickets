@@ -28,6 +28,7 @@ class FlightsController extends Controller
             ->searchByDirections()
             ->withPassengers()
             ->orderByClosest()
+            ->whereDate('date', '>=', now())
             ->first();
 
         return view('flights.index', [

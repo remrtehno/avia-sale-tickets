@@ -14,10 +14,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Dashboard\DepositController;
+use App\Http\Controllers\Dashboard\SiteSettingsController;
 use App\Http\Controllers\Dashboard\TopFlightsController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\PreAssignChairsController;
 use App\Http\Controllers\ReturnAssignedChairsController;
+use App\Http\Controllers\TopPaymentsController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Models\Flights;
 use App\Models\Order;
@@ -47,6 +50,9 @@ Route::post('/paymo-callback', [OrderController::class, 'paymoCallback']);
 
 //@TODO $ - need to replace because we can see {page}%24
 Route::get('/{page}$', [PagesController::class, 'show'])->name('page');
+Route::get('/feedback', function () {
+  return view('pages.feedback');
+});
 
 //resources
 Route::resource('flights', FlightsController::class);
@@ -69,7 +75,6 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     //resources
     Route::resource('flights', DashboardFlightsController::class);
     Route::resource('top-flights', TopFlightsController::class);
-    Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
     Route::resource('chairs', ChairsController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('orders', OrderController::class);
@@ -77,6 +82,9 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('reports', ReportController::class);
     Route::resource('customer-contacts', CustomerContactsController::class);
     Route::resource('users', UserController::class);
+    Route::resource('settings', SiteSettingsController::class);
+    Route::resource('top', TopPaymentsController::class);
+    Route::resource('deposit', DepositController::class);
 
 
 
@@ -84,6 +92,10 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/export', [TicketController::class, 'export'])->name('tickets.csv');
     Route::put('flights/{flight}/assign', [PreAssignChairsController::class, 'store'])->name('flight.chairs.assign');
+    Route::get('flights/{flight}/chairs', [DashboardFlightsController::class, 'createChair'])->name('flight.chairs.create');
+
+    Route::get('flights/{flight}/customers-to-txt', [DashboardFlightsController::class, 'customersToTxt'])->name('flights.customers_to_txt');
+
 
     Route::get('pre-assign-chairs-accept/{id}', [PreAssignChairsController::class, 'acceptAndAssignToUser'])->name('flight.chairs.assign.accept');
     Route::get('pre-assign-chairs-reject/{id}', [PreAssignChairsController::class, 'rejectAndAssignToUser'])->name('flight.chairs.assign.reject');
@@ -92,6 +104,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::get('return-chairs-accept/{id}', [ReturnAssignedChairsController::class, 'update'])->name('return.assigned.chairs.accept');
 
     Route::post('orders/{order}/return', [OrderController::class, 'returnToOwner'])->name('order.return');
+    Route::post('orders', [OrderController::class, 'payByDeposit'])->name('order.pay_deposit');
 
     //Start pdf
     Route::get('orders/{order}/tickets/print', [OrderController::class, 'gerateTicketsPDF'])->name('order.tickets.pdf');
@@ -103,6 +116,10 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
       ]);
     })->name('order.tickets.pdf.email.success');
     // END df
+
+    Route::get('top-report', [TopPaymentsController::class, 'report'])->name('top.report');
+    Route::get('deposits', [DepositController::class, 'deposits'])->name('deposits.deposits');
+
 
 
     Route::put('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');

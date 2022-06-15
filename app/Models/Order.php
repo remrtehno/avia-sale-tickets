@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -166,7 +167,9 @@ class Order extends Model
 
     public function isExpired()
     {
-        return $this->created_at->greaterThan($this->created_at->addMinutes(self::BOOKING_MINUTES_LIMIT));
+        $createdAtNewInstace = new CarbonImmutable($this->created_at);
+
+        return $createdAtNewInstace->addMinutes(self::BOOKING_MINUTES_LIMIT)->lessThan(now());
     }
 
     /**
@@ -227,5 +230,15 @@ class Order extends Model
         })->map(function ($ticket) {
             return $ticket->email;
         });
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i:s');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i:s');
     }
 }

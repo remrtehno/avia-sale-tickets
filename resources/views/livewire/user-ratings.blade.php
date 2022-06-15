@@ -35,7 +35,7 @@
           <div class="flex col-span-1">
             <div class="relative px-4 mb-16 leading-6 text-left">
               <div class="box-border text-xl font-medium text-gray-600">
-                Нету отзывов, добавьте ваш первый отзыв!
+                Нет отзывов, добавьте ваш первый отзыв!
               </div>
             </div>
           </div>

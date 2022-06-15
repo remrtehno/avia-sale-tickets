@@ -11,7 +11,8 @@ $config = [
 
 @if ($isAssigned)
   <h5>Хотите вернуть места?</h5>
-  <form action="{{ route('dashboard.order.return', ['order' => $flight->getChairs()->first()->order->uuid]) }}"
+  <form action="{{ route('dashboard.order.return', ['order' => 
+$flight->getChairs()->first()->order->uuid ?? 0]) }}"
     method="POST">
     @csrf
 

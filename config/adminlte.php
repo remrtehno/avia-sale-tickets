@@ -298,6 +298,41 @@ return [
             'icon' => 'fas fa-fw fa-bars',
         ],
 
+        [
+            'text' => 'Платежки за топ услугу',
+            'can'  => 'is-admin',
+            'route' => 'dashboard.top.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'Отчеты за топ услугу',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.top.report',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'Оплаты перечислением',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.deposit.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'Депозиты',
+            'can'  => 'manage-dashboard',
+            'route' => 'dashboard.deposits.deposits',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
+        [
+            'text' => 'site-settings',
+            'can'  => 'is-admin',
+            'route' => 'dashboard.settings.index',
+            'icon' => 'fas fa-fw fa-bars',
+        ],
+
 
 
         // [

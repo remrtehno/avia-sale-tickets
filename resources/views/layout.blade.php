@@ -25,6 +25,7 @@
 
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="/css/custom.css">
+
 </head>
 
 <body class="front {{ env('APP_DEBUG') ? '' : 'loaded_hiding' }}">
@@ -48,7 +49,7 @@
         <div class="container">
           <div class="top1 clearfix">
             <div class="email1">
-              {!! $contacts->email_header !!}
+              <a href='mailto:{{ $contacts->email_header }}'>{{ $contacts->email_header }}</a>
             </div>
             <div class="phone1">{!! $contacts->phone_header !!}</div>
             @if (Auth::check())
@@ -56,42 +57,6 @@
                 Привет, {{ Auth::user()->name }}
               </div>
             @endif
-            <div class="social_wrapper">
-              <ul class="social clearfix">
-                @if (trim($contacts->facebook))
-                  <li>
-                    <a href="{!! $contacts->facebook !!}"><i class="fa fa-facebook"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->twitter))
-                  <li>
-                    <a href="{!! $contacts->twitter !!}"><i class="fa fa-twitter"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->google_plus))
-                  <li>
-                    <a href="{!! $contacts->google_plus !!}"><i class="fa fa-google-plus"></i></a>
-                  </li>
-                @endif
-                @if (trim($contacts->instagram))
-                  <li>
-                    <a href="{!! $contacts->instagram !!}"><i class="fa fa-instagram"></i></a>
-                  </li>
-                @endif
-              </ul>
-            </div>
-            <div class="lang1">
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="true">
-                  English<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><a class="ge" href="#">German</a></li>
-                  <li><a class="ru" href="#">Russian</a></li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -103,7 +68,8 @@
             <header>
               <div class="logo_wrapper">
                 <a href="{{ route('home') }}" class="logo">
-                  <img src="/static/images/logo.svg" style="width: 110px; margin-top: -7px;" class="img-responsive" />
+                  <img loading="lazy" src="/static/images/logo.svg" style="width: 110px; margin-top: -7px;"
+                    class="img-responsive" />
                 </a>
               </div>
             </header>
@@ -143,7 +109,7 @@
 
                       <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
-                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
                         {{ __('Выйти') }}
                       </a>
 
@@ -175,18 +141,16 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-3">
-              <div class="logo2_wrapper">
-                <a href="{{ route('home') }}" class="logo2">
-                  <img src="/static/images/logo2.png" alt="" class="img-responsive" />
-                </a>
-              </div>
-              <p>
-                Nam liber tempor cum soluta nobis option congue
-                nihil imperdiet doming id quod mazim. Lorem
-                ipsum dolor sit amet, consectetuer adipiscing
-                elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet dolore magna.
-              </p>
+              <h5 class="py-0">Есть вопросы?</h5>
+              <div class="py-10"></div>
+              <ul class="list-unstyled">
+                <li>Тел. <a style="color: #1cbbb4" href="tel:{!! $contacts->phone_footer !!}">
+                    <u>{!! $contacts->phone_footer !!}</u>
+                  </a></li>
+                <li>Email: <a href='mailto:{{ $contacts->email_footer }}'>{{ $contacts->email_footer }}</a></li>
+                <li>Адрес: {!! $contacts->address !!}</li>
+              </ul>
+              <div class="py-25"></div>
             </div>
             <div class="col-sm-3">
 
@@ -195,29 +159,29 @@
 
             </div>
             <div class="col-sm-3">
-              <div class="phone2">{!! $contacts->phone_footer !!}</div>
-              <div class="support1">
-                {!! $contacts->email_footer !!}
-              </div>
+              <h5 class="py-0">Ссылки</h5>
+              <div class="py-10"></div>
+              {{-- @foreach ($footerMenu as $link)
+                <a href="{{ $link->slug }}">{{ $link->title }}</a>
+              @endforeach --}}
+              <a href="/О-проекте%24">О проекте</a> <br>
+              <a href="/feedback">Форма для жалоб и предложений</a> <br>
+              <a href="{{ $footerMenu[3]->slug }}%24">Наши партнеры</a> <br>
+              <a href="/faq%24">FAQ</a> <br>
+              <div class="py-10"></div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="bot2_wrapper">
-        <div class="container">
-          <div class="left_side">
-            Copyright © {{ date('Y') }}
-            @foreach ($footerMenu as $link)
+        <div class="bot2_wrapper">
+          <div class="container">
+            <div class="text-center">
+              <a href="{{ route('page', ['page' => $footerMenu[0]->slug]) }}">{{ $footerMenu[0]->title }}</a>
               <span>|</span>
-              <a href="{{ route('page', ['page' => $link->slug]) }}">{{ $link->title }}</a>
-            @endforeach
-          </div>
-          <div class="right_side">
-
+              Copyright © {{ date('Y') }}
+            </div>
           </div>
         </div>
-      </div>
     </footer>
   </div>
 
@@ -244,6 +208,7 @@
   <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
   <script src="/static/js/jquery.easing.1.3.js"></script>
   <script src="/static/js/superfish.js"></script>
+  <script src="/static/js/cform.js"></script>
 
   <script src="/static/js/select2.js"></script>
 
@@ -263,6 +228,7 @@
 
   <script src="/static/js/script.js"></script>
 
+
   <script src="{{ mix('js/app.js') }}"></script>
 
 
@@ -278,6 +244,12 @@
       })
     </script>
   @endif
+
+
+  <script src="https://api.imbachat.com/imbachat/v1/16375/widget"></script>
+  <script>
+    window.imbaApi.load();
+  </script>
 
 
 </body>

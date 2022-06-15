@@ -18,7 +18,7 @@ class SanitizeMiddleware
     {
 
         $filtered_query = array_filter($request->all(), function ($value) {
-            return !empty($value) && $value !== "null" && $value !== "-";
+            return (!empty($value) || $value !== 0) && $value !== "null" && $value !== "-";
         });
 
         $request->request->replace($filtered_query);

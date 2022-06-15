@@ -77,6 +77,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static Builder|Flights withExcludes()
  * @method static Builder|Flights withPassengers()
  * @mixin \Eloquent
+ * @property-read \App\Models\TopPeriodsToFlights|null $period
  */
 class Flights extends Model implements HasMedia
 {
@@ -98,12 +99,18 @@ class Flights extends Model implements HasMedia
         'penalty' => 'integer'
     ];
 
+    public const PRICES_WITH_BAG = [
+        'price_adult_bag' => 'integer',
+        'price_child_bag' => 'integer',
+        'price_infant_bag' => 'integer'
+    ];
+
     public const OBSERVE_COLUMNS = ['date_arrival', 'date', 'direction_to', 'direction_from', 'price_adult', 'price_child', 'price_infant'];
 
     // Carbon instance fields
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date', 'date_arrival'];
 
-    protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant', 'penalty'];
+    protected $fillable = ['top', 'booking_id', 'date_arrival', 'rating', 'direction_to', 'direction_from', 'logo', 'comment', 'date', 'flight', 'count_chairs', 'price_adult', 'price_child', 'price_infant',  'price_adult_bag', 'price_child_bag', 'price_infant_bag', 'penalty'];
 
     protected $exchangeRate;
 
@@ -284,7 +291,16 @@ class Flights extends Model implements HasMedia
             $departure = new Carbon(request('depart_date'));
 
             return $query->whereBetween('date', [$departure, $returning]);
+        } else if (request()->has('depart_date')) {
+            $departure = new Carbon(request('depart_date'));
+
+            return $query->whereDate('date', '>=', $departure);
         }
+    }
+
+    public function scopeActual(Builder $query)
+    {
+        return $query->whereDate('date', '>=', now());
     }
 
     /**
@@ -421,6 +437,13 @@ class Flights extends Model implements HasMedia
         return $tickets;
     }
 
+    public function getCountTickets()
+    {
+        return $this->booking->reduce(function ($sum, Booking $book) {
+            return $sum + $book->tickets->count();
+        }, 0);
+    }
+
     //store files
     public function storeFiles($clean = false)
     {
@@ -476,6 +499,29 @@ class Flights extends Model implements HasMedia
         return Rating::ratingByUser($this->user_id);
     }
 
+    public function getPeriod()
+    {
+        if (!$this->period?->period) {
+            return null;
+        }
+
+        return new Carbon($this->period->period);
+    }
+
+    public function getDaysLeftInTop()
+    {
+        if ($this->isPeriodExpired()) {
+            return null;
+        }
+
+        return $this->getPeriod()->diffInDays() + 1;
+    }
+
+    public function isPeriodExpired()
+    {
+        return now()->gt($this->getPeriod());
+    }
+
     /**
      * RELATIONSHIPS
      */
@@ -499,10 +545,14 @@ class Flights extends Model implements HasMedia
         return $this->hasMany('App\Models\Booking', 'flights_id');
     }
 
-    //RELATIONSHIPS
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function period()
+    {
+        return $this->hasOne(TopPeriodsToFlights::class, 'flight_id');
     }
 
     /**

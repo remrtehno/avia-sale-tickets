@@ -35,8 +35,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Contacts whereTwitter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contacts whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $address
+ * @method static \Illuminate\Database\Eloquent\Builder|Contacts whereAddress($value)
  */
 class Contacts extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'email_header',
+        'email_footer',
+        'phone_header',
+        'phone_footer',
+        'address'
+    ];
 }

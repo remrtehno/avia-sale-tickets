@@ -30,6 +30,7 @@
                         spellcheck="false"
                         :name="getType('passport_number')"
                         :value="current.passport_number"
+                        @input="upper($event)"
                     />
                 </div>
             </div>
@@ -46,7 +47,7 @@
                         data-inputmask="'alias': 'dategood'"
                         type="text"
                         class="form-control"
-                        placeholder="____-__-__"
+                        placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('passport_date')"
                         :value="current.passport_date"
@@ -147,7 +148,7 @@
                         data-inputmask="'alias': 'birthday'"
                         type="text"
                         class="form-control"
-                        placeholder="____-__-__"
+                        placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('birthday')"
                         :value="current.birthday"
@@ -283,6 +284,32 @@
             </div>
 
             <div class="clearfix"></div>
+            <div class="input2_wrapper">
+                <div
+                    class="col-md-5"
+                    style="padding-left: 0; padding-top: 12px"
+                >
+                    <label :for="getType('bag')" class="my-0">С багажом</label>
+                    <small
+                        class="text-muted"
+                        style="line-height: 10px; display: block"
+                        >(если требуется)</small
+                    >
+                </div>
+
+                <div class="col-md-7" style="padding-right: 0; padding-left: 0">
+                    <label class="w-100">
+                        <input
+                            :id="getType('bag')"
+                            type="checkbox"
+                            class="form-control"
+                            :name="getType('bag')"
+                            v-model="current.bag"
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
             <br />
             <small class="text-muted" style="line-height: 10px; display: block"
                 >Поля обозначеные <span middle red>*</span> - обязательны к
@@ -320,6 +347,7 @@ export default {
                 tel: this.getValueFromFormsData("tel"),
                 visa: this.getValueFromFormsData("visa"),
                 address: this.getValueFromFormsData("address"),
+                bag: this.getValueFromFormsData("bag"),
             },
         };
     },
@@ -338,6 +366,9 @@ export default {
         },
         inputEmail(evt) {
             this.$emit("input", evt.target.value);
+        },
+        upper(e) {
+            e.target.value = e.target.value.toUpperCase();
         },
     },
 
@@ -372,6 +403,12 @@ export default {
             },
         });
     },
+    watch: {
+        "current.bag"() {
+            const value = this.current.bag ? 1 : -1;
+            this.$emit("setBag", this.type, value);
+        },
+    },
 };
 </script>
 
@@ -404,6 +441,11 @@ export default {
     &:hover {
         color: red;
     }
+}
+
+input[type="checkbox"] {
+    width: auto;
+    height: auto !important;
 }
 </style>
 

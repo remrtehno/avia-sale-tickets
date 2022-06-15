@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-
+use App;
+use App\Services\ExportToFileService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -71,6 +73,7 @@ class Ticket extends Model
     public const ADULTS = 'ADT';
     public const CHILDREN = 'CHD';
     public const INFANTS = 'INF';
+    public const TYPES_PASSENGERS = [self::ADULTS, self::CHILDREN, self::INFANTS];
 
     protected $fillable = [
         'user_id',
@@ -120,6 +123,12 @@ class Ticket extends Model
         return $this->genderMap[$this->gender];
     }
 
+    public function getDataCopy()
+    {
+        $service = App::make(ExportToFileService::class);
+        return $service->extractDataFromPerTicket($this);
+    }
+
     //RELATIONSHIPS
     public function user()
     {
@@ -129,5 +138,15 @@ class Ticket extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class);
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i:s');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y H:i:s');
     }
 }

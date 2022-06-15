@@ -92,6 +92,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|User[] $ratings
  * @property-read int|null $ratings_count
+ * @property string|null $not_hashed_password
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNotHashedPassword($value)
  */
 class User extends Authenticatable implements HasMedia
 {
@@ -120,6 +122,11 @@ class User extends Authenticatable implements HasMedia
         self::IND => "Физическое лицо"
     ];
 
+    public const PASSPORT_DATE = "passport_date";
+    public const BIRTHDAY = "birthday";
+
+
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -140,6 +147,7 @@ class User extends Authenticatable implements HasMedia
         "role",
         "address",
         "tel",
+        "not_hashed_password",
 
         //org
         'dir_surname',
@@ -182,6 +190,16 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    protected $dates = ['birthday'];
+
+
+
+    public function getSummary()
+    {
+        return $this->name . ' ' . $this->email;
+    }
 
     public function canBeDeleted()
     {
@@ -281,14 +299,34 @@ class User extends Authenticatable implements HasMedia
         return $this->email . '-'  . $fileName;
     }
 
-
     public function getImages($fieldName)
     {
         return $this->getMedia($this->getPathImages($fieldName));
     }
 
+    public function totalDepositFormatted()
+    {
+        return number_format($this->totalDeposit(), 2, '.', ' ');
+    }
+
+    public function totalDeposit()
+    {
+        return $this->getDeposits()->reduce(function ($sum, Deposit $deposit) {
+            return $sum + $deposit->sum;
+        }, 0);
+    }
+
+    public function getDeposits($userId = null)
+    {
+        return $this->deposits->where('customer_id', $userId ? $userId : auth()->user()?->id);
+    }
+
 
     //RELATIONSHIPS
+    public function deposits()
+    {
+        return $this->hasMany(Deposit::class, 'seller_id');
+    }
     public function flights()
     {
         return $this->hasMany(Flights::class);
