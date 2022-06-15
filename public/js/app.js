@@ -2430,6 +2430,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
@@ -2446,7 +2447,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         citizenship: this.getValueFromFormsData("citizenship"),
         tel: this.getValueFromFormsData("tel"),
         visa: this.getValueFromFormsData("visa"),
-        address: this.getValueFromFormsData("address")
+        address: this.getValueFromFormsData("address"),
+        bag: this.getValueFromFormsData("bag")
       }
     };
   },
@@ -2534,6 +2536,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       }
     });
+  },
+  watch: {
+    "current.bag": function currentBag() {
+      var value = this.current.bag ? 1 : -1;
+      this.$emit("setBag", this.type, value);
+    }
   }
 });
 
@@ -2557,6 +2565,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -2654,8 +2665,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setPassengers: function setPassengers(nameField) {
       this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
     },
-    setBag: function setBag(nameField) {
-      console.log(nameField);
+    setBag: function setBag(typeOfPassenger, value) {
+      var bag = "".concat(typeOfPassenger, "_bag");
+      this.$store.commit("setBags", _objectSpread(_objectSpread({}, this.$store.getters.bags), {}, _defineProperty({}, bag, (this.$store.getters.bags[bag] || 0) + Number(value))));
     }
   },
   mounted: function mounted() {}
@@ -3109,19 +3121,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Number
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms"])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms", "bags"])), {}, {
     getTotal: function getTotal() {
       var adults = this.priceAdult * this.bookingForms.adults;
       var children = this.priceChild * this.bookingForms.children;
       var infants = this.priceInfant * this.bookingForms.infants;
-      return this.formatPrice((adults + children + infants + this.additional) * this.exchangeRate);
+      var adults_bags = this.getBagsPrice(this.priceAdultBag - this.priceAdult) * (this.bags.ADT_bag || 0);
+      var child_bags = this.getBagsPrice(this.priceChildBag - this.priceChild) * (this.bags.CHD_bag || 0);
+      var infant_bags = this.getBagsPrice(this.priceInfantBag - this.priceInfant) * (this.bags.INF_bag || 0);
+      return this.formatPrice((adults + children + infants + adults_bags + child_bags + infant_bags + this.additional) * this.exchangeRate);
     }
   }),
   methods: {
     formatPrice: function formatPrice() {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "0";
       return Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$& ");
+    },
+    getBagsPrice: function getBagsPrice() {
+      var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var priceWithBags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      return Math.abs(priceWithBags - price);
     }
+  },
+  updated: function updated() {
+    console.log(JSON.stringify(this.bags));
   }
 });
 
@@ -3509,16 +3532,23 @@ window.Event = new vue__WEBPACK_IMPORTED_MODULE_7__["default"]();
 vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store({
   state: {
-    bookingForms: {}
+    bookingForms: {},
+    bags: {}
   },
   mutations: {
     bookingFormCreator: function bookingFormCreator(state, bookingFormsData) {
       state.bookingForms = bookingFormsData;
+    },
+    setBags: function setBags(state, bags) {
+      state.bags = bags;
     }
   },
   getters: {
     bookingForms: function bookingForms(state) {
       return state.bookingForms;
+    },
+    bags: function bags(state) {
+      return state.bags;
     }
   }
 });
@@ -12423,11 +12453,48 @@ var render = function () {
           [
             _c("label", { staticClass: "w-100" }, [
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.current.bag,
+                    expression: "current.bag",
+                  },
+                ],
                 staticClass: "form-control",
                 attrs: {
                   id: _vm.getType("bag"),
                   type: "checkbox",
                   name: _vm.getType("bag"),
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.current.bag)
+                    ? _vm._i(_vm.current.bag, null) > -1
+                    : _vm.current.bag,
+                },
+                on: {
+                  change: function ($event) {
+                    var $$a = _vm.current.bag,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(_vm.current, "bag", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.current,
+                            "bag",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.current, "bag", $$c)
+                    }
+                  },
                 },
               }),
             ]),
@@ -12705,6 +12772,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("adults")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,
@@ -12746,6 +12814,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("children")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,
@@ -12787,6 +12856,7 @@ var render = function () {
             onClick: function ($event) {
               return _vm.setPassengers("infants")
             },
+            setBag: _vm.setBag,
           },
           model: {
             value: _vm.email,

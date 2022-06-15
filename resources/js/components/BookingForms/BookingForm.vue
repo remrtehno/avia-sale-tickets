@@ -304,6 +304,7 @@
                             type="checkbox"
                             class="form-control"
                             :name="getType('bag')"
+                            v-model="current.bag"
                         />
                     </label>
                 </div>
@@ -346,6 +347,7 @@ export default {
                 tel: this.getValueFromFormsData("tel"),
                 visa: this.getValueFromFormsData("visa"),
                 address: this.getValueFromFormsData("address"),
+                bag: this.getValueFromFormsData("bag"),
             },
         };
     },
@@ -400,6 +402,12 @@ export default {
                 );
             },
         });
+    },
+    watch: {
+        "current.bag"() {
+            const value = this.current.bag ? 1 : -1;
+            this.$emit("setBag", this.type, value);
+        },
     },
 };
 </script>

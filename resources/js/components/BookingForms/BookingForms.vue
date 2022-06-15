@@ -12,6 +12,7 @@
                 title="Взрослый"
                 :hideDelete="n === 1"
                 @onClick="setPassengers('adults')"
+                @setBag="setBag"
                 :formsData="formsData"
                 :loggedIn="loggedIn"
             ></booking-form>
@@ -28,6 +29,7 @@
                 :number="n"
                 title="Детский"
                 @onClick="setPassengers('children')"
+                @setBag="setBag"
                 :formsData="formsData"
                 :loggedIn="loggedIn"
             ></booking-form>
@@ -44,6 +46,7 @@
                 :number="n"
                 title="Младенческий"
                 @onClick="setPassengers('infants')"
+                @setBag="setBag"
                 :formsData="formsData"
                 :loggedIn="loggedIn"
             ></booking-form>
@@ -96,8 +99,13 @@ export default {
                 [nameField]: this.$store.getters.bookingForms[nameField] - 1,
             });
         },
-        setBag(nameField) {
-            console.log(nameField);
+        setBag(typeOfPassenger, value) {
+            const bag = `${typeOfPassenger}_bag`;
+
+            this.$store.commit("setBags", {
+                ...this.$store.getters.bags,
+                [bag]: (this.$store.getters.bags[bag] || 0) + Number(value),
+            });
         },
     },
     mounted() {},
