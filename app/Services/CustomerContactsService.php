@@ -30,13 +30,23 @@ class CustomerContactsService
 
   public function store($collection)
   {
+
     $this->getCustomers($collection)->each(function ($newCustomer) {
       return CustomerContacts::where(['passport_number' => $newCustomer['passport_number']])->firstOr(function () use ($newCustomer) {
-        $customer = CustomerContacts::create($newCustomer);
+        $customer = CustomerContacts::create($this->getNewCustomerData($newCustomer));
 
         $customer->user_id = Auth::user()?->id;
         $customer->save();
       });
     });
+  }
+
+  public function getNewCustomerData($newCustomer)
+  {
+    if (array_key_exists('bag', $newCustomer)) {
+      return array_merge($newCustomer, ['bag' => 1]);
+    }
+
+    return $newCustomer;
   }
 }

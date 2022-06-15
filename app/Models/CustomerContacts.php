@@ -68,7 +68,8 @@ class CustomerContacts extends Model
         'visa',
         'address',
         'user_id',
-        'type'
+        'type',
+        'bag'
     ];
 
     protected $dates = ['birthday'];
