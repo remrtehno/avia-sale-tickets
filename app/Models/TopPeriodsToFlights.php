@@ -41,7 +41,8 @@ class TopPeriodsToFlights extends Model
     {
         return self::whereDate('period', '>', now())->with('flight')->get()->map(function (self $item) {
             return $item->flight;
-        })->filter(fn (Flights $flight) => $flight->date->greaterThanOrEqualTo(now()));
+        })->filter(fn ($item) => $item)->filter(fn (Flights $flight) =>
+        $flight->date->greaterThanOrEqualTo(now()));
     }
 
 
