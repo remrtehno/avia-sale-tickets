@@ -305,6 +305,7 @@
                             class="form-control"
                             :name="getType('bag')"
                             v-model="current.bag"
+                            value="1"
                         />
                     </label>
                 </div>
@@ -320,6 +321,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     props: [
         "number",
@@ -373,6 +376,19 @@ export default {
     },
 
     mounted() {
+        const uuid = this._uid;
+
+        this.$store.commit("setFormBags", {
+            ...this.$store.getters.formBags,
+            [this.type]: [
+                ...(this.$store.getters.formBags[this.type] || []),
+                {
+                    uuid,
+                    bag: 0,
+                },
+            ],
+        });
+
         $(this.$refs.passport_number).autocomplete({
             minLength: 3,
             source: async ({ term }, result) => {
@@ -405,9 +421,32 @@ export default {
     },
     watch: {
         "current.bag"() {
-            const value = this.current.bag ? 1 : -1;
-            this.$emit("setBag", this.type, value);
+            const value = this.current.bag ? 1 : 0;
+
+            this.$store.commit("setFormBags", {
+                ...this.$store.getters.formBags,
+                [this.type]: this.$store.getters.formBags[this.type].map(
+                    (form) => {
+                        return form.uuid === this._uid
+                            ? { uuid: form.uuid, bag: value }
+                            : form;
+                    }
+                ),
+            });
         },
+    },
+
+    computed: {
+        ...mapGetters(["bookingForms", "formBags"]),
+    },
+
+    destroyed() {
+        this.$store.commit("setFormBags", {
+            ...this.$store.getters.formBags,
+            [this.type]: this.$store.getters.formBags[this.type].filter(
+                ({ uuid }) => uuid !== this._uid
+            ),
+        });
     },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="red" style="font-size: 23px">UZS {{ getTotal }}</span>
+        <span class="red" style="font-size: 23px">UZS {{ total }}</span>
     </div>
 </template>
 
@@ -18,34 +18,23 @@ export default {
         additional: { default: 0, type: Number },
         exchangeRate: { default: 1, type: Number },
     },
+    data() {
+        return {
+            total: 0,
+        };
+    },
     computed: {
-        ...mapGetters(["bookingForms", "bags"]),
-        getTotal() {
-            const adults = this.priceAdult * this.bookingForms.adults;
-            const children = this.priceChild * this.bookingForms.children;
-            const infants = this.priceInfant * this.bookingForms.infants;
+        ...mapGetters(["bookingForms", "formBags"]),
+    },
 
-            const adults_bags =
-                this.getBagsPrice(this.priceAdultBag - this.priceAdult) *
-                (this.bags.ADT_bag || 0);
-            const child_bags =
-                this.getBagsPrice(this.priceChildBag - this.priceChild) *
-                (this.bags.CHD_bag || 0);
-            const infant_bags =
-                this.getBagsPrice(this.priceInfantBag - this.priceInfant) *
-                (this.bags.INF_bag || 0);
-
-            return this.formatPrice(
-                (adults +
-                    children +
-                    infants +
-                    adults_bags +
-                    child_bags +
-                    infant_bags +
-                    this.additional) *
-                    this.exchangeRate
-            );
+    watch: {
+        formBags() {
+            this.total = this.getTotal();
         },
+    },
+
+    mounted() {
+        this.total = this.getTotal();
     },
 
     methods: {
@@ -55,13 +44,42 @@ export default {
                 .replace(/\d(?=(\d{3})+\.)/g, "$& ");
         },
 
-        getBagsPrice(price = 0, priceWithBags = 0) {
-            return Math.abs(priceWithBags - price);
+        getCountPassengers(passengers = []) {
+            return passengers.reduce(
+                (acc, { bag }) => {
+                    acc[bag]++;
+                    return acc;
+                },
+                [0, 0]
+            );
         },
-    },
 
-    updated() {
-        console.log(JSON.stringify(this.bags));
+        getTotal() {
+            const prices = [
+                [this.priceAdult, this.priceAdultBag],
+                [this.priceChild, this.priceChildBag],
+                [this.priceInfant, this.priceInfantBag],
+            ];
+
+            const countPassengers = [
+                this.getCountPassengers(this.formBags.ADT),
+                this.getCountPassengers(this.formBags.CHD),
+                this.getCountPassengers(this.formBags.INF),
+            ];
+
+            const [adults, children, infants] = countPassengers.map(
+                ([noBag, withBag], index) => {
+                    const [priceNoBag, priceWithBag] = prices[index];
+
+                    return noBag * priceNoBag + withBag * priceWithBag;
+                }
+            );
+
+            return this.formatPrice(
+                (adults + children + infants + this.additional) *
+                    this.exchangeRate
+            );
+        },
     },
 };
 </script>
