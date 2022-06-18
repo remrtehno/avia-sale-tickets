@@ -108,11 +108,11 @@ class Order extends Model
     {
 
         if (Auth::user()->is_admin) {
-            return $this->all();
+            return $this->latest()->get();
         };
 
         $userId = Auth::user()->id;
-        return $this->where('seller_id', $userId)->get();
+        return $this->where('seller_id', $userId)->latest()->get();
     }
 
     public function getAssignedOrders()
