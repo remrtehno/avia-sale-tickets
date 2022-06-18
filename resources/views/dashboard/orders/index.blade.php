@@ -14,9 +14,31 @@ $config = [
 @endphp
 
 @section('content')
-  <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
+  <table id="table1" :heads="$heads" :config="$config" class="table dataTable no-footer">
+    <thead>
+      <tr>
+        @foreach ($heads as $th)
+          <th @isset($th['width']) style="width:{{ $th['width'] }}%" @endisset
+            @isset($th['no-export']) dt-no-export @endisset>
+            {{ is_array($th) ? $th['label'] ?? '' : $th }}
+          </th>
+        @endforeach
+      </tr>
+    </thead>
+
     @foreach ($orders as $row)
       @include('dashboard.orders.partials.row')
     @endforeach
-  </x-adminlte-datatable>
+  </table>
 @endsection
+
+
+@push('js')
+  <script>
+    $(document).ready(function() {
+      $.fn.dataTable.moment('DD-MM-YYYY HH:mm:ss');
+
+      $('#table1').DataTable(@json($config));
+    });
+  </script>
+@endpush

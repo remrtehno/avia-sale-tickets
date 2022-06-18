@@ -439,11 +439,6 @@ return [
             'active' => true,
             'files' => [
                 [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '/vendor/datatables/css/dataTables.bootstrap4.min.css',
-                ],
-                [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '/vendor/datatables/js/jquery.dataTables.min.js',
@@ -453,7 +448,21 @@ return [
                     'asset' => false,
                     'location' => '/vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
-
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/datatables/css/dataTables.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js',
+                ],
             ],
         ],
         'Select2' => [
