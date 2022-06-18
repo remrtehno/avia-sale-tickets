@@ -16,9 +16,11 @@
     N/A
   </td>
   <td>
-    <a href="{{ route('dashboard.flights.show', ['flight' => $item->flight->id]) }}">
-      {{ $item->flight->getSummary() }}
-    </a>
+    @if ($item->flight)
+      <a href="{{ route('dashboard.flights.show', ['flight' => $item->flight->id]) }}">
+        {{ $item->flight->getSummary() }}
+      </a>
+    @endif
   </td>
   <td>
     <a href="{{ route('dashboard.orders.show', ['order' => $item->uuid ?: 0]) }}">

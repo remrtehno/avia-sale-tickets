@@ -46,8 +46,6 @@ class TopPeriodsToFlights extends Model
     }
 
 
-
-
     static public function periods($period = null)
     {
         $periods = [
