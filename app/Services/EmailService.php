@@ -40,7 +40,8 @@ class EmailService
       $data['to'] = $email;
       $data['message'] = $whatChanged;
       $data['flight'] = $flight;
-      $data['subject'] = "Поменялся рейс {$flight->flight}";
+      $data['flightOriginal'] = new Flights($flight->getOriginal());
+      $data['subject'] = "Изменение на рейсе {$flight->flight}";
 
       $this->emailApp($data, self::EMAILS['CHANGED_FLIGHT']);
     }
@@ -50,10 +51,11 @@ class EmailService
   {
     switch ($type) {
       case self::EMAILS['CHANGED_FLIGHT']: {
-          $message = "Чтото поменялось в рейсе. Теперь: ";
-          foreach (self::MESSAGES as $key => $msg) {
-            $message .= ' ' . $msg . ' ' . $data['flight']->{$key};
-          }
+          $message =  "Было:  {$this->getFieldsForEmailWithChanges($data['flightOriginal'])}";
+          $message .= "Стало: {$this->getFieldsForEmailWithChanges($data['flight'])}";
+
+          $message .= "<br>Новый билет во вложении! Если вам не подходит изменение(время и число) рейса, можете произвести вынужденный возврат без штрафа. для этого обратитесь по месту приобретения!
+          ";
 
           $headers = "MIME-Version: 1.0" . "\r\n";
           $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -132,6 +134,16 @@ class EmailService
     $headers .= "From:" . $this->getSender();
 
     return mail($user->email, 'Успешная регистрация', $message, $headers);
+  }
+
+  public function getFieldsForEmailWithChanges(Flights $flight)
+  {
+    $message = $flight->getDate() . ' ' . $flight->getTime();
+    $message .= " - " . $flight->getDateArrival() . ' ' . $flight->getTimeArrival() . " : ";
+    $message .= $flight->getFrom() . " - " . $flight->getTo() . " : ";
+    $message .= $flight->flight . "\n <br>";
+
+    return $message;
   }
 
   public function getSender()
