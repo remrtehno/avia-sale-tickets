@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Mail\TicketMarkDown;
 use App\Models\Flights;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,6 +26,13 @@ class EmailService
     // 'price_infant' => "Цена билета за младенец",
   ];
 
+  private $PDFService;
+
+  public function __construct(PDFService $pDFService)
+  {
+    $this->PDFService = $pDFService;
+  }
+
   public function sendTicketsByOrder($emailCollection, $data)
   {
     foreach ($emailCollection as $email) {
@@ -34,17 +42,26 @@ class EmailService
     }
   }
 
-  public function sendChangesOfFlights($emailCollection, $whatChanged, Flights $flight)
+  public function sendChangesOfFlightByOrder(Order $order, Flights $flight)
   {
-    foreach ($emailCollection as $email) {
-      $data['to'] = $email;
-      $data['message'] = $whatChanged;
-      $data['flight'] = $flight;
-      $data['flightOriginal'] = new Flights($flight->getOriginal());
-      $data['subject'] = "Изменение на рейсе {$flight->flight}";
+    $data['file'] = $this->PDFService->generatePDFFromOrder($order);
+
+    $data['flight'] = $order->flight;
+    $data['flightOriginal'] = new Flights($flight->getOriginal());
+    $data['subject'] = "Изменение на рейсе {$order->flight->flight}";
+
+    foreach ($order->booking->tickets as $ticket) {
+      $data['to'] = $ticket->email;
 
       $this->emailApp($data, self::EMAILS['CHANGED_FLIGHT']);
     }
+  }
+
+  public function sendChangesOfFlights(Flights $flight)
+  {
+    $flight->order->each(function (Order $order) use ($flight) {
+      $this->sendChangesOfFlightByOrder($order, $flight);
+    });
   }
 
   public function emailApp($data, $type = null)
@@ -57,58 +74,18 @@ class EmailService
           $message .= "<br>Новый билет во вложении! Если вам не подходит изменение(время и число) рейса, можете произвести вынужденный возврат без штрафа. для этого обратитесь по месту приобретения!
           ";
 
-          $headers = "MIME-Version: 1.0" . "\r\n";
-          $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-          $headers .= "From:" . $this->getSender();
+          $data['message'] = $message;
 
-          return mail($data['to'], $data['subject'], $message, $headers);
+          return $this->emailClientTicketsSend($data);
         }
       default: {
+          $data['subject'] = "Рейс {$data['flight']->flight}";
+          $data['message'] = "<strong>Билеты на рейс {$data['flight']->getSummary()}</strong>";
 
-          // (A) EMAIL SETTINGS
-          $mailTo = $data['to'];
-          $mailSubject = "Рейс {$data['flight']->flight}";
-          $mailMessage = "<strong>Билеты на рейс {$data['flight']->getSummary()}</strong>";
-          $mailAttach = $data['file'];
-          $basename = now() . " tickets.pdf";
-
-          // (B) GENERATE RANDOM BOUNDARY TO SEPARATE MESSAGE & ATTACHMENTS
-          // https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
-          $mailBoundary = md5(time());
-          $mailHead = implode("\r\n", [
-            "MIME-Version: 1.0",
-            "Content-Type: multipart/mixed; boundary=\"$mailBoundary\"",
-            "From: {$this->getSender()}",
-          ]);
-
-          // (C) DEFINE THE EMAIL MESSAGE
-          $mailBody = implode("\r\n", [
-            "--$mailBoundary",
-            "Content-type: text/html; charset=utf-8",
-            "",
-            $mailMessage
-          ]);
-
-
-          // (D) MANUALLY ENCODE & ATTACH THE FILE
-          $mailBody .= implode("\r\n", [
-            "",
-            "--$mailBoundary",
-            "Content-Type: application/octet-stream; name=\"" . $basename . "\"",
-            "Content-Transfer-Encoding: base64",
-            "Content-Disposition: attachment",
-            "",
-            chunk_split(base64_encode(($mailAttach))),
-            "--$mailBoundary--"
-          ]);
-
-          // (E) SEND
-          return mail($mailTo, $mailSubject, $mailBody, $mailHead);
-
-
-          return Mail::send(
-            new TicketMarkDown($data)
-          );
+          return $this->emailClientTicketsSend($data);
+          // return Mail::send(
+          //   new TicketMarkDown($data)
+          // );
         }
     }
   }
@@ -144,6 +121,49 @@ class EmailService
     $message .= $flight->flight . "\n <br>";
 
     return $message;
+  }
+
+  public function emailClientTicketsSend($data)
+  {
+    // (A) EMAIL SETTINGS
+    $mailTo = $data['to'];
+    $mailSubject = $data['subject'];
+    $mailMessage = $data['message'];
+    $mailAttach = $data['file'];
+    $basename = now() . " tickets.pdf";
+
+    // (B) GENERATE RANDOM BOUNDARY TO SEPARATE MESSAGE & ATTACHMENTS
+    // https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html
+    $mailBoundary = md5(time());
+    $mailHead = implode("\r\n", [
+      "MIME-Version: 1.0",
+      "Content-Type: multipart/mixed; boundary=\"$mailBoundary\"",
+      "From: {$this->getSender()}",
+    ]);
+
+    // (C) DEFINE THE EMAIL MESSAGE
+    $mailBody = implode("\r\n", [
+      "--$mailBoundary",
+      "Content-type: text/html; charset=utf-8",
+      "",
+      $mailMessage
+    ]);
+
+
+    // (D) MANUALLY ENCODE & ATTACH THE FILE
+    $mailBody .= implode("\r\n", [
+      "",
+      "--$mailBoundary",
+      "Content-Type: application/octet-stream; name=\"" . $basename . "\"",
+      "Content-Transfer-Encoding: base64",
+      "Content-Disposition: attachment",
+      "",
+      chunk_split(base64_encode(($mailAttach))),
+      "--$mailBoundary--"
+    ]);
+
+    // (E) SEND
+    return mail($mailTo, $mailSubject, $mailBody, $mailHead);
   }
 
   public function getSender()
