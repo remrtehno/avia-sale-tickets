@@ -42,7 +42,7 @@ $configTextEditor = [
           'name' => 'direction_from',
           'disabled' => $isAssigned,
           'placeholder' => 'Откуда',
-          'value' => $flight->direction_from ?? nul,
+          'value' => $flight->direction_from ?? null,
       ])
 
 
@@ -50,7 +50,7 @@ $configTextEditor = [
           'name' => 'direction_to',
           'disabled' => $isAssigned,
           'placeholder' => 'Куда',
-          'value' => $flight->direction_to ?? nul,
+          'value' => $flight->direction_to ?? null,
       ])
     </div>
 
