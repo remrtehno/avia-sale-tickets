@@ -2451,6 +2451,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
@@ -12172,6 +12183,7 @@ var render = function () {
               ref: "passport_number",
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "AA_______",
                 spellcheck: "false",
@@ -12203,6 +12215,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'dategood'",
                 type: "text",
                 placeholder: "__-__-____",
@@ -12230,6 +12243,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Michael",
                 spellcheck: "false",
@@ -12256,6 +12270,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Dragan",
                 spellcheck: "false",
@@ -12289,6 +12304,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Berkovich",
                 spellcheck: "false",
@@ -12315,6 +12331,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'email'",
                 placeholder: "your@email.com",
                 spellcheck: "false",
@@ -12347,6 +12364,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'birthday'",
                 type: "text",
                 placeholder: "__-__-____",
@@ -12374,6 +12392,7 @@ var render = function () {
             _c("label", { staticClass: "radio-inline my-0" }, [
               _c("input", {
                 attrs: {
+                  required: "",
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "m",
@@ -12386,6 +12405,7 @@ var render = function () {
             _c("label", { staticClass: "radio-inline py-8 mx-15" }, [
               _c("input", {
                 attrs: {
+                  required: "",
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "f",
@@ -12413,6 +12433,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "пример: Узбекистан",
                 spellcheck: "false",
@@ -12439,6 +12460,7 @@ var render = function () {
             _c("input", {
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'mask': '+\\\\9\\\\98(99) 999-99-99'",
                 type: "tel",
                 placeholder: "+998(__) ___-__-__",

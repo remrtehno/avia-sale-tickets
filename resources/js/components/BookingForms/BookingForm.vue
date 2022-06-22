@@ -23,6 +23,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         ref="passport_number"
                         type="text"
                         class="form-control"
@@ -44,6 +45,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         data-inputmask="'alias': 'dategood'"
                         type="text"
                         class="form-control"
@@ -64,6 +66,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Michael"
@@ -83,6 +86,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Dragan"
@@ -102,6 +106,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Berkovich"
@@ -121,6 +126,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         v-on:input="inputEmail"
                         v-on:blur="inputEmail"
                         data-inputmask="'alias': 'email'"
@@ -145,6 +151,7 @@
                     <div v-else-if="type == 'infant'">infant</div>
 
                     <input
+                        required
                         data-inputmask="'alias': 'birthday'"
                         type="text"
                         class="form-control"
@@ -169,6 +176,7 @@
                 >
                     <label class="radio-inline my-0">
                         <input
+                            required
                             type="radio"
                             :name="getType('gender')"
                             value="m"
@@ -178,6 +186,7 @@
                     </label>
                     <label class="radio-inline py-8 mx-15">
                         <input
+                            required
                             type="radio"
                             :name="getType('gender')"
                             value="f"
@@ -197,6 +206,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="пример: Узбекистан"
@@ -222,6 +232,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         data-inputmask="'mask': '+\\9\\98(99) 999-99-99'"
                         type="tel"
                         class="form-control"
