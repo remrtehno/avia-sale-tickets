@@ -30,7 +30,7 @@
                         placeholder="AA_______"
                         spellcheck="false"
                         :name="getType('passport_number')"
-                        :value="current.passport_number"
+                        v-model="current.passport_number"
                         @input="upper($event)"
                     />
                 </div>
@@ -52,7 +52,7 @@
                         placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('passport_date')"
-                        :value="current.passport_date"
+                        v-model="current.passport_date"
                     />
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         placeholder="Michael"
                         spellcheck="false"
                         :name="getType('name')"
-                        :value="current.name"
+                        v-model="current.name"
                     />
                 </div>
             </div>
@@ -92,7 +92,7 @@
                         placeholder="Dragan"
                         spellcheck="false"
                         :name="getType('surname')"
-                        :value="current.surname"
+                        v-model="current.surname"
                     />
                 </div>
             </div>
@@ -112,7 +112,7 @@
                         placeholder="Berkovich"
                         spellcheck="false"
                         :name="getType('surname2')"
-                        :value="current.surname2"
+                        v-model="current.surname2"
                     />
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         placeholder="your@email.com"
                         spellcheck="false"
                         :name="getType('email')"
-                        :value="current.email"
+                        v-model="current.email"
                         :disabled="disabledEmail"
                     />
                 </div>
@@ -158,7 +158,7 @@
                         placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('birthday')"
-                        :value="current.birthday"
+                        v-model="current.birthday"
                     />
                 </div>
             </div>
@@ -212,7 +212,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('citizenship')"
-                        :value="current.citizenship"
+                        v-model="current.citizenship"
                     />
                 </div>
             </div>
@@ -239,7 +239,7 @@
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
                         :name="getType('tel')"
-                        :value="current.tel"
+                        v-model="current.tel"
                     />
                 </div>
             </div>
@@ -264,7 +264,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('visa')"
-                        :value="current.visa"
+                        v-model="current.visa"
                     />
                 </div>
             </div>
@@ -289,7 +289,7 @@
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
                         :name="getType('address')"
-                        :value="current.address"
+                        v-model="current.address"
                     />
                 </div>
             </div>

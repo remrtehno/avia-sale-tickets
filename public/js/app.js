@@ -12180,6 +12180,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.passport_number,
+                  expression: "current.passport_number",
+                },
+              ],
               ref: "passport_number",
               staticClass: "form-control",
               attrs: {
@@ -12191,9 +12199,21 @@ var render = function () {
               },
               domProps: { value: _vm.current.passport_number },
               on: {
-                input: function ($event) {
-                  return _vm.upper($event)
-                },
+                input: [
+                  function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.current,
+                      "passport_number",
+                      $event.target.value
+                    )
+                  },
+                  function ($event) {
+                    return _vm.upper($event)
+                  },
+                ],
               },
             }),
           ]
@@ -12213,6 +12233,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.passport_date,
+                  expression: "current.passport_date",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12223,6 +12251,14 @@ var render = function () {
                 name: _vm.getType("passport_date"),
               },
               domProps: { value: _vm.current.passport_date },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "passport_date", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12241,6 +12277,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.name,
+                  expression: "current.name",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12250,6 +12294,14 @@ var render = function () {
                 name: _vm.getType("name"),
               },
               domProps: { value: _vm.current.name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "name", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12268,6 +12320,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.surname,
+                  expression: "current.surname",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12277,6 +12337,14 @@ var render = function () {
                 name: _vm.getType("surname"),
               },
               domProps: { value: _vm.current.surname },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "surname", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12302,6 +12370,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.surname2,
+                  expression: "current.surname2",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12311,6 +12387,14 @@ var render = function () {
                 name: _vm.getType("surname2"),
               },
               domProps: { value: _vm.current.surname2 },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "surname2", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12329,6 +12413,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.email,
+                  expression: "current.email",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12339,7 +12431,18 @@ var render = function () {
                 disabled: _vm.disabledEmail,
               },
               domProps: { value: _vm.current.email },
-              on: { input: _vm.inputEmail, blur: _vm.inputEmail },
+              on: {
+                input: [
+                  function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.current, "email", $event.target.value)
+                  },
+                  _vm.inputEmail,
+                ],
+                blur: _vm.inputEmail,
+              },
             }),
           ]
         ),
@@ -12362,6 +12465,14 @@ var render = function () {
               : _vm._e(),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.birthday,
+                  expression: "current.birthday",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12372,6 +12483,14 @@ var render = function () {
                 name: _vm.getType("birthday"),
               },
               domProps: { value: _vm.current.birthday },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "birthday", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12431,6 +12550,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.citizenship,
+                  expression: "current.citizenship",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12440,6 +12567,14 @@ var render = function () {
                 name: _vm.getType("citizenship"),
               },
               domProps: { value: _vm.current.citizenship },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "citizenship", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12458,6 +12593,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.tel,
+                  expression: "current.tel",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 required: "",
@@ -12468,6 +12611,14 @@ var render = function () {
                 name: _vm.getType("tel"),
               },
               domProps: { value: _vm.current.tel },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "tel", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12486,6 +12637,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.visa,
+                  expression: "current.visa",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 type: "text",
@@ -12494,6 +12653,14 @@ var render = function () {
                 name: _vm.getType("visa"),
               },
               domProps: { value: _vm.current.visa },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "visa", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12512,6 +12679,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.address,
+                  expression: "current.address",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 type: "text",
@@ -12520,6 +12695,14 @@ var render = function () {
                 name: _vm.getType("address"),
               },
               domProps: { value: _vm.current.address },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "address", $event.target.value)
+                },
+              },
             }),
           ]
         ),
