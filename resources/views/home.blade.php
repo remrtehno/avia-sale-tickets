@@ -66,7 +66,7 @@
 
     <div id="popular_cruises1">
       <div class="container">
-        <h2 class="animated">POPULAR CRUISES</h2>
+        <h2 class="animated">Популярные направления</h2>
 
 
         <br /><br />
