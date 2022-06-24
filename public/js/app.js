@@ -2104,12 +2104,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2431,6 +2450,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["number", "title", "hideDelete", "type", "email", "disabledEmail", "formsData", "loggedIn"],
   data: function data() {
@@ -2476,6 +2508,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this = this;
 
+    var uuid = this._uid;
+    this.$store.commit("setFormBags", _objectSpread(_objectSpread({}, this.$store.getters.formBags), {}, _defineProperty({}, this.type, [].concat(_toConsumableArray(this.$store.getters.formBags[this.type] || []), [{
+      uuid: uuid,
+      bag: 0
+    }]))));
     $(this.$refs.passport_number).autocomplete({
       minLength: 3,
       source: function () {
@@ -2539,9 +2576,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     "current.bag": function currentBag() {
-      var value = this.current.bag ? 1 : -1;
-      this.$emit("setBag", this.type, value);
+      var _this2 = this;
+
+      var value = this.current.bag ? 1 : 0;
+      this.$store.commit("setFormBags", _objectSpread(_objectSpread({}, this.$store.getters.formBags), {}, _defineProperty({}, this.type, this.$store.getters.formBags[this.type].map(function (form) {
+        return form.uuid === _this2._uid ? {
+          uuid: form.uuid,
+          bag: value
+        } : form;
+      }))));
     }
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(["bookingForms", "formBags"])),
+  destroyed: function destroyed() {
+    var _this3 = this;
+
+    this.$store.commit("setFormBags", _objectSpread(_objectSpread({}, this.$store.getters.formBags), {}, _defineProperty({}, this.type, this.$store.getters.formBags[this.type].filter(function (_ref4) {
+      var uuid = _ref4.uuid;
+      return uuid !== _this3._uid;
+    }))));
   }
 });
 
@@ -2665,12 +2718,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setPassengers: function setPassengers(nameField) {
       this.$store.commit("bookingFormCreator", _objectSpread(_objectSpread({}, this.$store.getters.bookingForms), {}, _defineProperty({}, nameField, this.$store.getters.bookingForms[nameField] - 1)));
     },
-    setBag: function setBag(typeOfPassenger, value) {
-      var bag = "".concat(typeOfPassenger, "_bag");
-      this.$store.commit("setBags", _objectSpread(_objectSpread({}, this.$store.getters.bags), {}, _defineProperty({}, bag, (this.$store.getters.bags[bag] || 0) + Number(value))));
+    setBag: function setBag(_ref) {
+      var type = _ref.type,
+          value = _ref.value;
+      this.$store.commit("setBags", _objectSpread(_objectSpread({}, this.$store.getters.bags), {}, _defineProperty({}, type, (this.$store.getters.bags[type] || 0) + Number(value))));
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -3073,6 +3126,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -3121,30 +3186,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Number
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms", "bags"])), {}, {
-    getTotal: function getTotal() {
-      var adults = this.priceAdult * this.bookingForms.adults;
-      var children = this.priceChild * this.bookingForms.children;
-      var infants = this.priceInfant * this.bookingForms.infants;
-      var adults_bags = this.getBagsPrice(this.priceAdultBag - this.priceAdult) * (this.bags.ADT_bag || 0);
-      var child_bags = this.getBagsPrice(this.priceChildBag - this.priceChild) * (this.bags.CHD_bag || 0);
-      var infant_bags = this.getBagsPrice(this.priceInfantBag - this.priceInfant) * (this.bags.INF_bag || 0);
-      return this.formatPrice((adults + children + infants + adults_bags + child_bags + infant_bags + this.additional) * this.exchangeRate);
+  data: function data() {
+    return {
+      total: 0
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["bookingForms", "formBags"])),
+  watch: {
+    formBags: function formBags() {
+      this.total = this.getTotal();
     }
-  }),
+  },
+  mounted: function mounted() {
+    this.total = this.getTotal();
+  },
   methods: {
     formatPrice: function formatPrice() {
       var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "0";
       return Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$& ");
     },
-    getBagsPrice: function getBagsPrice() {
-      var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var priceWithBags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      return Math.abs(priceWithBags - price);
+    getCountPassengers: function getCountPassengers() {
+      var passengers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      return passengers.reduce(function (acc, _ref) {
+        var bag = _ref.bag;
+        acc[bag]++;
+        return acc;
+      }, [0, 0]);
+    },
+    getTotal: function getTotal() {
+      var prices = [[this.priceAdult, this.priceAdultBag], [this.priceChild, this.priceChildBag], [this.priceInfant, this.priceInfantBag]];
+      var countPassengers = [this.getCountPassengers(this.formBags.ADT), this.getCountPassengers(this.formBags.CHD), this.getCountPassengers(this.formBags.INF)];
+
+      var _countPassengers$map = countPassengers.map(function (_ref2, index) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            noBag = _ref3[0],
+            withBag = _ref3[1];
+
+        var _prices$index = _slicedToArray(prices[index], 2),
+            priceNoBag = _prices$index[0],
+            priceWithBag = _prices$index[1];
+
+        return noBag * priceNoBag + withBag * priceWithBag;
+      }),
+          _countPassengers$map2 = _slicedToArray(_countPassengers$map, 3),
+          adults = _countPassengers$map2[0],
+          children = _countPassengers$map2[1],
+          infants = _countPassengers$map2[2];
+
+      return this.formatPrice((adults + children + infants + this.additional) * this.exchangeRate);
     }
-  },
-  updated: function updated() {
-    console.log(JSON.stringify(this.bags));
   }
 });
 
@@ -3518,6 +3608,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_InputSpinner_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InputSpinner.vue */ "./resources/js/components/InputSpinner.vue");
 /* harmony import */ var _components_BookingForms_BookingForms_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/BookingForms/BookingForms.vue */ "./resources/js/components/BookingForms/BookingForms.vue");
 /* harmony import */ var _components_Total_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Total.vue */ "./resources/js/components/Total.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3533,22 +3629,23 @@ vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8_
 var store = new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store({
   state: {
     bookingForms: {},
-    bags: {}
+    bags: {},
+    formBags: {}
   },
   mutations: {
     bookingFormCreator: function bookingFormCreator(state, bookingFormsData) {
       state.bookingForms = bookingFormsData;
     },
-    setBags: function setBags(state, bags) {
-      state.bags = bags;
+    setFormBags: function setFormBags(state, formBags) {
+      state.formBags = _objectSpread(_objectSpread({}, state.formBags), formBags);
     }
   },
   getters: {
     bookingForms: function bookingForms(state) {
       return state.bookingForms;
     },
-    bags: function bags(state) {
-      return state.bags;
+    formBags: function formBags(state) {
+      return state.formBags;
     }
   }
 });
@@ -12083,9 +12180,18 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.passport_number,
+                  expression: "current.passport_number",
+                },
+              ],
               ref: "passport_number",
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "AA_______",
                 spellcheck: "false",
@@ -12093,9 +12199,21 @@ var render = function () {
               },
               domProps: { value: _vm.current.passport_number },
               on: {
-                input: function ($event) {
-                  return _vm.upper($event)
-                },
+                input: [
+                  function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.current,
+                      "passport_number",
+                      $event.target.value
+                    )
+                  },
+                  function ($event) {
+                    return _vm.upper($event)
+                  },
+                ],
               },
             }),
           ]
@@ -12115,8 +12233,17 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.passport_date,
+                  expression: "current.passport_date",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'dategood'",
                 type: "text",
                 placeholder: "__-__-____",
@@ -12124,6 +12251,14 @@ var render = function () {
                 name: _vm.getType("passport_date"),
               },
               domProps: { value: _vm.current.passport_date },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "passport_date", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12142,14 +12277,31 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.name,
+                  expression: "current.name",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Michael",
                 spellcheck: "false",
                 name: _vm.getType("name"),
               },
               domProps: { value: _vm.current.name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "name", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12168,14 +12320,31 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.surname,
+                  expression: "current.surname",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Dragan",
                 spellcheck: "false",
                 name: _vm.getType("surname"),
               },
               domProps: { value: _vm.current.surname },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "surname", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12201,14 +12370,31 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.surname2,
+                  expression: "current.surname2",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "Berkovich",
                 spellcheck: "false",
                 name: _vm.getType("surname2"),
               },
               domProps: { value: _vm.current.surname2 },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "surname2", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12227,8 +12413,17 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.email,
+                  expression: "current.email",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'email'",
                 placeholder: "your@email.com",
                 spellcheck: "false",
@@ -12236,7 +12431,18 @@ var render = function () {
                 disabled: _vm.disabledEmail,
               },
               domProps: { value: _vm.current.email },
-              on: { input: _vm.inputEmail, blur: _vm.inputEmail },
+              on: {
+                input: [
+                  function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.current, "email", $event.target.value)
+                  },
+                  _vm.inputEmail,
+                ],
+                blur: _vm.inputEmail,
+              },
             }),
           ]
         ),
@@ -12259,8 +12465,17 @@ var render = function () {
               : _vm._e(),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.birthday,
+                  expression: "current.birthday",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'alias': 'birthday'",
                 type: "text",
                 placeholder: "__-__-____",
@@ -12268,6 +12483,14 @@ var render = function () {
                 name: _vm.getType("birthday"),
               },
               domProps: { value: _vm.current.birthday },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "birthday", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12288,6 +12511,7 @@ var render = function () {
             _c("label", { staticClass: "radio-inline my-0" }, [
               _c("input", {
                 attrs: {
+                  required: "",
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "m",
@@ -12300,6 +12524,7 @@ var render = function () {
             _c("label", { staticClass: "radio-inline py-8 mx-15" }, [
               _c("input", {
                 attrs: {
+                  required: "",
                   type: "radio",
                   name: _vm.getType("gender"),
                   value: "f",
@@ -12325,14 +12550,31 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.citizenship,
+                  expression: "current.citizenship",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 type: "text",
                 placeholder: "пример: Узбекистан",
                 spellcheck: "false",
                 name: _vm.getType("citizenship"),
               },
               domProps: { value: _vm.current.citizenship },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "citizenship", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12351,8 +12593,17 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.tel,
+                  expression: "current.tel",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
+                required: "",
                 "data-inputmask": "'mask': '+\\\\9\\\\98(99) 999-99-99'",
                 type: "tel",
                 placeholder: "+998(__) ___-__-__",
@@ -12360,6 +12611,14 @@ var render = function () {
                 name: _vm.getType("tel"),
               },
               domProps: { value: _vm.current.tel },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "tel", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12378,6 +12637,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.visa,
+                  expression: "current.visa",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 type: "text",
@@ -12386,6 +12653,14 @@ var render = function () {
                 name: _vm.getType("visa"),
               },
               domProps: { value: _vm.current.visa },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "visa", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12404,6 +12679,14 @@ var render = function () {
           },
           [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.current.address,
+                  expression: "current.address",
+                },
+              ],
               staticClass: "form-control",
               attrs: {
                 type: "text",
@@ -12412,6 +12695,14 @@ var render = function () {
                 name: _vm.getType("address"),
               },
               domProps: { value: _vm.current.address },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.current, "address", $event.target.value)
+                },
+              },
             }),
           ]
         ),
@@ -12466,10 +12757,11 @@ var render = function () {
                   id: _vm.getType("bag"),
                   type: "checkbox",
                   name: _vm.getType("bag"),
+                  value: "1",
                 },
                 domProps: {
                   checked: Array.isArray(_vm.current.bag)
-                    ? _vm._i(_vm.current.bag, null) > -1
+                    ? _vm._i(_vm.current.bag, "1") > -1
                     : _vm.current.bag,
                 },
                 on: {
@@ -12478,7 +12770,7 @@ var render = function () {
                       $$el = $event.target,
                       $$c = $$el.checked ? true : false
                     if (Array.isArray($$a)) {
-                      var $$v = null,
+                      var $$v = "1",
                         $$i = _vm._i($$a, $$v)
                       if ($$el.checked) {
                         $$i < 0 &&
@@ -13157,7 +13449,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("span", { staticClass: "red", staticStyle: { "font-size": "23px" } }, [
-      _vm._v("UZS " + _vm._s(_vm.getTotal)),
+      _vm._v("UZS " + _vm._s(_vm.total)),
     ]),
   ])
 }

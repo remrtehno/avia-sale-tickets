@@ -50,8 +50,7 @@
   <tr>
     <td>Серия паспорта: </td>
     <td>
-      <x-adminlte-input name="passport_number" value="{{ $ticket->passport_number }}"
-        :disabled="$disabled ?? null" />
+      <x-adminlte-input name="passport_number" value="{{ $ticket->passport_number }}" :disabled="$disabled ?? null" />
     </td>
   </tr>
   <tr>
@@ -78,4 +77,9 @@
       <x-adminlte-input name="address" value="{{ $ticket->address }}" :disabled="$disabled ?? null" />
     </td>
   </tr>
+  <tr>
+    <td>Багаж</td>
+    <td><b>{{ $ticket->bag ? 'Имеется' : 'Нету' }}</b></td>
+  </tr>
 </table>
+<div class="p-3"></div>

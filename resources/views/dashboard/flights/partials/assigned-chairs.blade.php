@@ -99,7 +99,7 @@ $config = [
   @foreach ($preAssignChair as $row)
     <tr>
       <td>{{ $row->user->name }} {{ $row->user->email }}</td>
-      <td>одижание: {{ $row->count_chairs }}</td>
+      <td>ожидание: {{ $row->count_chairs }}</td>
       <td>
         <div class="alert alert-danger p-1 m-0">Не продано. Ожидает подтверждения.</div>
       </td>

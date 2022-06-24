@@ -99,15 +99,12 @@ export default {
                 [nameField]: this.$store.getters.bookingForms[nameField] - 1,
             });
         },
-        setBag(typeOfPassenger, value) {
-            const bag = `${typeOfPassenger}_bag`;
-
+        setBag({ type, value }) {
             this.$store.commit("setBags", {
                 ...this.$store.getters.bags,
-                [bag]: (this.$store.getters.bags[bag] || 0) + Number(value),
+                [type]: (this.$store.getters.bags[type] || 0) + Number(value),
             });
         },
     },
-    mounted() {},
 };
 </script>

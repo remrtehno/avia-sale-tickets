@@ -6,17 +6,12 @@
 
 @php
 $heads = ['ID', 'Рейс', 'Общая сумма', 'Дата создания', 'Статус', 'Билеты пассажиров', ['label' => 'Действия', 'no-export' => true, 'width' => 5]];
-
-$config = [
-    'order' => [[3, 'desc']],
-    'language' => ['url' => '/lang/datatable/ru.json'],
-];
 @endphp
 
 @section('content')
-  <x-adminlte-datatable id="table1" :heads="$heads" :config="$config">
+  <x-data-table :heads="$heads" :sort-cells="[[3, 'desc']]">
     @foreach ($orders as $row)
       @include('dashboard.orders.partials.row')
     @endforeach
-  </x-adminlte-datatable>
+  </x-data-table>
 @endsection

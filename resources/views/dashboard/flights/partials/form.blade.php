@@ -18,8 +18,7 @@ $configTextEditor = [
     placeholder="01-12-2022 00:59" :disabled="$isAssigned" />
 
   <x-adminlte-input value="{{ $flight->flight ?? null }}" name="flight"
-    label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support
-    :disabled="$isAssigned" />
+    label="{{ __('dashboard.number_of_flight') }}" fgroup-class="col-md-3" enable-old-support :disabled="$isAssigned" />
 
   @if ($flight->count_chairs ?? null)
     <x-adminlte-input value="{{ $flight->chairs->count() ?? null }}" name="" disabled
@@ -39,10 +38,20 @@ $configTextEditor = [
       </label>
     </div>
     <div class="row">
-      <x-adminlte-input value="{{ $flight->direction_from ?? null }}" name="direction_from"
-        fgroup-class="col-md-6" placeholder="Откуда" enable-old-support :disabled="$isAssigned" />
-      <x-adminlte-input value="{{ $flight->direction_to ?? null }}" name="direction_to" fgroup-class="col-md-6"
-        placeholder="Куда" enable-old-support :disabled="$isAssigned" />
+      @include('dashboard.flights.partials.search-airports-element', [
+          'name' => 'direction_from',
+          'disabled' => $isAssigned,
+          'placeholder' => 'Откуда',
+          'value' => $flight->direction_from ?? null,
+      ])
+
+
+      @include('dashboard.flights.partials.search-airports-element', [
+          'name' => 'direction_to',
+          'disabled' => $isAssigned,
+          'placeholder' => 'Куда',
+          'value' => $flight->direction_to ?? null,
+      ])
     </div>
 
   </div>
@@ -85,14 +94,11 @@ $configTextEditor = [
         label="{{ __('dashboard.infant') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
 
       <x-adminlte-input value="{{ $flight->price_adult_bag ?? null }}" name="price_adult_bag"
-        label="{{ __('dashboard.adult_bag') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.adult_bag') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
       <x-adminlte-input value="{{ $flight->price_child_bag ?? null }}" name="price_child_bag"
-        label="{{ __('dashboard.child_bag') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.child_bag') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
       <x-adminlte-input value="{{ $flight->price_infant_bag ?? null }}" name="price_infant_bag"
-        label="{{ __('dashboard.infant_bag') }}" fgroup-class="col-md-4" enable-old-support
-        :disabled="$isAssigned" />
+        label="{{ __('dashboard.infant_bag') }}" fgroup-class="col-md-4" enable-old-support :disabled="$isAssigned" />
     </div>
   </div>
   <div class="col-md-4">

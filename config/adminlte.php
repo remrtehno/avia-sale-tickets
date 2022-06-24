@@ -242,13 +242,13 @@ return [
             'text' => 'orders',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.orders.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-shopping-cart',
         ],
         [
             'text' => 'reports',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.reports.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-file',
         ],
         [
             'text'    => 'flights',
@@ -259,13 +259,13 @@ return [
                     'text' => 'all_flights',
                     'can'  => 'manage-dashboard',
                     'route' => 'dashboard.flights.index',
-                    'icon'    => '',
+                    'icon'    => 'fas fa-fw fa-bars ml-3',
                 ],
                 [
                     'text' => 'add_flights',
                     'can'  => 'manage-dashboard',
                     'route' => 'dashboard.flights.create',
-                    'icon'    => '',
+                    'icon'    => 'fas fa-fw fa-plus ml-3',
                 ],
             ],
         ],
@@ -274,63 +274,73 @@ return [
             'text' => 'tickets',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.tickets.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-ticket-alt',
         ],
 
         [
             'text' => 'customer-contacts',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.customer-contacts.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-book',
         ],
 
         [
             'text' => 'users',
             'can'  => 'is-admin',
             'route' => 'dashboard.users.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-users',
         ],
-
         [
-            'text' => 'top',
-            'can'  => 'is-admin',
-            'route' => 'dashboard.top-flights.index',
-            'icon' => 'fas fa-fw fa-bars',
-        ],
-
-        [
-            'text' => 'Платежки за топ услугу',
-            'can'  => 'is-admin',
-            'route' => 'dashboard.top.index',
-            'icon' => 'fas fa-fw fa-bars',
-        ],
-
-        [
-            'text' => 'Отчеты за топ услугу',
+            'text'    => 'Топ предложения',
+            'icon'    => 'fas fa-fw fa-plane',
             'can'  => 'manage-dashboard',
-            'route' => 'dashboard.top.report',
-            'icon' => 'fas fa-fw fa-bars',
+            'submenu' => [
+                [
+                    'text' => 'Все предложения',
+                    'can'  => 'is-admin',
+                    'route' => 'dashboard.top-flights.index',
+                    'icon' => 'fas fa-fw fa-list ml-3',
+                ],
+
+                [
+                    'text' => 'Платежки',
+                    'can'  => 'is-admin',
+                    'route' => 'dashboard.top.index',
+                    'icon' => 'fas fa-fw fa-money-bill ml-3',
+                ],
+
+                [
+                    'text' => 'Отчеты за топ услугу',
+                    'can'  => 'manage-dashboard',
+                    'route' => 'dashboard.top.report',
+                    'icon' => 'fas fa-fw fa-table ml-3',
+                ],
+            ],
         ],
+
+
+
+
 
         [
             'text' => 'Оплаты перечислением',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.deposit.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw  fa-money-bill',
         ],
 
         [
             'text' => 'Депозиты',
             'can'  => 'manage-dashboard',
             'route' => 'dashboard.deposits.deposits',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-coins',
         ],
 
         [
             'text' => 'site-settings',
             'can'  => 'is-admin',
             'route' => 'dashboard.settings.index',
-            'icon' => 'fas fa-fw fa-bars',
+            'icon' => 'fas fa-fw fa-cog',
         ],
 
 
@@ -439,11 +449,6 @@ return [
             'active' => true,
             'files' => [
                 [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '/vendor/datatables/css/dataTables.bootstrap4.min.css',
-                ],
-                [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '/vendor/datatables/js/jquery.dataTables.min.js',
@@ -453,7 +458,21 @@ return [
                     'asset' => false,
                     'location' => '/vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
-
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/datatables/css/dataTables.bootstrap4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => 'https://cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js',
+                ],
             ],
         ],
         'Select2' => [

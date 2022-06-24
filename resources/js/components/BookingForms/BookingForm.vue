@@ -23,13 +23,14 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         ref="passport_number"
                         type="text"
                         class="form-control"
                         placeholder="AA_______"
                         spellcheck="false"
                         :name="getType('passport_number')"
-                        :value="current.passport_number"
+                        v-model="current.passport_number"
                         @input="upper($event)"
                     />
                 </div>
@@ -44,13 +45,14 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         data-inputmask="'alias': 'dategood'"
                         type="text"
                         class="form-control"
                         placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('passport_date')"
-                        :value="current.passport_date"
+                        v-model="current.passport_date"
                     />
                 </div>
             </div>
@@ -64,12 +66,13 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Michael"
                         spellcheck="false"
                         :name="getType('name')"
-                        :value="current.name"
+                        v-model="current.name"
                     />
                 </div>
             </div>
@@ -83,12 +86,13 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Dragan"
                         spellcheck="false"
                         :name="getType('surname')"
-                        :value="current.surname"
+                        v-model="current.surname"
                     />
                 </div>
             </div>
@@ -102,12 +106,13 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="Berkovich"
                         spellcheck="false"
                         :name="getType('surname2')"
-                        :value="current.surname2"
+                        v-model="current.surname2"
                     />
                 </div>
             </div>
@@ -121,6 +126,7 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         v-on:input="inputEmail"
                         v-on:blur="inputEmail"
                         data-inputmask="'alias': 'email'"
@@ -128,7 +134,7 @@
                         placeholder="your@email.com"
                         spellcheck="false"
                         :name="getType('email')"
-                        :value="current.email"
+                        v-model="current.email"
                         :disabled="disabledEmail"
                     />
                 </div>
@@ -145,13 +151,14 @@
                     <div v-else-if="type == 'infant'">infant</div>
 
                     <input
+                        required
                         data-inputmask="'alias': 'birthday'"
                         type="text"
                         class="form-control"
                         placeholder="__-__-____"
                         spellcheck="false"
                         :name="getType('birthday')"
-                        :value="current.birthday"
+                        v-model="current.birthday"
                     />
                 </div>
             </div>
@@ -169,6 +176,7 @@
                 >
                     <label class="radio-inline my-0">
                         <input
+                            required
                             type="radio"
                             :name="getType('gender')"
                             value="m"
@@ -178,6 +186,7 @@
                     </label>
                     <label class="radio-inline py-8 mx-15">
                         <input
+                            required
                             type="radio"
                             :name="getType('gender')"
                             value="f"
@@ -197,12 +206,13 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         type="text"
                         class="form-control"
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('citizenship')"
-                        :value="current.citizenship"
+                        v-model="current.citizenship"
                     />
                 </div>
             </div>
@@ -222,13 +232,14 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
+                        required
                         data-inputmask="'mask': '+\\9\\98(99) 999-99-99'"
                         type="tel"
                         class="form-control"
                         placeholder="+998(__) ___-__-__"
                         spellcheck="false"
                         :name="getType('tel')"
-                        :value="current.tel"
+                        v-model="current.tel"
                     />
                 </div>
             </div>
@@ -253,7 +264,7 @@
                         placeholder="пример: Узбекистан"
                         spellcheck="false"
                         :name="getType('visa')"
-                        :value="current.visa"
+                        v-model="current.visa"
                     />
                 </div>
             </div>
@@ -278,7 +289,7 @@
                         placeholder="г. Ташкент ул. Истиклол д. 11"
                         spellcheck="false"
                         :name="getType('address')"
-                        :value="current.address"
+                        v-model="current.address"
                     />
                 </div>
             </div>
@@ -305,6 +316,7 @@
                             class="form-control"
                             :name="getType('bag')"
                             v-model="current.bag"
+                            value="1"
                         />
                     </label>
                 </div>
@@ -320,6 +332,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     props: [
         "number",
@@ -373,6 +387,19 @@ export default {
     },
 
     mounted() {
+        const uuid = this._uid;
+
+        this.$store.commit("setFormBags", {
+            ...this.$store.getters.formBags,
+            [this.type]: [
+                ...(this.$store.getters.formBags[this.type] || []),
+                {
+                    uuid,
+                    bag: 0,
+                },
+            ],
+        });
+
         $(this.$refs.passport_number).autocomplete({
             minLength: 3,
             source: async ({ term }, result) => {
@@ -405,9 +432,32 @@ export default {
     },
     watch: {
         "current.bag"() {
-            const value = this.current.bag ? 1 : -1;
-            this.$emit("setBag", this.type, value);
+            const value = this.current.bag ? 1 : 0;
+
+            this.$store.commit("setFormBags", {
+                ...this.$store.getters.formBags,
+                [this.type]: this.$store.getters.formBags[this.type].map(
+                    (form) => {
+                        return form.uuid === this._uid
+                            ? { uuid: form.uuid, bag: value }
+                            : form;
+                    }
+                ),
+            });
         },
+    },
+
+    computed: {
+        ...mapGetters(["bookingForms", "formBags"]),
+    },
+
+    destroyed() {
+        this.$store.commit("setFormBags", {
+            ...this.$store.getters.formBags,
+            [this.type]: this.$store.getters.formBags[this.type].filter(
+                ({ uuid }) => uuid !== this._uid
+            ),
+        });
     },
 };
 </script>

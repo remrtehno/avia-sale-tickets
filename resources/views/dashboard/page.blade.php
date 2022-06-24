@@ -15,5 +15,9 @@
       overflow: auto;
     }
 
+    /* @TODO Hack need to delete all h1 in all views */
+    .content-header h1 {
+      display: none !important;
+    }
   </style>
 @endpush

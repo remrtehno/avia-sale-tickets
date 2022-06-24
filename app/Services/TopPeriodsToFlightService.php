@@ -12,11 +12,13 @@ class TopPeriodsToFlightService
     $expiredFlights = TopPeriodsToFlights::where('period', '<', now())->with('flight')->get();
 
     $expiredFlights->each(function (TopPeriodsToFlights $topPeriodsToFlights) {
-
-      $topPeriodsToFlights->flight->top = 0;
-      $topPeriodsToFlights->flight->save();
+      if($topPeriodsToFlights->flight?->top) {
+          $topPeriodsToFlights->flight->top = 0;
+          $topPeriodsToFlights->flight->save();
+      }
 
       $topPeriodsToFlights->delete();
+
     });
   }
 }

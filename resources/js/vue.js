@@ -19,21 +19,22 @@ const store = new Vuex.Store({
     state: {
         bookingForms: {},
         bags: {},
+        formBags: {},
     },
     mutations: {
         bookingFormCreator(state, bookingFormsData) {
             state.bookingForms = bookingFormsData;
         },
-        setBags(state, bags) {
-            state.bags = bags;
+        setFormBags(state, formBags) {
+            state.formBags = { ...state.formBags, ...formBags };
         },
     },
     getters: {
         bookingForms(state) {
             return state.bookingForms;
         },
-        bags(state) {
-            return state.bags;
+        formBags(state) {
+            return state.formBags;
         },
     },
 });
