@@ -1323,6 +1323,8 @@
       </p>
     </li>
   </ol>
+
+  {!! $returnRules !!}
   <p style="
         padding-left: 61pt;
         text-indent: 0pt;
@@ -1331,9 +1333,8 @@
       ">
     (Ф.И.О., подпись Клиента)
   </p>
-
   <hr>
-    {{isset($returnRules) ? $returnRules : ''}}
+
 </body>
 
 </html>
