@@ -1332,6 +1332,8 @@
     (Ф.И.О., подпись Клиента)
   </p>
 
+  <hr>
+    {{isset($returnRules) ? $returnRules : ''}}
 </body>
 
 </html>

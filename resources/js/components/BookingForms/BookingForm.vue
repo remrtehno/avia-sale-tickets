@@ -106,7 +106,6 @@
 
                 <div class="col-md-7" style="padding-right: 0; padding-left: 0">
                     <input
-                        required
                         type="text"
                         class="form-control"
                         placeholder="Berkovich"

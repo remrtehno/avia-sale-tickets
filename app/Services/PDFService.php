@@ -34,6 +34,7 @@ class PDFService
     $data['flight'] = $order->flight;
     $data["logo"] = $this->getFlightLogo($order->flight);
     $data['passengers'] = $order->booking->tickets;
+    $data['returnRules'] = $order->flight->comment;
 
     return $this->generatePDF($data);
   }
