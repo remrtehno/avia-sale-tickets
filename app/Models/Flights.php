@@ -294,7 +294,7 @@ class Flights extends Model implements HasMedia
         } else if (request()->has('depart_date')) {
             $departure = new Carbon(request('depart_date'));
 
-            return $query->whereDate('date', '>=', $departure);
+            return $query->whereDate('date', '=', $departure);
         }
     }
 
