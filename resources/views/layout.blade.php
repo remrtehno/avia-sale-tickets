@@ -66,6 +66,7 @@
         <div class="container">
           <div class="top2 clearfix">
             <header>
+                <div id="google_translate_element"></div>
               <div class="logo_wrapper">
                 <a href="{{ route('home') }}" class="logo">
                   <img loading="lazy" src="/static/images/logo.svg" style="width: 110px; margin-top: -7px;"
@@ -250,6 +251,17 @@
   <script>
     window.imbaApi.load();
   </script>
+
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+  <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      }
+  </script>
+
 
 
 </body>
