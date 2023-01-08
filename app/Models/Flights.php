@@ -290,11 +290,11 @@ class Flights extends Model implements HasMedia
 
             $departure = new Carbon(request('depart_date'));
 
-            return $query->whereBetween('date', [$departure, $returning]);
+            return $query->whereDate('date', $departure)->orWhereDate('date', $returning);
         } else if (request()->has('depart_date')) {
             $departure = new Carbon(request('depart_date'));
 
-            return $query->whereDate('date', '>=', $departure);
+            return $query->whereDate('date', '=', $departure);
         }
     }
 
